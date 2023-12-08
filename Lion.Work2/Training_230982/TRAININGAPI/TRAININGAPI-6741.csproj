@@ -85,12 +85,18 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig2.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="Controllers\Leave\PracticeController.cs" />
+    <Compile Include="Controllers\Leave\PracticeController.Leave.cs" />
     <Compile Include="Controllers\Root\RootController.cs" />
     <Compile Include="Controllers\Root\RootController.GenericError.cs" />
     <Compile Include="Controllers\_BaseAPController.cs" />
@@ -98,6 +104,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Leave\LeaveDetailModel.cs" />
+    <Compile Include="Models\Leave\LeaveModel.cs" />
     <Compile Include="Models\_BaseAPModel.cs" />
     <Compile Include="Models\_BaseModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -106,6 +114,11 @@
     <Content Include="packages.config" />
     <Content Include="connectionStrings.config" />
     <Content Include="appSettings.config" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\web.config" />
+    <Compile Include="Controllers\Leave\PracticeController.LeaveDetail.cs" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -130,6 +143,11 @@
       <Project>{4c8dd7cd-b8bb-467b-b80c-379079651c00}</Project>
       <Name>LionTech.Utility.TRAINING</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Data\" />
+    <Folder Include="Views\Practice\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

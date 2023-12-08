@@ -50,6 +50,7 @@
     <Compile Include="Entity_Base.cs" />
     <Compile Include="Entity_BaseAP.cs" />
     <Compile Include="Enum.cs" />
+    <Compile Include="Leave\EntitiyLeave.cs" />
     <Compile Include="Subscriber\EntitySubscriber.cs" />
     <Compile Include="Utility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
