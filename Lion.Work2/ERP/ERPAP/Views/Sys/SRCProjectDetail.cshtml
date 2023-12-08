@@ -1,0 +1,228 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using ERPAP.Models.Sys
+@using LionTech.Entity
+@using LionTech.Entity.ERP
+@using LionTech.Entity.ERP.Sys
+@using LionTech.Utility
+@using LionTech.Utility.ERP
+@using LionTech.Web.ERPHelper
+@using Resources
+@model SRCProjectDetailModel
+           
+@{
+    string editionNo = ViewData[EnumViewDataItem.EditionNo.ToString()].ToString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SRCProjectDetail.js?@(editionNo)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SRCProjectDetailForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.TabList))
+    {
+        int count = 0;
+        int listcount = 0;
+        string domainName = null;
+        bool readOnlyAttribute = false;
+        if (Model.ExecAction == EnumActionType.Update)
+        {
+            readOnlyAttribute = true;
+        }
+        <table class="tblvertical">
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSRCProjectDetail.Label_ProjectID, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.ProjectID, readOnlyAttribute, Size: 50, TitleName: SysSRCProjectDetail.Label_ProjectID)
+                </td>
+                <th></th>
+                <td colspan="3"></td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSRCProjectDetail.Label_ProjectNMZHTW, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.ProjectNMZHTW, Size: 30, TitleName: SysSRCProjectDetail.Label_ProjectNMZHTW)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSRCProjectDetail.Label_ProjectNMZHCN, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.ProjectNMZHCN, Size: 30, TitleName: SysSRCProjectDetail.Label_ProjectNMZHCN)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSRCProjectDetail.Label_ProjectNMENUS, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.ProjectNMENUS, Size: 30, TitleName: SysSRCProjectDetail.Label_ProjectNMENUS)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSRCProjectDetail.Label_ProjectNMTHTH, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.ProjectNMTHTH, Size: 30, TitleName: SysSRCProjectDetail.Label_ProjectNMTHTH)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSRCProjectDetail.Label_ProjectNMJAJP, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.ProjectNMJAJP, Size: 30, TitleName: SysSRCProjectDetail.Label_ProjectNMJAJP)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSRCProjectDetail.Label_ProjectNMKOKR, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.ProjectNMKOKR, Size: 30, TitleName: SysSRCProjectDetail.Label_ProjectNMKOKR)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSRCProjectDetail.Label_Remark)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.Remark, Size: 30, TitleName: SysSRCProjectDetail.Label_Remark)
+                </td>
+                <th style="width: 150px">
+                    @Html.FormLabel(SysSRCProjectDetail.Label_IsSVN)
+                </th>
+                <td>
+                    @if (Model.EntitySRCProjectDetail != null)
+                    {
+                        @Html.InputCheckBox(
+                            SRCProjectDetailModel.Field.IsSVN.ToString(),
+                            SysSRCProjectDetail.Label_IsSVN,
+                            Model.EntitySRCProjectDetail.IsSVN.GetValue(),
+                            (Model.EntitySRCProjectDetail.IsSVN.GetValue() == EnumYN.Y.ToString()) ? true : false)
+                    }
+                    else
+                    {
+                        @Html.InputCheckBox(
+                            SRCProjectDetailModel.Field.IsSVN.ToString(),
+                            SysSRCProjectDetail.Label_IsSVN,
+                            EnumYN.Y.ToString(),
+                            false)
+                    }
+                </td>
+                <th></th>
+                <td></td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSRCProjectDetail.Label_ProjectParent)
+                </th>
+                <td colspan="5">
+                    @Html.InputTextBox("AddProjectParent", string.Empty, maximumLength: 50, Size: 10, inputType: EnumInputType.TextBox, Title: SysSRCProjectDetail.Label_AddProjectParent)
+                    @Html.InputComboBoxFor(model => model.ProjectParent, Model.GetDictionaryFormSelectItem(Model.EntityProjectParentList, true))
+                </td>
+            </tr>
+            @if (Model.EntityDomainGroupList != null)
+            {
+                EntitySRCProjectDetail.SRCProjectDetail data = new EntitySRCProjectDetail.SRCProjectDetail();
+                for (int rowCount = 0; rowCount < Model.EntityDomainGroupList.Count; rowCount++)
+                {
+                    if (rowCount != 0)
+                    {
+                        listcount = rowCount - 1;
+                    }
+                    data = Model.EntityDomainGroupList[rowCount];
+                    if (Model.EntityDomainGroupList[rowCount].DomainName.GetValue() != Model.EntityDomainGroupList[listcount].DomainName.GetValue())
+                    {
+                        @:
+                        <div style="color: #ff0000">@SysSRCProjectDetail.Label_IsWriteRemark</div>
+                        @: </tr>
+                        @: </table>
+                        @: </td>
+                        @:</tr>
+                    }
+
+                    if (data.DomainName.GetValue() != domainName)
+                    {
+                        <tr>
+                            <th class="bordertop borderbottom" style="width: 150px;">
+                                @Html.FormLabel(SysSRCProjectDetail.Label_DomainName, IsRequired: true)
+                            </th>
+
+                            <td colspan="6" class="bordertop borderbottom">
+                                @Html.InputTextBox("DomainName", data.DomainName.HtmlValue(), ReadOnly: true, maximumLength: 200, Size: 30)
+                            </td>
+                        </tr>
+                        @:<tr>
+                        @:<th style="width: 150px;">
+                        @Html.FormLabel(SysSRCProjectDetail.Label_DomainGroupID, IsRequired: true)
+                        @:</th>
+                        @:<td colspan="6">
+                        @:<table width="100%">
+                        @:<tr>
+                        <td>
+                            @Html.InputCheckBox(
+                                SRCProjectDetailModel.Field.IsWrite.ToString(),
+                                "",
+                                data.DomainGroupID.GetValue(),
+                                (data.IsWrite.GetValue() == EnumYN.Y.ToString()) ? true : false)
+
+                            @Html.InputCheckBox(
+                                SRCProjectDetailModel.Field.DomainGroupID.ToString(),
+                                data.DomainGroupNM.HtmlValue(),
+                                data.DomainGroupID.GetValue(),
+                                (data.HasDomainGroupID.GetValue() == EnumYN.Y.ToString()) ? true : false)
+                        </td>
+                        count = 0;
+                        count++;
+                    }
+                    else
+                    {
+                        <td>
+                            @Html.InputCheckBox(
+                                SRCProjectDetailModel.Field.IsWrite.ToString(),
+                                "",
+                                data.DomainGroupID.GetValue(),
+                                (data.IsWrite.GetValue() == EnumYN.Y.ToString()) ? true : false)
+
+                            @Html.InputCheckBox(
+                                SRCProjectDetailModel.Field.DomainGroupID.ToString(),
+                                data.DomainGroupNM.HtmlValue(),
+                                data.DomainGroupID.GetValue(),
+                                (data.HasDomainGroupID.GetValue() == EnumYN.Y.ToString()) ? true : false)
+                        </td>
+                        count++;
+                        if (count == 2)
+                        {
+                            @:</tr><tr>
+                            count = 0;
+                        }
+                    }
+                    domainName = data.DomainName.GetValue();
+                }
+                @:
+                <div style="color: #ff0000">@SysSRCProjectDetail.Label_IsWriteRemark</div>
+                @: </tr>
+                @: </table>
+                @: </td>
+                @:</tr>
+            }
+        </table>
+
+        <div>
+            @if (Model.ExecAction == EnumActionType.Add)
+            {
+                @Html.ButtonClient("AddButton", Resource.Button_Add, className: "btn")
+            }
+            @if (Model.ExecAction == EnumActionType.Update)
+            {
+                @Html.ButtonClient("UpdateButton", Resource.Button_Update, className: "btn")
+                <span></span>
+                @Html.ButtonClient("DeleteButton", Resource.Button_Delete, className: "btn")
+            }
+            @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+        </div>
+
+        using (Html.BeginConfirmDialog("dialog_Confirm", Resource.SysMsg_Title, Resource.SysMsg_DeleteConfirm))
+        {
+            @Html.ButtonClient("ConfirmOKButton", Resource.Button_Delete)
+            @Html.ButtonClient("ConfirmNOButton", Resource.Button_Cancel)
+        }
+    }
+}

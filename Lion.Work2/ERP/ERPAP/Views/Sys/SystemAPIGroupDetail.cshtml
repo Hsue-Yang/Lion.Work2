@@ -1,0 +1,113 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Utility.ERP
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemAPIGroupDetailModel
+
+@{
+    string editionNo = ViewData[EnumViewDataItem.EditionNo.ToString()].ToString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemAPIGroupDetail.js?@(editionNo)" type="text/javascript"></script>
+
+<div class="page-title"><h3>@SysSystemAPIGroupDetail.TabText_SystemAPIGroupDetail</h3></div>
+@using (Html.BeginFormSubmit("SystemAPIGroupDetailForm"))
+{
+    bool readOnlyAttribute = Model.ExecAction == EnumActionType.Update || Model.ExecAction == EnumActionType.Delete;
+
+    <table class="tblvertical">
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemAPIGroupDetail.Label_SysID, IsRequired: true)
+            </th>
+            <td>
+                <span style="display: none">
+                    @Html.InputComboBoxFor(model => model.SysID, Model.GetDictionaryFormSelectItem(Model.UserSystemByIdList, false), isDisabled: false, TitleName: SysSystemAPIGroupDetail.Label_SysID)
+                </span>
+                <span style="display: block">
+                    @Html.InputTextBox("SysIDReadOnlyText", string.Empty, ReadOnly: true, Size: 30)
+                </span>
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemAPIGroupDetail.Label_APIGroup, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.APIGroupID, ReadOnly: readOnlyAttribute, Size: 30, TitleName: SysSystemAPIGroupDetail.Label_APIGroup)
+            </td>
+            <th>
+
+            </th>
+            <td></td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemAPIGroupDetail.Label_APIGroupZHTW, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.APIGroupZHTW, false, 30, TitleName: SysSystemAPIGroupDetail.Label_APIGroupZHTW)
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemAPIGroupDetail.Label_APIGroupZHCN, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.APIGroupZHCN, false, 30, TitleName: SysSystemAPIGroupDetail.Label_APIGroupZHCN)
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemAPIGroupDetail.Label_APIGroupENUS, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.APIGroupENUS, false, 30, TitleName: SysSystemAPIGroupDetail.Label_APIGroupENUS)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemAPIGroupDetail.Label_APIGroupTHTH, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.APIGroupTHTH, false, 30, TitleName: SysSystemAPIGroupDetail.Label_APIGroupTHTH)
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemAPIGroupDetail.Label_APIGroupJAJP, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.APIGroupJAJP, false, 30, TitleName: SysSystemAPIGroupDetail.Label_APIGroupJAJP)
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemAPIGroupDetail.Label_APIGroupKOKR, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.APIGroupKOKR, false, 30, TitleName: SysSystemAPIGroupDetail.Label_APIGroupKOKR)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemAPIGroupDetail.Label_SortOrder)
+            </th>
+            <td colspan="5">
+                @Html.InputTextBoxFor(model => model.SortOrder, false, 30, TitleName: SysSystemAPIGroupDetail.Label_SortOrder)
+            </td>
+        </tr>
+    </table>
+
+    <div>
+        @if (Model.ExecAction == EnumActionType.Add)
+        {
+            @Html.ButtonClient("AddButton", Resource.Button_Add, className: "btn")
+        }
+        @if (Model.ExecAction == EnumActionType.Update || Model.ExecAction == EnumActionType.Delete)
+        {
+            @Html.ButtonClient("UpdateButton", Resource.Button_Update, className: "btn")
+            <span></span>
+            @Html.ButtonClient("DeleteButton", Resource.Button_Delete, className: "btn")
+        }
+        @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+    </div>
+
+    using (Html.BeginConfirmDialog("dialog_Confirm", Resource.SysMsg_Title, Resource.SysMsg_DeleteConfirm))
+    {
+        @Html.ButtonClient("ConfirmOKButton", Resource.Button_Delete)
+        @Html.ButtonClient("ConfirmNOButton", Resource.Button_Cancel)
+    }
+}

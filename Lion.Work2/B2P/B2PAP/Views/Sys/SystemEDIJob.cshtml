@@ -1,0 +1,157 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity.B2P
+@using LionTech.Entity.B2P.Sys
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model B2PAP.Models.Sys.SystemEDIJobModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Scripts/Sys/SystemEDIJob.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemEDIJobForm"))
+{
+    using (Html.BeginTabs(B2PAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.SysEDITabList))
+    {
+        @Html.InputTextBox("SysID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("EDIFlowID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("EDIJobID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("QueryEDIJobID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+
+        <table class="tblsearch">
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <th style="width: 70px">
+                                @Html.FormLabel(SysSystemEDIJob.Label_SysID, IsRequired: true)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.QuerySysID, Model.GetDictionaryFormSelectItem(Model.EntitySysUserSystemSysIDList, false), isDisabled: false, TitleName: SysSystemEDIJob.Label_SysID)
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysSystemEDIJob.Label_EDIFlowID)
+                            </th>
+                            <td>
+                                @Html.InputComboBox("QueryEDIFlowID", Model.QueryEDIFlowID, Model.GetDictionaryFormSelectItem(Model.EntitySysSystemEDIFlowList, true), isDisabled: false, TitleName: SysSystemEDIJob.Label_EDIFlowID)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                @Html.ButtonSubmit("Sys", "SystemEDIJob", "SearchButton", Resource.Button_Select, className: "btnSearch")
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <table id="SystemEDIJobTable" class="tblzebra">
+            <tr>
+                <th nowrap="nowrap" style="width: 30px;">
+                    @Html.ImageButton("MoveUp", string.Format("{0}{1}", @Common.GetEnumDesc(EnumSystemID.B2PAP), "/Content/images/imgSortUp.png"))
+                    @Html.ImageButton("MoveDown", string.Format("{0}{1}", @Common.GetEnumDesc(EnumSystemID.B2PAP), "/Content/images/imgSortDown.png"))
+                </th>
+                <th nowrap="nowrap" style="width: 50px;">@SysSystemEDIJob.Text_Detail</th>
+                <th nowrap="nowrap" style="width: 50px;">@SysSystemEDIJob.Text_Para</th>
+                <th nowrap="nowrap" style="width: 50px;">@SysSystemEDIJob.Text_JobLog</th>
+
+                <th nowrap="nowrap">@SysSystemEDIJob.Label_SysID</th>
+                <th nowrap="nowrap">@SysSystemEDIJob.Label_EDIFlowID</th>
+                <th nowrap="nowrap">@SysSystemEDIJob.Label_EDIJobID</th>
+                <th nowrap="nowrap">@SysSystemEDIJob.Label_ObjectName</th>
+                <th nowrap="nowrap">@SysSystemEDIJob.Label_DepEDIJobID</th>
+                <th nowrap="nowrap">@SysSystemEDIJob.Label_IsUseRes</th>
+                <th nowrap="nowrap">@SysSystemEDIJob.Label_IsDisable</th>
+                <th nowrap="nowrap">@SysSystemEDIJob.Label_SortOrder</th>
+                <th nowrap="nowrap">@SysSystemEDIJob.Label_UpdUserNM</th>
+                <th nowrap="nowrap">@SysSystemEDIJob.Label_UpdDT</th>
+            </tr>
+            @if (Model.EntitySystemEDIJobList != null)
+            {
+                string rowListNM = string.Empty;
+                EntitySystemEDIJob.SystemEDIJob data = new EntitySystemEDIJob.SystemEDIJob();
+                for (int rowCount = 0; rowCount < Model.EntitySystemEDIJobList.Count; rowCount++)
+                {
+                    data = Model.EntitySystemEDIJobList[rowCount];
+                    rowListNM = "EDIJobValueList[" + rowCount + "]";
+                    <tr>
+                        <td>
+                            @Html.RadioButton("IsMoved", false)
+                            @Html.InputTextBox(rowListNM + ".AfterSortOrder", data.SortOrder.StringValue(), inputType: EnumInputType.TextBoxHidden)
+                            @Html.InputTextBox(rowListNM + ".BeforeSortOrder", data.SortOrder.StringValue(), inputType: EnumInputType.TextBoxHidden)
+                            @Html.InputTextBox(rowListNM + ".EDIJobID", data.EDIJobID.GetValue(), inputType: EnumInputType.TextBoxHidden)
+                        </td>
+                        <td data-th="@SysSystemEDIJob.Text_Detail：" class="center">
+                            @Html.TextSubmitLink(
+                                "Sys",
+                                "SystemEDIJobDetail",
+                                "LinkFunKeyDetail",
+                                SysSystemEDIJob.Text_Detail,
+                                new List<string>()
+                                {
+                                    data.SysID.GetValue(),
+                                    data.EDIFlowID.GetValue(),
+                                    data.EDIJobID.GetValue()
+                                }
+                                )
+                        </td>
+                        <td data-th="@SysSystemEDIJob.Text_Para：" class="center">
+                            @Html.TextSubmitLink(
+                                "Sys",
+                                "SystemEDIPara",
+                                "LinkFunKeyPara",
+                                SysSystemEDIJob.Text_Para,
+                                new List<string>()
+                                {
+                                    data.SysID.GetValue(),
+                                    data.EDIFlowID.GetValue(),
+                                    data.EDIJobID.GetValue()
+                                }
+                                )
+                        </td>
+                        <td data-th="@SysSystemEDIJob.Text_JobLog：" class="center">
+                            @Html.TextSubmitLink(
+                                "Sys",
+                                "SystemEDIJobLog",
+                                "LinkFunKeyJobLog",
+                                SysSystemEDIJob.Text_JobLog,
+                                new List<string>()
+                                {
+                                    data.SysID.GetValue(),
+                                    data.EDIFlowID.GetValue(),
+                                    data.EDIJobID.GetValue()
+                                }
+                                )
+                        </td>
+                        <td nowrap="nowrap" data-th="@SysSystemEDIJob.Table_SysID：" title="@SysSystemEDIJob.Table_SysID">@Html.Raw(data.SysNM.HtmlValue())</td>
+                        <td nowrap="nowrap" data-th="@SysSystemEDIJob.Table_EDIJobID：" title="@SysSystemEDIJob.Table_EDIJobID">@Html.Raw(data.EDIFlowNM.HtmlValue())</td>
+                        <td nowrap="nowrap" data-th="@SysSystemEDIJob.Table_EDIJobID：" title="@SysSystemEDIJob.Table_EDIJobID">@Html.Raw(data.EDIJobNM.HtmlValue())</td>
+                        <td nowrap="nowrap" data-th="@SysSystemEDIJob.Table_ObjectName：" title="@SysSystemEDIJob.Table_ObjectName">@Html.Raw(data.ObjectName.HtmlValue())</td>
+                        <td nowrap="nowrap" data-th="@SysSystemEDIJob.Table_DepEDIJobID：" title="@SysSystemEDIJob.Table_DepEDIJobID">@Html.Raw(data.DepEDIJobID.HtmlValue())</td>
+                        <td nowrap="nowrap" data-th="@SysSystemEDIJob.Table_IsUseRes：" title="@SysSystemEDIJob.Table_IsUseRes">@Html.Raw(data.IsUseRes.HtmlValue())</td>
+                        <td nowrap="nowrap" data-th="@SysSystemEDIJob.Table_IsDisable：" title="@SysSystemEDIJob.Table_IsDisable">@Html.Raw(data.IsDisable.HtmlValue())</td>
+                        <td nowrap="nowrap" data-th="@SysSystemEDIJob.Table_SortOrder：" title="@SysSystemEDIJob.Table_SortOrder">@Html.Raw(data.SortOrder.HtmlValue())</td>
+                        <td nowrap="nowrap" data-th="@SysSystemEDIJob.Table_UpdUserID：" title="@SysSystemEDIJob.Table_UpdUserID">@Html.Raw(data.UpdUserID.HtmlValue())</td>
+                        <td nowrap="nowrap" data-th="@SysSystemEDIJob.Table_UpdDT：" title="@SysSystemEDIJob.Table_UpdDT">@Html.Raw(data.UpdDt.HtmlValue())</td>
+                    </tr>
+                }
+            }
+        </table>
+
+        <div>
+            @Html.ButtonSubmit("Sys", "SystemEDIJobDetail", "AddButton", Resource.Button_Add, className: "btn")
+            @Html.ButtonSubmit("Sys", "SystemEDIJobDetail", "SaveButton", Resource.Button_Save, className: "btn")
+            @Html.ButtonSubmit("Sys", "SystemEDIJobConvey", "ConveyButton", SysSystemEDIJob.Button_Convey, className: "btn")
+            @Html.ButtonSubmit("Sys", "SystemEDIJobDetail", "CancelButton", Resource.Button_Cancel, className: "btn")
+        </div>
+     
+        using (Html.BeginConfirmDialog("dialog_Confirm", SysSystemEDIJob.Button_Convey, SysSystemEDIJob.SystemMsg_GetEDIFlowIDError))
+        {
+            @Html.ButtonClient("ConfirmOKButton", Resource.Button_Okay)
+        }        
+    }
+}

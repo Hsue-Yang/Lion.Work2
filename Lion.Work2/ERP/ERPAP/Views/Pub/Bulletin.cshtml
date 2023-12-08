@@ -1,0 +1,18 @@
+﻿@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@model ERPAP.Models.Pub.BulletinModel
+
+@{
+    Layout = "~/Views/_Layout.cshtml";
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+@*<script type="text/javascript">
+    var targetPathList = @Html.Raw(Model.TargetPathListJsonString);
+</script>*@
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Pub/Bulletin.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("BulletinForm"))
+{
+    @Html.InputTextBox("IsFirstLogin", Model.IsFirstLogin, inputType: EnumInputType.TextBoxHidden)
+}

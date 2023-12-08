@@ -1,0 +1,80 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemCultureSettingDetailModel
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemCultureSettingDetail.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+<div class="page-title">
+    <h3>@SysSystemCultureSettingDetail.Label_SystemCultureSettingDetail</h3>
+</div>
+
+@using (Html.BeginFormSubmit("SystemCultureSettingDetailForm"))
+{
+    bool readOnlyAttribute = Model.ExecAction == EnumActionType.Update || Model.ExecAction == EnumActionType.Delete;
+
+    <table class="tblvertical">
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemCultureSettingDetail.Label_CultureID, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.CultureID, ReadOnly: readOnlyAttribute, Size: 30, TitleName: SysSystemCultureSettingDetail.Label_CultureID)
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemCultureSettingDetail.Label_CultureNM, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.CultureNM, false, 30, TitleName: SysSystemCultureSettingDetail.Label_CultureNM)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemCultureSettingDetail.Label_DisplayNM)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.DisplayNM, false, 30, TitleName: SysSystemCultureSettingDetail.Label_DisplayNM)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemCultureSettingDetail.Label_IsSerpUse)
+            </th>
+            <td>
+                @Html.InputCheckBox("IsSerpUse", SysSystemCultureSettingDetail.Label_IsSerpUseDisable, EnumYN.Y.ToString(), Model.IsSerpUse == EnumYN.Y.ToString())
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemCultureSettingDetail.Label_IsDisable)
+            </th>
+            <td>
+                @Html.InputCheckBox("IsDisable", SysSystemCultureSettingDetail.Label_IsDisable, EnumYN.Y.ToString(), Model.IsDisable == EnumYN.Y.ToString())
+            </td>
+        </tr>
+    </table>
+
+    <div>
+        @if (Model.ExecAction == EnumActionType.Add)
+        {
+            @Html.ButtonClient("AddButton", Resource.Button_Add, className: "btn")
+        }
+        @if (Model.ExecAction == EnumActionType.Update || Model.ExecAction == EnumActionType.Delete)
+        {
+            @Html.ButtonClient("UpdateButton", Resource.Button_Update, className: "btn")
+            <span></span>
+            @Html.ButtonClient("DeleteButton", Resource.Button_Delete, className: "btn")
+        }
+        @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+    </div>
+
+    using (Html.BeginConfirmDialog("dialog_Confirm", Resource.SysMsg_Title, Resource.SysMsg_DeleteConfirm))
+    {
+        @Html.ButtonClient("ConfirmOKButton", Resource.Button_Delete)
+        @Html.ButtonClient("ConfirmNOButton", Resource.Button_Cancel)
+    }
+}

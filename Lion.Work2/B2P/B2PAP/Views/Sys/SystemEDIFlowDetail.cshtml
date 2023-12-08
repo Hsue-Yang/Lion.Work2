@@ -1,0 +1,250 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity.B2P
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model B2PAP.Models.Sys.SystemEDIFlowDetailModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Scripts/Sys/SystemEDIFlowDetail.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemEDIFlowDetailForm"))
+{
+    using (Html.BeginTabs(B2PAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.TabList))
+    {
+        string comboBoxStyle = "block";
+        string readOnlyTextStyle = "none";
+        if (Model.ExecAction == EnumActionType.Update || Model.ExecAction == EnumActionType.Delete)
+        {
+            comboBoxStyle = "none";
+            readOnlyTextStyle = "block";
+        }
+
+        <table class="tblvertical">
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemEDIFlowDetail.Label_SysID, IsRequired: true)
+            </th>
+            <td>
+                <span style="display: none">
+                        @Html.InputComboBoxFor(model => model.SysID, Model.GetDictionaryFormSelectItem(Model.EntitySysSystemSysIDList, false), TitleName: SysSystemEDIFlowDetail.Label_SysID)
+                    </span>
+                <span style="display: block">
+                        @Html.InputTextBox("SysIDReadOnlyText", string.Empty, ReadOnly: true, maximumLength: 200, Size: 30)
+                    </span>
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemEDIFlowDetail.Label_EDIFlowID, IsRequired: true)
+            </th>
+            <td colspan="3">
+                <span style="display: @comboBoxStyle">
+                        @Html.InputTextBoxFor(model => model.EDIFlowID, Size: 30, TitleName: SysSystemEDIFlowDetail.Label_EDIFlowID)
+                    </span>
+                <span style="display: @readOnlyTextStyle">
+                        @Html.InputTextBox("EDIFlowIDReadOnlyText", string.Empty, ReadOnly: true, maximumLength: 200, Size: 30)
+                    </span>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemEDIFlowDetail.Label_EDIFlowZHTW, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.EDIFlowZHTW, false, 30, TitleName: SysSystemEDIFlowDetail.Label_EDIFlowZHTW)
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemEDIFlowDetail.Label_EDIFlowZHCN, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.EDIFlowZHCN, false, 30, TitleName: SysSystemEDIFlowDetail.Label_EDIFlowZHCN)
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemEDIFlowDetail.Label_EDIFlowENUS, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.EDIFlowENUS, false, 30, TitleName: SysSystemEDIFlowDetail.Label_EDIFlowENUS)
+            </td>
+        </tr>
+        <tr>
+            <th></th>
+            <td></td>
+            <th>
+                @Html.FormLabel(SysSystemEDIFlowDetail.Label_EDIFlowTHTH, IsRequired: true)
+            </th>
+            <td nowrap="nowrap">
+                @Html.InputTextBoxFor(model => model.EDIFlowTHTH, false, 30, TitleName: SysSystemEDIFlowDetail.Label_EDIFlowTHTH)
+            </td>
+            <th nowrap="nowrap">
+                @Html.FormLabel(SysSystemEDIFlowDetail.Label_EDIFlowJAJP, IsRequired: true)
+            </th>
+            <td nowrap="nowrap">
+                @Html.InputTextBoxFor(model => model.EDIFlowJAJP, false, 30, TitleName: SysSystemEDIFlowDetail.Label_EDIFlowJAJP)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemEDIFlowDetail.Label_SCHFrequency, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputComboBoxFor(model => model.SCHFrequency, Model.GetDictionaryFormSelectItem(Model.EntitySCHFrequecnyList, false), TitleName: SysSystemEDIFlowDetail.Label_SCHFrequency)
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemEDIFlowDetail.Label_SCHStartDate, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.SCHStartDate, false, 30, TitleName: SysSystemEDIFlowDetail.Label_SCHStartDate)
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemEDIFlowDetail.Label_SCHStartTime, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.SCHStartTime, false, 30, TitleName: SysSystemEDIFlowDetail.Label_SCHStartTime)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemEDIFlowDetail.Label_SCHDataDelay, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.SCHDataDelay, false, 30, TitleName: SysSystemEDIFlowDetail.Label_SCHDataDelay)
+            </td>
+            <th id="SCHIntervalTime_td">
+                <div id="Label_SCHIntervalTime">
+                    @Html.FormLabel(SysSystemEDIFlowDetail.Label_SCHIntervalTime, IsRequired: true)
+                </div>
+            </th>
+            <td>
+                @Html.InputComboBoxFor(model => model.SCHIntervalTime, Model.GetDictionaryFormSelectItem(Model.EntitySCHIntervalTimeList, false), TitleName: SysSystemEDIFlowDetail.Label_SCHIntervalTime)
+            </td>
+            <th id="SCHEndTime_td">
+                <div id="Label_SCHEndTime">
+                    @Html.FormLabel(SysSystemEDIFlowDetail.Label_SCHFinalRunTime, IsRequired: true)
+                </div>
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.SCHEndTime, false, 30, TitleName: SysSystemEDIFlowDetail.Label_SCHFinalRunTime)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemEDIFlowDetail.Label_PATHSCmd, IsRequired: true)
+            </th>
+            <td colspan="5">
+                @Html.InputTextBoxFor(model => model.PATHSCmd, false, 300, TitleName: SysSystemEDIFlowDetail.Label_PATHSCmd)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemEDIFlowDetail.Label_PATHSDat, IsRequired: true)
+            </th>
+            <td colspan="5">
+                @Html.InputTextBoxFor(model => model.PATHSDat, false, 300, TitleName: SysSystemEDIFlowDetail.Label_PATHSDat)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemEDIFlowDetail.Label_PATHSSrc, IsRequired: true)
+            </th>
+            <td colspan="5">
+                @Html.InputTextBoxFor(model => model.PATHSSrc, false, 300, TitleName: SysSystemEDIFlowDetail.Label_PATHSSrc)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemEDIFlowDetail.Label_PATHSRes, IsRequired: true)
+            </th>
+            <td nowrap="nowrap" colspan="5">
+                @Html.InputTextBoxFor(model => model.PATHSRes, false, 300, TitleName: SysSystemEDIFlowDetail.Label_PATHSRes)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemEDIFlowDetail.Label_PATHSBad, IsRequired: true)
+            </th>
+            <td colspan="5">
+                @Html.InputTextBoxFor(model => model.PATHSBad, false, 300, TitleName: SysSystemEDIFlowDetail.Label_PATHSBad)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemEDIFlowDetail.Label_PATHSLog, IsRequired: true)
+            </th>
+            <td colspan="5">
+                @Html.InputTextBoxFor(model => model.PATHSLog, false, 300, TitleName: SysSystemEDIFlowDetail.Label_PATHSLog)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemEDIFlowDetail.Label_PATHSFlowXml, IsRequired: true)
+            </th>
+            <td colspan="5">
+                @Html.InputTextBoxFor(model => model.PATHSFlowXml, false, 300, TitleName: SysSystemEDIFlowDetail.Label_PATHSFlowXml)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemEDIFlowDetail.Label_PATHSFlowCmd, IsRequired: true)
+            </th>
+            <td colspan="5">
+                @Html.InputTextBoxFor(model => model.PATHSFlowCmd, false, 300, TitleName: SysSystemEDIFlowDetail.Label_PATHSFlowCmd)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemEDIFlowDetail.Label_PATHSZipDat, IsRequired: true)
+            </th>
+            <td colspan="5">
+                @Html.InputTextBoxFor(model => model.PATHSZipDat, false, 300, TitleName: SysSystemEDIFlowDetail.Label_PATHSZipDat)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemEDIFlowDetail.Label_PATHSException, IsRequired: true)
+            </th>
+            <td nowrap="nowrap" colspan="5">
+                @Html.InputTextBoxFor(model => model.PATHSException, false, 300, TitleName: SysSystemEDIFlowDetail.Label_PATHSException)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemEDIFlowDetail.Label_PATHSSummary, IsRequired: true)
+            </th>
+            <td colspan="5">
+                @Html.InputTextBoxFor(model => model.PATHSSummary, false, 300, TitleName: SysSystemEDIFlowDetail.Label_PATHSSummary)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemEDIFlowDetail.Label_SortOrder)
+            </th>
+            <td colspan="5">
+                @Html.InputTextBoxFor(model => model.SortOrder, false, 30, TitleName: SysSystemEDIFlowDetail.Label_SortOrder)
+            </td>
+        </tr>
+        </table>
+
+        <div>
+            @if (Model.ExecAction == EnumActionType.Add)
+            {
+                @Html.ButtonClient("AddButton", Resource.Button_Add, className: "btn greenhover")
+            }
+            @if (Model.ExecAction == EnumActionType.Update ||
+                 Model.ExecAction == EnumActionType.Delete)
+            {
+                @Html.ButtonClient("UpdateButton", Resource.Button_Update, className: "btn greenhover")
+                <span></span>
+                @Html.ButtonClient("DeleteButton", Resource.Button_Delete, className: "btn greenhover")
+            }
+            @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn greenhover")
+        </div>
+        
+        using (Html.BeginConfirmDialog("dialog_Confirm", Resource.SysMsg_Title, Resource.SysMsg_DeleteConfirm))
+        {
+            @Html.ButtonClient("ConfirmOKButton", Resource.Button_Delete)
+            @Html.ButtonClient("ConfirmNOButton", Resource.Button_Cancel)
+        }
+    }
+}

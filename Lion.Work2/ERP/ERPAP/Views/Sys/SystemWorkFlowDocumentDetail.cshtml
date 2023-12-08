@@ -1,0 +1,148 @@
+﻿@{ Layout = "~/Views/_Popup.cshtml"; }
+@using LionTech.Entity
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Utility.ERP
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemWorkFlowDocumentDetailModel
+
+@{
+    string editionNo = ViewData[EnumViewDataItem.EditionNo.ToString()].ToString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemWorkFlowDocumentDetail.js?@(editionNo)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemWorkFlowDocumentDetailForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.TabList))
+    {
+        @Html.InputTextBox("SysID", Model.SysID, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("WFFlowGroupID", Model.WFFlowGroupID, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("WFCombineKey", Model.WFCombineKey, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("WFFlowID", Model.WFFlowID, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("WFNodeID", Model.WFNodeID, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("WFFlowVer", Model.WFFlowVer, inputType: EnumInputType.TextBoxHidden)
+
+        <table class="tblvertical">
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemWorkFlowDocumentDetail.Label_SysID, IsRequired: true)
+                </th>
+                <td>
+                    @Model.EntitySystemWorkFlowNode.SysNM
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemWorkFlowDocumentDetail.Label_WFFlow, IsRequired: true)
+                </th>
+                <td>
+                    @Model.EntitySystemWorkFlowNode.WFFlowNM
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemWorkFlowDocumentDetail.Label_WFFlowVer, IsRequired: true)
+                </th>
+                <td>
+                    @Model.WFFlowVer
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemWorkFlowDocumentDetail.Label_WFNode, IsRequired: true)
+                </th>
+                <td>
+                    @Model.EntitySystemWorkFlowNode.WFNodeNM
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemWorkFlowDocumentDetail.Label_WFDocSeq, IsRequired: true)
+                </th>
+                <td colspan="3">
+                    @if (Model.ExecAction == EnumActionType.Add)
+                    {
+                        @Html.InputTextBoxFor(model => model.WFDocSeq, true, 30, TitleName: SysSystemWorkFlowDocumentDetail.Label_WFDocSeq)
+                    }
+                    else
+                    {
+                        @Html.InputTextBox("WFDocSeq", Model.WFDocSeq, inputType: EnumInputType.TextBoxHidden)
+                        @Model.WFDocSeq
+                    }
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemWorkFlowDocumentDetail.Label_WFDocZHTW, IsRequired: true)
+                </th>
+                <td >
+                    @Html.InputTextBoxFor(model => model.WFDocZHTW, false, 30, TitleName: SysSystemWorkFlowDocumentDetail.Label_WFDocZHTW)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemWorkFlowDocumentDetail.Label_WFDocZHCN, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.WFDocZHCN, false, 30, TitleName: SysSystemWorkFlowDocumentDetail.Label_WFDocZHCN)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemWorkFlowDocumentDetail.Label_WFDocENUS, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.WFDocENUS, false, 30, TitleName: SysSystemWorkFlowDocumentDetail.Label_WFDocENUS)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemWorkFlowDocumentDetail.Label_WFDocTHTH, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.WFDocTHTH, false, 30, TitleName: SysSystemWorkFlowDocumentDetail.Label_WFDocTHTH)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemWorkFlowDocumentDetail.Label_WFDocJAJP, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.WFDocJAJP, false, 30, TitleName: SysSystemWorkFlowDocumentDetail.Label_WFDocJAJP)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemWorkFlowDocumentDetail.Label_WFDocKOKR, IsRequired: true)
+                </th>
+                <td colspan="3">
+                    @Html.InputTextBoxFor(model => model.WFDocKOKR, false, 30, TitleName: SysSystemWorkFlowDocumentDetail.Label_WFDocKOKR)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemWorkFlowDocumentDetail.Label_IsReq)
+                </th>
+                <td colspan="5">
+                    @Html.InputCheckBox("IsReq", SysSystemWorkFlowDocumentDetail.Label_IsReq, Model.IsReq, (Model.IsReq == EnumYN.Y.ToString()))
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemWorkFlowDocumentDetail.Label_Remark)
+                </th>
+                <td colspan="5">
+                    @Html.InputTextAreaFor(model => model.Remark, 5, 100, TitleName: SysSystemWorkFlowDocumentDetail.Label_Remark, style: "width:98%")
+                </td>
+            </tr>
+        </table>
+
+        <div class="text-left buttons">
+            @if (Model.ExecAction == EnumActionType.Add)
+            {
+                @Html.ButtonClient("AddButton", Resource.Button_Add, className: "btn")
+            }
+            @if (Model.ExecAction == EnumActionType.Update ||
+                 Model.ExecAction == EnumActionType.Delete)
+            {
+                @Html.ButtonClient("UpdateButton", Resource.Button_Update, className: "btn")
+
+                @Html.ButtonClient("DeleteButton", Resource.Button_Delete, className: "btn")
+            }
+            @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+        </div>
+        using (Html.BeginConfirmDialog("dialog_Confirm", Resource.SysMsg_Title, Resource.SysMsg_DeleteConfirm))
+        {
+            @Html.ButtonClient("ConfirmOKButton", Resource.Button_Delete)
+            @Html.ButtonClient("ConfirmNOButton", Resource.Button_Cancel)
+        }
+    }
+}

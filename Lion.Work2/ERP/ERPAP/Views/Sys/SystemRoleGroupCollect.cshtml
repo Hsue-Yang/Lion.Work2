@@ -1,0 +1,95 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity
+@using LionTech.Entity.ERP
+@using LionTech.Entity.ERP.Sys
+@using LionTech.Utility
+@using LionTech.Utility.ERP
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemRoleGroupCollectModel
+
+@{
+    string editionNo = ViewData[EnumViewDataItem.EditionNo.ToString()].ToString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemRoleGroupCollect.js?@(editionNo)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemRoleGroupCollectForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.TabList))
+    {
+        @Html.InputTextBox("RoleGroupID", Model.RoleGroupID, inputType: EnumInputType.TextBoxHidden)
+
+        <table class="tblvertical">
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemRoleGroupCollect.Label_RoleGroupID)
+                </th>
+                <td>
+                    @Html.InputTextBox("RoleGroupNM", Model.EntitySysSystemRoleGroup.RoleGroupNM.GetValue(), ReadOnly: true, maximumLength: 200, Size: 30)
+                    @Html.InputTextBox("Remark", Model.EntitySysSystemRoleGroup.Remark.GetValue(), ReadOnly: true, maximumLength: 200, Size: 30)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemRoleGroupCollect.Label_Role)
+                </th>
+                <td>
+                    <div id="SystemRoleDiv">
+                        <table id="UserRoleFunDetailTable">
+                            @if (Model.EntitySysSystemRoleGroupCollectList != null)
+                            {
+                                int entityCount = 1;
+                                string sysNM = string.Empty;
+                
+                                <tr>
+                                @foreach (EntitySystemRoleGroupCollect.SysSystemRoleGroupCollect sysSystemRoleGroupCollect in Model.EntitySysSystemRoleGroupCollectList)
+                                {
+                                    if (sysNM != sysSystemRoleGroupCollect.SysNM.GetValue())
+                                    {
+                                        @:</tr>
+                                        @:<tr>
+                                        @:</tr>
+                                        @:<tr>
+                                        @:<td style="border: none; background-color: #EBEBEB; height: 30px;" colspan="10"><b>@sysSystemRoleGroupCollect.SysNM.HtmlValue()</b></td>
+                                        @:</tr>
+                                        @:<tr>
+                                        entityCount = 1;
+                                    }
+
+                                    <td style="border: none">
+                                        @Html.InputCheckBox(
+                                            "HasRole",
+                                            string.Format("{0}", sysSystemRoleGroupCollect.RoleNM.HtmlValue()),
+                                            sysSystemRoleGroupCollect.SysID.GetValue() + "|" + sysSystemRoleGroupCollect.RoleID.GetValue(),
+                                            (sysSystemRoleGroupCollect.HasRole.GetValue() == EnumYN.Y.ToString()) ? true : false)
+                                    </td>
+                                    <td style="border: none" style="width:20px;"></td>
+
+                                    if (entityCount % 5 == 0)
+                                    {
+                                        @:</tr>
+                                        @:<tr>
+                                    }
+
+                                    entityCount += 1;
+                                    sysNM = sysSystemRoleGroupCollect.SysNM.GetValue();
+                                }
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td nowrap="nowrap" colspan="2" class="padding grey bordertop">
+                    @if (Model.ExecAction == EnumActionType.Update)
+                    {
+                        @Html.ButtonClient("UpdateButton", Resource.Button_Update, className: "btn")
+                    }
+                    @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+                </td>
+            </tr>
+        </table>
+    }
+}

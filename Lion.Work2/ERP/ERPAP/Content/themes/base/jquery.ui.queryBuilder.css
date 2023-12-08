@@ -1,0 +1,123 @@
+﻿#QueryBuilderBox .rules-group-container, #QueryBuilderBox .rule-container, #QueryBuilderBox .rule-placeholder {
+    position: relative;
+    margin: 4px 0;
+    border-radius: 5px;
+    padding: 5px;
+    border: 1px solid #EEE;
+    background: rgba(255, 255, 255, 0.9);
+    line-height: 22px;
+}
+
+#QueryBuilderBox .rule-container .rule-filter-container,
+#QueryBuilderBox .rule-container .rule-operator-container,
+#QueryBuilderBox .rule-container .rule-value-container, #QueryBuilderBox .error-container, #QueryBuilderBox .drag-handle {
+    display: inline-block;
+    margin: 0 5px 0 0;
+    vertical-align: middle;
+}
+
+#QueryBuilderBox .rules-group-container {
+    padding: 10px;
+    padding-bottom: 6px;
+    border: 1px solid #DCC896;
+    background: rgba(250, 240, 210, 0.5);
+}
+#QueryBuilderBox .rules-group-header {
+    margin-bottom: 10px;
+}
+#QueryBuilderBox .rules-group-header .group-conditions .btn.readonly:not(.active),
+#QueryBuilderBox .rules-group-header .group-conditions input[name$=_cond] {
+    display: none;
+}
+#QueryBuilderBox .rules-group-header .group-conditions .btn.readonly {
+    border-radius: 3px;
+}
+#QueryBuilderBox .rules-list {
+    list-style: none;
+    padding: 0 0 0 15px;
+    margin: 0;
+}
+#QueryBuilderBox .rule-value-container {
+    border-left: 1px solid #DDD;
+    padding-left: 5px;
+}
+#QueryBuilderBox .rule-value-container label {
+    margin-bottom: 0;
+    font-weight: normal;
+}
+#QueryBuilderBox .rule-value-container label.block {
+    display: block;
+}
+#QueryBuilderBox .rule-value-container select, #QueryBuilderBox .rule-value-container input[type=text], #QueryBuilderBox .rule-value-container input[type=number] {
+    padding: 1px;
+}
+#QueryBuilderBox .error-container {
+    display: none;
+    cursor: help;
+    color: #F00;
+}
+#QueryBuilderBox .has-error {
+    background-color: #FDD;
+    border-color: #F99;
+}
+#QueryBuilderBox .has-error .error-container {
+    display: inline-block !important;
+}
+#QueryBuilderBox .rules-list > *::before, #QueryBuilderBox .rules-list > *::after {
+    content: '';
+    position: absolute;
+    left: -10px;
+    width: 10px;
+    height: calc(50% + 4px);
+    border-color: #CCC;
+    border-style: solid;
+}
+#QueryBuilderBox .rules-list > *::before {
+    top: -4px;
+    border-width: 0 0 2px 2px;
+}
+#QueryBuilderBox .rules-list > *::after {
+    top: 50%;
+    border-width: 0 0 0 2px;
+}
+#QueryBuilderBox .rules-list > *:first-child::before {
+    top: -12px;
+    height: calc(50% + 14px);
+}
+#QueryBuilderBox .rules-list > *:last-child::before {
+    border-radius: 0 0 0 4px;
+}
+#QueryBuilderBox .rules-list > *:last-child::after {
+    display: none;
+}
+
+#QueryBuilderBox .error-container + .tooltip .tooltip-inner {
+    color: #F99 !important;
+}
+
+#QueryBuilderBox p.filter-description {
+    margin: 5px 0 0 0;
+    background: #D9EDF7;
+    border: 1px solid #BCE8F1;
+    color: #31708F;
+    border-radius: 5px;
+    padding: 2.5px 5px;
+    font-size: .8em;
+}
+
+#QueryBuilderBox .rules-group-header [data-invert] {
+    margin-left: 5px;
+}
+
+#QueryBuilderBox .drag-handle {
+    cursor: move;
+    vertical-align: middle;
+    margin-left: 5px;
+}
+#QueryBuilderBox .dragged {
+    opacity: .5;
+}
+#QueryBuilderBox .rule-placeholder {
+    border: 1px dashed #BBB;
+    opacity: .7;
+}

@@ -1,0 +1,11 @@
+﻿/* messageBox CSS ------------------------------------------------------------ */
+.messageBox { font-family: '\5FAE\8EDF\6B63\9ED1\9AD4', 'Microsoft JhengHei', '\5FAE\8F6F\96C5\9ED1', 'Microsoft YaHei'; margin: 20px; padding: 0px 0px 0px 0px; color: #fff; }
+.messageBox { -webkit-border-radius: 0; -moz-border-radius: 0; border-radius: 0; }
+.messageBox.OpacityBorder{}
+.messageBox.MessageTitle{ font-size: 15px; background: #0b756e; color: #ffffff; padding: 9px 9px; border-bottom: 1px solid #eee; }
+.messageBox.BodyBorder { line-height: 26px; text-align: left; background: #ffffff; border: 1px solid #0b756e; color: #000000; padding: 0px; }
+.messageBox.BodyBorder div { font-family: Verdana, Geneva, sans-serif; font-size: 13px; }
+.messageBox.BodyBorder input[type="button"] { font-size: 13px; padding: 3px 12px; border-color: #cccccc; background: #cccccc; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; text-shadow: none; -webkit-box-shadow: none; -moz-box-shadow: none; box-shadow: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; border: none; width: 75px; height: 25px; color: white; background: #5a5d5c; padding: 0; margin-right: 5px; }
+.messageBox.BodyBorder input[type="button"]:hover { background: #c82322; color: white; text-decoration: none; cursor: pointer; }
+.messageBox.BodyBorder input[type="button"]:focus { outline: none; }
+.messageBox.DivClose{ position:absolute; top:15PX; right:15px; color:#FFFFFF; font-size:larger; width:20px; height:20px; cursor:pointer; }

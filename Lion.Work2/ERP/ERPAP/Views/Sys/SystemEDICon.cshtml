@@ -1,0 +1,136 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity.ERP
+@using LionTech.Entity.ERP.Sys
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemEDIConModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemEDICon.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemEDIConForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.SysEDITabList))
+    {
+        @Html.InputTextBox("SysID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("EDIFlowID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("EDIConID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+
+        <table class="tblsearch">
+            <tr>
+                <td style="width: 60px">
+                    <table>
+                        <tr>
+                            <th nowrap="nowrap">
+                                @Html.FormLabel(SysSystemEDICon.Label_SysID, IsRequired: true)
+                            </th>
+                            <td nowrap="nowrap">
+                                @Html.InputComboBoxFor(model => model.QuerySysID, Model.GetDictionaryFormSelectItem(Model.UserSystemByIdList, false), isDisabled: false, TitleName: SysSystemEDICon.Label_SysID)
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <table style="width: 60px">
+                        <tr>
+                            <th nowrap="nowrap">
+                                @Html.FormLabel(SysSystemEDICon.Label_EDIFlowID)
+                            </th>
+                            <td nowrap="nowrap" class="width">
+                                @Html.InputComboBox("QueryEDIFlowID", Model.QueryEDIFlowID, Model.GetDictionaryFormSelectItem(Model.EntitySysSystemEDIFlowList, true), isDisabled: false, TitleName: SysSystemEDICon.Label_EDIFlowID)
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <div class="text-left">
+            @Html.ButtonSubmit("Sys", "SystemEDICon", "SearchButton", Resource.Button_Select, className: "btnSearch")
+        </div>
+
+        <table id="SystemEDIConTable" class="tblzebra" cellspacing="0">
+            <thead>
+                <tr>
+                    <th style="width: 3%;">
+                        @Html.ImageButton("MoveUp", string.Format("{0}{1}", @Common.GetEnumDesc(EnumSystemID.ERPAP), "/Content/images/imgSortUp.png"))
+                        @Html.ImageButton("MoveDown", string.Format("{0}{1}", @Common.GetEnumDesc(EnumSystemID.ERPAP), "/Content/images/imgSortDown.png"))
+                    </th>
+                    <th nowrap="nowrap">
+                        @SysSystemEDICon.Text_Detail
+                    </th>
+                    <th nowrap="nowrap">
+                        @SysSystemEDICon.Label_EDIFlowID
+                    </th>
+                    <th nowrap="nowrap">
+                        @SysSystemEDICon.Label_EDIConID
+                    </th>
+                    <th nowrap="nowrap">
+                        @SysSystemEDICon.Label_ProviderName
+                    </th>
+                    <th nowrap="nowrap">
+                        @SysSystemEDICon.Label_SortOrder
+                    </th>
+                    <th nowrap="nowrap">
+                        @SysSystemEDICon.Label_UpdUserNM
+                    </th>
+                    <th nowrap="nowrap">
+                        @SysSystemEDICon.Label_UpdDT
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.EntitySystemEDIConList != null)
+                {
+                    string rowListNM = string.Empty;
+                    ERPAP.Models.Sys.SystemEDIConModel.SystemEDICon data = new ERPAP.Models.Sys.SystemEDIConModel.SystemEDICon();
+                    for (int rowCount = 0; rowCount < Model.EntitySystemEDIConList.Count; rowCount++)
+                    {
+                        data = Model.EntitySystemEDIConList[rowCount];
+                        rowListNM = "EDIConValueList[" + rowCount + "]";
+                        <tr>
+                            <td nowrap="nowrap" class="text-center">
+                                @Html.RadioButton("IsMoved", false)
+                                @Html.InputTextBox(rowListNM + ".AfterSortOrder", data.SortOrder, inputType: EnumInputType.TextBoxHidden)
+                                @Html.InputTextBox(rowListNM + ".BeforeSortOrder", data.SortOrder, inputType: EnumInputType.TextBoxHidden)
+                                @Html.InputTextBox(rowListNM + ".EDIFlowID", data.EDIFlowID, inputType: EnumInputType.TextBoxHidden)
+                                @Html.InputTextBox(rowListNM + ".EDIConID", data.EDIConID, inputType: EnumInputType.TextBoxHidden)
+                            </td>
+                            <td data-th="@SysSystemEDICon.Text_Detail：" nowrap="nowrap" class="text-center">
+                                @Html.TextSubmitLink(
+                                    "Sys",
+                                    "SystemEDIConDetail",
+                                    "LinkFunKeyDetail",
+                                    SysSystemEDICon.Text_Detail,
+                                    new List<string>()
+                                    {
+                                        data.SysID,
+                                        data.EDIFlowID,
+                                        data.EDIConID
+                                    }
+                                    )
+                            </td>
+
+                            <td data-th="@SysSystemEDICon.Table_EDIFlowID：" nowrap="nowrap" title="@SysSystemEDICon.Table_EDIFlowID">@Html.Raw(data.EDIFlowNM)</td>
+                            <td data-th="@SysSystemEDICon.Table_EDIConID：" nowrap="nowrap" title="@SysSystemEDICon.Table_EDIConID">@Html.Raw(data.EDIConNM)</td>
+                            <td data-th="@SysSystemEDICon.Table_ProviderName：" nowrap="nowrap" title="@SysSystemEDICon.Table_ProviderName">@Html.Raw(data.ProviderName)</td>
+                            <td data-th="@SysSystemEDICon.Table_SortOrder：" nowrap="nowrap" title="@SysSystemEDICon.Table_SortOrder">@Html.Raw(data.SortOrder)</td>
+                            <td data-th="@SysSystemEDICon.Table_UpdUserID：" nowrap="nowrap" title="@SysSystemEDICon.Table_UpdUserID">@Html.Raw(data.UpdUserID)</td>
+                            <td data-th="@SysSystemEDICon.Table_UpdDT：" nowrap="nowrap" title="@SysSystemEDICon.Table_UpdDT">@Html.Raw(data.UpdDt.ToString("yyyy/MM/dd HH:mm:ss.fff"))</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        <div class="text-left">
+            @Html.ButtonSubmit("Sys", "SystemEDIConDetail", "AddButton", Resource.Button_Add, className: "btn")
+            @Html.ButtonSubmit("Sys", "SystemEDIConDetail", "SaveButton", Resource.Button_Save, className: "btn")
+            @Html.ButtonSubmit("Sys", "SystemEDIConDetail", "CancelButton", Resource.Button_Cancel, className: "btn")
+        </div>
+    }
+}

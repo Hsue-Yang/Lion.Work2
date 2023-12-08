@@ -1,0 +1,117 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Utility.ERP
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemPurviewDetailModel
+
+@{
+    string editionNo = ViewData[EnumViewDataItem.EditionNo.ToString()].ToString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemPurviewDetail.js?@(editionNo)" type="text/javascript"></script>
+
+<div class="page-title"><h3>@SysSystemPurviewDetail.TabText_SystemPurviewDetail</h3></div>
+@using (Html.BeginFormSubmit("SystemPurviewDetailForm"))
+{
+    bool readOnlyAttribute = Model.ExecAction == EnumActionType.Update || Model.ExecAction == EnumActionType.Delete;
+
+    <table class="tblvertical">
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemPurviewDetail.Label_SysID, IsRequired: true)
+            </th>
+            <td>
+                <span style="display: none">
+                    @Html.InputComboBoxFor(model => model.SysID, Model.GetDictionaryFormSelectItem(Model.UserSystemByIdList, false), isDisabled: false, TitleName: SysSystemPurviewDetail.Label_SysID)
+                </span>
+                <span style="display: block">
+                    @Html.InputTextBox("SysIDReadOnlyText", string.Empty, ReadOnly: true, Size: 30)
+                </span>
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemPurviewDetail.Label_PurviewID, IsRequired: true)
+            </th>
+            <td colspan="3">
+                @Html.InputTextBoxFor(model => model.PurviewID, ReadOnly: readOnlyAttribute, Size: 30, TitleName: SysSystemPurviewDetail.Label_PurviewID)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemPurviewDetail.Label_PurviewNMZHTW, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.PurviewNMZHTW, false, 30, TitleName: SysSystemPurviewDetail.Label_PurviewNMZHTW)
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemPurviewDetail.Label_PurviewNMZHCN, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.PurviewNMZHCN, false, 30, TitleName: SysSystemPurviewDetail.Label_PurviewNMZHCN)
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemPurviewDetail.Label_PurviewNMENUS, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.PurviewNMENUS, false, 30, TitleName: SysSystemPurviewDetail.Label_PurviewNMENUS)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemPurviewDetail.Label_PurviewNMTHTH, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.PurviewNMTHTH, false, 30, TitleName: SysSystemPurviewDetail.Label_PurviewNMTHTH)
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemPurviewDetail.Label_PurviewNMJAJP, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.PurviewNMJAJP, false, 30, TitleName: SysSystemPurviewDetail.Label_PurviewNMJAJP)
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemPurviewDetail.Label_PurviewNMKOKR, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.PurviewNMKOKR, false, 30, TitleName: SysSystemPurviewDetail.Label_PurviewNMKOKR)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemPurviewDetail.Label_SortOrder)
+            </th>
+            <td colspan="5">
+                @Html.InputTextBoxFor(model => model.SortOrder, false, 30, TitleName: SysSystemPurviewDetail.Label_SortOrder)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemPurviewDetail.Label_Remark)
+            </th>
+            <td colspan="5">
+                @Html.InputTextAreaFor(model => model.Remark,3,50, TitleName: SysSystemPurviewDetail.Label_Remark, style: "width:99%;")
+            </td>
+        </tr>
+    </table>
+
+    <div>
+        @if (Model.ExecAction == EnumActionType.Add)
+        {
+            @Html.ButtonClient("AddButton", Resource.Button_Add, className: "btn")
+        }
+        @if (Model.ExecAction == EnumActionType.Update || Model.ExecAction == EnumActionType.Delete)
+        {
+            @Html.ButtonClient("UpdateButton", Resource.Button_Update, className: "btn")
+            <span></span>
+            @Html.ButtonClient("DeleteButton", Resource.Button_Delete, className: "btn")
+        }
+        @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+    </div>
+
+    using (Html.BeginConfirmDialog("dialog_Confirm", Resource.SysMsg_Title, Resource.SysMsg_DeleteConfirm))
+    {
+        @Html.ButtonClient("ConfirmOKButton", Resource.Button_Delete)
+        @Html.ButtonClient("ConfirmNOButton", Resource.Button_Cancel)
+    }
+}

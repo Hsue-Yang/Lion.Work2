@@ -1,0 +1,81 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity
+@using LionTech.Entity.B2P
+@using LionTech.Entity.B2P.Sys
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model B2PAP.Models.Sys.UserConnectModel
+
+<script src="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Scripts/Sys/UserConnect.js" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("UserConnectForm"))
+{
+    using (Html.BeginTabs(B2PAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.TabList))
+    {
+        <table class="tblsearch">
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <th>
+                                @Html.FormLabel(SysUserConnect.Label_DateBegin, IsRequired: true)
+                            </th>
+                            <td>
+                                @Html.InputTextBoxFor(model => model.DateBegin, false, 8, TitleName: SysUserConnect.Label_DateBegin)
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysUserConnect.Label_TimeBegin, IsRequired: true)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.TimeBegin, Model.BeginTimeList, false)
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysUserConnect.Label_DateEnd, IsRequired: true)
+                            </th>
+                            <td>
+                                @Html.InputTextBoxFor(model => model.DateEnd, false, 8, TitleName: SysUserConnect.Label_DateEnd)
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysUserConnect.Label_TimeEnd, IsRequired: true)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.TimeEnd, Model.EndTimeList, false)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="8">
+                                @Html.ButtonClient("SelectButton", Resource.Button_Query, className: "btnSearch")
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    
+        using (Html.BeginPager(Model.PageIndex, Model.PageSize, Model.RowCount))
+        {
+            <table id="UserConnectTable" class="tblzebra">
+                <tr>
+                    <th>@SysUserConnect.Table_UserNM</th>
+                    <th>@SysUserConnect.Table_LastConnectDT</th>
+                    <th>@SysUserConnect.Table_CustLogout</th>
+                    <th>@SysUserConnect.Table_IPAddress</th>
+                </tr>
+                @if (Model.EntityUserConnectList != null)
+                {
+                    foreach (EntityUserConnect.UserConnect data in Model.EntityUserConnectList)
+                    {
+                        <tr>
+                            <td data-th="@SysUserConnect.Table_UserNM：" title="@SysUserConnect.Table_UserNM">@Html.Raw(data.UserNM.HtmlValue())</td>
+                            <td data-th="@SysUserConnect.Table_LastConnectDT：" title="@SysUserConnect.Table_LastConnectDT">@Html.Raw(data.LastConnectDT.HtmlValue())</td>
+                            <td data-th="@SysUserConnect.Table_CustLogout：" title="@SysUserConnect.Table_CustLogout">@if (data.CustLogout.GetValue() == EnumYN.Y.ToString())
+                                                                          {@SysUserConnect.Table_CustLogout}</td>
+                            <td data-th="@SysUserConnect.Table_IPAddress：" title="@SysUserConnect.Table_IPAddress">@Html.Raw(data.IPAddress.HtmlValue())</td>
+                        </tr>
+                    }
+                }
+            </table>
+        }
+    }
+}

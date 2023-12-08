@@ -1,0 +1,9 @@
+resources:
+  repositories:
+    - repository: Pipelines
+      type: git
+      name: Pipelines/Pipelines
+      ref: master
+
+jobs:
+- template: Backend.SERP.API/azure-pipelines-ERPAPI.yml@Pipelines

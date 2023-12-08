@@ -1,0 +1,180 @@
+﻿@using ERPAP.Models.Sys
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model SystemFunElmUserModel
+@{
+    Layout = "~/Views/_Popup.cshtml";
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.dialog.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemFunElmUser.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@if (Model.ElmUserSaveSuccess)
+{
+    using (Html.BeginConfirmDialog("dialog_Confirm", Resource.SysMsg_Title, SysSystemFunElmUser.SystemMsg_Save_Success))
+    {
+        @Html.ButtonClient("ConfirmOKButton", Resource.Button_Okay)
+    }
+
+    <script type="text/javascript">
+        _alert('dialog_Confirm');
+
+        function ConfirmOKButton_onClick(srcElement) {
+            window.close();
+        }
+    </script>
+}
+else
+{
+    using (Html.BeginFormSubmit("SystemFunElmUserForm"))
+    {
+        @Html.InputTextBox("SysID", Model.SysID, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("FunControllerID", Model.FunControllerID, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("FunActionName", Model.FunActionName, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("FunElmID", Model.FunElmID, inputType: EnumInputType.TextBoxHidden)
+
+        <div class="page-title">
+            <h3>
+                @SysSystemFunElmUser.Label_SystemFunElmAddUser
+            </h3>
+        </div>
+
+        <table class="tblvertical">
+            <tr>
+                <th>
+                    @SysSystemFunElmUser.Label_FunElmNM
+                </th>
+                <td>
+                    @Model.ElmNMID
+                </td>
+                <th>
+                    @SysSystemFunElmUser.Label_DisplaySts
+                </th>
+                <td>
+                    @Model.DefaultDisplay
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @SysSystemFunElmUser.Label_FunControllerID
+                </th>
+                <td>
+                    @Model.FunGroupNMID
+                </td>
+                <th>
+                    @SysSystemFunElmUser.Label_FunActionName
+                </th>
+                <td>
+                    @Model.FunActionNMID
+                </td>
+            </tr>
+        </table>
+        if (Model.FunElmUserDictionary != null)
+        {
+            int rowIndex = 0;
+            <table class="tblvertical">
+
+                @foreach (var funElmUser in Model.FunElmUserDictionary)
+                {
+                    string tdTagName = funElmUser.Key + "UserList";
+                    string blockName;
+
+                    switch (funElmUser.Key)
+                    {
+                        case SystemFunElmUserModel.EnumDisplaySts.DISPLAY:
+                            blockName = SysSystemFunElmUser.Label_Display;
+                            break;
+                        case SystemFunElmUserModel.EnumDisplaySts.READ_ONLY:
+                            blockName = SysSystemFunElmUser.Label_ReadOnly;
+                            break;
+                        case SystemFunElmUserModel.EnumDisplaySts.MASKING:
+                            blockName = SysSystemFunElmUser.Label_Masking;
+                            break;
+                        case SystemFunElmUserModel.EnumDisplaySts.HIDE:
+                            blockName = SysSystemFunElmUser.Label_Hide;
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+
+                    <tr>
+                        <th style="width: 8%">
+                            @Html.IconClient("ElmUserBtn", "icon-male")
+                            @blockName
+                        </th>
+                        <td>
+                            @Html.InputTextBox("FunElmUserDictionary[" + rowIndex + "].Key", funElmUser.Key.ToString(), inputType: EnumInputType.TextBoxHidden)
+                            <div name="@tdTagName">
+                                @if (funElmUser.Value.Any())
+                                {
+                                    int index = 0;
+                                    foreach (var s in funElmUser.Value)
+                                    {
+                                        using (var tage = Html.BeginTag("ElmUserInfo", s.UserNMID, true))
+                                        {
+                                            @Html.InputTextBox("FunElmUserDictionary[" + rowIndex + "].value[" + index + "].UserID", s.UserID, inputType: EnumInputType.TextBoxHidden)
+                                        }
+                                        index++;
+                                    }
+                                }
+                            </div>
+                        </td>
+                    </tr>
+                    rowIndex++;
+                }
+            </table>
+        }
+
+        <table class="tblvertical">
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemFunElmUser.Label_ErpSign, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.ErpWFNo, TitleName: SysUserRoleFunDetail.Label_ErpSign)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemFunElmUser.Label_ModifyRecord)
+                </th>
+                <td>
+                    @Html.InputTextAreaFor(model => model.Memo, 4, 60, TitleName: SysUserRoleFunDetail.Label_ModifyRecord, style: "width:99%;")
+                </td>
+            </tr>
+        </table>
+
+        <div>
+            @Html.ButtonSubmit("Sys", "SystemFunElmUser", "SaveButton", Resource.Button_Save, "btn")
+            @Html.ButtonClient("CloseButton", Resource.Button_Close, "btn")
+        </div>
+
+        <div id="SetUserDialog" style="display: none;">
+            <table class="tblvertical">
+                <tr>
+                    <th style="width: 20%">
+                        @Html.FormLabel(SysSystemFunElmUser.Label_AddType, IsRequired: true)
+                    </th>
+                    <td>
+                        @Html.InputRadioButtonListFor(model => model.IsSingleUser, Model.ElmUserNumDictionary)
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        @Html.FormLabel(SysSystemFunElmUser.Label_User, IsRequired: true)
+                    </th>
+                    <td>
+                        @Html.InputTextBox("ElmUserID", string.Empty, 6, 6, TitleName: SysSystemFunElmUser.Label_User)
+                    </td>
+                    <td style="display: none">
+                        @Html.InputTextAreaFor(model => model.MultiUserMemo, 4, 30, TitleName: SysSystemFunElmUser.Label_User, style: "width:99%;")
+                    </td>
+                </tr>
+            </table>
+            <pre><span id="errmsg" class="red"></span></pre>
+        </div>
+    }
+}

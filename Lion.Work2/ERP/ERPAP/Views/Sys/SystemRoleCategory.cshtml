@@ -1,0 +1,91 @@
+﻿@{ Layout = "~/Views/_Popup.cshtml"; }
+@using LionTech.Entity.ERP
+@using LionTech.Entity.ERP.Sys
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemRoleCategoryModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemRoleCategory.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+<div class="page-title"><h3>@SysSystemRoleCategory.TabText_SystemRoleCategory</h3></div>
+@using (Html.BeginFormSubmit("SystemRoleCategoryForm"))
+{
+    @Html.InputTextBox("RoleCategoryID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+
+    <table class="tblsearch">
+        <tr>
+            <td>
+                <table>
+                    <tr>
+                        <th>
+                            @Html.FormLabel(SysSystemRoleCategory.Label_SysID, IsRequired: true)
+                        </th>
+                        <td>
+                            @Html.InputComboBoxFor(model => model.SysID, Model.GetDictionaryFormSelectItem(Model.UserSystemByIdList, false), TitleName: SysSystemRoleCategory.Label_SysID)
+                        </td>
+                        <th>
+                            @Html.FormLabel(SysSystemRoleCategory.Label_RoleCategoryNM)
+                        </th>
+                        <td>
+                            @Html.InputTextBoxFor(model => model.RoleCategoryNM, Size: 20, TitleName: SysSystemRoleCategory.Label_RoleCategoryNM)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            @Html.ButtonClient("SelectButton", Resource.Button_Select, className: "btnSearch")
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    <table id="SystemRoleCategoryTable" class="tblzebra">
+        <tr>
+            <th>@SysSystemRoleCategory.Table_Detail</th>
+            <th>@SysSystemRoleCategory.Table_RoleCategoryNM</th>
+            <th>@SysSystemRoleCategory.Table_SortOrder</th>
+            <th>@SysSystemRoleCategory.Table_UpdUserNM</th>
+            <th>@SysSystemRoleCategory.Table_UpdDT</th>
+        </tr>
+        @if (Model.SystemRoleCategoryList != null)
+        {
+            string trClass = string.Empty;
+
+            foreach(var row in Model.SystemRoleCategoryList)
+            { 
+                <tr class="@trClass">
+                    <td data-th="@SysSystemRoleCategory.Table_Detail：" class="center">
+                        @Html.TextSubmitLink(
+                            "Sys",
+                            "SystemRoleCategoryDetail",
+                            "LinkFunKeyDetail",
+                            SysSystemRoleCategory.Table_Detail,
+                            new List<string>()
+                            {
+                                row.RoleCategoryID
+                            })
+                    </td>
+                    <td data-th="@SysSystemRoleCategory.Table_RoleCategoryNM：" title="@SysSystemRoleCategory.Table_RoleCategoryNM">@row.RoleCategoryNM (@row.RoleCategoryID)</td>
+                    <td data-th="@SysSystemRoleCategory.Table_SortOrder：" title="@SysSystemRoleCategory.Table_SortOrder">@Html.Raw(row.SortOrder)</td>
+                    <td data-th="@SysSystemRoleCategory.Table_UpdUserNM：" title="@SysSystemRoleCategory.Table_UpdUserNM">@Html.Raw(row.UpdUserNM)</td>
+                    <td data-th="@SysSystemRoleCategory.Table_UpdDT：" title="@SysSystemRoleCategory.Table_UpdDT">@Common.GetDateTimeText(row.UpdDT)</td>
+                </tr>
+
+                trClass = string.IsNullOrWhiteSpace(trClass) ? "tr2" : string.Empty;
+            }
+        }
+    </table>
+
+    <div>
+        @Html.ButtonSubmit("Sys", "SystemRoleCategoryDetail", "AddButton", Resource.Button_Add, className: "btn")
+        @Html.ButtonClient("CloseButton", Resource.Button_Close, className: "btn")
+    </div>
+
+}

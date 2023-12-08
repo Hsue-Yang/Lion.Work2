@@ -1,0 +1,123 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemAPIClientModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemAPIClient.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+<div class="page-title"><h3>@SysSystemAPIClient.TabText_SystemAPIClient</h3></div>
+@using (Html.BeginFormSubmit("SystemAPIClientForm"))
+{
+    @Html.InputTextBox("APINo", string.Empty, inputType: EnumInputType.TextBoxHidden)
+    @Html.InputTextBox("APIFunID", Model.APIFunID, inputType: EnumInputType.TextBoxHidden)
+
+    <table class="tblsearch">
+        <tr>
+            <td>
+                <table>
+                    <tr>
+                        <th>
+                            @Html.FormLabel(SysSystemAPIClient.Label_SysID)
+                        </th>
+                        <td>
+                            @Html.InputTextBoxFor(model => Model.SysID)
+                            @Html.InputTextBox("SysIDReadOnlyText", Model.SysSystemAPIFullName.SysNM, ReadOnly: true, maximumLength: 200, Size: 30)
+                        </td>
+                        <th>
+                            @Html.FormLabel(SysSystemAPIClient.Label_APIGroupID)
+                        </th>
+                        <td>
+                            @Html.InputTextBoxFor(model => Model.APIGroupID)
+                            @Html.InputTextBox("APIGroupIDReadOnlyText", Model.SysSystemAPIFullName.APIGroupNM, ReadOnly: true, maximumLength: 200, Size: 50)
+                        </td>
+                        <th>
+                            @Html.FormLabel(SysSystemAPIClient.Label_APIFunID)
+                        </th>
+                        <td style="vertical-align:inherit">
+                            @Model.SysSystemAPIFullName.APIFunNM
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            @Html.FormLabel(SysSystemAPIClient.Label_DTBegin, IsRequired: true)
+                        </th>
+                        <td>
+                            @Html.InputTextBoxFor(model => model.BeginDate, false, 8, TitleName: SysSystemAPIClient.Label_DTBegin)
+                            @Html.InputTextBoxFor(model => model.BeginTime, false, 5, TitleName: SysSystemAPIClient.Label_BeginTime)
+                        </td>
+                        <th>
+                            @Html.FormLabel(SysSystemAPIClient.Label_DTEnd, IsRequired: true)
+                        </th>
+                        <td colspan="3">
+                            @Html.InputTextBoxFor(model => model.EndDate, false, 8, TitleName: SysSystemAPIClient.Label_DTEnd)
+                            @Html.InputTextBoxFor(model => model.EndTime, false, 5, TitleName: SysSystemAPIClient.Label_EndTime)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td nowrap="nowrap" colspan="6" class="padding grey bordertop">
+                            @Html.ButtonSubmit("Sys", "SystemAPIClient", "SelectButton", Resource.Button_Select, className: "btnSearch")
+                            @Html.ButtonClient("APIParaButton", SysSystemAPIClient.Button_APIPara, className: "btnSearch")
+                            @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btnSearch")
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    using (Html.BeginPager(Model.PageIndex, Model.PageSize, Model.RowCount))
+    {
+        <table id="SystemAPIClientTable" class="tblzebra" style="display: none;">
+            <thead>
+                <tr>
+                    <th>@SysSystemAPIClient.Table_APINo</th>
+                    <th>@SysSystemAPIClient.Table_ClientSysNM</th>
+                    <th>@SysSystemAPIClient.Table_ClientDTBegin</th>
+                    <th>@SysSystemAPIClient.Table_ClientDTEnd</th>
+                    <th>@SysSystemAPIClient.Table_IPAddress</th>
+                    <th nowrap="nowrap">@SysSystemAPIClient.Table_ReqReturn</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.SystemAPIClientList != null)
+                {
+                    foreach (var row in Model.SystemAPIClientList)
+                    {
+                        <tr>
+                            <td data-th="@SysSystemAPIClient.Table_APINo：" nowrap="nowrap" class="center">
+                                @Html.TextSubmitLink(
+                                    "Sys",
+                                    "SystemAPIClientDetail",
+                                    "LinkFunKeyDetail",
+                                    row.APINo,
+                                    new List<string>
+                                    {
+                                        row.APINo
+                                    })
+                            </td>
+                            <td data-th="@SysSystemAPIClient.Table_ClientSysNM：" title="@SysSystemAPIClient.Table_ClientSysNM">
+                                @(string.IsNullOrWhiteSpace(row.ClientSysID) == false
+                                     ? string.Format("{0} ({1})", row.ClientSysNM, row.ClientSysID)
+                                     : string.Empty)
+                            </td>
+                            <td data-th="@SysSystemAPIClient.Table_ClientDTBegin：" title="@SysSystemAPIClient.Table_ClientDTBegin">@Common.GetDateTimeText(row.ClientDTBegin)</td>
+                            <td data-th="@SysSystemAPIClient.Table_ClientDTEnd：" title="@SysSystemAPIClient.Table_ClientDTEnd">
+                                @(row.ClientDTEnd.HasValue == false ? null : Common.GetDateTimeText(row.ClientDTEnd.Value))
+                            </td>
+                            <td data-th="@SysSystemAPIClient.Table_ClientDTEnd：" title="@SysSystemAPIClient.Table_ClientDTEnd">@row.IPAddress</td>
+                            <td data-th="@SysSystemAPIClient.Table_ReqReturn：" nowrap="nowrap" title="@SysSystemAPIClient.Table_ClientDTEnd">
+                                @row.REQReturn
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    }
+}

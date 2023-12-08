@@ -1,0 +1,127 @@
+﻿@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Utility.ERP
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemEDIFlowModel
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+@Html.Raw(ViewData[EnumViewDataItem.JsMsg.ToString()].ToString())
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/jsTree/src/themes/default/style.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/jsTree/src/themes/default-dark/style.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/Site.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/Site.MessageBox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery-3.3.1.min.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.form.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.blockUI.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery-ui-1.12.1.min.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/GlobalResources/Resources@((Culture == Common.GetEnumDesc(EnumCultureID.zh_TW) ? string.Empty : "." + Culture) + ".js")?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/LionTechWebERPHelpers.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/tooltip/jquery.tooltip.min.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jsTree/src/jstree.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jsTree/src/jstree.contextmenu.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemEDIFlowDir.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@if (Model.HasNoEDIService)
+{
+    using (Html.BeginConfirmDialog("dialog_Confirm", Resource.SysMsg_Title, SysSystemEDIFlowDir.Label_HasNoEDIService))
+    {
+        @Html.ButtonClient("ConfirmOKButton", Resource.Button_Okay)
+    }
+
+    <script type="text/javascript">
+        _alert('dialog_Confirm');
+
+        function ConfirmOKButton_onClick(srcElement) {
+            window.close();
+        }
+    </script>
+}
+else
+{
+    <script type="text/javascript">
+        var dirTree = @Html.Raw(Model.DirTreeJsonStr);
+    </script>
+
+    <style>
+        html {
+            margin: 0;
+            padding: 0;
+            font-size: 62.5%;
+        }
+
+        body {
+            max-width: 800px;
+            min-width: 300px;
+            margin: 0 auto;
+            padding: 20px 10px;
+            font-size: 14px;
+            font-size: 1.4em;
+        }
+
+        h1 {
+            font-size: 1.8em;
+        }
+
+        .fileBox {
+            overflow: auto;
+            min-height: 100px;
+            border: 2px #ccc solid;
+            border-radius: 10px;
+        }
+
+        #contextmenu
+        {
+            margin: 0;
+            padding: 2px;
+            position: absolute;
+            background: #f5f5f5;
+            border: 1px solid #979797;
+            box-shadow: 2px 2px 2px #999999;
+            list-style: none;
+            left: 100%;
+            margin-top: -2.7em;
+            margin-left: -4px;
+        }
+
+        #contextmenu li {
+            display: block;
+            padding: 0 2em 0 2em;
+            text-decoration: none;
+            width: auto;
+            color: black;
+            white-space: nowrap;
+            line-height: 2.4em;
+            text-shadow: 1px 1px 0 white;
+            border-radius: 1px;
+        }
+
+        #contextmenu li:hover {
+            position: relative;
+            background-color: #e8eff7;
+            box-shadow: 0 0 2px #0a6aa1;
+            cursor: pointer;
+        }
+    </style>
+
+    using (Html.BeginFormSubmit("SystemEDIFlowDirForm"))
+    {
+        @Html.InputTextBox("DirTreeJsonStr", Model.DirTreeJsonStr, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("DirTreeOption", Model.DirTreeOption, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("DirTreeSelectNodeJsonStr", Model.DirTreeSelectNodeJsonStr, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("QuerySysID", Model.QuerySysID, inputType: EnumInputType.TextBoxHidden)
+
+        <span>@string.Format("{0} : {1}", SysSystemEDIFlowDir.Label_FileDirectory, Model._FileDataPath)</span>
+        <p/>
+
+        <div id="data" class="fileBox"></div>
+
+        <ul id="contextmenu" style="display: none">
+            <li id="CreateFile">@SysSystemEDIFlowDir.Label_CreateFile</li>
+            <li id="ReName">@SysSystemEDIFlowDir.Label_ReName</li>
+            <li id="Remove">@SysSystemEDIFlowDir.Label_Remove</li>
+        </ul>
+    }
+}

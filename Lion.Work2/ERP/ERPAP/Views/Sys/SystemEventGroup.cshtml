@@ -1,0 +1,99 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemEventGroupModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemEventGroup.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemEventGroupForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.SysEventTabList))
+    {
+        @Html.InputTextBox("SysID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("EventGroupID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+
+        <table class="tblsearch">
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <th>
+                                @Html.FormLabel(SysSystemEventGroup.Label_SysID, IsRequired: true)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.QuerySysID, Model.GetDictionaryFormSelectItem(Model.UserSystemByIdList, true), isDisabled: false, TitleName: SysSystemEventGroup.Label_SysID)
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysSystemEventGroup.Label_EventGroupID)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.QueryEventGroupID, Model.GetDictionaryFormSelectItem(Model.SysSystemEventGroupByIdList, true), isDisabled: false)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                @Html.ButtonClient("SelectButton", Resource.Button_Select, className: "btnSearch")
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        using (Html.BeginPager(Model.PageIndex, Model.PageSize, Model.RowCount))
+        {
+            <div>
+                <table id="SystemEventGroupTable" class="tblzebra">
+                    <thead>
+                        <tr>
+                            <th style="width: 30px;">@SysSystemEventGroup.Text_Detail</th>
+                            <th>@SysSystemEventGroup.Table_EventGroupNM</th>
+                            <th>@SysSystemEventGroup.Table_SortOrder</th>
+                            <th>@SysSystemEventGroup.Table_UpdUserNM</th>
+                            <th>@SysSystemEventGroup.Table_UpdDT</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.SystemEventGroupList != null)
+                        {
+                            foreach (var row in Model.SystemEventGroupList)
+                            {
+                                <tr>
+                                    <td data-th="@SysSystemEventGroup.Text_Detail：" class="center">
+                                        @Html.TextSubmitLink(
+                                            "Sys",
+                                            "SystemEventGroupDetail",
+                                            "LinkFunKey",
+                                            SysSystemEventGroup.Text_Detail,
+                                            new List<string>
+                                            {
+                                                Model.QuerySysID,
+                                                row.EventGroupID
+                                            }
+                                            )
+                                    </td>
+                                    <td data-th="@SysSystemEventGroup.Table_EventGroupNM：" title="@SysSystemEventGroup.Table_EventGroupNM">@row.EventGroupNM (@row.EventGroupID)</td>
+                                    <td data-th="@SysSystemEventGroup.Table_SortOrder：" title="@SysSystemEventGroup.Table_SortOrder">@Html.Raw(row.SortOrder)</td>
+                                    <td data-th="@SysSystemEventGroup.Table_UpdUserNM：" title="@SysSystemEventGroup.Table_UpdUserNM">@Html.Raw(row.UpdUserNM)</td>
+                                    <td data-th="@SysSystemEventGroup.Table_UpdDT：" title="@SysSystemEventGroup.Table_UpdDT">@Common.GetDateTimeText(row.UpdDT)</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+
+        <div>
+            @Html.ButtonSubmit("Sys", "SystemEventGroupDetail", "AddButton", Resource.Button_Add, className: "btn")
+        </div>
+    }
+}

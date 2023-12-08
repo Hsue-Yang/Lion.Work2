@@ -1,0 +1,165 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemEventModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemEvent.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemEventForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.SysEventTabList))
+    {
+        @Html.InputTextBox("SysID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("EventGroupID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("EventID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+
+        <table class="tblsearch">
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <th style="width: 60px">
+                                @Html.FormLabel(SysSystemEvent.Label_SysID, IsRequired: true)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.QuerySysID, Model.GetDictionaryFormSelectItem(Model.SystemByIdList, true), isDisabled: false, TitleName: SysSystemEvent.Label_SysID)
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysSystemEvent.Label_EventGroup)
+                            </th>
+                            <td>
+                                @Html.InputComboBox("QueryEventGroupID", Model.QueryEventGroupID, Model.GetDictionaryFormSelectItem(Model.SysSystemEventGroupByIdList, true), false, TitleName: SysSystemEvent.Label_EventGroup)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                @Html.ButtonSubmit("Sys", "SystemEvent", "SelectButton", Resource.Button_Select, className: "btnSearch")
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        using (Html.BeginPager(Model.PageIndex, Model.PageSize, Model.RowCount))
+        {
+            <table id="SystemEventTable" class="tblzebra">
+                <thead>
+                    <tr>
+                        @if (Model.IsITManager)
+                        {
+                            <th style="width: 30px;">@SysSystemEvent.Text_Detail</th>
+                        }
+                        <th style="width: 30px;">@SysSystemEvent.Text_EventPara</th>
+                        <th style="width: 30px;">@SysSystemEvent.Text_EventTarget</th>
+                        <th style="width: 30px;">@SysSystemEvent.Text_EventTargetEDI</th>
+
+                        <th>@SysSystemEvent.Table_EventGroup</th>
+                        <th>@SysSystemEvent.Table_EventNM</th>
+                        <th>@SysSystemEvent.Table_IsDisable</th>
+                        <th>@SysSystemEvent.Table_SortOrder</th>
+                        <th>@SysSystemEvent.Table_UpdUserNM</th>
+                        <th>@SysSystemEvent.Table_UpdDT</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.SystemEventList != null)
+                    {
+                        foreach (var row in Model.SystemEventList)
+                        {
+                            <tr>
+                                @if (Model.IsITManager)
+                                {
+                                    <td data-th="@SysSystemEvent.Text_Detail：" class="center">
+                                        @Html.TextSubmitLink(
+                                            "Sys",
+                                            "SystemEventDetail",
+                                            "LinkFunKeyDetail",
+                                            SysSystemEvent.Text_Detail,
+                                            new List<string>
+                                            {
+                                                Model.QuerySysID,
+                                                row.EventGroupID,
+                                                row.EventID
+                                            }
+                                        )
+                                    </td>
+                                }
+                                <td data-th="@SysSystemEvent.Text_EventPara：" class="center">
+                                    @Html.TextSubmitLink(
+                                        "Sys",
+                                        "SystemEventPara",
+                                        "LinkFunKeyEventPara",
+                                        SysSystemEvent.Text_EventPara,
+                                        new List<string>
+                                        {
+                                            Model.QuerySysID,
+                                            row.EventGroupID,
+                                            row.EventID
+                                        }
+                                    )
+                                </td>
+                                <td data-th="@SysSystemEvent.Text_EventTarget：" class="center">
+                                    @Html.TextSubmitLink(
+                                        "Sys",
+                                        "SystemEventTarget",
+                                        "LinkFunKeyTarget",
+                                        SysSystemEvent.Text_EventTarget,
+                                        new List<string>
+                                        {
+                                            Model.QuerySysID,
+                                            row.EventGroupID,
+                                            row.EventID
+                                        }
+                                    )
+                                </td>
+                                <td data-th="@SysSystemEvent.Text_EventTargetEDI：" class="center">
+                                    @Html.TextSubmitLink(
+                                        "Sys",
+                                        "SystemEventTargetEDI",
+                                        "LinkFunKeyTargetEDI",
+                                        SysSystemEvent.Text_EventTargetEDI,
+                                        new List<string>
+                                        {
+                                            Model.QuerySysID,
+                                            row.EventGroupID,
+                                            row.EventID
+                                        }
+                                     )
+                                </td>
+                                <td data-th="@SysSystemEvent.Table_EventGroup：" title="@SysSystemEvent.Table_EventGroup">@row.EventGroupNM (@row.EventGroupID)</td>
+                                <td data-th="@SysSystemEvent.Table_EventNM：" title="@SysSystemEvent.Table_EventNM">@row.EventNM (@row.EventID)</td>
+                                <td data-th="@SysSystemEvent.Table_IsDisable：" title="@SysSystemEvent.Table_IsDisable">
+                                    @{
+                                        row.IsDisable = (row.IsDisable == EnumYN.Y.ToString()) ? SysSystemEvent.Table_IsDisable : null;
+                                    }
+
+                                    @row.IsDisable
+                                </td>
+                                <td data-th="@SysSystemEvent.Table_SortOrder：" title="@SysSystemEvent.Table_SortOrder">@row.SortOrder</td>
+                                <td data-th="@SysSystemEvent.Table_UpdUserNM：" title="@SysSystemEvent.Table_UpdUserNM">@row.UpdUserNM</td>
+                                <td data-th="@SysSystemEvent.Table_UpdDT：" title="@SysSystemEvent.Table_UpdDT">@Common.GetDateTimeText(row.UpdDT)</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        }
+
+        if (Model.IsITManager)
+        {
+            <div>
+                @Html.ButtonSubmit("Sys", "SystemEventDetail", "AddButton", Resource.Button_Add, className: "btn")
+            </div>
+        }
+    }
+}

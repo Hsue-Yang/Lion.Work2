@@ -1,0 +1,214 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemAPIDetailModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemAPIDetail.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+<div class="page-title"><h3>@SysSystemAPIDetail.TabText_SystemAPIDetail</h3></div>
+@using (Html.BeginFormSubmit("SystemAPIDetailForm"))
+{
+    string comboBoxStyle = "block";
+    string textBoxStyle = "block";
+    string readOnlyTextStyle = "none";
+    if (Model.ExecAction == EnumActionType.Update || Model.ExecAction == EnumActionType.Delete)
+    {
+        comboBoxStyle = "none";
+        textBoxStyle = "none";
+        readOnlyTextStyle = "block";
+    }
+
+    <table class="tblvertical">
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemAPIDetail.Label_SysID, IsRequired: true)
+            </th>
+            <td>
+                <span style="display: none">
+                    @Html.InputComboBoxFor(model => model.SysID, Model.GetDictionaryFormSelectItem(Model.UserSystemByIdList, false), TitleName: SysSystemAPIDetail.Label_SysID)
+                </span>
+                <span style="display: block">
+                    @Html.InputTextBox("SysIDReadOnlyText", string.Empty, ReadOnly: true, maximumLength: 200, Size: 30)
+                </span>
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemAPIDetail.Label_APIGroupID, IsRequired: true)
+            </th>
+            <td>
+                <span style="display: @comboBoxStyle">
+                    @Html.InputComboBoxFor(model => model.APIGroupID, Model.GetDictionaryFormSelectItem(Model.SystemAPIGroupByIdList, true), TitleName: SysSystemAPIDetail.Label_APIGroupID)
+                </span>
+                <span style="display: @readOnlyTextStyle">
+                    @Html.InputTextBox("APIGroupReadOnlyText", string.Empty, ReadOnly: true, maximumLength: 200, Size: 50)
+                </span>
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemAPIDetail.Label_APIFunID, IsRequired: true)
+            </th>
+            <td>
+                <span style="display: @textBoxStyle">
+                    @Html.InputTextBoxFor(model => model.APIFunID, Size: 30, TitleName: SysSystemAPIDetail.Label_APIFunID)
+                </span>
+                <span style="display: @readOnlyTextStyle">
+                    @Html.InputTextBox("APIFunReadOnlyText", string.Empty, ReadOnly: true, maximumLength: 200, Size: 30)
+                </span>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemAPIDetail.Label_APINMZHTW, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.APINMZHTW, false, 30, TitleName: SysSystemAPIDetail.Label_APINMZHTW)
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemAPIDetail.Label_APINMZHCN, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.APINMZHCN, false, 30, TitleName: SysSystemAPIDetail.Label_APINMZHCN)
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemAPIDetail.Label_APINMENUS, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.APINMENUS, false, 30, TitleName: SysSystemAPIDetail.Label_APINMENUS)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemAPIDetail.Label_APINMTHTH, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.APINMTHTH, false, 30, TitleName: SysSystemAPIDetail.Label_APINMTHTH)
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemAPIDetail.Label_APINMJAJP, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.APINMJAJP, false, 30, TitleName: SysSystemAPIDetail.Label_APINMJAJP)
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemAPIDetail.Label_APINMKOKR, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.APINMKOKR, false, 30, TitleName: SysSystemAPIDetail.Label_APINMKOKR)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemAPIDetail.Label_IsOutside)
+            </th>
+            <td>
+                @Html.InputCheckBox("IsOutside", SysSystemAPIDetail.Label_IsOutside, EnumYN.Y.ToString(), Model.IsOutside == EnumYN.Y.ToString())
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemAPIDetail.Label_IsDisable)
+            </th>
+            <td>
+                @Html.InputCheckBox("IsDisable", SysSystemAPIDetail.Label_IsDisable, EnumYN.Y.ToString(), Model.IsDisable == EnumYN.Y.ToString())
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemAPIDetail.Label_SortOrder)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.SortOrder, false, 30, TitleName: SysSystemAPIDetail.Label_SortOrder)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemAPIDetail.Label_APIPara, IsRequired: true)
+            </th>
+            <td colspan="3">
+                @Html.InputTextBoxFor(model => model.APIPara, false, 100, TitleName: SysSystemAPIDetail.Label_APIPara)
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemAPIDetail.Label_APIReturn, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputComboBoxFor(model => model.APIReturn, Model.CMCodeLists.ToDictionary(p => p.CodeID, p => p.CodeNM), TitleName: SysSystemAPIDetail.Label_SysID)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemAPIDetail.Label_APIParaDesc)
+            </th>
+            <td colspan="5">
+                @Html.InputTextBoxFor(model => model.APIParaDesc, false, 100, TitleName: SysSystemAPIDetail.Label_APIParaDesc)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemAPIDetail.Label_APIReturnContent)
+            </th>
+            <td colspan="5">
+                @Html.InputTextBoxFor(model => model.APIReturnContent, false, 100, TitleName: SysSystemAPIDetail.Label_APIReturnContent)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemAPIDetail.Label_Role)
+            </th>
+            <td colspan="5">
+
+                <table>
+                    @if (Model.SystemAPIRoleList != null)
+                    {
+                        int rowCount = 0;
+
+                        <tr>
+                            @foreach (var systemAPIRole in Model.SystemAPIRoleList)
+                            {
+                                <td style="border: none">
+                                    @Html.InputCheckBox(
+                                        "HasRole",
+                                        string.Format("{0}", systemAPIRole.RoleNM),
+                                        Model.SysID + "|" + systemAPIRole.RoleID,
+                                        systemAPIRole.HasRole == EnumYN.Y.ToString())
+                                    &nbsp;
+                                </td>
+
+                                rowCount += 1;
+
+                                if (rowCount % 5 == 0)
+                                {
+                                @:</tr>
+                                @:<tr>
+                                }
+                            }
+                        </tr>
+                    }
+                </table>
+
+            </td>
+        </tr>
+    </table>
+
+    <div>
+        @if (Model.ExecAction == EnumActionType.Add)
+        {
+            @Html.ButtonClient("AddButton", Resource.Button_Add, className: "btn")
+        }
+        @if (Model.ExecAction == EnumActionType.Update || Model.ExecAction == EnumActionType.Delete)
+        {
+            @Html.ButtonClient("UpdateButton", Resource.Button_Update, className: "btn")
+            <span></span>
+            @Html.ButtonClient("DeleteButton", Resource.Button_Delete, className: "btn")
+        }
+        @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+    </div>
+
+    using (Html.BeginConfirmDialog("dialog_Confirm", Resource.SysMsg_Title, Resource.SysMsg_DeleteConfirm))
+    {
+        @Html.ButtonClient("ConfirmOKButton", Resource.Button_Delete)
+        @Html.ButtonClient("ConfirmNOButton", Resource.Button_Cancel)
+    }
+}

@@ -1,0 +1,17 @@
+﻿/* table CSS ------------------------------------------------------------ */
+table.zebraT { border: 1px solid lightgrey; background-color: #FFFFFF; border-collapse: collapse; margin: 3px; font-size: 12px; width: 99%; margin-left: 5px; }
+table.zebraT tr.alt td { background: #e8e8e8; }
+table.zebraT tr.gray { color:gray; }
+table.zebraT tr.tr-hover td { background: #d7e6e4; }
+table.zebraT tr.tr-selected td { background: #FFFF80; color:#000; }
+table.zebraT th { background: #478384; color: #fff; font-weight: bold; padding: 5px 11px; text-align: left; border-right: 1px solid #fff; line-height: 1.2; }
+table.zebraT th.hedOption { background: #478384; color: #fff; font-weight: bold; padding: 5px 11px; text-align: center; border-right: 2px solid #fff; line-height: 1.2; width: 25px; }
+table.zebraT td { padding: 6px 11px; border-bottom: 1px solid #95bce2; border-right: 1px solid #fff; vertical-align: top; }
+
+table.zebraT td a { color: #0075a9; }
+table.zebraT td a:hover { color: #c82322; }
+table.zebraT td a:visited { color: #0075a9; }
+
+table.zebraT th, table.zebraT td { height: 21px; }
+table.zebraT th { color: white; border-color: white; border-bottom: 1px solid white; }
+table.zebraT td { vertical-align: middle; border-color: lightgrey; border-bottom: 1px solid lightgrey; }

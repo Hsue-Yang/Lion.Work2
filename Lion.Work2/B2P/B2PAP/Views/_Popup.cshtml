@@ -1,0 +1,74 @@
+﻿@using LionTech.Entity.B2P
+@using LionTech.Utility
+@using LionTech.Utility.B2P
+@using LionTech.Web.ERPHelper
+@using Resources
+
+@{
+    var styleString = "display:none;";
+    var errorMessage = string.Empty;
+    if (TempData["SystemErrorMessage"] != null)
+    {
+        styleString = "display:block;";
+        errorMessage = Convert.ToString(TempData["SystemErrorMessage"]);
+    }
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=10; IE=9; IE=8; IE=7;" />
+    <title>@Resources.Resource.AP_Title</title>
+    <link href="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Content/Site.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+    <link href="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Content/Site.MessageBox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+    <link href="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Content/Site.Table.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+    <link href="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Content/Site.TabStrip.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+    <link href="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Content/themes/base/jquery.ui.core.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+    <link href="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Content/themes/base/jquery.ui.theme.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+    <link href="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Content/jquery.ui.autocomplete.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+    <link href="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Content/jquery.tooltip.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css"/>
+    <link href="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Content/Serp.Table.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+    <link href="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Content/Serp.Util.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+    <link href="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Content/Serp.BstrapUtil.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+    <script type="text/javascript">_domain = "@Common.GetEnumDesc(EnumSystemID.Domain)"; _enumB2PAP = "@Common.GetEnumDesc(EnumSystemID.B2PAP)";</script>
+    <script src="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Scripts/jquery-1.7.2.min.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+    <script src="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Scripts/jquery.form.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+    <script src="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Scripts/jquery.blockUI.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+    <script src="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Scripts/jquery-ui-1.8.11.min.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+    <script src="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Scripts/GlobalResources/Resources@((Culture == Common.GetEnumDesc(LionTech.Entity.B2P.EnumCultureID.zh_TW) ? string.Empty : "." + Culture) + ".js")?@(fullDateTimeNumber)" type="text/javascript"></script>
+    <script src="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Scripts/LionTechWebERPHelpers.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+    <script src="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Scripts/tooltip/jquery.tooltip.min.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+    <script src="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Scripts/_Popup.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+    @Html.Raw(ViewData[EnumViewDataItem.JsMsg.ToString()].ToString())
+</head>
+<body class="greenStyle">
+   <table cellspacing="0" cellpadding="0" style="width:100%;">
+        <tr>
+            <td>
+                <div id="layoutMessage" class="layout Message" style="@styleString">
+                    <table style="width:100%;height:25px;">
+                        <tr>
+                            <td valign="middle" align="center">
+                                <div id="layoutMessageBody">@errorMessage</div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @RenderBody()
+
+                @if (TempData["SystemAlertMessage"] != null)
+                {
+                    @Html.MessageBoxAlert("SysMessage", Resource.SysMsg_Title, Convert.ToString(TempData["SystemAlertMessage"]), Resource.Button_Close)
+                }
+            </td>
+        </tr>
+    </table>
+
+</body>
+</html>

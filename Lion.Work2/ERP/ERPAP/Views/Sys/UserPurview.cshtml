@@ -1,0 +1,82 @@
+﻿@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using ERPAP.Models.Sys
+@using Resources
+@model UserPurviewModel
+@{
+    Layout = "~/Views/_Layout.cshtml";
+    string fullDateTimeNumber = Common.GetDateTimeString();
+    string sysNM = string.Empty;
+    int entityCount = 1;
+    int totalCount = 1;
+}
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/UserPurview.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+@using (Html.BeginFormSubmit("UserPurviewForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.SysUserRoleFunctionTabList))
+    {
+        @Html.InputTextBox("UserID", Model.UserID, inputType: EnumInputType.TextBoxHidden)
+
+        <table class="tblvertical">
+            <tr>
+                <th style="width: 80px">
+                    @Html.FormLabel(SysUserPurview.Label_UserID)
+                </th>
+                <td class="width">
+                    @Html.InputTextBox("UserNMReadOnlyText", Model.UserNM, ReadOnly: true, maximumLength: 200, Size: 30)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysUserPurview.Label_DataPurview, IsRequired: true)
+                </th>
+                <td>
+                    <table width="100%" id="UserPurviewTable">
+                        @foreach (var sysPurview in Model.SysUserPurviews)
+                        {
+                            if (sysNM != sysPurview.SysNM)
+                            {
+                                <tr>
+                                    <th colspan="5" style="border: none; background-color: #EBEBEB; height: 30px; text-align: left">
+                                        <b>@string.Format("{0}({1})", sysPurview.SysNM, sysPurview.SysID)</b>
+                                        @if (sysPurview.HasUpdateAuth)
+                                        {
+                                            @Html.TextClientLink("UpdateButton", Resource.Button_Update, new List<string> { sysPurview.SysID, sysPurview.SysNM, Model.UserID, Model.UserNM }, "color:blue")
+                                        }
+                                    </th>
+                                </tr>
+                                @:<tr>
+                                    sysNM = sysPurview.SysNM;
+                                    entityCount = 1;
+                                }
+                                <td style="border: none">
+                                    @Html.InputCheckBox(string.Empty, string.Format("{0}({1})", sysPurview.PurviewNM, sysPurview.PurviewID), string.Empty, sysPurview.HasDataPurAuth, true)
+                                </td>
+                                if (totalCount == Model.SysUserPurviews.Count &&
+                                    (entityCount % 3) > 0)
+                                {
+                                    for (int i = entityCount; (i % 3) > 0; i++)
+                                    {
+                                        <td style="border: none"></td>
+                                    }
+                                }
+
+                                if (entityCount % 3 == 0)
+                                {
+                                @:</tr>
+                            }
+
+                            entityCount += 1;
+                            totalCount++;
+                        }
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <div>
+            @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+        </div>
+    }
+}

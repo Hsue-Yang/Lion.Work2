@@ -1,0 +1,126 @@
+﻿#topBox {
+    height: 9%;
+    background: #FFFFFF;
+}
+
+#loginBox {
+    position: absolute;
+    left: 50px;
+    top: 80px;
+    width: 400px;
+    height: 100px;
+}
+
+#loginLogo {
+    display: block;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    background: url(../images/main_img.jpg) no-repeat;
+    width: 480px;
+    height: 250px;
+    padding-left: 480px;
+}
+
+#EnvironmentRemindBox {
+    padding-left: 5px;
+    font: bold 14px Arial;
+    color: Red;
+}
+
+#ProxyLoginToApBox {
+    padding-left: 5px;
+    font: bold 14px Arial;
+    color: Red;
+}
+
+#floorBox {
+    height: 14%;
+    background: #838383;
+}
+
+#imgLinkBox td {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+@media screen and (min-width: 320px) and (max-width: 640px) {
+    #loginNewsBox { display: none; }
+
+    #loginBox {
+        position: static;
+        left: auto;
+        top: auto;
+        width: auto;
+        height: auto;
+    }
+
+    #topBox { height: auto; }
+
+    #langTable { display: none; }
+
+    #loginLogo {
+        margin-bottom: 20px;
+        background: url(../images/mainMobileview_img.png) no-repeat;
+        width: 190px;
+        height: 50px;
+        padding-left: 150px;
+    }
+
+    #EnvironmentRemindBox {
+        text-align: center;
+    }
+    
+    #ProxyLoginToApBox {
+        text-align: center;
+    }
+
+    #AccountPassWord {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #AccountPassWord td {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    #AccountPassWord span {
+        width: 65px;
+        display: inline-block;
+        text-align: right;
+    }
+
+    #LoginButton { width: 100%; }
+
+    #UserID { width: 171px; }
+
+    #UserPassword { width: 171px; }
+
+    #LoginOption {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #LoginOption td { text-align: center; }
+
+    #LoginOption td span.dataRow {
+        display: inline-block;
+        width: 100%;
+        margin-top: 5px;
+    }
+
+    #LoginOption td span.dataRow span {
+        width: 65px;
+        display: inline-block;
+        text-align: right;
+    }
+
+    #IdNo { width: 171px; }
+
+    #Birthday { width: 171px; }
+
+    #imgLinkBox img { width: 100%; }
+
+    #imgLinkBox td { padding: 0; }
+}

@@ -1,0 +1,62 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity
+@using LionTech.Entity.B2P
+@using LionTech.Entity.B2P.Sys
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model B2PAP.Models.Sys.UserSystemDetailModel
+
+<script src="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Scripts/Sys/UserSystemDetail.js" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("UserSystemDetailForm"))
+{
+    using (Html.BeginTabStrip(B2PAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.TabList))
+    {
+        @Html.InputTextBox("UserID", Model.UserID, inputType: EnumInputType.TextBoxHidden)
+
+        <table class="tblvertical">
+            <tr>
+                <th nowrap="nowrap">
+                    @Html.FormLabel(SysUserSystemDetail.Label_UserID)
+                </th>
+                <td nowrap="nowrap">
+                    @Html.InputTextBox("UserNMReadOnlyText", Model.EntityUserRawData.UserNM.GetValue(), ReadOnly: true, maximumLength: 200, Size: 30)
+                </td>
+            </tr>
+            <tr>
+                <th nowrap="nowrap">
+                    @Html.FormLabel(SysUserSystemDetail.Label_SysID)
+                </th>
+                <td nowrap="nowrap">
+                    <table id="UserSystemDetailTable">
+                        @if (Model.EntityUserSystemRoleList != null)
+                        {
+                            <tr>
+                                @foreach (EntityUserSystemDetail.UserSystemRole userSystemRole in Model.EntityUserSystemRoleList)
+                                {
+                                    <td nowrap="nowrap">
+                                        @Html.InputCheckBox(
+                                            "HasSys",
+                                            string.Format("{0}", userSystemRole.SysNM.HtmlValue()),
+                                            userSystemRole.SysID.GetValue(),
+                                            (userSystemRole.HasSys.GetValue() == EnumYN.Y.ToString()) ? true : false)
+                                    </td>
+                                    <td nowrap="nowrap" style="width: 20px;"></td>
+                                }
+                            </tr>
+                        }
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <div>
+            @if (Model.ExecAction == EnumActionType.Update)
+            {
+                @Html.ButtonClient("UpdateButton", Resource.Button_Update, className: "btn")
+            }
+            @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+        </div>
+    }
+}

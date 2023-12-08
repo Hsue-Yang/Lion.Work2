@@ -1,0 +1,101 @@
+﻿@{ Layout = "~/Views/_Popup.cshtml"; }
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Utility.ERP
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemWorkFlowDocumentModel
+
+@{
+    string editionNo = ViewData[EnumViewDataItem.EditionNo.ToString()].ToString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemWorkFlowDocument.js?@(editionNo)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemWorkFlowDocumentForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.SysWFNodeTabList))
+    {
+        @Html.InputTextBox("SysID", Model.SysID, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("WFFlowGroupID", Model.WFFlowGroupID, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("WFCombineKey", Model.WFCombineKey, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("WFFlowID", Model.WFFlowID, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("WFFlowVer", Model.WFFlowVer, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("WFNodeID", Model.WFNodeID, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("WFDocSeq", string.Empty, inputType: EnumInputType.TextBoxHidden)
+
+        <table class="tblsearch">
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <th>
+                                @Html.FormLabel(SysSystemWorkFlowDocument.Label_SysID, IsRequired: true)
+                            </th>
+                            <td>
+                                @Model.GetSelectedText(Model.EntityUserSystemSysIDList, Model.SysID)
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysSystemWorkFlowDocument.Label_WFGroupID, IsRequired: true)
+                            </th>
+                            <td>
+                                @Model.GetSelectedText(Model.EntitySystemWorkFlowGroupIDList, Model.WFFlowGroupID)
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysSystemWorkFlowDocument.Label_WFFlowID, IsRequired: true)
+                            </th>
+                            <td>
+                                @Model.GetSelectedText(Model.EntityUserSystemWorkFlowIDList, Model.WFCombineKey)
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysSystemWorkFlowDocument.Label_WFNodeID, IsRequired: true)
+                            </th>
+                            <td>
+                                @Model.GetSelectedText(Model.EntitySystemWorkFlowNodeIDList, Model.WFNodeID)
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <table id="SystemWorkFlowDocumentTable" class="tblzebra">
+            <tr>
+                <th nowrap="nowrap" style="width: 30px;">@SysSystemWorkFlowDocument.Text_Detail</th>
+                <th nowrap="nowrap">@SysSystemWorkFlowDocument.Label_WFDoc</th>
+                <th nowrap="nowrap">@SysSystemWorkFlowDocument.Label_IsReq</th>
+                <th nowrap="nowrap">@SysSystemWorkFlowDocument.Label_UpdUserNM</th>
+                <th nowrap="nowrap">@SysSystemWorkFlowDocument.Label_UpdDT</th>
+            </tr>
+            @if (Model.EntitySystemWFDocList != null)
+            {
+                foreach (var data in Model.EntitySystemWFDocList)
+                {
+                    <tr>
+
+                        <td data-th="@SysSystemWorkFlowDocument.Text_Detail：" nowrap="nowrap" class="center">
+                            @Html.TextSubmitLink(
+                                "Sys",
+                                "SystemWorkFlowDocumentDetail",
+                                "LinkFunKeyDetail",
+                                SysSystemWorkFlowDocument.Text_Detail,
+                                new List<string>
+                                {
+                                    data.WFDocSeq
+                                })
+                        </td>
+                        <td data-th="@SysSystemWorkFlowDocument.Label_WFDoc：" nowrap="nowrap" title="@SysSystemWorkFlowDocument.Label_WFDoc">@Html.Raw(data.WFDocNM)</td>
+                        <td data-th="@SysSystemWorkFlowDocument.Label_IsReq：" nowrap="nowrap" title="@SysSystemWorkFlowDocument.Label_IsReq">@Html.Raw(data.IsReq)</td>
+                        <td data-th="@SysSystemWorkFlowDocument.Label_UpdUserNM：" nowrap="nowrap" title="@SysSystemWorkFlowDocument.Label_UpdUserNM">@Html.Raw(data.UpdUserNM)</td>
+                        <td data-th="@SysSystemWorkFlowDocument.Label_UpdDT：" nowrap="nowrap" title="@SysSystemWorkFlowDocument.Label_UpdDT">@Html.Raw(data.UpdDt.ToString("yyyy/MM/dd HH:mm:ss.fff"))</td>
+                    </tr>
+                }
+            }
+        </table>
+
+        <div class="text-left buttons">
+            @Html.ButtonSubmit("Sys", "SystemWorkFlowDocumentDetail", "AddButton", Resource.Button_Add, className: "btn")
+            @Html.ButtonClient("CloseButton", Resource.Button_Close, className: "btn")
+        </div>
+    }
+}

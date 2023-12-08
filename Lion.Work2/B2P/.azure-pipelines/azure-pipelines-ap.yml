@@ -1,0 +1,9 @@
+resources:
+  repositories:
+    - repository: Pipelines
+      type: git
+      name: Pipelines/Pipelines
+      ref: master
+
+jobs:
+- template: Web.LionTravel.B2P.AP/azure-pipelines-B2PAP.yml@Pipelines

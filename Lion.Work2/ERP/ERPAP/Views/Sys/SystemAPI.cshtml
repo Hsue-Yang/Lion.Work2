@@ -1,0 +1,188 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemAPIModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemAPI.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemAPIForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.SysAPITabList))
+    {
+        @Html.InputTextBox("SysID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("APIGroupID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("APIFunID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+
+        <table class="tblsearch">
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <th style="width: 80px">
+                                @Html.FormLabel(SysSystemAPI.Label_SysID, IsRequired: true)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.QuerySysID, Model.GetDictionaryFormSelectItem(Model.SystemByIdList, true), isDisabled: false, TitleName: SysSystemAPI.Label_SysID)
+                            </td>
+                            <th style="width: 80px">
+                                @Html.FormLabel(SysSystemAPI.Label_APIGroupID)
+                            </th>
+                            <td>
+                                @Html.InputComboBox("QueryAPIGroupID", Model.QueryAPIGroupID, Model.GetDictionaryFormSelectItem(Model.SystemAPIGroupByIdList, true), false)
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    @Html.ButtonSubmit("Sys", "SystemAPI", "SelectButton", Resource.Button_Select, className: "btnSearch")
+                </td>
+            </tr>
+        </table>
+
+        using (Html.BeginPager(Model.PageIndex, Model.PageSize, Model.RowCount))
+        {
+            <div>
+                <table id="SystemAPITable" class="tblzebra">
+                    <thead>
+                        <tr>
+                            @if (Model.IsITManager)
+                            {
+                                <th>@SysSystemAPI.Text_Detail</th>
+                            }
+                            <th>@SysSystemAPI.Text_APIPara</th>
+                            @if (Model.IsITManager)
+                            {
+                                <th>@SysSystemAPI.Text_APIAuthorize</th>
+                                <th>@SysSystemAPI.Text_APIClient</th>
+                            }
+                            <th>@SysSystemAPI.Label_APIGroupID</th>
+                            <th>@SysSystemAPI.Label_APIFunID</th>
+                            <th>@SysSystemAPI.Label_APIReturn</th>
+                            <th nowrap="nowrap">@SysSystemAPI.Label_APIParaDesc</th>
+                            <th>@SysSystemAPI.Label_APIReturnContent</th>
+                            <th>@SysSystemAPI.Label_IsDisable</th>
+                            <th nowrap="nowrap">@SysSystemAPI.Table_IsOutside</th>
+                            <th>@SysSystemAPI.Label_SortOrder</th>
+                            <th>@SysSystemAPI.Label_UpdUserNM</th>
+                            <th>@SysSystemAPI.Label_UpdDT</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.SystemAPIList != null)
+                        {
+                            string trClass = string.Empty;
+                            foreach (var row in Model.SystemAPIList)
+                            {
+                                <tr class="@trClass">
+                                    @if (Model.IsITManager)
+                                    {
+                                        <td data-th="@SysSystemAPI.Text_Detail：" nowrap="nowrap">
+                                            @Html.TextSubmitLink(
+                                                "Sys",
+                                                "SystemAPIDetail",
+                                                "LinkFunKeyDetail",
+                                                SysSystemAPI.Text_Detail,
+                                                new List<string>()
+                                                {
+                                                    Model.QuerySysID,
+                                                    row.APIGroupID,
+                                                    row.APIFunID
+                                                }
+                                                )
+                                        </td>
+                                    }
+                                    <td data-th="@SysSystemAPI.Text_APIPara：" nowrap="nowrap" class="center">
+                                        @Html.TextSubmitLink(
+                                            "Sys",
+                                            "SystemAPIPara",
+                                            "LinkFunKeyAPIPara",
+                                            SysSystemAPI.Text_APIPara,
+                                            new List<string>()
+                                            {
+                                                Model.QuerySysID,
+                                                row.APIGroupID,
+                                                row.APIFunID
+                                            }
+                                            )
+                                    </td>
+                                    @if (Model.IsITManager)
+                                    {
+                                        <td data-th="@SysSystemAPI.Text_APIAuthorize：" nowrap="nowrap" class="center">
+                                            @Html.TextSubmitLink(
+                                                "Sys",
+                                                "SystemAPIAuthorize",
+                                                "LinkFunKeyAuthorize",
+                                                SysSystemAPI.Text_APIAuthorize,
+                                                new List<string>()
+                                                {
+                                                    Model.QuerySysID,
+                                                    row.APIGroupID,
+                                                    row.APIFunID
+                                                }
+                                                )
+                                        </td>
+                                        <td data-th="@SysSystemAPI.Text_APIClient：" nowrap="nowrap" class="center">
+                                            @Html.TextSubmitLink(
+                                                "Sys",
+                                                "SystemAPIClient",
+                                                "LinkFunKeyAPIClient",
+                                                SysSystemAPI.Text_APIClient,
+                                                new List<string>()
+                                                {
+                                                    Model.QuerySysID,
+                                                    row.APIGroupID,
+                                                    row.APIFunID
+                                                }
+                                                )
+                                        </td>
+                                    }
+
+                                    <td data-th="@SysSystemAPI.Table_APIGroupNM：" nowrap="nowrap" title="@SysSystemAPI.Table_APIGroupNM">@row.APIGroupNM (@row.APIGroupID)</td>
+                                    <td data-th="@SysSystemAPI.Table_APIFunNM：" nowrap="nowrap" title="@SysSystemAPI.Table_APIFunNM">@row.APIFunNM (@row.APIFunID)</td>
+                                    <td data-th="@SysSystemAPI.Table_APIReturn：" nowrap="nowrap" title="@SysSystemAPI.Table_APIReturn">@Html.Raw(row.APIReturn)</td>
+                                    <td data-th="@SysSystemAPI.Table_APIParaDesc：" nowrap="nowrap" title="@SysSystemAPI.Table_APIParaDesc">@Html.Raw(row.APIParaDesc)</td>
+                                    <td data-th="@SysSystemAPI.Table_APIReturn：" nowrap="nowrap" title="@SysSystemAPI.Table_APIReturn">@Html.Raw(row.APIReturnContent)</td>
+                                    <td data-th="@SysSystemAPI.Table_IsDisable：" nowrap="nowrap" title="@SysSystemAPI.Table_IsDisable">
+                                        @if (row.IsDisable == EnumYN.Y.ToString())
+                                        {
+                                            @SysSystemAPI.Label_IsDisable
+                                        }
+                                    </td>
+                                    <td data-th="@SysSystemAPI.Table_IsOutside：" nowrap="nowrap" title="@SysSystemAPI.Table_IsOutside">
+                                        @if (row.IsOutside == EnumYN.Y.ToString())
+                                        {
+                                            @SysSystemAPI.Label_IsOutside
+                                        }
+                                    </td>
+                                    <td data-th="@SysSystemAPI.Table_SortOrder：" nowrap="nowrap" title="@SysSystemAPI.Table_SortOrder">@Html.Raw(row.SortOrder)</td>
+                                    <td data-th="@SysSystemAPI.Table_UpdUserNM：" nowrap="nowrap" title="@SysSystemAPI.Table_UpdUserNM">@Html.Raw(row.UpdUserNM)</td>
+                                    <td data-th="@SysSystemAPI.Table_UpdDT：" nowrap="nowrap" title="@SysSystemAPI.Table_UpdDT">@Common.GetDateTimeText(row.UpdDT)</td>
+                                </tr>
+
+                                trClass = string.IsNullOrWhiteSpace(trClass) ? "tr2" : string.Empty;
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+
+        if (Model.IsITManager)
+        {
+            <div>
+                @Html.ButtonSubmit("Sys", "SystemAPIDetail", "AddButton", Resource.Button_Add, className: "btn")
+            </div>
+        }
+    }
+}

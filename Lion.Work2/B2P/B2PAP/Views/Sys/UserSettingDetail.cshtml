@@ -1,0 +1,147 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity
+@using LionTech.Entity.B2P
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model B2PAP.Models.Sys.UserSettingDetailModel
+
+<script src="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Scripts/Sys/UserSettingDetail.js" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("UserSettingDetailForm"))
+{
+    using (Html.BeginTabs(B2PAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.TabList))
+    {
+        string textStyle = "block";
+        string readOnlyTextStyle = "none";
+        if (Model.ExecAction == EnumActionType.Update)
+        {
+            textStyle = "none";
+            readOnlyTextStyle = "block";
+        }
+
+        <table class="tblvertical">
+            <tr>
+                <th nowrap="nowrap" style="width: 7%;">
+                    @Html.FormLabel(SysUserSettingDetail.Label_UserID, IsRequired: true)
+                </th>
+                <td nowrap="nowrap" style="width: 43%;">
+                    <span style="display: @textStyle">
+                        @Html.InputTextBoxFor(model => model.UserID, ReadOnly: false, Size: 20, TitleName: SysUserSettingDetail.Label_UserID)
+                    </span>
+                    <span style="display: @readOnlyTextStyle">
+                        @Html.InputTextBox("UserIDReadOnlyText", Model.UserID, ReadOnly: true, Size: 30)
+                    </span>
+                </td>
+                <th nowrap="nowrap" style="width: 7%;">
+                    @Html.FormLabel(SysUserSettingDetail.Label_UpdInfor)
+                </th>
+                <td nowrap="nowrap" style="width: 43%;">
+                    <span style="display: @readOnlyTextStyle">
+                        @Html.InputTextBox("UpdUserIDReadOnlyText", Model.UpdInfor, ReadOnly: true, Size: 60)
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th nowrap="nowrap">
+                    @Html.FormLabel(SysUserSettingDetail.Label_UserNM, IsRequired: true)
+                </th>
+                <td nowrap="nowrap">
+                    @Html.InputTextBoxFor(model => model.UserNM, ReadOnly: false, Size: 15, TitleName: SysUserSettingDetail.Label_UserNM)
+                </td>
+                <th nowrap="nowrap">
+                    @Html.FormLabel(SysUserSettingDetail.Label_UserGender, IsRequired: true)
+                </th>
+                <td nowrap="nowrap">
+                    @{
+                        string radioMaleValue = Common.GetEnumDesc(B2PAP.Models.Sys.UserSettingDetailModel.EnumUserGender.Male);
+                        string radioFemaleValue = Common.GetEnumDesc(B2PAP.Models.Sys.UserSettingDetailModel.EnumUserGender.Female);
+                    }
+                    @Html.InputRadioButton("UserGender", SysUserSettingDetail.Radio_Male, radioMaleValue, isChecked: ((Model.UserGender == radioMaleValue) ? true : false))
+                    @Html.InputRadioButton("UserGender", SysUserSettingDetail.Radio_Female, radioFemaleValue, isChecked: ((Model.UserGender == radioFemaleValue) ? true : false))
+                </td>
+            </tr>
+            <tr>
+                <th nowrap="nowrap">
+                    @Html.FormLabel(SysUserSettingDetail.Label_UserPWD, IsRequired: (Model.ExecAction == EnumActionType.Add) ? true : false)
+                </th>
+                <td nowrap="nowrap">
+                    @Html.InputTextBox("UserPWD", string.Empty, Size: 20, inputType: EnumInputType.TextBoxPassword, ReadOnly: false, TitleName: SysUserSettingDetail.Label_UserPWD, IsRequired: (Model.ExecAction == EnumActionType.Add) ? true : false)
+                    <br/>
+                    <span style="color: blue; display: @readOnlyTextStyle">
+                        @SysUserSettingDetail.Label_UserPWDRemind
+                    </span>
+                </td>
+                <th nowrap="nowrap">
+
+                </th>
+                <td nowrap="nowrap">
+
+                </td>
+            </tr>
+            <tr>
+                <th nowrap="nowrap">
+                    @Html.FormLabel(SysUserSettingDetail.Label_UserTitle)
+                </th>
+                <td nowrap="nowrap">
+                    @Html.InputTextBoxFor(model => model.UserTitle, ReadOnly: false, Size: 20, TitleName: SysUserSettingDetail.Label_UserTitle)
+                </td>
+                <th nowrap="nowrap">
+                    @Html.FormLabel(SysUserSettingDetail.Label_AccountStatus)
+                </th>
+                <td nowrap="nowrap">
+                    @Html.InputCheckBox("IsDisable", SysUserSettingDetail.Label_IsDisable, EnumYN.Y.ToString(), (Model.IsDisable == EnumYN.Y.ToString()) ? true : false)
+                </td>
+            </tr>
+            <tr>
+                <th nowrap="nowrap">
+                    @Html.FormLabel(SysUserSettingDetail.Label_UserTel)
+                </th>
+                <td nowrap="nowrap">
+                    @Html.InputTextBoxFor(model => model.UserTel1, ReadOnly: false, Size: 30, TitleName: SysUserSettingDetail.Label_UserTel)
+                    @Html.InputTextBoxFor(model => model.UserTel2, ReadOnly: false, Size: 30, TitleName: SysUserSettingDetail.Label_UserTel)
+                </td>
+                <th nowrap="nowrap">
+                    @Html.FormLabel(SysUserSettingDetail.Label_Permission, IsRequired: true)
+                </th>
+                <td nowrap="nowrap">
+                    @Html.InputCheckBox("IsGrantor", SysUserSettingDetail.Label_IsGrantor, EnumYN.Y.ToString(), (Model.IsGrantor == EnumYN.Y.ToString()) ? true : false, isDisabled: (Model.EntitySystemUserDetail.IsGrantor.GetValue() == EnumYN.Y.ToString() ? false : true))
+                </td>
+            </tr>
+            <tr>
+                <th nowrap="nowrap">
+                    @Html.FormLabel(SysUserSettingDetail.Label_UserEmail, IsRequired: true)
+                </th>
+                <td nowrap="nowrap">
+                    @Html.InputTextBoxFor(model => model.UserEmail, ReadOnly: false, Size: 40, TitleName: SysUserSettingDetail.Label_UserEmail)
+                </td>
+                <th nowrap="nowrap">
+
+                </th>
+                <td nowrap="nowrap">
+
+                </td>
+            </tr>
+            <tr>
+                <th nowrap="nowrap">
+                    @Html.FormLabel(SysUserSettingDetail.Label_Remark)
+                </th>
+                <td nowrap="nowrap" colspan="3">
+                    @Html.InputTextAreaFor(model => model.Remark, 3, 80, TitleName: SysUserSettingDetail.Label_Remark, style: "width:99%;")
+                </td>
+            </tr>
+        </table>
+
+        <div>
+            @if (Model.ExecAction == EnumActionType.Add)
+            {
+                @Html.ButtonClient("AddButton", Resource.Button_Add, className: "btn")
+            }
+            @if (Model.ExecAction == EnumActionType.Update)
+            {
+                @Html.ButtonClient("UpdateButton", Resource.Button_Update, className: "btn")
+            }
+            @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+        </div>
+    }
+}

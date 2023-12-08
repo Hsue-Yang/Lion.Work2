@@ -1,0 +1,91 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity.B2P
+@using LionTech.Entity.B2P.Sys
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model B2PAP.Models.Sys.SystemPurviewModel
+
+<script src="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Scripts/Sys/SystemPurview.js" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemPurviewForm"))
+{
+    using (Html.BeginTabs(B2PAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.SysSystemTabList))
+    {
+        @Html.InputTextBox("SysID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("PurviewID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+
+        <table class="tblsearch">
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <th nowrap="nowrap">
+                                @Html.FormLabel(SysSystemPurview.Label_SysID, IsRequired: true)
+                            </th>
+                            <td nowrap="nowrap">
+                                @Html.InputComboBoxFor(model => model.QuerySysID, Model.GetDictionaryFormSelectItem(Model.EntitySysUserSystemSysIDList, true), isDisabled: false, TitleName: SysSystemPurview.Label_SysID)
+                            </td>
+                            <th nowrap="nowrap">
+                                @Html.FormLabel(SysSystemPurview.Label_Purview)
+                            </th>
+                            <td nowrap="nowrap" class="width">
+                                @Html.InputComboBoxFor(model => model.QueryPurviewID, Model.GetDictionaryFormSelectItem(Model.EntitySysSystemPurviewIDList, true), isDisabled: false)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td nowrap="nowrap" colspan="4" class="padding grey bordertop">
+                                @Html.ButtonClient("SelectButton", Resource.Button_Select, className: "btnSearch")
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        
+        using (Html.BeginPager(Model.PageIndex, Model.PageSize, Model.RowCount))
+        {
+            <table id="SystemPurviewTable" class="tblzebra">
+                <tr>
+                    <th style="width: 30px;">@SysSystemPurview.Text_Detail</th>
+                    <th>@SysSystemPurview.Table_SysNM</th>
+                    <th>@SysSystemPurview.Table_Purview</th>
+                    <th>@SysSystemPurview.Table_Remark</th>
+                    <th>@SysSystemPurview.Table_SortOrder</th>
+                    <th>@SysSystemPurview.Table_UpdUserNM</th>
+                    <th>@SysSystemPurview.Table_UpdDT</th>
+                </tr>
+                @if (Model.EntitySystemPurviewList != null)
+                {
+                    foreach (EntitySystemPurview.SystemPurview data in Model.EntitySystemPurviewList)
+                    {
+                        <tr>
+                            <td data-th="@SysSystemPurview.Text_Detail：" nowrap="nowrap" style="text-align:center;">
+                                @Html.TextSubmitLink(
+                                    "Sys",
+                                    "SystemPurviewDetail",
+                                    "LinkFunKey",
+                                    SysSystemPurview.Text_Detail,
+                                    new List<string>() {
+                                        data.SysID.GetValue(),
+                                        data.PurviewID.GetValue()
+                                    }
+                                )
+                            </td>
+                            <td data-th="@SysSystemPurview.Table_SysNM：" title="@SysSystemPurview.Table_SysNM">@Html.Raw(data.SysNM.HtmlValue())</td>
+                            <td data-th="@SysSystemPurview.Table_Purview：" title="@SysSystemPurview.Table_Purview">@Html.Raw(data.PurviewNM.HtmlValue())</td>
+                            <td data-th="@SysSystemPurview.Table_Remark：" title="@SysSystemPurview.Table_Remark">@Html.Raw(data.Remark.HtmlValue())</td>
+                            <td data-th="@SysSystemPurview.Table_SortOrder：" title="@SysSystemPurview.Table_SortOrder">@Html.Raw(data.SortOrder.HtmlValue())</td>
+                            <td data-th="@SysSystemPurview.Table_UpdUserNM：" title="@SysSystemPurview.Table_UpdUserNM">@Html.Raw(data.UpdUserNM.HtmlValue())</td>
+                            <td data-th="@SysSystemPurview.Table_UpdDT：" title="@SysSystemPurview.Table_UpdDT">@Html.Raw(data.UpdDT.HtmlValue())</td>
+                        </tr>
+                    }
+                }
+            </table>
+        }
+
+        <div>
+            @Html.ButtonSubmit("Sys", "SystemPurviewDetail", "AddButton", Resource.Button_Add, className: "btn")
+        </div>
+    }
+}

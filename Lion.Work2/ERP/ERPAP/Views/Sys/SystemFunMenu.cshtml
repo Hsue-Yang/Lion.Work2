@@ -1,0 +1,96 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemFunMenuModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemFunMenu.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemFunMenuForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.SysSystemTabList))
+    {
+        @Html.InputTextBox("SysID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("FunMenu", string.Empty, inputType: EnumInputType.TextBoxHidden)
+
+        <table class="tblsearch">
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <th style="width: 70px">
+                                @Html.FormLabel(SysSystemFunMenu.Label_SysID, IsRequired: true)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.QuerySysID, Model.GetDictionaryFormSelectItem(Model.UserSystemByIdList, true), isDisabled: false, TitleName: SysSystemFunMenu.Label_SysID)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                @Html.ButtonClient("SelectButton", Resource.Button_Select, className: "btnSearch")
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        
+        using (Html.BeginPager(Model.PageIndex, Model.PageSize, Model.RowCount))
+        {
+            <table id="SystemFunMenuTable" class="tblzebra">
+                <tr>
+                    <th style="width: 30px;">@SysSystemFunMenu.Text_Detail</th>
+                    <th>@SysSystemFunMenu.Table_SysNM</th>
+                    <th>@SysSystemFunMenu.Table_FunMenuNM</th>
+                    <th>@SysSystemFunMenu.Table_DefaultMenuID</th>
+                    <th>@SysSystemFunMenu.Table_IsDisable</th>
+                    <th>@SysSystemFunMenu.Table_SortOrder</th>
+                    <th>@SysSystemFunMenu.Table_UpdUserNM</th>
+                    <th>@SysSystemFunMenu.Table_UpdDT</th>
+                </tr>
+                @if (Model.SystemFunMenuList != null)
+                {
+                    string trClass = string.Empty;
+                    foreach (var row in Model.SystemFunMenuList)
+                    {
+                        <tr class="@trClass">
+                            <td data-th="@SysSystemFunMenu.Text_Detail：" class="center">
+                                @Html.TextSubmitLink(
+                                    "Sys",
+                                    "SystemFunMenuDetail",
+                                    "LinkFunKey",
+                                    SysSystemFunMenu.Text_Detail,
+                                    new List<string>() {
+                                        row.SysID,
+                                        row.FunMenu
+                                    }
+                                )
+                            </td>
+                            <td data-th="@SysSystemFunMenu.Table_SysNM："title="@SysSystemFunMenu.Table_SysNM">@Html.Raw(row.SysNM)</td>
+                            <td data-th="@SysSystemFunMenu.Table_FunMenuNM："title="@SysSystemFunMenu.Table_FunMenuNM">@row.FunMenuNM (@row.FunMenu)</td>
+                            <td data-th="@SysSystemFunMenu.Table_DefaultMenuID："title="@SysSystemFunMenu.Table_DefaultMenuID">@Html.Raw(row.DefaultMenuID)</td>
+                            <td data-th="@SysSystemFunMenu.Table_IsDisable："title="@SysSystemFunMenu.Table_IsDisable">@if (row.IsDisable == EnumYN.Y.ToString()) {@SysSystemFun.Label_Disable}</td>
+                            <td data-th="@SysSystemFunMenu.Table_SortOrder："title="@SysSystemFunMenu.Table_SortOrder">@Html.Raw(row.SortOrder)</td>
+                            <td data-th="@SysSystemFunMenu.Table_UpdUserNM："title="@SysSystemFunMenu.Table_UpdUserNM">@Html.Raw(row.UpdUserNM)</td>
+                            <td data-th="@SysSystemFunMenu.Table_UpdDT："title="@SysSystemFunMenu.Table_UpdDT">@Common.GetDateTimeText(row.UpdDT)</td>
+                        </tr>
+
+                        trClass = string.IsNullOrWhiteSpace(trClass) ? "tr2" : string.Empty;
+                    }
+                }
+            </table>
+        }
+
+        <div>
+            @Html.ButtonSubmit("Sys", "SystemFunMenuDetail", "AddButton", Resource.Button_Add, className: "btn")
+        </div>
+    }
+}

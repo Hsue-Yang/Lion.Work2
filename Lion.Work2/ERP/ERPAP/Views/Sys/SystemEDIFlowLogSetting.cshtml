@@ -1,0 +1,60 @@
+﻿@{ Layout = "~/Views/_Popup.cshtml"; }
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemEDIFlowLogSettingModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.datepicker.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery-ui-1.8.16.datepicker.min.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemEDIFlowLogSetting.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemEDIFlowLogSettingForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.SysEDIFlowLogSettingTabList))
+    {
+        <table class="tblvertical">
+            <tr>
+                <th style="width: 85px;">
+                    @Html.FormLabel(SysSystemEDIFlowLogSetting.Label_SysID)
+                    @Html.Hidden("SaveType", Model.SaveType)
+                </th>
+                <td>
+                    <span style="display: none">
+                        @Html.InputComboBoxFor(model => model.QuerySysID, Model.GetDictionaryFormSelectItem(Model.UserSystemByIdList, false), TitleName: SysSystemEDIFlowLogSetting.Label_SysID)
+                    </span>
+                    <span style="display: block">
+                        @Html.InputTextBox("SysIDReadOnlyText", string.Empty, ReadOnly: true, maximumLength: 20, Size: 30)
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th style="width: 75px;">
+                    @Html.FormLabel(SysSystemEDIFlowLog.Label_EDIFlowID, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputComboBox("QueryEDIFlowID", Model.QueryEDIFlowID, Model.GetDictionaryFormSelectItem(Model.EntitySysSystemEDIFlowList, false), isDisabled: false, TitleName: SysSystemEDIFlowLogSetting.Label_EDIFlowID)
+                </td>
+            </tr>
+            <tr>
+                <th style="width: 75px;">
+                    @Html.FormLabel(SysSystemEDIFlowLogSetting.Label_DataDate, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.DataDate, false, 50, TitleName: SysSystemEDIFlowLogSetting.Label_DataDate)
+                </td>
+            </tr>
+        </table>
+
+        <div>
+            @Html.ButtonClient("AddButton", Resource.Button_Add, className: "btn")
+            @Html.ButtonClient("CloseButton", Resource.Button_Close, className: "btn")
+        </div>
+    }
+}

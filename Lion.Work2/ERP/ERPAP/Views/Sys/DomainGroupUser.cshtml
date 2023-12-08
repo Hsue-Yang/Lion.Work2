@@ -1,0 +1,87 @@
+﻿@using LionTech.Entity.ERP
+@using LionTech.Entity.ERP.Sys
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.DomainGroupUserModel
+
+@{
+    Tabs tab = null;
+    string fullDateTimeNumber = Common.GetDateTimeString();
+    Layout = IsPost ? "~/Views/_Layout.cshtml" : "~/Views/_Popup.cshtml";
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/DomainGroupUser.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("DomainGroupUserForm"))
+{
+    if (IsPost)
+    {
+        tab = Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.TabList);
+    }
+    <table class="tblvertical">
+        <tr>
+            <th>
+                @Html.FormLabel(SysDomainGroupUser.Label_DomainName, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.DomainNM, true, Size: 30, TitleName: SysDomainGroupUser.Label_DomainName)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysDomainGroupUser.Label_DomainGroupID, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.DomainGroupNM, true, Size: 100, TitleName: SysDomainGroupUser.Label_DomainGroupID)
+            </td>
+        </tr>
+        @if (IsPost)
+        {
+            <tr>
+                <td colspan="2">
+                    @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+                </td>
+            </tr>
+        }
+    </table>
+    <table id="SelectDomainGroupUserTable" class="tblzebra">
+        <thead>
+        <tr>
+            <th>@SysDomainGroupUser.Text_UserIDNM</th>
+            @if (IsPost)
+            {
+                <th>@SysDomainGroupUser.Text_UserGroup</th>
+                <th>@SysDomainGroupUser.Text_UserPlace</th>
+                <th>@SysDomainGroupUser.Text_UserDept</th>
+                <th>@SysDomainGroupUser.Text_UserTeam</th>
+            }
+            <th>@SysDomainGroupUser.Text_DomainAccount</th>
+        </tr>
+        </thead>
+        <tbody>
+        @if (Model.EntityDomainGroupAccountList != null)
+        {
+            foreach (EntityDomainGroupUser.DomainGroupAccount data in Model.EntityDomainGroupAccountList)
+            {
+                <tr>
+                    <td data-th="@SysDomainGroupUser.Text_UserIDNM：" title="@SysDomainGroupUser.Text_UserIDNM">@Html.Raw(data.UserNM.HtmlValue())</td>
+                    @if (IsPost)
+                    {
+                        <td data-th="@SysDomainGroupUser.Text_UserGroup：" title="@SysDomainGroupUser.Text_UserGroup">@Html.Raw(data.UserGroup.HtmlValue())</td>
+                        <td data-th="@SysDomainGroupUser.Text_UserPlace：" title="@SysDomainGroupUser.Text_UserPlace">@Html.Raw(data.UserPlace.HtmlValue())</td>
+                        <td data-th="@SysDomainGroupUser.Text_UserDept：" title="@SysDomainGroupUser.Text_UserDept">@Html.Raw(data.UserDept.HtmlValue())</td>
+                        <td data-th="@SysDomainGroupUser.Text_UserTeam：" title="@SysDomainGroupUser.Text_UserTeam">@Html.Raw(data.UserTeam.HtmlValue())</td>
+                    }
+                    <td data-th="@SysDomainGroupUser.Text_DomainAccount：" title="@SysDomainGroupUser.Text_DomainAccount">@Html.Raw(data.DomainAccount.HtmlValue())</td>
+                </tr>
+            }
+        }
+        </tbody>
+    </table>
+
+    if (tab != null)
+    {
+        tab.Dispose();
+    }
+}

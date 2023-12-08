@@ -1,0 +1,114 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Utility.ERP
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemEventGroupDetailModel
+
+@{
+    string editionNo = ViewData[EnumViewDataItem.EditionNo.ToString()].ToString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemEventGroupDetail.js?@(editionNo)" type="text/javascript"></script>
+
+<div class="page-title"><h3>@SysSystemEventGroupDetail.TabText_SystemEventGroupDetail</h3></div>
+@using (Html.BeginFormSubmit("SystemEventGroupDetailForm"))
+{
+    bool readOnlyAttribute = Model.ExecAction == EnumActionType.Update || Model.ExecAction == EnumActionType.Delete;
+
+    <table class="tblvertical">
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemEventGroupDetail.Label_SysID, IsRequired: true)
+            </th>
+            <td>
+                <span style="display: none">
+                    @Html.InputComboBoxFor(model => model.SysID, Model.GetDictionaryFormSelectItem(Model.UserSystemByIdList, false), isDisabled: false, TitleName: SysSystemEventGroupDetail.Label_SysID)
+                </span>
+                <span style="display: block">
+                    @Html.InputTextBox("SysIDReadOnlyText", string.Empty, ReadOnly: true, Size: 30)
+                </span>
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemEventGroupDetail.Label_EventGroupID, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.EventGroupID, ReadOnly: readOnlyAttribute, Size: 30, TitleName: SysSystemEventGroupDetail.Label_EventGroupID)
+            </td>
+            <th>
+
+            </th>
+            <td></td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemEventGroupDetail.Label_EventGroupZHTW, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.EventGroupZHTW, false, 30, TitleName: SysSystemEventGroupDetail.Label_EventGroupZHTW)
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemEventGroupDetail.Label_EventGroupZHCN, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.EventGroupZHCN, false, 30, TitleName: SysSystemEventGroupDetail.Label_EventGroupZHCN)
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemEventGroupDetail.Label_EventGroupENUS, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.EventGroupENUS, false, 30, TitleName: SysSystemEventGroupDetail.Label_EventGroupENUS)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemEventGroupDetail.Label_EventGroupTHTH, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.EventGroupTHTH, false, 30, TitleName: SysSystemEventGroupDetail.Label_EventGroupTHTH)
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemEventGroupDetail.Label_EventGroupJAJP, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.EventGroupJAJP, false, 30, TitleName: SysSystemEventGroupDetail.Label_EventGroupJAJP)
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemEventGroupDetail.Label_EventGroupKOKR, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.EventGroupKOKR, false, 30, TitleName: SysSystemEventGroupDetail.Label_EventGroupKOKR)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemEventGroupDetail.Label_SortOrder)
+            </th>
+            <td colspan="5">
+                @Html.InputTextBoxFor(model => model.SortOrder, false, 30, TitleName: SysSystemEventGroupDetail.Label_SortOrder)
+            </td>
+        </tr>
+    </table>
+
+    <div>
+        @if (Model.ExecAction == EnumActionType.Add)
+        {
+            @Html.ButtonClient("AddButton", Resource.Button_Add, className: "btn")
+        }
+        @if (Model.ExecAction == EnumActionType.Update ||
+             Model.ExecAction == EnumActionType.Delete)
+        {
+            @Html.ButtonClient("UpdateButton", Resource.Button_Update, className: "btn")
+            <span></span>
+            @Html.ButtonClient("DeleteButton", Resource.Button_Delete, className: "btn")
+        }
+        @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+    </div>
+
+    using (Html.BeginConfirmDialog("dialog_Confirm", Resource.SysMsg_Title, Resource.SysMsg_DeleteConfirm))
+    {
+        @Html.ButtonClient("ConfirmOKButton", Resource.Button_Delete)
+        @Html.ButtonClient("ConfirmNOButton", Resource.Button_Cancel)
+    }
+}

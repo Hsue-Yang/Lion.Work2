@@ -1,0 +1,115 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity.ERP
+@using LionTech.Entity.ERP.Sys
+@using LionTech.Utility
+@using LionTech.Utility.ERP
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemRoleGroupModel
+
+@{
+    string editionNo = ViewData[EnumViewDataItem.EditionNo.ToString()].ToString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemRoleGroup.js?@(editionNo)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemRoleGroupForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.TabList))
+    {
+        @Html.InputTextBox("RoleGroupID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("QueryRoleGroupID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+                                           
+        <table style="margin-bottom: 10px; border-bottom: 1px solid #C0C0C0;">
+            @*<tr>
+                <td nowrap="nowrap" style="background-color:#EFEFEF">
+                    @Html.FormLabel(SysSystemRoleGroup.Label_SysID, IsRequired: true)
+                </td>
+                <td nowrap="nowrap">
+                    @Html.InputComboBoxFor(model => model.QuerySysID, Model.GetDictionaryFormSelectItem(Model.EntitySysUserSystemSysIDList, false), isDisabled: false, TitleName: SysSystemRoleGroup.Label_SysID)
+                </td>
+                <td nowrap="nowrap" style="background-color:#EFEFEF">
+                    @Html.FormLabel(SysSystemRoleGroup.Label_EDIFlowID)
+                </td>
+                <td nowrap="nowrap">
+                    @Html.InputComboBox("QueryEDIFlowID", Model.QueryEDIFlowID, Model.GetDictionaryFormSelectItem(Model.EntitySysSystemEDIFlowList, true), isDisabled: false, TitleName: SysSystemRoleGroup.Label_EDIFlowID)
+
+                </td>
+                <td nowrap="nowrap">
+                    @Html.ButtonSubmit("Sys", "SystemRoleGroup", "SearchButton", Resource.Button_Select)
+                </td>
+                <td nowrap="nowrap" style="width:100%"></td>
+            </tr>*@
+        </table>
+
+        <table id="SystemRoleGroupTable" class="tblzebra">
+            <tr>
+                <th style="width: 50px;">@SysSystemRoleGroup.Text_Detail</th>
+                <th style="width: 50px;">@SysSystemRoleGroup.Text_Collect</th>
+
+                <th>@SysSystemRoleGroup.Label_RoleGroupID</th>
+                <th>@SysSystemRoleGroup.Label_RoleGroupNM</th>
+                <th>@SysSystemRoleGroup.Label_Remark</th>
+                <th>@SysSystemRoleGroup.Label_SortOrder</th>
+                <th>@SysSystemRoleGroup.Label_UpdUserID</th>
+                <th>@SysSystemRoleGroup.Label_UpdDT</th>
+            </tr>
+            @if (Model.EntitySystemRoleGroupList != null)
+            {
+                string trClass = string.Empty;
+                string rowListNM = string.Empty;
+                EntitySystemRoleGroup.SystemRoleGroup data = new EntitySystemRoleGroup.SystemRoleGroup();
+                for (int rowCount = 0; rowCount < Model.EntitySystemRoleGroupList.Count; rowCount++)
+                {
+                    data = Model.EntitySystemRoleGroupList[rowCount];
+                    rowListNM = "RoleGroupValueList[" + rowCount + "]";
+                    <tr class="@trClass">
+                        <td data-th="@SysSystemRoleGroup.Text_Detail：" class="center">
+                            @Html.TextSubmitLink(
+                                "Sys",
+                                "SystemRoleGroupDetail",
+                                "LinkFunKeyDetail",
+                                SysSystemRoleGroup.Text_Detail,
+                                new List<string>()
+                                {
+                                    data.RoleGroupID.GetValue()
+                                }
+                                )
+                        </td>
+                        <td data-th="@SysSystemRoleGroup.Text_Collect：" class="center">
+                            @Html.TextSubmitLink(
+                                "Sys",
+                                "SystemRoleGroupCollect",
+                                "LinkFunKeyCollect",
+                                SysSystemRoleGroup.Text_Collect,
+                                new List<string>()
+                                {
+                                    data.RoleGroupID.GetValue()
+                                }
+                                )
+                        </td>
+                        <td data-th="@SysSystemRoleGroup.Table_RoleGroupID：" title="@SysSystemRoleGroup.Table_RoleGroupID">@Html.Raw(data.RoleGroupID.HtmlValue())</td>
+                        <td data-th="@SysSystemRoleGroup.Table_RoleGroupNM：" title="@SysSystemRoleGroup.Table_RoleGroupNM">@Html.Raw(data.RoleGroupNM.HtmlValue())</td>
+                        <td data-th="@SysSystemRoleGroup.Table_Remark：" title="@SysSystemRoleGroup.Table_Remark">@Html.Raw(data.Remark.HtmlValue())</td>
+                        <td data-th="@SysSystemRoleGroup.Table_SortOrder：" title="@SysSystemRoleGroup.Table_SortOrder">@Html.Raw(data.SortOrder.HtmlValue())</td>
+                        <td data-th="@SysSystemRoleGroup.Table_UpdUserID：" title="@SysSystemRoleGroup.Table_UpdUserID">@Html.Raw(data.UpdUserNM.HtmlValue())</td>
+                        <td data-th="@SysSystemRoleGroup.Table_UpdDT：" title="@SysSystemRoleGroup.Table_UpdDT">@Html.Raw(data.UpdDt.HtmlValue())</td>
+                    </tr>
+
+                    if (string.IsNullOrWhiteSpace(trClass))
+                    {
+                        trClass = "tr2";
+                    }
+                    else
+                    {
+                        trClass = string.Empty;
+                    }
+                }
+            }
+        </table>
+
+        <div>
+            @Html.ButtonSubmit("Sys", "SystemRoleGroupDetail", "AddButton", Resource.Button_Add, className: "btn")
+        </div>
+    }
+}

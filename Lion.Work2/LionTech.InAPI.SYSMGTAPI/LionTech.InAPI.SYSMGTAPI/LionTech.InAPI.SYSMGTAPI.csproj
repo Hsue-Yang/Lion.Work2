@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LionTech.InAPI.SYSMGTAPI.DataAccess\LionTech.InAPI.SYSMGTAPI.DataAccess.csproj" />
+    <ProjectReference Include="..\LionTech.InAPI.SYSMGTAPI.Domain\LionTech.InAPI.SYSMGTAPI.Domain.csproj" />
+    <ProjectReference Include="..\LionTech.InAPI.SYSMGTAPI.Service\LionTech.InAPI.SYSMGTAPI.Service.csproj" />   
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="LionTech.AspNetCore.InApi" Version="6.23.5.1-beta" />
+  </ItemGroup>
+
+</Project>

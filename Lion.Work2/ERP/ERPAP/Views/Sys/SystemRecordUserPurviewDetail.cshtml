@@ -1,0 +1,64 @@
+﻿@using System.Web
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemRecordModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+    Layout = "~/Views/_Popup.cshtml";
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemRecordUserPurviewDetail.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemRecordUserPurviewDetailForm"))
+{
+    <table width="100%" class="tblvertical">
+        <tr>
+            <th style="width: 20%">
+                @SysSystemRecord.Label_SysID
+            </th>
+            <td style="width: 30%">
+                @(HttpUtility.UrlDecode(Model.SysID))
+            </td>
+            <th>
+                @SysSystemRecord.Label_UserID
+            </th>
+            <td>
+                @(HttpUtility.UrlDecode(Model.UserID))
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @SysSystemRecord.Label_DataAuthSet
+            </th>
+            <td colspan="3">
+                <div class="advancedFilter">
+                    <div class="filterHd">
+                        <span class="ico-href"><i class="icon-angle-right"></i></span>@(HttpUtility.UrlDecode(Model.PurviewID))
+                    </div>
+                    <div class="filterCont">
+                        <ul>
+                            <li style="height: 57px;" class="flod_open">
+                                <span class="item">@SysUserPurviewDetail.Label_Unit</span>
+                                @Model.UnitCode
+                            </li>
+                            <li style="height: 100%;">
+                                <span class="item">@SysUserPurviewDetail.Label_Comp</span>
+                                @Model.CompCode
+                            </li>
+                            <li style="height: 100%;">
+                                <span class="item">@SysUserPurviewDetail.Lable_Country</span>
+                                @Model.CountryCode
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <div id="ButtonBox" class="text-right">
+        @Html.ButtonClient("CloseButton", Resource.Button_Close, "btn")
+    </div>
+}

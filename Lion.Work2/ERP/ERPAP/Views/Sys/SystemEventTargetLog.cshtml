@@ -1,0 +1,42 @@
+﻿@{ Layout = "~/Views/_Popup.cshtml"; }
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Utility.ERP
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemEventTargetLogModel
+
+@{
+    string editionNo = ViewData[EnumViewDataItem.EditionNo.ToString()].ToString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemEventTargetLog.js?@(editionNo)" type="text/javascript"></script>
+
+<div class="page-title"><h3>@SysSystemEventTargetLog.TabText_SystemEventTargetLog</h3></div>
+@using (Html.BeginFormSubmit("SystemEventTargetLogForm"))
+{
+    <table class="tblvertical">
+        <tr>
+            <th nowrap="nowrap" style="width: 75px;">
+                @Html.FormLabel(SysSystemEventTargetLog.Label_EDIFilePath)
+            </th>
+            <td nowrap="nowrap">
+                @Html.InputTextBox("EDIFilePathReadOnlyText", Model.EDIFilePath, ReadOnly: true, Size: 50)
+            </td>
+        </tr>
+        <tr>
+            <td nowrap="nowrap" colspan="2" class="padding grey bordertop">
+                @Html.ButtonClient("CloseButton", Resource.Button_Close, className: "btn")
+            </td>
+        </tr>
+    </table>
+
+    <div style="margin: 10px">
+        <pre>
+             @if (string.IsNullOrWhiteSpace(Model.EDIFile) == false)
+              {
+                 @Model.EDIFile
+              }
+        </pre>
+    </div>
+}

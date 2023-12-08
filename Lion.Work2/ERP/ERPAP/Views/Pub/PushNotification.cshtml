@@ -1,0 +1,206 @@
+﻿@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using ERPAP.Models.Pub
+@using LionTech.Entity
+@using LionTech.Web.ERPHelper
+@using Resources
+@model PushNotificationModel
+@{
+    Layout = "~/Views/_Layout.cshtml";
+    string fullDateTimeNumber = Common.GetDateTimeString();
+    int rowCount = 0;
+}
+
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.datepicker.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Pub/PushNotification.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+@using (Html.BeginFormSubmit("PushNotificationForm"))
+{
+    <div class="page-title">
+        <h3>
+            @PubPushNotification.Label_PushNotification
+        </h3>
+    </div>
+
+    <table class="tblsearch">
+        <tr>
+            <td>
+                <table>
+                    <tr>
+                        <th>
+                            @Html.FormLabel(PubPushNotification.Label_UserID)
+                        </th>
+                        <td>
+                            @Html.InputTextBoxFor(model => model.UserID)
+                            @Html.ButtonClient("Help03Button", "?", className: "qmark")
+                        </td>
+                        <th>
+                            @Html.FormLabel(PubPushNotification.Label_AppFunID)
+                        </th>
+                        <td>
+                            @Html.InputComboBoxFor(model => model.AppFunID, Model.AppFunTypeDictionary)
+                        </td>
+                        <th>
+                            @Html.FormLabel(PubPushNotification.Label_Title)
+                        </th>
+                        <td>
+                            @Html.InputTextBoxFor(model => model.Title)
+                        </td>
+                        <th>
+                            @Html.FormLabel(PubPushNotification.Label_Body)
+                        </th>
+                        <td>
+                            @Html.InputTextBoxFor(model => model.Body)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            @Html.FormLabel(PubPushNotification.Label_StartPushDT)
+                        </th>
+                        <td>
+                            @Html.InputTextBoxFor(model => model.StartPushDT, TitleName: PubPushNotification.Label_StartPushDT)
+                        </td>
+                        <th>
+                            @Html.FormLabel(PubPushNotification.Label_EndPushDT)
+                        </th>
+                        <td>
+                            @Html.InputTextBoxFor(model => model.EndPushDT, TitleName: PubPushNotification.Label_EndPushDT)
+                        </td>
+                        <th>
+                            @Html.FormLabel(PubPushNotification.Label_PushStatus)
+                        </th>
+                        <td>
+                            @Html.InputComboBoxFor(model => model.PushStatus, Model.PushStatusDictionary)
+                        </td>
+                        <th>
+                            @Html.InputCheckBox("IncludeUnSent", PubPushNotification.Label_IncludeUnSent, EnumYN.Y.ToString(), Model.IncludeUnSent == EnumYN.Y.ToString())
+                        </th>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            @Html.ButtonClient("SelectButton", Resource.Button_Select, "btnSearch")
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    using (Html.BeginPager(Model.PageIndex, Model.PageSize, Model.RowCount))
+    {
+        <table id="PushNotificationTable" class="tblzebra">
+            <thead>
+            <tr>
+                <th style="width: 40px;">
+                    @PubPushNotification.Table_Cancel
+                </th>
+                <th style="width: 90px;">
+                    @PubPushNotification.Tabel_UserID
+                </th>
+                <th style="width: 80px;">
+                    @PubPushNotification.Table_MobileID
+                </th>
+                <th style="width: 80px;">
+                    @PubPushNotification.Table_AppFunID
+                </th>
+                <th style="width: 40px;">
+                    @PubPushNotification.Table_Statues
+                </th>
+                <th>
+                    @PubPushNotification.Table_PushDateTime
+                </th>
+                <th>
+                    @PubPushNotification.Table_Title
+                </th>
+                <th>
+                    @PubPushNotification.Table_Body
+                </th>
+                <th>
+                    @PubPushNotification.Table_ExecSys
+                </th>
+                <th>
+                    @PubPushNotification.Table_IsOpenPush
+                </th>
+                <th>
+                    @PubPushNotification.Table_UpdDT
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            @if (Model.PushNotificationList != null &&
+                 Model.PushNotificationList.Any())
+            {
+                foreach (var push in Model.PushNotificationList)
+                {
+                    <tr>
+                        <td data-th="@PubPushNotification.Table_Cancel：">
+                            @if (push.PushSts.IsNull())
+                            {
+                                @Html.InputCheckBox("CancelPushMsgList", string.Empty, string.Format("{0}|{1}", push.MessageID.GetValue(), push.UserID.GetValue()), false)
+                            }
+                        </td>
+                        <td data-th="@PubPushNotification.Tabel_UserID：">
+                            @push.UserIDNM.GetValue()
+                        </td>
+                        <td data-th="@PubPushNotification.Table_MobileID：">
+                            @push.MobileType.GetValue()
+                        </td>
+                        <td data-th="@PubPushNotification.Table_AppFunID：">
+                            @Model.AppFunTypeDictionary[push.AppFunID.GetValue()]
+                        </td>
+                        <td data-th="@PubPushNotification.Table_Statues：">
+                            @if (push.PushSts.IsNull() == false)
+                            {
+                                if (push.PushSts.GetValue() == PushNotificationModel.EnumAppServicePushStatus.E.ToString())
+                                {
+                                    @Html.TextClientLink(
+                                        "PushErrorMsgButton",
+                                        Model.PushStatusDictionary[push.PushSts.GetValue()],
+                                        new List<string>
+                                        {
+                                            push.MessageID.GetValue(),
+                                            push.UserID.GetValue(),
+                                            push.AppUUID.GetValue()
+                                        }
+                                        )
+                                }
+                                else
+                                {
+                                    @Model.PushStatusDictionary[push.PushSts.GetValue()]
+                                }
+                            }
+                        </td>
+                        <td data-th="@PubPushNotification.Table_PushDateTime：">
+                            @if (push.PushDT.IsNull() == false)
+                            {
+                                @push.PushDT.GetFormattedValue(Common.EnumDateTimeFormatted.FullDateForSeconds)
+                            }
+                        </td>
+                        <td data-th="@PubPushNotification.Table_Title：">
+                            @push.Title.GetValue()
+                        </td>
+                        <td data-th="@PubPushNotification.Table_Body：">
+                            @push.Body.GetValue()
+                        </td>
+                        <td data-th="@PubPushNotification.Table_ExecSys：">
+                            @string.Format("{0} ({1})", push.ExecSysNM.GetValue(), push.ExecSysID.GetValue())
+                        </td>
+                        <td data-th="@PubPushNotification.Table_IsOpenPush：">
+                            @push.IsOpenPush.GetValue()
+                        </td>
+                        <td data-th="@PubPushNotification.Table_UpdDT：">
+                            @push.UpdDT.GetFormattedValue(Common.EnumDateTimeFormatted.FullDateForSeconds)
+                        </td>
+                    </tr>
+                    rowCount++;
+                }
+            }
+            </tbody>
+        </table>
+    }
+    <div>
+        @Html.ButtonSubmit("Pub", "PushNotificationDetail", "AddButton", Resource.Button_Add, "btn")
+        @Html.ButtonSubmit("Pub", "PushNotification", "CancelPushMsgButton", PubPushNotification.Label_CancelPushMsg, "btn")
+    </div>
+}

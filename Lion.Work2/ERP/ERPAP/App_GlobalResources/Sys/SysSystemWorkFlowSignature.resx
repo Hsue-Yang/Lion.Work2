@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Label_SysID" xml:space="preserve">
+    <value>應用系統</value>
+  </data>
+  <data name="Label_UpdDT" xml:space="preserve">
+    <value>更新時間</value>
+  </data>
+  <data name="Label_UpdUserNM" xml:space="preserve">
+    <value>更新人員</value>
+  </data>
+  <data name="Label_WFFlowID" xml:space="preserve">
+    <value>工作流程</value>
+  </data>
+  <data name="Label_WorkFlowNodeID" xml:space="preserve">
+    <value>工作流程節點代碼</value>
+  </data>
+  <data name="SystemMsg_GetSysSystemWorkFlowGroupIDList" xml:space="preserve">
+    <value>無法取得工作流程群組列表</value>
+  </data>
+  <data name="SystemMsg_GetSysSystemWorkFlowNodeIDList" xml:space="preserve">
+    <value>無法取得工作流程節點列表</value>
+  </data>
+  <data name="SystemMsg_GetSysUserSystemSysIDList" xml:space="preserve">
+    <value>無法取得員工應用系統列表</value>
+  </data>
+  <data name="SystemMsg_GetSysUserSystemWorkFlowIDList" xml:space="preserve">
+    <value>無法取得工作流程列表</value>
+  </data>
+  <data name="Text_Detail" xml:space="preserve">
+    <value>明細</value>
+  </data>
+  <data name="Label_WFGroupID" xml:space="preserve">
+    <value>工作流程群組</value>
+  </data>
+  <data name="Label_WorkFlowSignSequence" xml:space="preserve">
+    <value>簽核點</value>
+  </data>
+  <data name="Label_WorkFlowVer" xml:space="preserve">
+    <value>工作流程版本</value>
+  </data>
+  <data name="SystemMsg_GetSystemWorkFlowSignatureList" xml:space="preserve">
+    <value>取得工作流程簽核檔失敗</value>
+  </data>
+  <data name="Label_WorkFlowNode" xml:space="preserve">
+    <value>工作流程節點</value>
+  </data>
+  <data name="Label_WorkFlowSigStep" xml:space="preserve">
+    <value>簽核關卡</value>
+  </data>
+  <data name="SystemMsg_GetSysSystemWFNode" xml:space="preserve">
+    <value>取得工作流程節點檔失敗</value>
+  </data>
+  <data name="EditWFNodeDetail_Failure" xml:space="preserve">
+    <value>節點明細修改失敗</value>
+  </data>
+  <data name="EditWFNodeDetail_Success" xml:space="preserve">
+    <value>節點明細修改成功</value>
+  </data>
+  <data name="Label_FunActionName" xml:space="preserve">
+    <value>功能名稱</value>
+  </data>
+  <data name="Label_FunControllerID" xml:space="preserve">
+    <value>功能群組</value>
+  </data>
+  <data name="Label_FunSysID" xml:space="preserve">
+    <value>功能應用系統</value>
+  </data>
+  <data name="Label_SigMemo" xml:space="preserve">
+    <value>＊若要動態設定簽核關卡請提供API所在位置以供流程判斷，例如第三關{"SigStep":3}</value>
+  </data>
+  <data name="SystemMsg_GetSysSystemAPIFuntionList" xml:space="preserve">
+    <value>無法取得API功能列表</value>
+  </data>
+  <data name="SystemMsg_GetSysSystemAPIGroupList" xml:space="preserve">
+    <value>無法取得API群組列表</value>
+  </data>
+  <data name="Label_IsSigNextNode" xml:space="preserve">
+    <value>完成簽核自動移至下一節點</value>
+  </data>
+  <data name="Label_FunActionName1" xml:space="preserve">
+    <value>功能名稱</value>
+  </data>
+  <data name="Label_FunControllerID1" xml:space="preserve">
+    <value>功能群組</value>
+  </data>
+  <data name="Label_FunSysID1" xml:space="preserve">
+    <value>功能應用系統</value>
+  </data>
+  <data name="Label_SigRole" xml:space="preserve">
+    <value>角色</value>
+  </data>
+  <data name="Label_SigAPIMemo" xml:space="preserve">
+    <value>＊API參數：?ClientSysID=&amp;APIPara={"WFNo":"","NodeNo":"","UserID":"","SysID":"","FlowID":"","FlowVer":"","NodeID":""}&lt;br /&gt;
+　回傳結果：{"SigStep":""}</value>
+  </data>
+  <data name="Label_ChkAPI" xml:space="preserve">
+    <value>驗證簽核人員API</value>
+  </data>
+  <data name="Label_ChkAPIMemo" xml:space="preserve">
+    <value>＊API參數：?ClientSysID=&amp;APIPara={"WFNo":"","NodeNo":"","UserID":"","SysID":"","FlowID":"","FlowVer":"","NodeID":"","SigUserIDList":[{"SigStep":"","SigSeq":"","SigUserID",""}]}&lt;br /&gt;
+　回傳結果：{"Result":"", "Message":""} Result=Y/N</value>
+  </data>
+  <data name="Label_ChkMemo" xml:space="preserve">
+    <value>＊若要驗證人員輸入是否正確請提供API所在位置以供流程判斷。</value>
+  </data>
+  <data name="Label_SigAPI" xml:space="preserve">
+    <value>動態設定簽核關卡數</value>
+  </data>
+  <data name="JsMsg_GetSysSystemAPIFunList" xml:space="preserve">
+    <value>無法取得API功能列表</value>
+  </data>
+  <data name="JsMsg_GetSysSystemAPIGroupList" xml:space="preserve">
+    <value>無法取得API群組列表</value>
+  </data>
+  <data name="Label_SigTypeNM" xml:space="preserve">
+    <value>簽核人員類型</value>
+  </data>
+  <data name="Label_IsSigBackNode" xml:space="preserve">
+    <value>簽核退回自動退回節點</value>
+  </data>
+  <data name="Label_IsSigBackNodeMemo" xml:space="preserve">
+    <value>＊若要[簽核退回自動退回節點]：必須確認頁籤[工作流程節點明細] &gt; 退回節點，自動退回此節點。</value>
+  </data>
+  <data name="Label_SigMemoDescription" xml:space="preserve">
+    <value>簽核說明</value>
+  </data>
+  <data name="Label_SigMemo_en_US" xml:space="preserve">
+    <value>英文</value>
+  </data>
+  <data name="Label_SigMemo_ja_JP" xml:space="preserve">
+    <value>日文</value>
+  </data>
+  <data name="Label_SigMemo_th_TH" xml:space="preserve">
+    <value>泰文</value>
+  </data>
+  <data name="Label_SigMemo_zh_CN" xml:space="preserve">
+    <value>簡體</value>
+  </data>
+  <data name="Label_SigMemo_zh_TW" xml:space="preserve">
+    <value>繁體</value>
+  </data>
+  <data name="Label_SigMemo_ko_KR" xml:space="preserve">
+    <value>韓文</value>
+  </data>
+</root>

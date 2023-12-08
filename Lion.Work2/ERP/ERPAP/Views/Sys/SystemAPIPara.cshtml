@@ -1,0 +1,65 @@
+﻿@{ Layout = "~/Views/_Popup.cshtml"; }
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Utility.ERP
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemAPIParaModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemAPIPara.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+<div class="page-title"><h3>@SysSystemAPIPara.TabText_SystemAPIPara</h3></div>
+@using (Html.BeginFormSubmit("SystemAPIParaForm"))
+{
+    <table class="tblvertical">
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemAPIPara.Label_SysID)
+            </th>
+            <td>
+                @Html.InputTextBox("SysIDReadOnlyText", Model.SysSystemAPIFullName.SysNM, ReadOnly: true, maximumLength: 200, Size: 30)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemAPIPara.Label_APIGroupID)
+            </th>
+            <td>
+                @Html.InputTextBox("APIGroupIDReadOnlyText", Model.SysSystemAPIFullName.APIGroupNM, ReadOnly: true, maximumLength: 200, Size: 50)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemAPIPara.Label_APIFunID)
+            </th>
+            <td>
+                @Html.InputTextBox("APIFunIDReadOnlyText", Model.SysSystemAPIFullName.APIFunNM, ReadOnly: true, maximumLength: 200, Size: 100)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ButtonClient("CloseButton", Resource.Button_Close, className: "btn")
+            </td>
+        </tr>
+    </table>
+
+    <div style="margin: 10px">
+        <span style="color: Blue;">@Html.FormLabel(SysSystemAPIPara.Label_APIReturn)</span><br />
+        <span style="display: none">
+            @Html.InputComboBoxFor(model => model.APIReturn, Model.CMCodeLists.ToDictionary(p => p.CodeID, p => p.CodeNM), TitleName: SysSystemAPIPara.Label_APIReturn)
+        </span>
+        <span style="display: block">
+            @Html.InputTextBox("APIReturnReadOnlyText", string.Empty, ReadOnly: true, maximumLength: 200, Size: 50)
+        </span>
+
+        <br /><br />
+        <span style="color: Blue;">@Html.FormLabel(SysSystemAPIPara.Label_APIPara)</span>
+        <pre style="white-space: pre-wrap; margin: 0;">@Html.Raw(PublicFun.GetFormattedRequestString(Model.APIPara))</pre>
+    </div>
+}

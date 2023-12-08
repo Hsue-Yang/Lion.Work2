@@ -1,0 +1,181 @@
+﻿@{ Layout = "~/Views/_Popup.cshtml"; }
+@using LionTech.Entity.ERP
+@using LionTech.Entity.ERP.Sys
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemEDIParaModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemEDIPara.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemEDIParaForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.SysEDIParaTabList))
+    {
+        <table class="tblvertical">
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemEDIPara.Label_SysID, IsRequired: true)
+                </th>
+                <td>
+                    <span style="display: none">
+                        @Html.InputComboBoxFor(model => Model.QuerySysID, Model.GetDictionaryFormSelectItem(Model.EntitySystemSysIDList, false), TitleName: SysSystemEDIPara.Label_SysID)
+                    </span>
+                    <span style="display: block">
+                        @Html.InputTextBox("SysIDReadOnlyText", string.Empty, ReadOnly: true, maximumLength: 200, Size: 30)
+                    </span>
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemEDIPara.Label_EDIFlowID, IsRequired: true)
+                </th>
+                <td>
+                    <span style="display: block">
+                        @Html.InputTextBoxFor(model => model.QueryEDIFlowID, true, 30, TitleName: SysSystemEDIPara.Label_EDIFlowID)
+                    </span>
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemEDIPara.Label_EDIJobID, IsRequired: true)
+                </th>
+                <td>
+                    <span style="display: block">
+                        @Html.InputTextBoxFor(model => model.QueryEDIJobID, true, 30, TitleName: SysSystemEDIPara.Label_EDIJobID)
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemEDIPara.Label_EDIParaID, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.EDIParaID, false, 30, TitleName: SysSystemEDIPara.Label_EDIParaID)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemEDIPara.Label_EDIParaType, IsRequired: true)
+                </th>
+                <td colspan="3">
+                    @Html.InputComboBoxFor(model => model.EDIParaType, Model.GetDictionaryFormSelectItem(Model.CMCodeLists.ToDictionary(p => p.CodeID, p => p.CodeNM), false), TitleName: SysSystemEDIPara.Label_EDIParaType)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemEDIPara.Label_EDIParaValue)
+                </th>
+                <td colspan="5">
+                    @Html.InputTextBoxFor(model => model.EDIParaValue, false, 300, TitleName: SysSystemEDIPara.Label_EDIParaValue)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemEDIPara.Label_SortOrder)
+                </th>
+                <td colspan="5">
+                    @Html.InputTextBoxFor(model => model.SortOrder, false, 6, TitleName: SysSystemEDIPara.Label_SortOrder)
+                </td>
+            </tr>
+        </table>
+        <div class="text-left">
+            @Html.ButtonClient("AddButton", Resource.Button_Add, className: "btn")
+        </div>
+
+        <table id="SystemEDIParaTable" class="tblzebra" cellspacing="0">
+            <tr>
+                <th nowrap="nowrap" style="width: 30px;">
+                    @Html.ImageButton("MoveUp", string.Format("{0}{1}", @Common.GetEnumDesc(EnumSystemID.ERPAP), "/Content/images/imgSortUp.png"))
+                    @Html.ImageButton("MoveDown", string.Format("{0}{1}", @Common.GetEnumDesc(EnumSystemID.ERPAP), "/Content/images/imgSortDown.png"))
+                </th>
+                <th nowrap="nowrap" style="width: 30px;">@SysSystemEDIPara.Text_Delete</th>
+
+                <th>@SysSystemEDIPara.Label_SysID</th>
+                <th>@SysSystemEDIPara.Label_EDIFlowID</th>
+                <th>@SysSystemEDIPara.Label_EDIJobID</th>
+                <th>@SysSystemEDIPara.Label_EDIParaID</th>
+                <th>@SysSystemEDIPara.Label_EDIParaType</th>
+                <th>@SysSystemEDIPara.Label_EDIParaValue</th>
+                <th>@SysSystemEDIPara.Label_SortOrder</th>
+                <th>@SysSystemEDIPara.Label_UpdUserNM</th>
+                <th>@SysSystemEDIPara.Label_UpdDT</th>
+            </tr>
+            @if (Model.SystemEDIParaList != null)
+            {
+                string trClass = string.Empty;
+                string rowListNM = string.Empty;
+                ERPAP.Models.Sys.SystemEDIParaModel.SystemEDIPara data = new ERPAP.Models.Sys.SystemEDIParaModel.SystemEDIPara();
+                for (int rowCount = 0; rowCount < Model.SystemEDIParaList.Count; rowCount++)
+                {
+                    data = Model.SystemEDIParaList[rowCount];
+                    rowListNM = "ediParaSortValueList[" + rowCount + "]";
+                    <tr class="@trClass">
+                        <td nowrap="nowrap">
+                            @Html.RadioButton("IsMoved", false)
+                            @Html.InputTextBox(rowListNM + ".AfterSortOrder", data.SortOrder, inputType: EnumInputType.TextBoxHidden)
+                            @Html.InputTextBox(rowListNM + ".BeforeSortOrder", data.SortOrder, inputType: EnumInputType.TextBoxHidden)
+                            @Html.InputTextBox(rowListNM + ".EDIParaID", data.EDIJobParaID, inputType: EnumInputType.TextBoxHidden)
+                        </td>
+                        <td data-th="@SysSystemEDIPara.Text_Delete：" nowrap="nowrap" class="center">
+                            @Html.TextSubmitLink(
+                                "Sys",
+                                "SystemEDIParaDelete",
+                                "LinkFunKeyDelete",
+                                SysSystemEDIPara.Text_Delete,
+                                new List<string>() {
+                                    data.SysID,
+                                    data.EDIFlowID,
+                                    data.EDIJobID,
+                                    data.EDIJobParaID
+                                }
+                            )
+                        </td>
+
+                        <td data-th="@SysSystemEDIPara.Table_SysID：" title="@SysSystemEDIPara.Table_SysID">@Html.Raw(data.SysNM)</td>
+                        <td data-th="@SysSystemEDIPara.Table_EDIFlowID：" title="@SysSystemEDIPara.Table_EDIFlowID">@Html.Raw(data.EDIFlowNM)</td>
+                        <td data-th="@SysSystemEDIPara.Table_EDIJobID：" title="@SysSystemEDIPara.Table_EDIJobID">@Html.Raw(data.EDIJobNM)</td>
+                        <td data-th="@SysSystemEDIPara.Table_EDIParaID：" title="@SysSystemEDIPara.Table_EDIParaID">@Html.Raw(data.EDIJobParaID)</td>
+                        <td data-th="@SysSystemEDIPara.Table_EDIParaType：" title="@SysSystemEDIPara.Table_EDIParaType">@Html.Raw(data.EDIJobParaType)</td>
+                        <td data-th="@SysSystemEDIPara.Table_EDIParaValue：" title="@SysSystemEDIPara.Table_EDIParaValue">
+                            @if (data.EDIJobParaValue != null)
+                            {
+                                <span style="color:black;">@Html.Raw(data.EDIJobParaValue)</span>
+                            }
+                            else
+                            {
+                                <span style="color:red;">@("NULL")</span>
+                            }
+                        </td>
+                        <td data-th="@SysSystemEDIPara.Table_SortOrder：" title="@SysSystemEDIPara.Table_SortOrder">
+                            @if (data.SortOrder != null)
+                            {
+                                <span style="color:black;">@Html.Raw(data.SortOrder)</span>
+                            }
+                            else
+                            {
+                                <span style="color:red;">@("NULL")</span>
+                            }
+
+                        </td>
+                        <td data-th="@SysSystemEDIPara.Table_UpdUserID：" title="@SysSystemEDIPara.Table_UpdUserID">@Html.Raw(data.UpdUserNM)</td>
+                        <td data-th="@SysSystemEDIPara.Table_UpdDT：" title="@SysSystemEDIPara.Table_UpdDT">@Common.GetDateTimeFormattedText(data.UpdDt, Common.EnumDateTimeFormatted.FullDateTime)</td>
+                    </tr>
+
+                    if (string.IsNullOrWhiteSpace(trClass)) { trClass = "tr2"; }
+                    else { trClass = string.Empty; }
+                }
+            }
+        </table>
+
+        <div class="text-left">
+            @Html.ButtonClient("SaveButton", Resource.Button_Save, className: "btn")
+        </div>
+
+        using (Html.BeginConfirmDialog("dialog_Confirm", Resource.SysMsg_Title, Resource.SysMsg_DeleteConfirm))
+        {
+            @Html.ButtonClient("ConfirmOKButton", Resource.Button_Delete)
+            @Html.ButtonClient("ConfirmNOButton", Resource.Button_Cancel)
+        }
+    }
+}

@@ -1,0 +1,67 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity.ERP
+@using LionTech.Entity.ERP.Pub
+@using LionTech.Utility
+@using LionTech.Utility.ERP
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Pub.MenuSettingModel
+
+@{
+    string editionNo = ViewData[EnumViewDataItem.EditionNo.ToString()].ToString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Pub/MenuSetting.js?@(editionNo)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("MenuSettingForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Pub.ToString(), Model.TabList))
+    {
+        <table id="MenuSettingTable" class="tblzebra" style="display: none; width: 100%;">
+            <thead>
+            <tr>
+                <th style="width: 33.3%">@PubMenuSetting.Table_FunMenuNM</th>
+                <th style="width: 33.3%">@PubMenuSetting.Table_MenuID</th>
+                <th style="width: 33.3%">@PubMenuSetting.Table_SortOrder</th>
+            </tr>
+            </thead>
+            <tbody>
+            @if (Model.EntityMenuSettingList != null)
+            {
+                string trClass = string.Empty;
+                string rowListNM = string.Empty;
+
+                EntityMenuSetting.MenuSetting data = new EntityMenuSetting.MenuSetting();
+                for (int rowCount = 0; rowCount < Model.EntityMenuSettingList.Count; rowCount++)
+                {
+                    data = Model.EntityMenuSettingList[rowCount];
+                    rowListNM = "menuSettingValueList[" + rowCount + "]";
+
+                    <tr class="@trClass">
+                        <td data-th="@PubMenuSetting.Table_FunMenuNM：" title="@PubMenuSetting.Table_FunMenuNM">
+                            @Html.InputTextBox(rowListNM + ".SysID", data.SysID.GetValue(), inputType: EnumInputType.TextBoxHidden)
+                            @Html.InputTextBox(rowListNM + ".FunMenu", data.FunMenu.GetValue(), inputType: EnumInputType.TextBoxHidden)
+                            @Html.Raw(data.FunMenuNM.HtmlValue())
+                        </td>
+                        <td data-th="@PubMenuSetting.Table_MenuID：" title="@PubMenuSetting.Table_MenuID">@Html.InputComboBox(rowListNM + ".MenuID", data.MenuID.GetValue(), Model.MenuIDList)</td>
+                        <td data-th="@PubMenuSetting.Table_SortOrder：" title="@PubMenuSetting.Table_SortOrder">@Html.InputTextBox(rowListNM + ".SortOrder", data.SortOrder.GetValue(), Validation: false, maximumLength: 6)</td>
+                    </tr>
+
+                    if (string.IsNullOrWhiteSpace(trClass))
+                    {
+                        trClass = "tr2";
+                    }
+                    else
+                    {
+                        trClass = string.Empty;
+                    }
+                }
+            }
+            </tbody>
+        </table>
+
+        <div>
+            @Html.ButtonClient("UpdateButton", Resource.Button_Update, className: "btn")
+        </div>
+    }
+}

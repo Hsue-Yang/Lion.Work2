@@ -1,0 +1,233 @@
+﻿@using LionTech.Entity
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemWorkFlowDetailModel
+
+@{
+    Layout = "~/Views/_Layout.cshtml";
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css"/>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemWorkFlowDetail.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemWorkFlowDetailForm"))
+{
+    <div class="page-title">
+        <h3>
+            @SysSystemWorkFlowDetail.TabText_SystemWorkFlowDetail
+        </h3>
+    </div>
+
+    <table class="tblvertical">
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemWorkFlowDetail.Label_SysID, IsRequired: true)
+            </th>
+            <td nowrap="nowrap">
+                @Html.InputTextBoxFor(model => model.SysID)
+                @Model.GetSelectedText(Model.EntityUserSystemSysIDList, Model.SysID)
+            </td>
+            <th nowrap="nowrap">
+                @Html.FormLabel(SysSystemWorkFlowDetail.Label_WorkFlowGroupID, IsRequired: true)
+            </th>
+            <td nowrap="nowrap">
+                @if (Model.ExecAction == EnumActionType.Add)
+                {
+                    @Html.InputComboBoxFor(model => model.WFFlowGroupID, Model.GetDictionaryFormSelectItem(Model.EntitySystemWorkFlowGroupIDList, false), TitleName: SysSystemWorkFlowDetail.Label_WorkFlowGroupID)
+                }
+                else
+                {
+                    @Html.InputTextBoxFor(model => model.WFFlowGroupID)
+                    @Model.WFFlowGroupID
+                }
+            </td>
+            <th nowrap="nowrap">
+                @Html.FormLabel(SysSystemWorkFlowDetail.Label_WorkFlowID, IsRequired: true)
+            </th>
+            <td nowrap="nowrap">
+                @if (Model.ExecAction == EnumActionType.Add)
+                {
+                    @Html.InputTextBoxFor(model => model.WFFlowID, Size: 30, TitleName: SysSystemWorkFlowDetail.Label_WorkFlowID)
+                }
+                else
+                {
+                    @Html.InputTextBox("WFFlowID", Model.WFFlowID, inputType: EnumInputType.TextBoxHidden)
+                    @Model.WFFlowID
+                }
+            </td>
+        </tr>
+        <tr>
+            <th nowrap="nowrap">
+                @Html.FormLabel(SysSystemWorkFlowDetail.Label_WFFlowZHTW, IsRequired: true)
+            </th>
+            <td nowrap="nowrap">
+                @Html.InputTextBoxFor(model => model.WFFlowZHTW, false, 30, TitleName: SysSystemWorkFlowDetail.Label_WFFlowZHTW)
+            </td>
+            <th nowrap="nowrap">
+                @Html.FormLabel(SysSystemWorkFlowDetail.Label_WFFlowZHCN, IsRequired: true)
+            </th>
+            <td nowrap="nowrap">
+                @Html.InputTextBoxFor(model => model.WFFlowZHCN, false, 30, TitleName: SysSystemWorkFlowDetail.Label_WFFlowZHCN)
+            </td>
+            <th nowrap="nowrap">
+                @Html.FormLabel(SysSystemWorkFlowDetail.Label_WFFlowENUS, IsRequired: true)
+            </th>
+            <td nowrap="nowrap">
+                @Html.InputTextBoxFor(model => model.WFFlowENUS, false, 30, TitleName: SysSystemWorkFlowDetail.Label_WFFlowENUS)
+            </td>
+        </tr>
+        <tr>
+            <th nowrap="nowrap">
+                @Html.FormLabel(SysSystemWorkFlowDetail.Label_WFFlowTHTH, IsRequired: true)
+            </th>
+            <td nowrap="nowrap">
+                @Html.InputTextBoxFor(model => model.WFFlowTHTH, false, 30, TitleName: SysSystemWorkFlowDetail.Label_WFFlowTHTH)
+            </td>
+            <th nowrap="nowrap">
+                @Html.FormLabel(SysSystemWorkFlowDetail.Label_WFFlowJAJP, IsRequired: true)
+            </th>
+            <td nowrap="nowrap">
+                @Html.InputTextBoxFor(model => model.WFFlowJAJP, false, 30, TitleName: SysSystemWorkFlowDetail.Label_WFFlowJAJP)
+            </td>
+            <th nowrap="nowrap">
+                @Html.FormLabel(SysSystemWorkFlowDetail.Label_WFFlowKOKR, IsRequired: true)
+            </th>
+            <td nowrap="nowrap" colspan="3">
+                @Html.InputTextBoxFor(model => model.WFFlowKOKR, false, 30, TitleName: SysSystemWorkFlowDetail.Label_WFFlowKOKR)
+            </td>
+        </tr>
+        <tr>
+            <th nowrap="nowrap">
+                @Html.FormLabel(SysSystemWorkFlowDetail.Label_WorkFlowVer, IsRequired: true)
+            </th>
+            <td nowrap="nowrap">
+                @if (Model.ExecAction == EnumActionType.Add)
+                {
+                    @Html.InputTextBoxFor(model => model.WFFlowVer, Size: 3, TitleName: SysSystemWorkFlowDetail.Label_WorkFlowVer)
+                }
+                else
+                {
+                    @Html.InputTextBox("WFFlowVer", Model.WFFlowVer, inputType: EnumInputType.TextBoxHidden)
+                    @Model.WFFlowVer
+                }
+            </td>
+            <th nowrap="nowrap">
+                @Html.FormLabel(SysSystemWorkFlowDetail.Label_FlowType, IsRequired: true)
+            </th>
+            <td nowrap="nowrap">
+                @Html.InputComboBoxFor(model => model.FlowType, Model.GetDictionaryFormSelectItem(Model.EntityFlowTypeList, false), TitleName: SysSystemWorkFlowDetail.Label_FlowType)
+            </td>
+            <th nowrap="nowrap">
+                @Html.FormLabel(SysSystemWorkFlowDetail.Label_FlowManUserID, IsRequired: true)
+            </th>
+            <td nowrap="nowrap">
+                @Html.InputTextBoxFor(model => model.FlowManUserID, false, 6, TitleName: SysSystemWorkFlowDetail.Label_FlowManUserID)
+                @Html.ButtonClient("Help03Button", "?", className: "qmark")
+            </td>
+        </tr>
+        <tr>
+            <th nowrap="nowrap">
+                @Html.FormLabel(SysSystemWorkFlowDetail.Label_EnableDate)
+            </th>
+            <td nowrap="nowrap">
+                @if (!string.IsNullOrWhiteSpace(Model.EnableDate) &&
+                     int.Parse(Model.EnableDate) <= int.Parse(Common.GetDateString()))
+                {
+                    @Html.InputTextBoxFor(model => model.EnableDate, true, 30, TitleName: SysSystemWorkFlowDetail.Label_EnableDate)
+                }
+                else
+                {
+                    @Html.InputTextBoxFor(model => model.EnableDate, false, 30, TitleName: SysSystemWorkFlowDetail.Label_EnableDate)
+                }
+            </td>
+            <th nowrap="nowrap">
+                @Html.FormLabel(SysSystemWorkFlowDetail.Label_DisableDate)
+            </th>
+            <td nowrap="nowrap">
+                @if (!string.IsNullOrWhiteSpace(Model.DisableDate) &&
+                     int.Parse(Model.DisableDate) <= int.Parse(Common.GetDateString()))
+                {
+                    @Html.InputTextBoxFor(model => model.DisableDate, true, 30, TitleName: SysSystemWorkFlowDetail.Label_DisableDate)
+                }
+                else
+                {
+                    @Html.InputTextBoxFor(model => model.DisableDate, false, 30, TitleName: SysSystemWorkFlowDetail.Label_DisableDate)
+                }
+            </td>
+            <th nowrap="nowrap">
+                @Html.FormLabel(SysSystemWorkFlowDetail.Label_SortOrder)
+            </th>
+            <td nowrap="nowrap">
+                @Html.InputTextBoxFor(model => model.SortOrder, false, 6, TitleName: SysSystemWorkFlowDetail.Label_SortOrder)
+            </td>
+        </tr>
+        <tr>
+            <th nowrap="nowrap">
+                @Html.FormLabel(SysSystemWorkFlowDetail.Label_SystemRole, IsRequired: true)
+            </th>
+            <td nowrap="nowrap" colspan="5">
+                <pre class="red">@SysSystemWorkFlowDetail.Label_SysRoleMemo</pre>
+                @{
+                    var roleList = (from nodeRole in Model.EntityFlowRoleList
+                                    where nodeRole.HasRole == true
+                                    select nodeRole.SysID + "|" + nodeRole.RoleID).ToList();
+                }
+                @Html.InputCheckBoxList(
+                    "HasRole",
+                    roleList,
+                    Model.EntityFlowRoleList.ToDictionary(key => key.SysID + "|" + key.RoleID, value => value.RoleNM),
+                    columnNumber: 5
+                    )
+            </td>
+        </tr>
+        <tr>
+            <th nowrap="nowrap">
+                @Html.FormLabel(SysSystemWorkFlowDetail.Label_MsgFunActionName)
+            </th>
+            <td nowrap="nowrap" colspan="5">
+                @Html.InputComboBoxFor(model => model.MsgSysID, Model.GetDictionaryFormSelectItem(Model.EntityUserSystemSysIDList, true), false, TitleName: SysSystemWorkFlowDetail.Label_MsgSysID)
+                @Html.InputComboBoxFor(model => model.MsgControllerID, Model.GetDictionaryFormSelectItem(Model.SystemAPIGroupByIdList, true), false, TitleName: SysSystemWorkFlowDetail.Label_MsgControllerID)
+                @Html.InputComboBoxFor(model => model.MsgActionName, Model.GetDictionaryFormSelectItem(Model.EntitySystemAPIFuntionList, true), false, TitleName: SysSystemWorkFlowDetail.Label_MsgActionName)
+            </td>
+        </tr>
+        <tr class="hide">
+            <th nowrap="nowrap">
+
+            </th>
+            <td nowrap="nowrap" colspan="5">
+                @Html.InputCheckBox("IsStartFun", SysSystemWorkFlowDetail.Label_IsStartFun, EnumYN.Y.ToString(), (Model.IsStartFun == EnumYN.Y.ToString()) ? true : false)
+            </td>
+        </tr>
+        <tr>
+            <th nowrap="nowrap">
+                @Html.FormLabel(SysSystemWorkFlowDetail.Label_Remark)
+            </th>
+            <td nowrap="nowrap" colspan="5">
+                @Html.InputTextAreaFor(model => model.Remark, 5, 100, TitleName: SysSystemWorkFlowDetail.Label_Remark, style: "width:98%")
+            </td>
+        </tr>
+    </table>
+    <div class="text-right buttons">
+        @if (Model.ExecAction == EnumActionType.Add)
+        {
+            @Html.ButtonClient("AddButton", Resource.Button_Add, className: "btn")
+        }
+        @if (Model.ExecAction == EnumActionType.Update ||
+             Model.ExecAction == EnumActionType.Delete)
+        {
+            @Html.ButtonClient("UpdateButton", Resource.Button_Update, className: "btn")
+            @Html.ButtonClient("DeleteButton", Resource.Button_Delete, className: "btn")
+        }
+        @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+    </div>
+
+    using (Html.BeginConfirmDialog("dialog_Confirm", Resource.SysMsg_Title, Resource.SysMsg_DeleteConfirm))
+    {
+        @Html.ButtonClient("ConfirmOKButton", Resource.Button_Delete)
+        @Html.ButtonClient("ConfirmNOButton", Resource.Button_Cancel)
+    }
+}

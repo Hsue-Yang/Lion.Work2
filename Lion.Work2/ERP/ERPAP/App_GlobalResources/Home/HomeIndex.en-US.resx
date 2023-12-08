@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Label_Birthday" xml:space="preserve">
+    <value>Birthday</value>
+  </data>
+  <data name="Label_CapsLockRemind" xml:space="preserve">
+    <value>Caps Lock. Please note user information is correct.</value>
+  </data>
+  <data name="Label_CultureID" xml:space="preserve">
+    <value>Multi-Language</value>
+  </data>
+  <data name="Label_IdNo" xml:space="preserve">
+    <value>Identity</value>
+  </data>
+  <data name="Label_InCompany" xml:space="preserve">
+    <value>Company</value>
+  </data>
+  <data name="Label_InHome" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Label_InOther" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="Label_Location" xml:space="preserve">
+    <value>You are in :</value>
+  </data>
+  <data name="Label_Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Label_LoginTo" xml:space="preserve">
+    <value>You are now logged in {0}</value>
+  </data>
+  <data name="Label_LoginType" xml:space="preserve">
+    <value>Login Type</value>
+  </data>
+  <data name="Label_NotInCompany" xml:space="preserve">
+    <value>Please fill when you not in the company :</value>
+  </data>
+  <data name="Label_OTPRemind" xml:space="preserve">
+    <value>Please enter employee code 6 yards</value>
+  </data>
+  <data name="Label_UserID" xml:space="preserve">
+    <value>User ID</value>
+  </data>
+  <data name="Label_UserPassword" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="SystemMsg_AccountIsLeft" xml:space="preserve">
+    <value>Invalid account number, please contact the administrator</value>
+  </data>
+  <data name="SystemMsg_AccountIsLock" xml:space="preserve">
+    <value>Account is locked, please wait 30 minutes or contact the administrator to enable</value>
+  </data>
+  <data name="SystemMsg_AccountNotExist" xml:space="preserve">
+    <value>Account does not exist, please contact administrator</value>
+  </data>
+  <data name="SystemMsg_ERPLoginMsgError" xml:space="preserve">
+    <value>Login error, please contact the administrator</value>
+  </data>
+  <data name="SystemMsg_ExternalLocationError" xml:space="preserve">
+    <value>You are not in the company, make sure your current position and fill identity/birthday information</value>
+  </data>
+  <data name="SystemMsg_GetBaseCultureIDList" xml:space="preserve">
+    <value>Get multi-language list is failure</value>
+  </data>
+  <data name="SystemMsg_GetUserLoginEvent_Failure" xml:space="preserve">
+    <value>Get UserLogin Event Failure</value>
+  </data>
+  <data name="SystemMsg_InternalLocationError" xml:space="preserve">
+    <value>You should now be in the company, please select the current position as the "Company"</value>
+  </data>
+  <data name="SystemMsg_OTP_STAT_DIGIPASS_EXPIRED" xml:space="preserve">
+    <value>STAT_DIGIPASS_EXPIRED</value>
+  </data>
+  <data name="SystemMsg_OTP_STAT_DISABLED" xml:space="preserve">
+    <value>STAT_DISABLED</value>
+  </data>
+  <data name="SystemMsg_OTP_STAT_LOCAL_PASSWORD_MISMATCH" xml:space="preserve">
+    <value>STAT_LOCAL_PASSWORD_MISMATCH</value>
+  </data>
+  <data name="SystemMsg_OTP_STAT_LOCKED" xml:space="preserve">
+    <value>STAT_LOCKED</value>
+  </data>
+  <data name="SystemMsg_OTP_STAT_OTP_INCORRECT" xml:space="preserve">
+    <value>STAT_OTP_INCORRECT</value>
+  </data>
+  <data name="SystemMsg_OTP_STAT_PASSWORD_EXPIRED" xml:space="preserve">
+    <value>STAT_PASSWORD_EXPIRED</value>
+  </data>
+  <data name="SystemMsg_OTP_STAT_REPLAY" xml:space="preserve">
+    <value>STAT_REPLAY</value>
+  </data>
+  <data name="SystemMsg_OTP_STAT_USER_UNKNOWN" xml:space="preserve">
+    <value>STAT_USER_UNKNOWN</value>
+  </data>
+  <data name="SystemMsg_RejectIP" xml:space="preserve">
+    <value>Your web environment is not to be trusted, can not provide services</value>
+  </data>
+  <data name="SystemMsg_RequiredUserInformation" xml:space="preserve">
+    <value>When you not in the company, please fill identity/birthday information</value>
+  </data>
+  <data name="SystemMsg_UserInformationError" xml:space="preserve">
+    <value>Employee information validation failure</value>
+  </data>
+  <data name="SystemMsg_ValidateError" xml:space="preserve">
+    <value>ID/Password error {0} times</value>
+  </data>
+  <data name="Text_AccountPSW" xml:space="preserve">
+    <value>Account Password Login</value>
+  </data>
+  <data name="Text_DigipassOTP" xml:space="preserve">
+    <value>Digipass OTP</value>
+  </data>
+  <data name="Text_LionTestingRemind" xml:space="preserve">
+    <value>This is testing environment</value>
+  </data>
+  <data name="Text_LionToday" xml:space="preserve">
+    <value>Lion Today</value>
+  </data>
+  <data name="Text_Marketing" xml:space="preserve">
+    <value>Marketing</value>
+  </data>
+  <data name="Text_PublicRelationship" xml:space="preserve">
+    <value>Public Relationship</value>
+  </data>
+  <data name="Text_QRCode" xml:space="preserve">
+    <value>QRCode Login</value>
+  </data>
+  <data name="Text_Sharing" xml:space="preserve">
+    <value>Sharing</value>
+  </data>
+  <data name="Text_Video" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="Title_InOther" xml:space="preserve">
+    <value>Location : A brief description of your location</value>
+  </data>
+</root>

@@ -1,0 +1,207 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity.ERP
+@using LionTech.Entity.ERP.Sys
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SRCProjectModel
+           
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SRCProject.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SRCProjectForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.SysSRCProjectTabList))
+    {
+        <table class="tblsearch">
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <th>
+                                @Html.FormLabel(SysSRCProject.Label_DomainName, IsRequired: true)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.DomainName, Model.GetDictionaryFormSelectItem(Model.EntityBaseDomainNameList, false), false, TitleName: SysSRCProject.Label_DomainName)
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysSRCProject.Label_DomainGroupID)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.DomainGroupID, Model.GetDictionaryFormSelectItem(Model.EntitySysDomainGroupMenuList, true), false)
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysSRCProject.Label_ProjectID)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.ProjectID, Model.GetDictionaryFormSelectItem(Model.EntitySRCProjectMenuList, true), false)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="6">
+                                @Html.ButtonClient("SelectButton", Resource.Button_Select, className: "btnSearch")
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <table id="SRCProjectTable" class="tblzebra">
+            <thead>
+            <tr>
+                <th style="width: 30px;">@SysSRCProject.Text_Detail</th>
+                <th>@SysSRCProject.Text_ProjectParent</th>
+                <th>@SysSRCProject.Text_IsSVN</th>
+                <th>@SysSRCProject.Text_ProjectID</th>
+                <th>@SysSRCProject.Text_Remark</th>
+                <th>@SysSRCProject.Text_DomainGroupID</th>
+                <th>@SysSRCProject.Text_UpdUserID</th>
+                <th>@SysSRCProject.Text_UpdDT</th>
+            </tr>
+            </thead>
+            <tbody>
+            @if (Model.EntitySRCProjectList != null)
+            {
+                string trClass = string.Empty;
+                string isRead = null;
+                string tdStyle = string.Empty;
+                int listcount = 0;
+                int times = 1;
+                int rowIndex = 0;
+                string projectID = string.Empty;
+
+                EntitySRCProject.SRCProject data = new EntitySRCProject.SRCProject();
+                for (int rowCount = 0; rowCount < Model.EntitySRCProjectList.Count; rowCount++)
+                {
+                    if (rowCount != 0)
+                    {
+                        listcount = rowCount - 1;
+                    }
+                    data = Model.EntitySRCProjectList[rowCount];
+
+                    if (Model.EntitySRCProjectList[rowCount].ProjectID.GetValue() != Model.EntitySRCProjectList[listcount].ProjectID.GetValue())
+                    {
+                        @: </tr>
+                        @: </table>
+                        @: </td>
+                        @: </tr>
+                    }
+
+                    if (data.Remark.GetValue() != null)
+                    {
+                        tdStyle = "230px;";
+                    }
+                    if (data.IsWrite.GetValue() != null)
+                    {
+                        isRead = "Y";
+                    }
+                    if (data.ProjectID.GetValue() != projectID)
+                    {
+                        <tr class="@trClass">
+                            <td data-th="@SysSRCProject.Text_Detail：" class="center">
+                                @Html.TextSubmitLink(
+                                    "Sys",
+                                    "SRCProjectDetail",
+                                    "LinkFunKey",
+                                    SysSRCProject.Text_Detail,
+                                    new List<string>()
+                                    {
+                                        data.ProjectID.GetValue(),
+                                        data.DomainName.GetValue(),
+                                        data.DomainGroupID.GetValue(),
+                                    }
+                                    )
+                            </td>
+                            <td data-th="@SysSRCProject.Text_ProjectParent：" title="@SysSRCProject.Text_ProjectParent">@Html.Raw(data.ProjectPraent.HtmlValue())</td>
+                            <td data-th="@SysSRCProject.Text_IsSVN：" title="@SysSRCProject.Text_IsSVN">@Html.Raw(data.IsSVN.HtmlValue())</td>
+                            @if (data.ProjectPraent.GetValue() == data.ProjectID.GetValue())
+                            {
+                                <td data-th="@SysSRCProject.Text_ProjectID：" title="@SysSRCProject.Text_ProjectID"></td>
+                            }
+                            else
+                            {
+                                <td data-th="@SysSRCProject.Text_ProjectID：" title="@SysSRCProject.Text_ProjectID">@Html.Raw(data.ProjectNM.HtmlValue())</td>
+                            }
+                            <td data-th="@SysSRCProject.Text_ProjectID：" style="width: @tdStyle" title="@SysSRCProject.Text_ProjectID">@Html.Raw(data.Remark.HtmlValue())</td>
+                            <td data-th="@SysSRCProject.Text_DomainGroupID：">
+                                @Html.TextSubmitLink(
+                                    "Sys",
+                                    "SRCProject",
+                                    "TRLinkFunKey",
+                                    SysSRCProject.Text_DomainGroupID,
+                                    new List<string>()
+                                    {
+                                        rowIndex.ToString()
+                                    }
+                                    )
+                            </td>
+                            <td data-th="@SysSRCProject.Text_UpdUserID：" title="@SysSRCProject.Text_UpdUserID">@Html.Raw(data.UpdUserNM.HtmlValue())</td>
+                            <td data-th="@SysSRCProject.Text_UpdDT：" title="@SysSRCProject.Text_UpdDT">@Html.Raw(data.UpdDT.HtmlValue())</td>
+
+                            @if (string.IsNullOrWhiteSpace(trClass))
+                            {
+                                trClass = "tr2";
+                            }
+                            else
+                            {
+                                trClass = string.Empty;
+                            }
+                        </tr>
+                        @:<tr id="DomainGroupTable[@rowIndex]" style="display: none;">
+                        @: <td></td>
+                        @: <td colspan="7">
+                        @: <table class="tblzebra">
+                        @: <tr>
+                        @: <th>@SysSRCProject.Text_ProjectID</th>
+                        @: <th>@SysSRCProject.Text_DomainName</th>
+                        @: <th>@SysSRCProject.Text_DomainGroupID</th>
+                        @: <th>@SysSRCProject.Text_IsWrite</th>
+                        @: <th>@SysSRCProject.Text_IsRead</th>
+                        @: </tr>
+                        @: <tr>
+                        if (data.ProjectPraent.GetValue() == data.ProjectID.GetValue())
+                        {
+                            @: <td data-th="@SysSRCProject.Text_ProjectID：" style="@tdStyle" title="@SysSRCProject.Text_ProjectID"></td>
+                        }
+                        else
+                        {
+                            @: <td data-th="@SysSRCProject.Text_ProjectID：" style="@tdStyle" title="@SysSRCProject.Text_ProjectID">@Html.Raw(data.ProjectNM.HtmlValue())</td>
+                        }
+                        @: <td data-th="@SysSRCProject.Text_DomainName：" title="@SysSRCProject.Text_DomainName">@Html.Raw(data.DomainName.HtmlValue())</td>
+                        @: <td data-th="@SysSRCProject.Text_DomainGroupID：" title="@SysSRCProject.Text_DomainGroupID">@Html.Raw(data.DomainGroupNM.HtmlValue())</td>
+                        @: <td data-th="@SysSRCProject.Text_IsWrite：" title="@SysSRCProject.Text_IsWrite">@Html.Raw(data.IsWrite.HtmlValue())</td>
+                        @: <td data-th="@SysSRCProject.Text_IsRead：" title="@SysSRCProject.Text_IsRead">@Html.Raw(isRead)</td>
+                    }
+                    else
+                    {
+                        @: </tr>
+                        @: <tr>
+                        @: <td data-th="@SysSRCProject.Text_ProjectID：" style="@tdStyle" title="@SysSRCProject.Text_ProjectID">@Html.Raw(data.ProjectNM.HtmlValue())</td>
+                        @: <td data-th="@SysSRCProject.Text_DomainName：" title="@SysSRCProject.Text_DomainName">@Html.Raw(data.DomainName.HtmlValue())</td>
+                        @: <td data-th="@SysSRCProject.Text_DomainGroupID：" title="@SysSRCProject.Text_DomainGroupID">@Html.Raw(data.DomainGroupNM.HtmlValue())</td>
+                        @: <td data-th="@SysSRCProject.Text_IsWrite：" title="@SysSRCProject.Text_IsWrite">@Html.Raw(data.IsWrite.HtmlValue())</td>
+                        @: <td data-th="@SysSRCProject.Text_IsRead：" title="@SysSRCProject.Text_IsRead">@Html.Raw(isRead)</td>
+                    }
+
+                    projectID = data.ProjectID.HtmlValue();
+                    times++;
+                    rowIndex++;
+                    tdStyle = string.Empty;
+                }
+                @: </tr>
+                @: </table>
+                @: </td>
+                @: </tr>
+            }
+            </tbody>
+        </table>
+
+        <div>
+            @Html.ButtonSubmit("Sys", "SRCProjectDetail", "AddButton", Resource.Button_Add, className: "btn")
+        </div>
+    }
+}

@@ -1,0 +1,154 @@
+﻿@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using ERPAP.Models.Sys
+@using Resources
+@model SystemRoleConditionDetailModel
+@{
+    Layout = "~/Views/_Layout.cshtml";
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.queryBuilder.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css"/>
+<script type="text/javascript">
+    var filters = @Html.Raw(Model.SystemRoleConditionFilterJsonString);
+    var rules = @Html.Raw(Model.SystemRoleConditionRulesJsonString);
+</script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.queryBuilder.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemRoleConditionDetail.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+@using (Html.BeginFormSubmit("SystemRoleConditionDetailForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.TabList))
+    {
+        <table class="tblvertical">
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemRoleConditionDetail.Label_SysID)
+                </th>
+                <td>
+                    @Html.InputTextBox("SysID", Model.SysID, inputType: EnumInputType.TextBoxHidden)
+                    @string.Format("{0} ({1})", Model.SysNM, Model.SysID)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemRoleConditionDetail.Label_ConditionCode, IsRequired: true)
+                </th>
+                <td colspan="3">
+                    @if (Model.ExecAction == EnumActionType.Add)
+                    {
+                        @Html.InputTextBoxFor(model => model.ConditionID, TitleName: SysSystemRoleConditionDetail.Label_ConditionCode)
+                    }
+                    else
+                    {
+                        @Html.InputTextBox("ConditionID", Model.ConditionID, inputType: EnumInputType.TextBoxHidden)
+                        @Model.ConditionID
+                    }
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemRoleConditionDetail.Label_ConditionNMZHTW, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.ConditionNMZHTW, Size: 30, TitleName: SysSystemRoleConditionDetail.Label_ConditionNMZHTW)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemRoleConditionDetail.Label_ConditionNMZHCN, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.ConditionNMZHCN, Size: 30, TitleName: SysSystemRoleConditionDetail.Label_ConditionNMZHCN)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemRoleConditionDetail.Label_ConditionNMENUS, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.ConditionNMENUS, Size: 30, TitleName: SysSystemRoleConditionDetail.Label_ConditionNMENUS)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemRoleConditionDetail.Label_ConditionNMJAJP, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.ConditionNMJAJP, Size: 30, TitleName: SysSystemRoleConditionDetail.Label_ConditionNMJAJP)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemRoleConditionDetail.Label_ConditionNMTHTH, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.ConditionNMTHTH, Size: 30, TitleName: SysSystemRoleConditionDetail.Label_ConditionNMTHTH)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemRoleConditionDetail.Label_ConditionNMKOKR, IsRequired: true)
+                </th>
+                <td colspan="3">
+                    @Html.InputTextBoxFor(model => model.ConditionNMKOKR, Size: 30, TitleName: SysSystemRoleConditionDetail.Label_ConditionNMKOKR)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemRoleConditionDetail.Label_Remark)
+                </th>
+                <td colspan="3">
+                    @Html.InputTextAreaFor(model => model.Remark, 4, 30, TitleName: SysSystemRoleConditionDetail.Label_Remark, style: "width:98%;")
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemRoleConditionDetail.Label_SortOrder)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.SortOrder, TitleName: SysSystemRoleConditionDetail.Label_SortOrder)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemRoleConditionDetail.Label_Roles, IsRequired: true)
+                </th>
+                <td colspan="5">
+                    @Html.InputCheckBoxListFor(model => model.SysRoleList, Model.GetDictionaryFormSelectItem(Model.EntitySysSystemRoleIDList, false), columnNumber: 5)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemRoleConditionDetail.Label_Condition, IsRequired: true)
+                </th>
+                <td colspan="5">
+                    @Html.InputRadioButtonListFor(model => model.ConditionType, Model.ConditionTypeDic)
+                </td>
+            </tr>
+        </table>
+
+        <div id="QueryBuilderBox"></div>
+
+        <div class="text-left">
+            @if (Model.ExecAction == EnumActionType.Add)
+            {
+                @Html.ButtonSubmit("Sys", "SystemRoleConditionDetail", "AddButton", Resource.Button_Add, className: "btn")
+            }
+            @if (Model.ExecAction == EnumActionType.Update ||
+                 Model.ExecAction == EnumActionType.Delete)
+            {
+                @Html.ButtonClient("UpdateButton", Resource.Button_Update, className: "btn")
+                <span></span>
+                @Html.ButtonClient("DeleteButton", Resource.Button_Delete, className: "btn")
+            }
+            @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+        </div>
+
+        using (Html.BeginConfirmDialog("MessageConfirm", Resource.SysMsg_Title, Resource.SysMsg_DeleteConfirm))
+        {
+            @Html.ButtonClient("ConfirmOKButton", Resource.Button_Delete)
+            @Html.ButtonClient("ConfirmNOButton", Resource.Button_Cancel)
+        }
+    }
+}
+
+@using (Html.BeginConfirmDialog("dialog_Confirm", Resource.SysMsg_Title, string.Empty))
+{
+    <span style="color: blue;float: left">WHERE</span>
+    @Html.InputTextArea("Syntax", string.Empty, 20, 150, maximumLength: 3000, ReadOnly: true, TitleName: Resource.SysMsg_Title, style: "width:500px")
+
+    <div>
+        @Html.ButtonClient("ConditionOKButton", Resource.Button_Okay, className: "btn")
+        @Html.ButtonClient("ConditionCancelButton", Resource.Button_Cancel, className: "btn")
+    </div>
+}

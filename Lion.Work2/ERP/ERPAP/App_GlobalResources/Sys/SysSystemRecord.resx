@@ -1,0 +1,522 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Label_DateBegin" xml:space="preserve">
+    <value>起始日期</value>
+  </data>
+  <data name="Label_DateEnd" xml:space="preserve">
+    <value>結束日期</value>
+  </data>
+  <data name="Label_RecordType" xml:space="preserve">
+    <value>紀錄檔類型</value>
+  </data>
+  <data name="Label_TimeBegin" xml:space="preserve">
+    <value>起始時間</value>
+  </data>
+  <data name="Label_TimeEnd" xml:space="preserve">
+    <value>結束時間</value>
+  </data>
+  <data name="SystemMsg_GetBaseRecordTypeList" xml:space="preserve">
+    <value>取得紀錄檔類型清單失敗</value>
+  </data>
+  <data name="SystemMsg_GetSystemRecordList" xml:space="preserve">
+    <value>取得系統紀錄檔列表失敗</value>
+  </data>
+  <data name="SystemMsg_GetLogUserApplyList_Failure" xml:space="preserve">
+    <value>取得使用者異動紀錄檔清單失敗</value>
+  </data>
+  <data name="Table_ExecIPAddress" xml:space="preserve">
+    <value>執行來源IP</value>
+  </data>
+  <data name="Table_ExecSysID" xml:space="preserve">
+    <value>執行來源應用系統</value>
+  </data>
+  <data name="Table_LogNo" xml:space="preserve">
+    <value>紀錄序號</value>
+  </data>
+  <data name="Table_RoleGroupID" xml:space="preserve">
+    <value>角色群組</value>
+  </data>
+  <data name="Table_RoleID" xml:space="preserve">
+    <value>角色</value>
+  </data>
+  <data name="Table_RoleList" xml:space="preserve">
+    <value>角色名單</value>
+  </data>
+  <data name="Table_SysID" xml:space="preserve">
+    <value>應用系統</value>
+  </data>
+  <data name="Table_UpdDT" xml:space="preserve">
+    <value>更新時間</value>
+  </data>
+  <data name="Lable_UpdDT" xml:space="preserve">
+    <value>更新時間</value>
+  </data>
+  <data name="Table_UpdUserID" xml:space="preserve">
+    <value>更新人員</value>
+  </data>
+  <data name="Lable_UpdUserID" xml:space="preserve">
+    <value>更新人員</value>
+  </data>
+  <data name="Table_UserID" xml:space="preserve">
+    <value>使用者姓名</value>
+  </data>
+  <data name="JsMsg_GetSystemFunControllerIDList" xml:space="preserve">
+    <value>無法取得功能群組列表</value>
+  </data>
+  <data name="JsMsg_GetSystemFunNameList" xml:space="preserve">
+    <value>無法取得功能名稱列表</value>
+  </data>
+  <data name="JsMsg_RequireFunActionName" xml:space="preserve">
+    <value>請選擇功能名稱</value>
+  </data>
+  <data name="JsMsg_RequireFunControllerID" xml:space="preserve">
+    <value>請選擇功能群組</value>
+  </data>
+  <data name="JsMsg_RequireSysID" xml:space="preserve">
+    <value>請選擇應用系統</value>
+  </data>
+  <data name="JsMsg_RequireUserID" xml:space="preserve">
+    <value>請輸入使用者代碼</value>
+  </data>
+  <data name="Label_FunActionName" xml:space="preserve">
+    <value>功能名稱</value>
+  </data>
+  <data name="Label_FunControllerID" xml:space="preserve">
+    <value>功能群組</value>
+  </data>
+  <data name="Label_SysID" xml:space="preserve">
+    <value>應用系統</value>
+  </data>
+  <data name="Label_ConditionID" xml:space="preserve">
+    <value>條件名稱</value>
+  </data>
+  <data name="Label_LineID" xml:space="preserve">
+    <value>Line代碼</value>
+  </data>
+  <data name="Label_UserID" xml:space="preserve">
+    <value>使用者代碼</value>
+  </data>
+  <data name="Text_Detail" xml:space="preserve">
+    <value>明細</value>
+  </data>
+  <data name="Label_DataAuthSet" xml:space="preserve">
+    <value>資料權限授權</value>
+  </data>
+  <data name="SystemMsg_GetSysSystemSysIDList" xml:space="preserve">
+    <value>無法取得應用系統列表</value>
+  </data>
+  <data name="Table_Detail" xml:space="preserve">
+    <value>明細</value>
+  </data>
+  <data name="Table_FunActionName" xml:space="preserve">
+    <value>功能名稱</value>
+  </data>
+  <data name="Table_FunControllerID" xml:space="preserve">
+    <value>功能群組</value>
+  </data>
+  <data name="Table_FunGroupENUS" xml:space="preserve">
+    <value>功能群組名稱(英)</value>
+  </data>
+  <data name="Table_FunGroupJAJP" xml:space="preserve">
+    <value>功能群組名稱(日)</value>
+  </data>
+  <data name="Table_FunGroupTHTH" xml:space="preserve">
+    <value>功能群組名稱(泰)</value>
+  </data>
+  <data name="Table_FunGroupZHCN" xml:space="preserve">
+    <value>功能群組名稱(簡)</value>
+  </data>
+  <data name="Table_FunGroupZHTW" xml:space="preserve">
+    <value>功能群組名稱(繁)</value>
+  </data>
+  <data name="Table_FunNMENUS" xml:space="preserve">
+    <value>功能名稱(英)</value>
+  </data>
+  <data name="Table_FunNMJAJP" xml:space="preserve">
+    <value>功能名稱(日)</value>
+  </data>
+  <data name="Table_FunNMTHTH" xml:space="preserve">
+    <value>功能名稱(泰)</value>
+  </data>
+  <data name="Table_FunNMZHCN" xml:space="preserve">
+    <value>功能名稱(簡)</value>
+  </data>
+  <data name="Table_FunNMZHTW" xml:space="preserve">
+    <value>功能名稱(繁)</value>
+  </data>
+  <data name="Table_FunType" xml:space="preserve">
+    <value>功能類型</value>
+  </data>
+  <data name="Table_IPAddress" xml:space="preserve">
+    <value>來源IP</value>
+  </data>
+  <data name="Table_IsDisable" xml:space="preserve">
+    <value>是否停用</value>
+  </data>
+  <data name="Table_IsLock" xml:space="preserve">
+    <value>是否鎖定</value>
+  </data>
+  <data name="Table_IsMaster" xml:space="preserve">
+    <value>是否為主控</value>
+  </data>
+  <data name="Table_IsOutside" xml:space="preserve">
+    <value>外部使用</value>
+  </data>
+  <data name="Table_IsReset" xml:space="preserve">
+    <value>是否重設密碼</value>
+  </data>
+  <data name="Table_Location" xml:space="preserve">
+    <value>登入位置</value>
+  </data>
+  <data name="Table_LocationDesc" xml:space="preserve">
+    <value>登入位置說明</value>
+  </data>
+  <data name="Table_ModifyDate" xml:space="preserve">
+    <value>修改日期</value>
+  </data>
+  <data name="Table_ModifyType" xml:space="preserve">
+    <value>異動類型</value>
+  </data>
+  <data name="Table_IsLeft" xml:space="preserve">
+    <value>離職</value>
+  </data>
+  <data name="Table_Condition" xml:space="preserve">
+    <value>預設條件</value>
+  </data>
+  <data name="Table_ConditionID" xml:space="preserve">
+    <value>條件名稱</value>
+  </data>
+  <data name="Table_PurviewID" xml:space="preserve">
+    <value>資料權限</value>
+  </data>
+  <data name="Table_RestrictType" xml:space="preserve">
+    <value>環境限制類型</value>
+  </data>
+  <data name="Table_RoleCategoryID" xml:space="preserve">
+    <value>角色分類</value>
+  </data>
+  <data name="Table_RoleNMENUS" xml:space="preserve">
+    <value>角色名稱(英)</value>
+  </data>
+  <data name="Table_RoleNMJAJP" xml:space="preserve">
+    <value>角色名稱(日)</value>
+  </data>
+  <data name="Table_RoleNMTHTH" xml:space="preserve">
+    <value>角色名稱(泰)</value>
+  </data>
+  <data name="Table_RoleNMZHCN" xml:space="preserve">
+    <value>角色名稱(簡)</value>
+  </data>
+  <data name="Table_RoleNMZHTW" xml:space="preserve">
+    <value>角色名稱(繁)</value>
+  </data>
+  <data name="Table_SortOrder" xml:space="preserve">
+    <value>排序</value>
+  </data>
+  <data name="Table_SubSysID" xml:space="preserve">
+    <value>應用系統(子系統)</value>
+  </data>
+  <data name="Table_ValidResult" xml:space="preserve">
+    <value>驗證結果</value>
+  </data>
+  <data name="CheckBox_IsOnlyDiffData" xml:space="preserve">
+    <value>只看差異內容</value>
+  </data>
+  <data name="JsMsg_RequireRoleGroupID" xml:space="preserve">
+    <value>請選擇角色群組</value>
+  </data>
+  <data name="Label_RoleGroupID" xml:space="preserve">
+    <value>角色群組</value>
+  </data>
+  <data name="SystemMsg_GetSysSystemFunControllerIDList" xml:space="preserve">
+    <value>無法取得功能群組列表</value>
+  </data>
+  <data name="SystemMsg_GetSysSystemConditionIDList" xml:space="preserve">
+    <value>無法取得條件名稱列表</value>
+  </data>
+  <data name="SystemMsg_GetLineBotIDList_Failure" xml:space="preserve">
+    <value>無法取得Line代碼列表</value>
+  </data>
+  <data name="SystemMsg_GetSysSystemFunNameList" xml:space="preserve">
+    <value>無法取得功能名稱應用系統列表</value>
+  </data>
+  <data name="SystemMsg_GetSysSystemRoleGroupList" xml:space="preserve">
+    <value>無法取得角色群組列表</value>
+  </data>
+  <data name="Table_ComID" xml:space="preserve">
+    <value>公司代碼</value>
+  </data>
+  <data name="Table_IPBegin" xml:space="preserve">
+    <value>起始網段</value>
+  </data>
+  <data name="Table_IPEnd" xml:space="preserve">
+    <value>結束網段</value>
+  </data>
+  <data name="Table_Remark" xml:space="preserve">
+    <value>備註</value>
+  </data>
+  <data name="Table_RoleGroupNMENUS" xml:space="preserve">
+    <value>角色群組名稱(英)</value>
+  </data>
+  <data name="Table_RoleGroupNMJAJP" xml:space="preserve">
+    <value>角色群組名稱(日)</value>
+  </data>
+  <data name="Table_RoleGroupNMTHTH" xml:space="preserve">
+    <value>角色群組名稱(泰)</value>
+  </data>
+  <data name="Table_RoleGroupNMZHCN" xml:space="preserve">
+    <value>角色群組名稱(簡)</value>
+  </data>
+  <data name="Table_RoleGroupNMZHTW" xml:space="preserve">
+    <value>角色群組名稱(繁)</value>
+  </data>
+  <data name="Table_SourceType" xml:space="preserve">
+    <value>來源類型</value>
+  </data>
+  <data name="Table_TrustStatus" xml:space="preserve">
+    <value>信任狀態</value>
+  </data>
+  <data name="Table_TrustType" xml:space="preserve">
+    <value>信任類型</value>
+  </data>
+  <data name="Text_NoData" xml:space="preserve">
+    <value>查無相關資料</value>
+  </data>
+  <data name="Table_ErpSign" xml:space="preserve">
+    <value>電子簽核單號</value>
+  </data>
+  <data name="Label_ErpSign" xml:space="preserve">
+    <value>電子簽核單號</value>
+  </data>
+  <data name="Label_ModifyRecord" xml:space="preserve">
+    <value>修改紀錄</value>
+  </data>
+  <data name="Table_APINo" xml:space="preserve">
+    <value>API序號</value>
+  </data>
+  <data name="Label_RoleList" xml:space="preserve">
+    <value>系統角色</value>
+  </data>
+  <data name="SystemMsg_GetRoleConditionJsonString_Failure" xml:space="preserve">
+    <value>取得系統角色預設條件發生錯誤</value>
+  </data>
+  <data name="Table_UserCompNM" xml:space="preserve">
+    <value>ERP-公司</value>
+  </data>
+  <data name="Table_UserOrgAreaNM" xml:space="preserve">
+    <value>組織-區域</value>
+  </data>
+  <data name="Table_UserOrgDeptNM" xml:space="preserve">
+    <value>組織-部門</value>
+  </data>
+  <data name="Table_UserOrgGroupNM" xml:space="preserve">
+    <value>組織-事業群</value>
+  </data>
+  <data name="Table_UserOrgLevelNM" xml:space="preserve">
+    <value>組織-職等</value>
+  </data>
+  <data name="Table_UserOrgPlaceNM" xml:space="preserve">
+    <value>組織-事業處</value>
+  </data>
+  <data name="Table_UserOrgPTitle2NM" xml:space="preserve">
+    <value>組織-業務職稱</value>
+  </data>
+  <data name="Table_UserOrgPTitleNM" xml:space="preserve">
+    <value>組織-職稱</value>
+  </data>
+  <data name="Table_UserOrgTeamNM" xml:space="preserve">
+    <value>組織-組別</value>
+  </data>
+  <data name="Table_UserOrgTitleNM" xml:space="preserve">
+    <value>組織-職級</value>
+  </data>
+  <data name="Table_UserOrgWorkCompNM" xml:space="preserve">
+    <value>組織-上班公司</value>
+  </data>
+  <data name="Table_UserTeamNM" xml:space="preserve">
+    <value>ERP-組別</value>
+  </data>
+  <data name="Table_UserTitleNM" xml:space="preserve">
+    <value>ERP-職稱</value>
+  </data>
+  <data name="Table_UserUnitNM" xml:space="preserve">
+    <value>ERP-單位</value>
+  </data>
+  <data name="Table_UserWorkNM" xml:space="preserve">
+    <value>ERP-工作</value>
+  </data>
+  <data name="Table_LineID" xml:space="preserve">
+    <value>Line代碼</value>
+  </data>
+  <data name="Table_LineReceiverID" xml:space="preserve">
+    <value>好友代碼</value>
+  </data>
+  <data name="Table_LineNMENUS" xml:space="preserve">
+    <value>Line名稱(英)</value>
+  </data>
+  <data name="Table_LineNMJAJP" xml:space="preserve">
+    <value>Line名稱(日)</value>
+  </data>
+  <data name="Table_LineNMTHTH" xml:space="preserve">
+    <value>Line名稱(泰)</value>
+  </data>
+  <data name="Table_LineNMZHCN" xml:space="preserve">
+    <value>Line名稱(簡)</value>
+  </data>
+  <data name="Table_LineNMZHTW" xml:space="preserve">
+    <value>Line名稱(繁)</value>
+  </data>
+  <data name="Table_LineReceiverNMZHTW" xml:space="preserve">
+    <value>好友名稱(繁)</value>
+  </data>
+  <data name="Table_LineReceiverNMZHCN" xml:space="preserve">
+    <value>好友名稱(簡)</value>
+  </data>
+  <data name="Table_LineReceiverNMENUS" xml:space="preserve">
+    <value>好友名稱(英)</value>
+  </data>
+  <data name="Table_LineReceiverNMTHTH" xml:space="preserve">
+    <value>好友名稱(泰)</value>
+  </data>
+  <data name="Table_LineReceiverNMJAJP" xml:space="preserve">
+    <value>好友名稱(日)</value>
+  </data>
+  <data name="Table_LineSourceType" xml:space="preserve">
+    <value>好友類型</value>
+  </data>
+  <data name="Table_FunGroupKOKR" xml:space="preserve">
+    <value>功能群組名稱(韓)</value>
+  </data>
+  <data name="Table_FunNMKOKR" xml:space="preserve">
+    <value>功能名稱(韓)</value>
+  </data>
+  <data name="Table_LineNMKOKR" xml:space="preserve">
+    <value>Line名稱(韓)</value>
+  </data>
+  <data name="Table_LineReceiverNMKOKR" xml:space="preserve">
+    <value>好友名稱(韓)</value>
+  </data>
+  <data name="Table_RoleGroupNMKOKR" xml:space="preserve">
+    <value>角色群組名稱(韓)</value>
+  </data>
+  <data name="Table_RoleNMKOKR" xml:space="preserve">
+    <value>角色名稱(韓)</value>
+  </data>
+</root>

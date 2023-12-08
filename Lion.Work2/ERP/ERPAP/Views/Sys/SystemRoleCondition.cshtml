@@ -1,0 +1,112 @@
+﻿@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using ERPAP.Models.Sys
+@using Resources
+@model SystemRoleConditionModel
+@{
+    Layout = "~/Views/_Layout.cshtml";
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemRoleCondition.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+@using (Html.BeginFormSubmit("SystemRoleConditionForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.SysSystemTabList))
+    {
+        <table class="tblsearch">
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <th style="width: 70px">
+                                @Html.FormLabel(SysSystemRoleCondition.Label_SysID, IsRequired: true)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.SysID, Model.GetDictionaryFormSelectItem(Model.EntityUserSystemSysIDList))
+                            </td>
+                            <th style="width: 70px">
+                                @Html.FormLabel(SysSystemRoleCondition.Table_ConditionNM)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.ConditionID, Model.GetDictionaryFormSelectItem(Model.EntitySysSystemConditionIDList, true))
+                            </td>
+                            <th style="width: 70px">
+                                @Html.FormLabel(SysSystemRoleCondition.Label_ContainRole)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.IncludeRoleID, Model.GetDictionaryFormSelectItem(Model.EntitySysSystemRoleIDList, true))
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="6">
+                                @Html.ButtonClient("SelectButton", Resource.Button_Select, className: "btnSearch")
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        using (Html.BeginPager(Model.PageIndex, Model.PageSize, Model.RowCount))
+        {
+            string trClass = string.Empty;
+            
+            <table id="SystemRoleConditionTable" class="tblzebra">
+                <thead>
+                <tr>
+                    <th>@SysSystemRoleCondition.Table_Detail</th>
+                    <th>@SysSystemRoleCondition.Table_ConditionID</th>
+                    <th>@SysSystemRoleCondition.Table_ConditionNM</th>
+                    <th>@SysSystemRoleCondition.Table_RoleNM</th>
+                    <th>@SysSystemRoleCondition.Table_Remark</th>
+                    <th>@SysSystemRoleCondition.Table_SortOrder</th>
+                    <th>@SysSystemRoleCondition.Table_UpdUserNM</th>
+                    <th>@SysSystemRoleCondition.Table_UpdDT</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                @foreach (var row in Model.SystemRoleConditions)
+                {
+                    <tr class="@trClass">
+                        <td data-th="@SysSystemRoleCondition.Table_Detail：">
+                            @Html.TextSubmitLink(
+                                "Sys",
+                                "SystemRoleConditionDetail",
+                                "LinkFunKeyDetail",
+                                SysSystemRoleCondition.Table_Detail,
+                                new List<string>()
+                                {
+                                    row.RoleConditionID,
+                                    row.SysID
+                                }
+                                )
+                        </td>
+                        <td data-th="@SysSystemRoleCondition.Table_ConditionID：">@row.RoleConditionID</td>
+                        <td data-th="@SysSystemRoleCondition.Table_ConditionNM：">@row.RoleConditionNM</td>
+                        <td data-th="@SysSystemRoleCondition.Table_RoleNM：">@row.SysRole</td>
+                        <td data-th="@SysSystemRoleCondition.Table_Remark：">@row.Remark</td>
+                        <td data-th="@SysSystemRoleCondition.Table_SortOrder：">@row.SortOrder</td>
+                        <td data-th="@SysSystemRoleCondition.Table_UpdUserNM：">@row.UpdUserNM</td>
+                        <td data-th="@SysSystemRoleCondition.Table_UpdDT：">@Html.Raw(row.UpdDT)</td>
+                    </tr>
+                    
+                    if (string.IsNullOrWhiteSpace(trClass))
+                    {
+                        trClass = "tr2";
+                    }
+                    else
+                    {
+                        trClass = string.Empty;
+                    }
+                }
+                </tbody>
+            </table>
+        }
+
+        <div>
+            @Html.ButtonSubmit("Sys", "SystemRoleConditionDetail", "AddButton", Resource.Button_Add, className: "btn")
+        </div>
+    }
+}

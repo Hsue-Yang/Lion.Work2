@@ -1,0 +1,241 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Utility.ERP
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemSubsysListModel
+
+@{
+    string editionNo = ViewData[EnumViewDataItem.EditionNo.ToString()].ToString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemSubsysList.js?@(editionNo)" type="text/javascript"></script>
+<div class="page-title"><h3>@SysSystemSubsysList.TabText_SystemSubList</h3></div>
+@using (Html.BeginFormSubmit("SystemSubsysListForm"))
+{
+    <table class="tblvertical">
+        @if (Model.IsITManager)
+        {
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemSubsysList.Label_SysID)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.SysID, ReadOnly: true)
+                    @Html.InputTextBoxFor(model => model.SysNM, ReadOnly: true)
+                    @Model.SysNM
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemSubsysList.Label_SubSysID, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.SubSysID, false, 15, TitleName: SysSystemSubsysList.Label_SubSysID)
+                </td>
+                <th></th>
+                <td></td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemSubsysList.Label_SysNMZHTW, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.SysNMZHTW, ReadOnly: false, Size: 30, TitleName: SysSystemSubsysList.Label_SysNMZHTW)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemSubsysList.Label_SysNMZHCN, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.SysNMZHCN, ReadOnly: false, Size: 30, TitleName: SysSystemSubsysList.Label_SysNMZHCN)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemSubsysList.Label_SysNMENUS, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.SysNMENUS, ReadOnly: false, Size: 30, TitleName: SysSystemSubsysList.Label_SysNMENUS)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemSettingDetail.Label_SysNMTHTH, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.SysNMTHTH, ReadOnly: false, Size: 30, TitleName: SysSystemSettingDetail.Label_SysNMTHTH)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemSettingDetail.Label_SysNMJAJP, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.SysNMJAJP, ReadOnly: false, Size: 30, TitleName: SysSystemSettingDetail.Label_SysNMJAJP)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemSettingDetail.Label_SysNMKOKR, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.SysNMKOKR, ReadOnly: false, Size: 30, TitleName: SysSystemSettingDetail.Label_SysNMKOKR)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemSubsysList.Label_SortOrder)
+                </th>
+                <td colspan="5">
+                    @Html.InputTextBoxFor(model => model.SortOrder, false, 30, TitleName: SysSystemSubsysList.Label_SortOrder)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemSubsysList.Label_SysMANUserID, IsRequired: true)
+                </th>
+                <td colspan="5">
+                    @Html.InputTextBoxFor(model => model.SysMANUserID, false, Size: 10, TitleName: SysSystemSubsysList.Label_SysMANUserID)
+                </td>
+            </tr>
+        }
+        else
+        {
+            <tr>
+                <th style="width: 12%">
+                    @Html.FormLabel(SysSystemSubsysList.Label_SysID)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.SysID, ReadOnly: true)
+                    @Html.InputTextBoxFor(model => model.SysNM, ReadOnly: true)
+                    @Model.SysNM
+                </td>
+            </tr>
+        }
+        <tr>
+            <td colspan="6">
+                @if (Model.IsITManager)
+                {
+                    @Html.ButtonSubmit("Sys", "SystemSubsysList", "AddButton", Resource.Button_Add, className: "btn")
+                }
+                @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+            </td>
+        </tr>
+    </table>
+
+    <table id="SystemSubsysListTable" class="tblzebra" cellspacing="0" cellpadding="4">
+        <tr>
+            @if (Model.IsITManager)
+            {
+                <th>@SysSystemSubsysList.Label_Delete</th>
+                <th>@SysSystemSubsysList.Label_Update</th>
+            }
+            <th nowrap="nowrap">@SysSystemSubsysList.Lable_HardwareList</th>
+            <th nowrap="nowrap">@SysSystemSubsysList.Lable_SoftwareList</th>
+            <th nowrap="nowrap">@SysSystemSubsysList.Label_SubSysID</th>
+            <th nowrap="nowrap">@SysSystemSubsysList.Label_SysNMZHTW</th>
+            <th nowrap="nowrap">@SysSystemSubsysList.Label_SysNMZHCN</th>
+            <th nowrap="nowrap">@SysSystemSubsysList.Label_SysNMENUS</th>
+            <th nowrap="nowrap">@SysSystemSubsysList.Label_SysNMTHTH</th>
+            <th nowrap="nowrap">@SysSystemSubsysList.Label_SysNMJAJP</th>
+            <th nowrap="nowrap">@SysSystemSubsysList.Label_SysNMKOKR</th>
+            <th nowrap="nowrap">@SysSystemSubsysList.Label_SortOrder</th>
+            <th nowrap="nowrap">@SysSystemSubsysList.Label_SysMANUserID</th>
+            <th nowrap="nowrap">@SysSystemSubsysList.Label_UpdUserNM</th>
+            <th nowrap="nowrap">@SysSystemSubsysList.Label_UpdDT</th>
+        </tr>
+        @if (Model.SystemSubMainList != null)
+        {
+            string trClass = string.Empty;
+            foreach (var row in Model.SystemSubMainList)
+            {
+                <tr class="@trClass">
+                    @if (Model.IsITManager)
+                    {
+                        <td data-th="@SysSystemSubsysList.Label_Delete：" nowrap="nowrap" class="center">
+                            @Html.TextSubmitLink(
+                                "Sys",
+                                "SystemSubsysList",
+                                "DeleteLinkFunKey",
+                                SysSystemSubsysList.Label_Delete,
+                                new List<string>()
+                                {
+                                    row.SubSysID
+                                }
+                                )
+                        </td>
+                        <td data-th="@SysSystemSubsysList.Label_Update：" nowrap="nowrap" class="center">
+                            @Html.TextSubmitLink(
+                                "Sys",
+                                "SystemSubsysList",
+                                "UpdateLinkFunKey",
+                                SysSystemSubsysList.Label_Update,
+                                new List<string>()
+                                {
+                                    row.SubSysID,
+                                    row.SysNMZHTW,
+                                    row.SysNMZHCN,
+                                    row.SysNMENUS,
+                                    row.SysNMTHTH,
+                                    row.SysNMJAJP,
+                                    row.SortOrder,
+                                    Resource.Button_Save,
+                                    row.SysNMKOKR,
+                                }
+                                )
+                        </td>
+                    }
+                    <td data-th="@SysSystemSubsysList.Lable_HardwareList：" nowrap="nowrap" class="center">
+                        @Html.TextSubmitLink(
+                            "Sys",
+                            "SystemIPList",
+                            "IPListLinkFunKey",
+                            SysSystemSubsysList.Lable_HardwareList,
+                            new List<string>()
+                            {
+                                row.SysID,
+                                row.SysNM,
+                                row.SubSysID,
+                            }
+                            )
+                    </td>
+                    <td data-th="@SysSystemSubsysList.Lable_SoftwareList：" nowrap="nowrap" class="center">
+                        @Html.TextSubmitLink(
+                            "Sys",
+                            "SystemServiceList",
+                            "ServiceListLinkFunKey",
+                            SysSystemSubsysList.Lable_SoftwareList,
+                            new List<string>()
+                            {
+                                row.SysID,
+                                row.SysNM,
+                                row.SubSysID,
+                            }
+                            )
+                    </td>
+                    <td data-th="@SysSystemSubsysList.Label_Delete：" nowrap="nowrap" title="@SysSystemSubsysList.Label_SubSysID">
+                        @Html.Raw(row.SubSysID)
+                        @Html.InputTextBox("UpdateButton", Resource.Button_Save, inputType: EnumInputType.TextBoxHidden)
+                        @Html.InputTextBox("Table_SubSysID", row.SubSysID, inputType: EnumInputType.TextBoxHidden)
+                    </td>
+                    <td data-th="@SysSystemSubsysList.Label_SysNMZHTW：" nowrap="nowrap" title="@SysSystemSubsysList.Label_SysNMZHTW">@Html.Raw(row.SysNMZHTW)</td>
+                    <td data-th="@SysSystemSubsysList.Label_SysNMZHCN：" nowrap="nowrap" title="@SysSystemSubsysList.Label_SysNMZHCN">@Html.Raw(row.SysNMZHCN)</td>
+                    <td data-th="@SysSystemSubsysList.Label_SysNMENUS：" nowrap="nowrap" title="@SysSystemSubsysList.Label_SysNMENUS">@Html.Raw(row.SysNMENUS)</td>
+                    <td data-th="@SysSystemSubsysList.Label_SysNMTHTH：" nowrap="nowrap" title="@SysSystemSubsysList.Label_SysNMTHTH">@Html.Raw(row.SysNMTHTH)</td>
+                    <td data-th="@SysSystemSubsysList.Label_SysNMJAJP：" nowrap="nowrap" title="@SysSystemSubsysList.Label_SysNMJAJP">@Html.Raw(row.SysNMJAJP)</td>
+                    <td data-th="@SysSystemSubsysList.Label_SysNMKOKR：" nowrap="nowrap" title="@SysSystemSubsysList.Label_SysNMKOKR">@Html.Raw(row.SysNMKOKR)</td>
+                    <td data-th="@SysSystemSubsysList.Label_SortOrder：" nowrap="nowrap" title="@SysSystemSubsysList.Label_SortOrder">@Html.Raw(row.SortOrder)</td>
+                    <td data-th="@SysSystemSubsysList.Label_SysMANUserID：" nowrap="nowrap" title="@SysSystemSubsysList.Label_SysMANUserID">@Html.Raw(row.SysMANUserNM)</td>
+                    <td data-th="@SysSystemSubsysList.Label_UpdUserNM：" nowrap="nowrap" title="@SysSystemSubsysList.Label_UpdUserNM">@Html.Raw(row.UpdUserNM)</td>
+                    <td data-th="@SysSystemSubsysList.Label_UpdDT：" nowrap="nowrap" title="@SysSystemSubsysList.Label_UpdDT">@Common.GetDateTimeText(row.UpdDT)</td>
+                </tr>
+                trClass = string.IsNullOrWhiteSpace(trClass) ? "tr2" : string.Empty;
+            }
+        }
+    </table>
+
+    using (Html.BeginConfirmDialog("dialog_Confirm", Resource.SysMsg_Title, Resource.SysMsg_DeleteConfirm))
+    {
+        @Html.ButtonClient("ConfirmOKButton", Resource.Button_Delete)
+        @Html.ButtonClient("ConfirmNOButton", Resource.Button_Cancel)
+    }
+
+    using (Html.BeginConfirmDialog("dialog_ConfirmUpdate", Resource.SysMsg_Title, SysSystemIPList.SysMsg_RepeatDataConfirm))
+    {
+        @Html.ButtonClient("ConfirmOKUpdateButton", Resource.Button_Save)
+        @Html.ButtonClient("ConfirmNOButton", Resource.Button_Cancel)
+    }
+}

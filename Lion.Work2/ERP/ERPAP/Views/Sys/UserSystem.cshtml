@@ -1,0 +1,96 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity
+@using LionTech.Entity.ERP
+@using LionTech.Entity.ERP.Sys
+@using LionTech.Utility
+@using LionTech.Utility.ERP
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.UserSystemModel
+
+@{
+    string editionNo = ViewData[EnumViewDataItem.EditionNo.ToString()].ToString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/UserSystem.js?@(editionNo)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("UserSystemForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.SysUserSystemTabList))
+    {
+        @Html.InputTextBox("UserID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+
+        <table class="tblsearch">
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <th nowrap="nowrap" style="width: 70px">
+                                @Html.FormLabel(SysUserSystem.Label_UserID)
+                            </th>
+                            <td nowrap="nowrap">
+                                @Html.InputTextBoxFor(model => model.QueryUserID, false, 10, TitleName: SysUserSystem.Label_UserID)
+                                @Html.ButtonClient("Help03Button", "?", className: "qmark")
+                            </td>
+                            <th nowrap="nowrap" style="width: 70px">
+                                @Html.FormLabel(SysUserSystem.Label_UserNM)
+                            </th>
+                            <td nowrap="nowrap" class="width">
+                                @Html.InputTextBoxFor(model => model.QueryUserNM, false, 10, TitleName: SysUserSystem.Label_UserNM)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td nowrap="nowrap" colspan="4" class="padding grey bordertop">
+                                @Html.ButtonClient("SelectButton", Resource.Button_Select, className: "btnSearch")
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        
+        using (Html.BeginPager(Model.PageIndex, Model.PageSize, Model.RowCount))
+        {
+            <table id="UserSystemTable" class="tblzebra">
+                <tr>
+                    <th style="width: 30px;">@SysUserSystem.Text_Detail</th>
+                    <th>@SysUserSystem.Table_UserNM</th>
+                    <th>@SysUserSystem.Table_UnitNM</th>
+                    <th>@SysUserSystem.Table_IsLeft</th>
+                    <th>@SysUserSystem.Table_IsDisable</th>
+                    <th>@SysUserSystem.Table_UpdUserNM</th>
+                    <th>@SysUserSystem.Table_UpdDT</th>
+                </tr>
+                @if (Model.EntityUserSystemList != null)
+                {
+                    string trClass = string.Empty;
+                    foreach (var data in Model.EntityUserSystemList)
+                    {
+                        <tr class="@trClass">
+                            <td data-th="@SysUserSystem.Text_Detail：" class="center">
+                                @Html.TextSubmitLink(
+                                    "Sys",
+                                    "UserSystemDetail",
+                                    "LinkFunKey",
+                                    SysUserSystem.Text_Detail,
+                                    new List<string>() {
+                                        data.UserID
+                                    }
+                                )
+                            </td>
+                            <td data-th="@SysUserSystem.Table_UserNM：" title="@SysUserSystem.Table_UserNM">@data.UserNM</td>
+                            <td data-th="@SysUserSystem.Table_UnitNM：" title="@SysUserSystem.Table_UnitNM">@data.UnitNM</td>
+                            <td data-th="@SysUserSystem.Table_IsLeft：" title="@SysUserSystem.Table_IsLeft">@((data.IsLeft == EnumYN.Y.ToString()) ? SysUserSystem.Label_Left : string.Empty)</td>
+                            <td data-th="@SysUserSystem.Table_IsDisable：" title="@SysUserSystem.Table_IsDisable">@((data.IsDisable == EnumYN.Y.ToString()) ? SysUserSystem.Label_Disable : string.Empty)</td>
+                            <td data-th="@SysUserSystem.Table_UpdUserNM：" title="@SysUserSystem.Table_UpdUserNM">@Html.Raw(data.UpdUserNM)</td>
+                            <td data-th="@SysUserSystem.Table_UpdDT：" title="@SysUserSystem.Table_UpdDT">@Html.Raw(data.UpdDT.ToString("yyyy/MM/dd HH:mm:ss.fff"))</td>
+                        </tr>
+                
+                        if (string.IsNullOrWhiteSpace(trClass)) { trClass = "tr2"; }
+                        else { trClass = string.Empty; }
+                    }
+                }
+            </table>
+        }
+    }
+}

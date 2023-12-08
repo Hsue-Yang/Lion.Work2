@@ -1,0 +1,109 @@
+﻿@{ Layout = "~/Views/_Popup.cshtml"; }
+@using LionTech.Entity
+@using LionTech.Entity.ERP
+@using LionTech.Entity.ERP.Dev
+@using LionTech.Utility
+@using LionTech.Utility.ERP
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Dev.FunIssueModel
+
+@{
+    string editionNo = ViewData[EnumViewDataItem.EditionNo.ToString()].ToString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Dev/FunIssue.js?@(editionNo)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("FunIssueForm"))
+{
+    using (Html.BeginTabStrip(ERPAP.Models._BaseAPModel.EnumTabController.Dev.ToString(), Model.TabList))
+    {
+        @Html.InputTextBox("SysID", Model.SysID, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("FunControllerID", Model.FunControllerID, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("FunActionName", Model.FunActionName, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("DevPhase", Model.DevPhase, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("IsFun", Model.IsFun, inputType: EnumInputType.TextBoxHidden)
+
+        <table width="100%" class="SelectTable" cellspacing="0" cellpadding="4">
+            <tr>
+                <th nowrap="nowrap">
+                    @Html.FormLabel(DevFunIssue.Label_SysNM)
+                </th>
+                <td nowrap="nowrap">
+                    @Html.InputTextBox("SysNMReadOnlyText", Model.EntitySystemFun.SysNM.GetValue(), ReadOnly: true, maximumLength: 200, Size: 30)
+                </td>
+                <th nowrap="nowrap">
+                    @Html.FormLabel(DevFunIssue.Label_FunGroup)
+                </th>
+                <td nowrap="nowrap">
+                    @Html.InputTextBox("FunGroupReadOnlyText", Model.EntitySystemFun.FunGroup.GetValue(), ReadOnly: true, maximumLength: 200, Size: 50)
+                </td>
+                <th nowrap="nowrap">
+                    @Html.FormLabel(DevFunIssue.Label_FunNM)
+                </th>
+                <td nowrap="nowrap">
+                    @Html.InputTextBox("FunNMReadOnlyText", Model.EntitySystemFun.FunNM.GetValue(), ReadOnly: true, maximumLength: 200, Size: 30)
+                </td>
+            </tr>
+            <tr>
+                <th nowrap="nowrap">
+                    @Html.FormLabel(DevFunIssue.Label_IsDisable)
+                </th>
+                <td nowrap="nowrap">
+                    @Html.InputTextBox("IsDisableReadOnlyText", Model.EntitySystemFun.IsDisable.GetValue(), ReadOnly: true, maximumLength: 200, Size: 30)
+                </td>
+                <th nowrap="nowrap">
+                    @Html.FormLabel(DevFunIssue.Label_FunTypeNM)
+                </th>
+                <td nowrap="nowrap">
+                    @Html.InputTextBox("FunTypeNMReadOnlyText", (Model.IsFun == EnumYN.N.ToString()) ? DevFunIssue.Label_Event : Model.EntitySystemFun.FunTypeNM.GetValue(), ReadOnly: true, maximumLength: 200, Size: 30)
+                </td>
+                <th nowrap="nowrap">
+                    @Html.FormLabel(DevFunIssue.Label_DevPhaseNM)
+                </th>
+                <td nowrap="nowrap">
+                    @Html.InputTextBox("DevPhaseNMReadOnlyText", Model.EntitySystemFun.DevPhaseNM.GetValue(), ReadOnly: true, maximumLength: 200, Size: 30)
+                </td>
+            </tr>
+            <tr>
+                <th nowrap="nowrap">
+                    @Html.FormLabel(DevFunIssue.Label_Remark, IsRequired: true)
+                </th>
+                <td nowrap="nowrap" colspan="5" style="padding-right:15px;">
+                    @Html.InputTextAreaFor(model => model.Remark, 4, 80, TitleName: DevFunIssue.Label_Remark)
+                </td>
+            </tr>
+            <tr>
+                <td nowrap="nowrap" colspan="6" class="padding grey bordertop">
+                    @Html.ButtonClient("AddButton", Resource.Button_Add, className: "btn greenhover")
+                    @Html.ButtonClient("CloseButton", Resource.Button_Close, className: "btn greenhover")
+                </td>
+            </tr>
+        </table>
+    
+        <table id="FunIssueTable" class="BIList" cellspacing="0" cellpadding="4">
+            <tr>
+                <th nowrap="nowrap">@DevFunIssue.Table_IssueNo</th>
+                <th nowrap="nowrap">@DevFunIssue.Table_Remark</th>
+                <th nowrap="nowrap">@DevFunIssue.Table_UpdUserNM</th>
+                <th nowrap="nowrap">@DevFunIssue.Table_UpdDT</th>
+            </tr>
+            @if (Model.EntityFunIssueList != null)
+            {
+                string trClass = string.Empty;
+                foreach (EntityFunIssue.FunIssue data in Model.EntityFunIssueList)
+                {
+                    <tr class="@trClass">
+                        <td nowrap="nowrap" title="@DevFunIssue.Table_IssueNo">@Html.Raw(data.IssueNo.HtmlValue())</td>
+                        <td nowrap="nowrap" title="@DevFunIssue.Table_Remark">@Html.Raw(data.Remark.HtmlValue())</td>
+                        <td nowrap="nowrap" title="@DevFunIssue.Table_UpdUserNM">@Html.Raw(data.UpdUserNM.HtmlValue())</td>
+                        <td nowrap="nowrap" title="@DevFunIssue.Table_UpdDT">@Html.Raw(data.UpdDT.HtmlValue())</td>
+                    </tr>
+                
+                    if (string.IsNullOrWhiteSpace(trClass)) { trClass = "tr2"; }
+                    else { trClass = string.Empty; }
+                }
+            }
+        </table>
+    }
+}

@@ -1,0 +1,128 @@
+﻿@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using ERPAP.Models.Sys
+@using Resources
+@model LineBotReceiverModel
+@{
+    Layout = "~/Views/_Layout.cshtml";
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/LineBotReceiver.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+@using (Html.BeginFormSubmit("LineBotReceiverForm"))
+{
+    <div class="page-title">
+        <h3>
+            @SysLineBotReceiver.Label_LineBotReceiver
+        </h3>
+    </div>
+
+    @Html.InputTextBox("SysID", Model.SysID, inputType: EnumInputType.TextBoxHidden)
+    @Html.InputTextBox("LineID", Model.LineID, inputType: EnumInputType.TextBoxHidden)
+    @Html.InputTextBox("LineNMID", Model.LineNMID, inputType: EnumInputType.TextBoxHidden)
+    @Html.InputTextBox("SysNMID", Model.SysNMID, inputType: EnumInputType.TextBoxHidden)
+    @Html.InputTextBox("ReceiverID", Model.ReceiverID, inputType: EnumInputType.TextBoxHidden)
+
+    <table class="tblsearch">
+        <tr>
+            <td>
+                <table>
+                    <tr>
+                        <th>
+                            @Html.FormLabel(SysLineBotReceiver.Label_SysID)
+                        </th>
+                        <td>
+                            @Model.SysNMID
+                        </td>
+                        <th>
+                            @Html.FormLabel(SysLineBotReceiver.Label_Line)
+                        </th>
+                        <td>
+                            @Model.LineNMID
+                        </td>
+                        <th>
+                            @Html.FormLabel(SysLineBotReceiver.Label_QueryLineReceiverNM)
+                        </th>
+                        <td>
+                            @Html.InputTextBoxFor(model => model.LineReceiverNM)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="6">
+                            @Html.ButtonSubmit("Sys", "LineBotReceiver", "SelectButton", Resource.Button_Select, "btnSearch")
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    using (Html.BeginPager(Model.PageIndex, Model.PageSize, Model.RowCount))
+    {
+        <table id="LineBotReceiverTable" class="tblzebra">
+            <tr>
+                <th>
+                    @SysLineBotReceiver.Table_Detail
+                </th>
+                <th>
+                    @SysLineBotReceiver.Table_LineReceiverID
+                </th>
+                <th>
+                    @SysLineBotReceiver.Table_LineReceiverNM
+                </th>
+                <th>
+                    @SysLineBotReceiver.Table_SourceType
+                </th>
+                <th>
+                    @SysLineBotReceiver.Table_Disable
+                </th>
+                <th>
+                    @SysLineBotReceiver.Table_UpdUser
+                </th>
+                <th>
+                    @SysLineBotReceiver.Table_UpdDT
+                </th>
+            </tr>
+            @foreach (var row in Model.LineBotReceiverList)
+            {
+                <tr>
+                    <td data-th="@SysLineBotReceiver.Label_Detail：">
+                        @Html.TextSubmitLink(
+                            "Sys",
+                            "LineBotReceiverDetail",
+                            "DetailLinkFunKey",
+                            SysLineBotReceiver.Label_Detail,
+                            new List<string>()
+                            {
+                                row.SysID,
+                                row.LineID,
+                                row.ReceiverID
+                            }
+                            )
+                    </td>
+                    <td data-th="@SysLineBotReceiver.Table_LineReceiverID：">
+                        @(string.IsNullOrEmpty(row.LineReceiverID) ? SysLineBotReceiver.Label_NotSet : row.LineReceiverID)
+                    </td>
+                    <td data-th="@SysLineBotReceiver.Table_LineReceiverNM：">
+                        @row.LineReceiverNM
+                    </td>
+                    <td data-th="@SysLineBotReceiver.Table_SourceType：">
+                        @Model.SourceTypeDic[row.SourceType]
+                    </td>
+                    <td data-th="@SysLineBotReceiver.Table_Disable：">
+                        @row.IsDisable
+                    </td>
+                    <td data-th="@SysLineBotReceiver.Table_UpdUser：">
+                        @row.UpdUserNM
+                    </td>
+                    <td data-th="@SysLineBotReceiver.Table_UpdDT：">
+                        @row.UpdDT.ToString("yyyy/MM/dd HH:mm:ss.fff")
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+    <div>
+        @Html.ButtonSubmit("Sys", "LineBotAccountSetting", "CancelButton", Resource.Button_Cancel, "btn")
+    </div>
+}

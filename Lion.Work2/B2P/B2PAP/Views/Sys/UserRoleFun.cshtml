@@ -1,0 +1,87 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity
+@using LionTech.Entity.B2P
+@using LionTech.Entity.B2P.Sys
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model B2PAP.Models.Sys.UserRoleFunModel
+
+<script src="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Scripts/Sys/UserRoleFun.js" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("UserRoleFunForm"))
+{
+    using (Html.BeginTabs(B2PAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.SysUserSystemTabList))
+    {
+        @Html.InputTextBox("UserID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+
+        <table class="tblsearch">
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <th nowrap="nowrap">
+                                @Html.FormLabel(SysUserRoleFun.Label_UserID)
+                            </th>
+                            <td nowrap="nowrap">
+                                @Html.InputTextBoxFor(model => model.QueryUserID, false, 10, TitleName: SysUserRoleFun.Label_UserID)
+                                @Html.ButtonClient("Help03Button", "?", className: "qmark")
+                            </td>
+                            <th nowrap="nowrap">
+                                @Html.FormLabel(SysUserRoleFun.Label_UserNM)
+                            </th>
+                            <td nowrap="nowrap" class="width">
+                                @Html.InputTextBoxFor(model => model.QueryUserNM, false, 10, TitleName: SysUserRoleFun.Label_UserNM)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td nowrap="nowrap" colspan="4" class="padding grey bordertop">
+                                @Html.ButtonClient("SelectButton", Resource.Button_Select, className: "btnSearch")
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        
+        using (Html.BeginPager(Model.PageIndex, Model.PageSize, Model.RowCount))
+        {
+            <table id="UserRoleFunTable" class="tblzebra">
+                <tr>
+                    <th nowrap="nowrap" style="width: 30px;">@SysUserRoleFun.Text_Detail</th>
+                    <th nowrap="nowrap">@SysUserRoleFun.Table_UserNM</th>
+                    <th nowrap="nowrap">@SysUserRoleFun.Table_UnitNM</th>
+                    <th nowrap="nowrap">@SysUserRoleFun.Table_IsLeft</th>
+                    <th nowrap="nowrap">@SysUserRoleFun.Table_IsDisable</th>
+                    <th nowrap="nowrap">@SysUserRoleFun.Table_UpdUserNM</th>
+                    <th nowrap="nowrap">@SysUserRoleFun.Table_UpdDT</th>
+                </tr>
+                @if (Model.EntityUserRoleFunList != null)
+                {
+                    foreach (EntityUserRoleFun.UserRoleFun data in Model.EntityUserRoleFunList)
+                    {
+                        <tr>
+                            <td data-th="@SysUserRoleFun.Text_Detail：" nowrap="nowrap" class="center">
+                                @Html.TextSubmitLink(
+                                    "Sys",
+                                    "UserRoleFunDetail",
+                                    "LinkFunKey",
+                                    SysUserRoleFun.Text_Detail,
+                                    new List<string>() {
+                                        data.UserID.GetValue()
+                                    }
+                                )
+                            </td>
+                            <td data-th="@SysUserRoleFun.Table_UserNM：" nowrap="nowrap" title="@SysUserRoleFun.Table_UserNM">@data.UserNM.HtmlValue()</td>
+                            <td data-th="@SysUserRoleFun.Table_UnitNM：" nowrap="nowrap" title="@SysUserRoleFun.Table_UnitNM">@data.UnitNM.HtmlValue()</td>
+                            <td data-th="@SysUserRoleFun.Table_IsLeft：" nowrap="nowrap" title="@SysUserRoleFun.Table_IsLeft">@((data.IsLeft.GetValue() == EnumYN.Y.ToString()) ? SysUserRoleFun.Label_Left : string.Empty)</td>
+                            <td data-th="@SysUserRoleFun.Table_IsDisable：" nowrap="nowrap" title="@SysUserRoleFun.Table_IsDisable">@((data.IsDisable.GetValue() == EnumYN.Y.ToString()) ? SysUserRoleFun.Label_Disable : string.Empty)</td>
+                            <td data-th="@SysUserRoleFun.Table_UpdUserNM：" nowrap="nowrap" title="@SysUserRoleFun.Table_UpdUserNM">@Html.Raw(data.UpdUserNM.HtmlValue())</td>
+                            <td data-th="@SysUserRoleFun.Table_UpdDT：" nowrap="nowrap" title="@SysUserRoleFun.Table_UpdDT">@Html.Raw(data.UpdDT.HtmlValue())</td>
+                        </tr>
+                    }
+                }
+            </table>
+        }
+    }
+}

@@ -1,0 +1,57 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity
+@using LionTech.Entity.ERP
+@using LionTech.Entity.ERP.Sys
+@using LionTech.Utility
+@using LionTech.Utility.ERP
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.UserPermissionDetailModel
+
+@{
+    string editionNo = ViewData[EnumViewDataItem.EditionNo.ToString()].ToString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/UserPermissionDetail.js?@(editionNo)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("UserPermissionDetailForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.TabList))
+    {
+        @Html.InputTextBox("UserID", Model.UserID, inputType: EnumInputType.TextBoxHidden)
+
+        <table class="tblvertical">
+            <tr>
+                <th>
+                    @Html.FormLabel(SysUserPermissionDetail.Label_UserID)
+                </th>
+                <td colspan="3">
+                    @Html.InputTextBox("UserNMReadOnlyText", Model.UserNM, ReadOnly: true, maximumLength: 200, Size: 30)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysUserPermissionDetail.Label_RestrictType, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputComboBoxFor(model => model.RestrictType, Model.CMCodeLists.ToDictionary(p => p.CodeID, p => p.CodeNM), isDisabled: true, TitleName: SysUserPermissionDetail.Label_RestrictType)
+                </td>
+                <th>
+                    @Html.FormLabel(SysUserPermissionDetail.Label_IsLock)
+                </th>
+                <td>
+                    @Html.InputCheckBox("IsLock", SysUserPermissionDetail.Label_IsLock, EnumYN.Y.ToString(), (Model.IsLock == EnumYN.Y.ToString()) ? true : false, isDisabled: true)
+                </td>
+            </tr>
+        </table>
+
+        <div>
+            @if (Model.ExecAction == EnumActionType.Update &&
+                                 !string.IsNullOrWhiteSpace(Model.UserNM))
+            {
+                <span style="display: none;">@Html.ButtonClient("UpdateButton", Resource.Button_Update, className: "btn")</span>
+            }
+            @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+        </div>
+    }
+}

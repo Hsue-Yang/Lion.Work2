@@ -1,0 +1,249 @@
+﻿@{ Layout = "~/Views/_Popup.cshtml"; }
+@using LionTech.Entity
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemIPListModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemIPList.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<div class="page-title"><h3>@SysSystemIPList.TabText_SystemIPList</h3></div>
+@using (Html.BeginFormSubmit("SystemIPListForm"))
+{
+    <table class="tblvertical">
+        @if (Model.IsITManager)
+        {
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemIPList.Label_SysID, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.SysID, ReadOnly: true)
+                    @Html.InputTextBoxFor(model => model.SysNM, ReadOnly: true)
+                    @Model.SysNM
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemIPList.Label_SystemSubsys)
+                </th>
+                <td>
+                    @Html.InputComboBoxFor(model => model.SubSysID, Model.GetDictionaryFormSelectItem(Model.SystemSubList, true), TitleName: SysSystemIPList.Label_SystemSubsys)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemIPList.Label_IPAddress, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.IPAddress, false, 15, TitleName: SysSystemIPList.Label_IPAddress)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemIPList.Label_ServerNM, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.ServerNM, false, 15, TitleName: SysSystemIPList.Label_ServerNM)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemIPList.Label_FolderPath)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.FolderPath, false, 25, TitleName: SysSystemIPList.Label_FolderPath)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemIPList.Label_Remark)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.Remark, false, 50, TitleName: SysSystemIPList.Label_Remark)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemIPList.Label_ServerType)
+                </th>
+                <td>
+                    @Html.InputCheckBox("IsAPServer", SysSystemIPList.Checkbox_IsAPServer, EnumYN.Y.ToString(), Model.IsAPServer == EnumYN.Y.ToString())
+                    @Html.InputCheckBox("IsAPIServer", SysSystemIPList.Checkbox_IsAPIServer, EnumYN.Y.ToString(), Model.IsAPIServer == EnumYN.Y.ToString())
+                    @Html.InputCheckBox("IsDBServer", SysSystemIPList.Checkbox_IsDBServer, EnumYN.Y.ToString(), Model.IsDBServer == EnumYN.Y.ToString())
+                    @Html.InputCheckBox("IsFileServer", SysSystemIPList.Checkbox_IsFileServer, EnumYN.Y.ToString(), Model.IsFileServer == EnumYN.Y.ToString())
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemIPList.Label_IsOutsourcing)
+                </th>
+                <td>
+                    @Html.InputCheckBox("IsOutsourcing", SysSystemIPList.Checkbox_IsOutsourcing, EnumYN.Y.ToString(), Model.IsOutsourcing == EnumYN.Y.ToString())
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    @Html.ButtonSubmit("Sys", "SystemIPList", "AddButton", Resource.Button_Add, className: "btn")
+                    @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+                    @Html.InputTextBox("AddButtonHidden", Resource.Button_Add, inputType: EnumInputType.TextBoxHidden)
+                </td>
+            </tr>
+        }
+        else
+        {
+            <tr>
+                <th style="width: 12%">
+                    @Html.FormLabel(SysSystemIPList.Label_SysID, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.SysID, ReadOnly: true)
+                    @Html.InputTextBoxFor(model => model.SysNM, ReadOnly: true)
+                    @Model.SysNM
+                </td>
+            </tr>
+        }
+    </table>
+
+    using (Html.BeginPager(Model.PageIndex, Model.PageSize, Model.RowCount))
+    {
+        <table id="SystemIPListTable" class="tblzebra">
+            <tr>
+                @if (Model.IsITManager)
+                {
+                    <th nowrap="nowrap">@SysSystemIPList.Label_Delete</th>
+                    <th nowrap="nowrap">@SysSystemIPList.Label_Update</th>
+                }
+                <th nowrap="nowrap">@SysSystemIPList.Label_SysID</th>
+                <th nowrap="nowrap">@SysSystemIPList.Label_SystemSubsys</th>
+                <th nowrap="nowrap">@SysSystemIPList.Label_IPAddress</th>
+                <th nowrap="nowrap">@SysSystemIPList.Label_ServerNM</th>
+                <th nowrap="nowrap">@SysSystemIPList.Label_IsAPServer</th>
+                <th nowrap="nowrap">@SysSystemIPList.Label_IsAPIServer</th>
+                <th nowrap="nowrap">@SysSystemIPList.Label_IsDBServer</th>
+                <th nowrap="nowrap">@SysSystemIPList.Label_IsFileServer</th>
+                <th nowrap="nowrap">@SysSystemIPList.Label_IsOutsourcing</th>
+                <th nowrap="nowrap">@SysSystemIPList.Label_FolderPath</th>
+                <th nowrap="nowrap">@SysSystemIPList.Label_Remark</th>
+                <th nowrap="nowrap">@SysSystemIPList.Label_UpdUserNM</th>
+                <th nowrap="nowrap">@SysSystemIPList.Label_UpdDT</th>
+            </tr>
+            @if (Model.SystemIPList != null)
+            {
+                foreach (var row in Model.SystemIPList)
+                {
+                    <tr>
+                        @if (Model.IsITManager)
+                        {
+                            <td data-th="@SysSystemIPList.Label_Delete：" nowrap="nowrap" class="center">
+                                @Html.TextSubmitLink(
+                                    "Sys",
+                                    "SystemIPList",
+                                    "DeleteLinkFunKey",
+                                    SysSystemIPList.Label_Delete,
+                                    new List<string>()
+                                    {
+                                        row.IPAddress,
+                                        row.SubSysID,
+                                    }
+                                    )
+                            </td>
+                            <td data-th="@SysSystemIPList.Label_Update：" nowrap="nowrap" class="center">
+                                @Html.TextSubmitLink(
+                                    "Sys",
+                                    "SystemIPList",
+                                    "UpdateLinkFunKey",
+                                    SysSystemIPList.Label_Update,
+                                    new List<string>()
+                                    {
+                                        row.IPAddress,
+                                        row.IsAPServer,
+                                        row.IsAPIServer,
+                                        row.IsDBServer,
+                                        row.IsFileServer,
+                                        string.IsNullOrWhiteSpace(row.FolderPath) ? null : row.FolderPath.Replace("\\", "\\\\"),
+                                        row.Remark,
+                                        Resource.Button_Save,
+                                        row.ServerNM,
+                                        row.IsOutsourcing,
+                                        row.SubSysID,
+                                    }
+                                    )
+                            </td>
+                        }
+                        <td data-th="@SysSystemIPList.Label_SysID：" nowrap="nowrap" title="@SysSystemIPList.Label_SysID">
+                            @Model.SysNM
+                            @Html.InputTextBox("SysComp", row.SysID, inputType: EnumInputType.TextBoxHidden)
+                        </td>
+                        <td data-th="@SysSystemIPList.Label_SystemSubsys：" nowrap="nowrap" title="@SysSystemIPList.Label_SystemSubsys">
+                            @if (string.IsNullOrWhiteSpace(row.SubSysNM) == false)
+                            {
+                                @row.SubSysNM
+                            }
+                            @Html.InputTextBox("SubComp", row.SubSysID, inputType: EnumInputType.TextBoxHidden)
+                        </td>
+                        <td data-th="@SysSystemIPList.Label_IPAddress：" nowrap="nowrap" title="@SysSystemIPList.Label_IPAddress">
+                            @row.IPAddress
+                            @Html.InputTextBox("UpdateButton", Resource.Button_Save, inputType: EnumInputType.TextBoxHidden)
+                            @Html.InputTextBox("IPAddressTable", row.IPAddress, inputType: EnumInputType.TextBoxHidden)
+                        </td>
+                        <td data-th="@SysSystemIPList.Label_ServerNM：" nowrap="nowrap" title="@SysSystemIPList.Label_ServerNM">
+                            @row.ServerNM
+                        </td>
+                        <td data-th="@SysSystemIPList.Label_IsAPServer：" nowrap="nowrap" title="@SysSystemIPList.Label_IsAPServer">
+                            @if (row.IsAPServer == EnumYN.Y.ToString())
+                            {
+                                @row.IsAPServer
+                            }
+                        </td>
+                        <td data-th="@SysSystemIPList.Label_IsAPIServer：" nowrap="nowrap" title="@SysSystemIPList.Label_IsAPIServer">
+                            @if (row.IsAPIServer == EnumYN.Y.ToString())
+                            {
+                                @row.IsAPIServer
+                            }
+                        </td>
+                        <td data-th="@SysSystemIPList.Label_IsDBServer：" nowrap="nowrap" title="@SysSystemIPList.Label_IsDBServer">
+                            @if (row.IsDBServer == EnumYN.Y.ToString())
+                            {
+                                @row.IsDBServer
+                            }
+                        </td>
+                        <td data-th="@SysSystemIPList.Label_IsFileServer：" nowrap="nowrap" title="@SysSystemIPList.Label_IsFileServer">
+                            @if (row.IsFileServer == EnumYN.Y.ToString())
+                            {
+                                @row.IsFileServer
+                            }
+                            @Html.InputTextBox("FileComp", row.IsFileServer, inputType: EnumInputType.TextBoxHidden)
+                        </td>
+                        <td data-th="@SysSystemIPList.Label_IsOutsourcing：" nowrap="nowrap" title="@SysSystemIPList.Label_IsOutsourcing">
+                            @if (row.IsOutsourcing == EnumYN.Y.ToString())
+                            {
+                                @row.IsOutsourcing
+                            }
+                        </td>
+                        <td data-th="@SysSystemIPList.Label_FolderPath：" nowrap="nowrap" title="@SysSystemIPList.Label_FolderPath">
+                            @row.FolderPath
+                        </td>
+                        <td data-th="@SysSystemIPList.Label_Remark：" nowrap="nowrap" title="@SysSystemIPList.Label_Remark">
+                            @row.Remark
+                        </td>
+                        <td data-th="@SysSystemIPList.Label_Delete：" nowrap="nowrap" title="@SysSystemIPList.Label_UpdUserNM">
+                            @row.UpdUserNM
+                        </td>
+                        <td data-th="@SysSystemIPList.Label_UpdDT：" nowrap="nowrap" title="@SysSystemIPList.Label_UpdDT">
+                            @Common.GetDateTimeText(row.UpdDT)
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+    }
+
+    using (Html.BeginConfirmDialog("dialog_Confirm", Resource.SysMsg_Title, Resource.SysMsg_DeleteConfirm))
+    {
+        @Html.ButtonClient("ConfirmOKButton", Resource.Button_Delete)
+        @Html.ButtonClient("ConfirmNOButton", Resource.Button_Cancel)
+    }
+
+    using (Html.BeginConfirmDialog("dialog_ConfirmUpdate", Resource.SysMsg_Title, SysSystemIPList.SysMsg_RepeatDataConfirm))
+    {
+        @Html.ButtonClient("ConfirmOKUpdateButton", Resource.Button_Save)
+        @Html.ButtonClient("ConfirmNOButton", Resource.Button_Cancel)
+    }
+}

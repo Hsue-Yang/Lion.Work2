@@ -1,0 +1,48 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity.B2P
+@using LionTech.Entity.B2P.Pub
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model B2PAP.Models.Pub.MenuSettingModel
+
+<script src="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Scripts/Pub/MenuSetting.js" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("MenuSettingForm"))
+{
+    using (Html.BeginTabs(B2PAP.Models._BaseAPModel.EnumTabController.Pub.ToString(), Model.TabList))
+    {
+        <table id="MenuSettingTable" class="tblzebra">
+            <tr>
+                <th>@PubMenuSetting.Table_FunMenuNM</th>
+                <th>@PubMenuSetting.Table_MenuID</th>
+                <th>@PubMenuSetting.Table_SortOrder</th>
+            </tr>
+            @if (Model.EntityMenuSettingList != null)
+            {
+                string rowListNM = string.Empty;
+
+                EntityMenuSetting.MenuSetting data = new EntityMenuSetting.MenuSetting();
+                for (int rowCount = 0; rowCount < Model.EntityMenuSettingList.Count; rowCount++)
+                {
+                    data = Model.EntityMenuSettingList[rowCount];
+                    rowListNM = "menuSettingValueList[" + rowCount + "]";
+
+                    <tr>
+                        <td data-th="@PubMenuSetting.Table_FunMenuNM：" title="@PubMenuSetting.Table_FunMenuNM">
+                            @Html.InputTextBox(rowListNM + ".SysID", data.SysID.GetValue(), inputType: EnumInputType.TextBoxHidden)
+                            @Html.InputTextBox(rowListNM + ".FunMenu", data.FunMenu.GetValue(), inputType: EnumInputType.TextBoxHidden)
+                            @Html.Raw(data.FunMenuNM.HtmlValue())
+                        </td>
+                        <td data-th="@PubMenuSetting.Table_MenuID：" title="@PubMenuSetting.Table_MenuID">@Html.InputComboBox(rowListNM + ".MenuID", data.MenuID.GetValue(), Model.MenuIDList)</td>
+                        <td data-th="@PubMenuSetting.Table_SortOrder：" title="@PubMenuSetting.Table_SortOrder">@Html.InputTextBox(rowListNM + ".SortOrder", data.SortOrder.GetValue(), Validation: false)</td>
+                    </tr>
+                }
+            }
+        </table>
+
+        <div>
+            @Html.ButtonClient("UpdateButton", Resource.Button_Update, className: "btn")
+        </div>
+    }
+}

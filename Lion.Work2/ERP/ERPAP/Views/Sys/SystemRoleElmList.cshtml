@@ -1,0 +1,136 @@
+﻿@using System.Web.Script.Serialization
+@using ERPAP.Models.Sys
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@using System.Globalization;
+@model SystemRoleElmListModel
+@{
+    Layout = "~/Views/_Layout.cshtml";
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<script type="text/javascript">
+    var systemInfo = @Html.Raw(Model.SystemInfoJsonString);
+    var displayStsComboBox = @Html.Raw(new JavaScriptSerializer().Serialize(Model.DisplayDictionary.ToList()));
+    var controllerComboBox = @Html.Raw(new JavaScriptSerializer().Serialize(Model.SystemFunControllerDic.ToList()));
+    var deletebutton = '@string.Format("{0}{1}", Common.GetEnumDesc(EnumSystemID.ERPAP), "/Content/images/delete.png")';
+</script>
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemRoleElmList.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemRoleElmListForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.TabList))
+    {
+        @Html.InputTextBox("SysID", Model.SysID, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("SysNM", Model.SysNM, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("FunElmID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("RoleID", Model.RoleID, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("RoleNM", Model.RoleNM, inputType: EnumInputType.TextBoxHidden)
+
+        <table class="tblsearch">
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <th>
+                                @Html.FormLabel(SysSystemRoleElmList.Label_SysID)
+                            </th>
+                            <td>
+                                @Model.SysNM
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysSystemRoleElmList.Label_SysRoleID)
+                            </th>
+                            <td>
+                                @Model.RoleNM
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysSystemRoleElmList.Label_FunControllerID)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.FunControllerID, Model.SystemFunControllerDic)
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysSystemRoleElmList.Label_FunActionName)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.FunActionName, Model.SystemFunActionDic)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.ButtonSubmit("Sys", "SystemRoleElmList", "SelectButton", Resource.Button_Select, "btnSearch")
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        using (Html.BeginPager(Model.PageIndex, Model.PageSize, Model.RowCount))
+        {
+            <table id="SystemRoleElmListTable" class="tblzebra">
+                <tr>
+                    <th></th>
+                    <th>@SysSystemRoleElmList.Table_FunControllerID</th>
+                    <th>@SysSystemRoleElmList.Table_FunActionName</th>
+                    <th>@string.Format("{0}({1})", SysSystemRoleElmList.Tabel_FunElmNM, SysSystemRoleElmList.Table_FunElmID)</th>
+                    <th>@SysSystemRoleElmList.Table_DisplaySts</th>
+                    <th>@SysSystemRoleElmList.Tabel_IsDisable</th>
+                    <th>@SysSystemRoleElmList.Table_UpdUserNM</th>
+                    <th>@SysSystemRoleElmList.Table_UpdDT</th>
+                </tr>
+
+                @if (Model.SystemRoleElmList != null &&
+                     Model.SystemRoleElmList.Any())
+                {
+                    var index = 0;
+
+                    foreach (var row in Model.SystemRoleElmList)
+                    {
+                        <tr>
+                            <td style="width: 3%">
+                                @Html.ImageButton("DeleteRowButton", string.Format("{0}{1}", Common.GetEnumDesc(EnumSystemID.ERPAP), "/Content/images/delete.png"))
+                                @Html.InputTextBox("OriginalFunInfo", string.Format("{0}|{1}|{2}", row.FunControllerID, row.FunActionNM, row.ElmID), inputType: EnumInputType.TextBoxHidden)
+                            </td>
+                            <td data-th="@SysSystemRoleElmList.Table_FunControllerID：" style="width: 15%">@row.FunControllerID</td>
+                            <td data-th="@SysSystemRoleElmList.Table_FunActionName：" style="width: 15%">@row.FunActionNM</td>
+                            <td data-th="@string.Format("{0}({1})：",SysSystemRoleElmList.Tabel_FunElmNM,SysSystemRoleElmList.Table_FunElmID)" style="width: 10%">
+                                @Html.TextSubmitLink(
+                                    "Sys",
+                                    "SystemFunElmDetail",
+                                    "LinkFunElmDetail",
+                                    string.Format("{0}({1})", row.ElmNM, row.ElmID),
+                                    new List<string>()
+                                    {
+                                        row.ElmID,
+                                        Model.SysID,
+                                        row.FunControllerID,
+                                        row.FunActionNM
+                                    }
+                                    )
+                            </td>
+                            <td data-th="@SysSystemRoleElmList.Table_DisplaySts：" style="width: 10%">@Model.FunElmDisplayTypeDic[row.DisplaySts]</td>
+                            <td data-th="@SysSystemRoleElmList.Table_IsDisable：" style="width: 3%">@row.IsDisable</td>
+                            <td data-th="@SysSystemRoleElmList.Table_UpdUserNM：" style="width: 10%">@row.UpdUserIDNM</td>
+                            <td data-th="@SysSystemRoleElmList.Table_UpdDT：" style="width: 10%">@Html.Raw(row.UpdDT.ToString("yyyy/MM/dd HH:mm:ss.fff", CultureInfo.InvariantCulture))</td>
+                        </tr>
+
+                        index++;
+                    }
+                }
+            </table>
+        }
+    }
+
+    <div>
+        @Html.ButtonClient("AddButton", Resource.Button_Add, className: "btn")
+        @Html.ButtonClient("SaveButton", Resource.Button_Save, className: "btn")
+        @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+    </div>
+}
+

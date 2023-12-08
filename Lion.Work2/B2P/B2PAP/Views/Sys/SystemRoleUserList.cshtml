@@ -1,0 +1,100 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity.B2P
+@using LionTech.Entity.B2P.Sys
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model B2PAP.Models.Sys.SystemRoleUserListModel
+
+<script src="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Scripts/Sys/SystemRoleUserList.js" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemRoleUserListForm"))
+{
+    using (Html.BeginTabs(B2PAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.TabList))
+    {
+        @Html.InputTextBoxFor(model => model.SysID, true, 6)
+        @Html.InputTextBoxFor(model => model.SysNM, true, 150)
+        @Html.InputTextBoxFor(model => model.RoleID, true, 20)
+        @Html.InputTextBoxFor(model => model.RoleNM, true, 150)
+        @Html.InputTextBox("UserID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+
+        <table class="tblsearch">
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <th>
+                                @Html.FormLabel(SysSystemRoleUserList.Label_SysNM)
+                            </th>
+                            <td>
+                                @Model.SysNM
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysSystemRoleUserList.Label_RoleNM)
+                            </th>
+                            <td>
+                                @Model.RoleNM
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysSystemRoleUserList.Label_UserID)
+                            </th>
+                            <td>
+                                @Html.InputTextBoxFor(model => model.QueryUserID, false, 10, TitleName: SysSystemRoleUserList.Label_UserID)
+                                @Html.ButtonClient("Help03Button", "?", className: "qmark")
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysSystemRoleUserList.Label_UserNM)
+                            </th>
+                            <td>
+                                @Html.InputTextBoxFor(model => model.QueryUserNM, false, 10, TitleName: SysSystemRoleUserList.Label_UserNM)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="8">
+                                @Html.ButtonClient("SelectButton", Resource.Button_Select, className: "btnSearch")
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        
+        using (Html.BeginPager(Model.PageIndex, Model.PageSize, Model.RowCount))
+        {
+            <table id="SystemRoleUserListTable" class="tblzebra">
+                <tr>
+                    <th style="width: 30px;">@SysSystemRoleUserList.Text_Detail</th>
+                    <th>@SysSystemRoleUserList.Table_UserNM</th>
+                    <th>@SysSystemRoleUserList.Table_UpdUserNM</th>
+                    <th>@SysSystemRoleUserList.Table_UpdDT</th>
+                </tr>
+                @if (Model.EntitySystemRoleUserList != null)
+                {
+                    foreach (EntitySystemRoleUserList.SystemRoleUserList data in Model.EntitySystemRoleUserList)
+                    {
+                        <tr>
+                            <td data-th="@SysSystemRoleUserList.Text_Detail：" style="text-align: center">
+                                @Html.TextSubmitLink(
+                                    "Sys",
+                                    "UserRoleFunDetail",
+                                    "LinkFunKey",
+                                    SysSystemRoleUserList.Text_Detail,
+                                    new List<string>() {
+                                        data.UserID.GetValue()
+                                    }
+                                )
+                            </td>
+                            <td data-th="@SysSystemRoleUserList.Table_UserNM：" title="@SysSystemRoleUserList.Table_UserNM">@data.UserNM.HtmlValue()</td>
+                            <td data-th="@SysSystemRoleUserList.Table_UpdUserNM：" title="@SysSystemRoleUserList.Table_UpdUserNM">@Html.Raw(data.UpdUserNM.HtmlValue())</td>
+                            <td data-th="@SysSystemRoleUserList.Table_UpdDT：" title="@SysSystemRoleUserList.Table_UpdDT">@Html.Raw(data.UpdDT.HtmlValue())</td>
+                        </tr>
+                    }
+                }
+            </table>
+        }
+
+        <div>
+            @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+        </div>
+    }
+}

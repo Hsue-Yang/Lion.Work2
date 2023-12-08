@@ -1,0 +1,135 @@
+﻿@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using ERPAP.Models.Sys
+@using Resources
+@model RoleUserModel
+@{
+    Layout = "~/Views/_Layout.cshtml";
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/RoleUser.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+@using (Html.BeginFormSubmit("RoleUserForm"))
+{
+    @Html.InputTextBox("RowDataInfo", Model.RowDataInfo, inputType: EnumInputType.TextBoxHidden)
+
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.SysUserSystemTabList))
+    {
+        <table class="tblsearch">
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <th style="width: 20px">
+                                @Html.FormLabel(SysRoleUser.Label_SysID, IsRequired: true)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.SysID, Model.GetDictionaryFormSelectItem(Model.EntityUserSystemSysIDList, true), isDisabled: false, TitleName: SysRoleUser.Label_SysID)
+                            </td>
+                            <th style="width: 20px">
+                                @Html.FormLabel(SysRoleUser.Lable_RoleCategoryID)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.RoleCategoryID, Model.GetDictionaryFormSelectItem(Model.EntitySysSystemRoleCategoryIDList, true), isDisabled: false, TitleName: SysRoleUser.Lable_RoleCategoryID)
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysRoleUser.Label_RoleID, IsRequired: true)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.RoleID, Model.GetDictionaryFormSelectItem(Model.EntitySysSystemRoleIDList, true), isDisabled: false, TitleName: SysRoleUser.Label_RoleID)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.ButtonClient("SelectButton", Resource.Button_Select, className: "btnSearch")
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <pre class="red">@Html.FormLabel(SysRoleUser.Label_FunctionDesc)</pre>
+
+        <table id="RoleUserTable" class="tblzebra">
+            <thead>
+            <tr>
+                <th style="width: 20px">
+                </th>
+                <th style="width: 120px">
+                    @Html.FormLabel(SysRoleUser.Table_UserNM)
+                </th>
+                <th>
+                    @Html.FormLabel(SysRoleUser.Table_ComNM)
+                </th>
+                <th>
+                    @Html.FormLabel(SysRoleUser.Table_UserDeptNM)
+                </th>
+                <th>
+                    @Html.FormLabel(SysRoleUser.Table_UnitNM)
+                </th>
+                <th>
+                    @Html.FormLabel(SysRoleUser.Table_UpdUserID)
+                </th>
+                <th>
+                    @Html.FormLabel(SysRoleUser.Table_UpdDT)
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var user in Model.RoleUsers)
+            {
+                <tr>
+                    <td>
+                        @Html.InputCheckBox("UserChangeList", string.Empty, user.UserID, true)
+                    </td>
+                    <td>
+                        @user.UserIDNM
+                    </td>
+                    <td>
+                        @user.ComIDNM
+                    </td>
+                    <td>
+                        @user.UserDeptIDNM
+                    </td>
+                    <td>
+                        @user.UnitIDNM
+                    </td>
+                    <td>
+                        @user.UpdUserIDNM
+                    </td>
+                    <td>
+                        @user.UpdDT
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+
+        <table class="tblvertical">
+            <tr>
+                <th style="width: 90px">
+                    @Html.FormLabel(SysRoleUser.Label_ErpSign, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.ErpWFNo, TitleName: SysRoleUser.Label_ErpSign)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysRoleUser.Label_Memo)
+                </th>
+                <td>
+                    @Html.InputTextAreaFor(model => model.Memo, 4, 60, TitleName: SysRoleUser.Label_Memo, style: "width:99%;")
+                </td>
+            </tr>
+        </table>
+    }
+
+    <div>
+        @Html.ButtonSubmit("Sys", "RoleUserDetail", "AddButton", Resource.Button_Add, "btn")
+        @Html.ButtonSubmit("Sys", "RoleUser", "SaveButton", Resource.Button_Save, "btn")
+    </div>
+}

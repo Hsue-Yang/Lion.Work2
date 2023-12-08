@@ -1,0 +1,101 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemUserListModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemUserList.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<div class="page-title"><h3>@SysSystemUserList.TabText_SystemUserList</h3></div>
+@using (Html.BeginFormSubmit("SystemUserListForm"))
+{
+    @Html.InputTextBoxFor(model => model.SysID, true, 6)
+    @Html.InputTextBoxFor(model => model.SysNM, true, 150)
+    @Html.InputTextBox("UserID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+
+    <table class="tblsearch">
+        <tr>
+            <td>
+                <table>
+                    <tr>
+                        <th>
+                            @Html.FormLabel(SysSystemUserList.Label_SysNM)
+                        </th>
+                        <td>
+                            @Model.SysNM
+                        </td>
+                        <th>
+                            @Html.FormLabel(SysSystemUserList.Label_UserID)
+                        </th>
+                        <td>
+                            @Html.InputTextBoxFor(model => model.QueryUserID, false, 10, TitleName: SysSystemUserList.Label_UserID)
+                            @Html.ButtonClient("Help03Button", "?", className: "qmark")
+                        </td>
+                        <th>
+                            @Html.FormLabel(SysSystemUserList.Label_UserNM)
+                        </th>
+                        <td>
+                            @Html.InputTextBoxFor(model => model.QueryUserNM, false, 10, TitleName: SysSystemUserList.Label_UserNM)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="6">
+                            @Html.ButtonClient("SelectButton", Resource.Button_Select, className: "btnSearch")
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    using (Html.BeginPager(Model.PageIndex, Model.PageSize, Model.RowCount))
+    {
+        <table id="SystemUserListTable" class="tblzebra">
+            <thead>
+                <tr>
+                    <th>@SysSystemUserList.Text_Detail</th>
+                    <th>@SysSystemUserList.Table_UserNM</th>
+                    <th>@SysSystemUserList.Table_UpdUserNM</th>
+                    <th>@SysSystemUserList.Table_UpdDT</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.SystemUserList != null)
+                {
+                    string trClass = string.Empty;
+                    foreach (var row in Model.SystemUserList)
+                    {
+                        <tr class="@trClass">
+                            <td data-th="@SysSystemUserList.Text_Detail：" class="center" style="width: 30px;">
+                                @Html.TextSubmitLink(
+                                    "Sys",
+                                    "UserRoleFunDetail",
+                                    "LinkFunKey",
+                                    SysSystemUserList.Text_Detail,
+                                    new List<string>()
+                                    {
+                                       row.UserID
+                                    }
+                                 )
+                            </td>
+                            <td data-th="@SysSystemUserList.Table_UserNM：" title="@SysSystemUserList.Table_UserNM">@row.UserID @row.UserNM</td>
+                            <td data-th="@SysSystemUserList.Table_UpdUserNM：" title="@SysSystemUserList.Table_UpdUserNM">@Html.Raw(row.UpdUserNM)</td>
+                            <td data-th="@SysSystemUserList.Table_UpdDT：" title="@SysSystemUserList.Table_UpdDT">@Common.GetDateTimeText(row.UpdDT)</td>
+                        </tr>
+
+                        trClass = string.IsNullOrWhiteSpace(trClass) ? "tr2" : string.Empty;
+                    }
+                }
+            </tbody>
+        </table>
+    }
+
+    <div>
+        @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+    </div>
+
+}

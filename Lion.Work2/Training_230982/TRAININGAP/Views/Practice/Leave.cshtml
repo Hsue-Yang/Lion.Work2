@@ -1,0 +1,90 @@
+﻿@using LionTech.Entity
+@using LionTech.Entity.ERP
+@using LionTech.Entity.TRAINING
+@using LionTech.Utility.TRAINING
+@using LionTech.Web.ERPHelper
+@using Resources
+@using LionTech.Utility
+@using System.Globalization;
+@model TRAININGAP.Models.Leave.PracticeLeaveModel
+@{
+    Layout = "~/Views/_Layout.cshtml";
+    string fullDateTimeNumber = Common.GetDateTimeString();
+    int rowIndex = 0;
+}
+
+
+@using (Html.BeginPager(Model.PageIndex, Model.PageSize, Model.RowCount))
+{
+    <table id="PracticeLeaveTable" class="tblzebra">
+        <tr>
+            <th style="width: 3%;">
+            </th>
+            <th>
+                @PracticeLeave.ppm96_stfn
+            </th>
+            <th>
+                @PracticeLeave.ppm96_begin
+            </th>
+            <th>
+                @PracticeLeave.ppm96_end
+            </th>
+            <th>
+                @PracticeLeave.ppm95_id
+            <th>
+                @PracticeLeave.ppd95_id
+            </th>
+            <th>
+                @PracticeLeave.ppm96_sign
+            </th>
+        </tr>
+
+        @foreach (var evevnt in Model.Prapsppm96List)
+        {
+            <tr>
+                <td nowrap="nowrap" class="text-center">
+                    @Html.RadioButton("IsMoved", false)
+                    @Html.InputTextBox("Prapsppm96List[" + rowIndex + "].ppm96_stfn", evevnt.ppm96_stfn, inputType: EnumInputType.TextBoxHidden)
+                    @Html.InputTextBox("Prapsppm96List[" + rowIndex + "].ppm96_begin", evevnt.ppm96_begin.ToString("yyyy/MM/dd HH:mm:ss", CultureInfo.InvariantCulture), inputType: EnumInputType.TextBoxHidden)
+                    @Html.InputTextBox("Prapsppm96List[" + rowIndex + "].ppm96_end", evevnt.ppm96_end.ToString("yyyy/MM/dd HH:mm:ss", CultureInfo.InvariantCulture), inputType: EnumInputType.TextBoxHidden)
+                    @Html.InputTextBox("Prapsppm96List[" + rowIndex + "].ppm95_id", evevnt.ppm95_id, inputType: EnumInputType.TextBoxHidden)
+                </td>
+                <td data-th="@PracticeLeave.ppm96_stfn：">
+                    @Html.TextSubmitLink(
+                 "Leave",
+                 "PracticeController.LeaveDetail",
+                 "ActionName",
+                 PracticeLeave.ppm96_stfn,
+                 new List<string>()
+                 {
+                            evevnt.ppm96_stfn,
+                 }
+                 )
+                </td>
+                <td data-th="@PracticeLeave.ppm96_begin：">
+                    @evevnt.ppm96_begin.ToString("yyyy/MM/dd HH:mm:ss", CultureInfo.InvariantCulture)
+                </td>
+                <td data-th=" @PracticeLeave.ppm96_end：">
+                    @evevnt.ppm96_end.ToString("yyyy/MM/dd HH:mm:ss", CultureInfo.InvariantCulture)
+                </td>
+                <td data-th="@PracticeLeave.ppm95_id：">
+                    @evevnt.ppm95_id
+                </td>
+                <td data-th="@PracticeLeave.ppd95_id：">
+                    @evevnt.ppd95_id
+                </td>
+                <td data-th="@PracticeLeave.ppm96_sign：">
+                    @evevnt.ppm96_sign
+                </td>
+            </tr>
+
+            rowIndex++;
+        }
+    </table>
+}
+<div>
+    @Html.ButtonSubmit("Leave", "PracticeController.LeaveDetail", "SaveButton", Resource.Button_Save, "btn")
+    @Html.ButtonSubmit("Leave", "PracticeController.LeaveDetail", "AddButton", Resource.Button_Add, "btn")
+</div>
+
+

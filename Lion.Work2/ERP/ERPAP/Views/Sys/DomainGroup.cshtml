@@ -1,0 +1,107 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using ERPAP.Models.Sys
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model DomainGroupModel
+           
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/DomainGroup.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("DomainGroupForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.SysSRCProjectTabList))
+    {
+        @Html.InputTextBox("DomainGroupNM", string.Empty, inputType: EnumInputType.TextBoxHidden)
+
+        <table class="tblsearch">
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <th style="width: 80px;">
+                                @Html.FormLabel(SysDomainGroup.Label_DomainName, IsRequired: true)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.DomainPath, Model.DomainSelectListItems, false, TitleName: SysDomainGroup.Label_DomainName)
+                                =>
+                                @Html.InputComboBoxFor(model => model.DomainSecondLevelPath, Model.DomainSecondLevelSelectListItems)
+                                <span>
+                                    =>
+                                    @Html.InputComboBoxFor(model => model.DomainThridLevelPath, Model.DomainThirdLevelSelectListItems)
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.ButtonClient("SelectButton", Resource.Button_Select, className: "btnSearch")
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        using (Html.BeginPager(Model.PageIndex, Model.PageSize, Model.RowCount))
+        {
+            <table class="tblzebra">
+                <tr>
+                    <th nowrap="nowrap" style="width: 70px;">
+                        @SysDomainGroup.Text_AddUser
+                    </th>
+                    <th nowrap="nowrap">
+                        @SysDomainGroup.Text_DomainGroupID
+                    </th>
+                </tr>
+
+                @foreach (var group in Model.DomainGroupList)
+                {
+                    <tr>
+                        <td data-th="@SysDomainGroup.Text_AddUser：" class="center">
+                            @Html.TextSubmitLink(
+                                "Sys",
+                                "DomainGroupUser",
+                                "GroupUserLinkFunKey",
+                                SysDomainGroup.Text_AddUser,
+                                new List<string>
+                                {
+                                    Model.DomainPath,
+                                    group,
+                                    Model.DomainPWD
+                                }
+                                )
+                        </td>
+                        <td data-th="@SysDomainGroup.Text_DomainGroupID：">
+                            @group
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+    }
+}
+
+@using (Html.BeginConfirmDialog("dialog_Confirm", Resource.SysMsg_Title, string.Empty))
+{
+    <table class="tblvertical">
+        <tr>
+            <th>
+                @Html.FormLabel(SysDomainGroup.Label_LoginPWD, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBox("PWD", string.Empty, maximumLength: 50, inputType: EnumInputType.TextBox)
+            </td>
+        </tr>
+    </table>
+
+    <div>
+        @Html.ButtonClient("OKButton", Resource.Button_Okay, className: "btn")
+        @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+    </div>
+}

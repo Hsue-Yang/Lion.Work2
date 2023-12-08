@@ -1,0 +1,94 @@
+﻿@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using ERPAP.Models.Pub
+@using LionTech.Web.ERPHelper
+@using Resources
+
+@model PushNotificationDetailModel
+@{
+    Layout = "~/Views/_Layout.cshtml";
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.datepicker.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Pub/PushNotificationDetail.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("PushNotificationDetailForm"))
+{
+    <div class="page-title">
+        <h3>
+            @PubPushNotificationDetail.Label_PushNotificationDetail
+        </h3>
+    </div>
+
+    <table class="tblvertical">
+        <tr>
+            <th style="width: 90px;">
+                @Html.FormLabel(PubPushNotificationDetail.Label_Title, IsRequired: true)
+            </th>
+            <td colspan="3">
+                @Html.InputTextBoxFor(model => model.Title, TitleName: PubPushNotificationDetail.Label_Title)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(PubPushNotificationDetail.Label_Body, IsRequired: true)
+            </th>
+            <td colspan="3">
+                @Html.InputTextAreaFor(model => model.Body, 6, 60, TitleName: PubPushNotificationDetail.Label_Body)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(PubPushNotificationDetail.Label_UserID, IsRequired:true)
+            </th>
+            <td colspan="3">
+                @Html.InputTextBox("PushMsgUserInfo", string.Empty, 6, 6, TitleName: PubPushNotificationDetail.Label_UserID)
+                <div id="PushMsgUserInfoListBox">
+                    @if (Model.PushMsgUserInfoList != null &&
+                         Model.PushMsgUserInfoList.Any())
+                    {
+                        int index = 0;
+                        foreach (var s in Model.PushMsgUserInfoList)
+                        {
+                            using (var tage = Html.BeginTag("PushMsgUserInfo", string.Format("{0} {1}", s.UserID, s.UserNM), true))
+                            {
+                                @Html.InputTextBox("PushMsgUserInfoList[" + index + "].UserID", s.UserID, inputType: EnumInputType.TextBoxHidden)
+                                @Html.InputTextBox("PushMsgUserInfoList[" + index + "].UserNM", s.UserNM, inputType: EnumInputType.TextBoxHidden)
+                            }
+                            index++;
+                        }
+                    }
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(PubPushNotificationDetail.Label_PushType)
+            </th>
+            <td colspan="3">
+                @Html.InputComboBoxFor(model => model.ImmediatelyPush, Model.PushTimeDictionary)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(PubPushNotificationDetail.Label_PushDate, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.PushDate, TitleName: PubPushNotificationDetail.Label_PushDate)
+            </td>
+            <th style="width: 90px;">
+                @Html.FormLabel(PubPushNotificationDetail.Label_PushTime, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.PushTime, TitleName: PubPushNotificationDetail.Label_PushTime) (ex:1700)
+            </td>
+        </tr>
+    </table>
+
+    <div>
+        @Html.ButtonClient("OkayButton", Resource.Button_Okay, "btn")
+        @Html.ButtonClient("CancelButton", Resource.Button_Cancel, "btn")
+    </div>
+}

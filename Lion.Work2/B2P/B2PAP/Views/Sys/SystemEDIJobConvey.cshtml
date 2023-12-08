@@ -1,0 +1,52 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity.B2P
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model B2PAP.Models.Sys.SystemEDIJobConveyModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}          
+
+<script src="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Scripts/Sys/SystemEDIJobConvey.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemEDIJobConveyForm"))
+{
+    using (Html.BeginTabs(B2PAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.TabList))
+    {
+        @Html.InputTextBox("SysID", Model.QuerySysID, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("EDIFlowID", Model.QueryEDIFlowID, inputType: EnumInputType.TextBoxHidden)
+
+        <table class="tblvertical">
+            <tr>
+                <th style="width: 70px">
+                    @Html.FormLabel(SysSystemEDIJobConvey.Label_SysID)
+                </th>
+                <td>
+                    @Html.InputTextBox("SysIDReadOnlyText", Model.QuerySysID, ReadOnly: true, maximumLength: 200, Size: 30)
+                    @Html.InputTextBoxFor(model => model.QuerySysID)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemEDIJobConvey.Label_EDIFlowID)
+                </th>
+                <td>
+                    @Html.InputTextBox("EDIFlowIDReadOnlyText", Model.QueryEDIFlowID, ReadOnly: true, maximumLength: 200, Size: 30)
+                    @Html.InputTextBoxFor(model => model.QueryEDIFlowID)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.InputTextAreaFor(model => model.Content, 10, 10, style: "width:100%; height:500px;", TitleName: SysSystemEDIJobConvey.Text_JobContent)
+                </td>
+            </tr>
+        </table>
+
+        <div>
+            @Html.ButtonSubmit("Sys", "SystemEDIJobConvey", "SaveButton", SysSystemEDIJobConvey.Button_Convey, className: "btn")
+            @Html.ButtonSubmit("Sys", "SystemEDIJob", "CancelButton", Resource.Button_Cancel, className: "btn")
+        </div>
+    }
+}

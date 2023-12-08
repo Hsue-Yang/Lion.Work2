@@ -1,0 +1,36 @@
+﻿@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemRecordModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+    Layout = "~/Views/_Popup.cshtml";
+}
+<script type="text/javascript">
+    var filters = @Html.Raw(Model.FilterJsonString);
+    var rules = @Html.Raw(Model.RulesJsonString);
+</script>
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.queryBuilder.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css"/>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.queryBuilder.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemRecordSysRoleConditionDetail.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemRecordSysRoleConditionDetailForm"))
+{
+    if (Model.RecordType == ERPAP.Models.Sys.SystemRecordModel.EnumRecordType.SysRoleCondition.ToString())
+    {
+        <table width="100%" class="tblvertical">
+            <tr>
+                <th style="width: 20%">
+                    @SysSystemRecord.Label_RoleList
+                </th>
+                <td>
+                    @(HttpUtility.UrlDecode(Model.Roles))
+                </td>
+            </tr>
+        </table>
+    }
+
+    <div id="QueryBuilderBox"></div>
+}

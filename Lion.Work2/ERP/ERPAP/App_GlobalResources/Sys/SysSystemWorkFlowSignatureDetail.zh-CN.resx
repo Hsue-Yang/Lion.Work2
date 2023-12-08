@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="DeleteWFSignatureDetail_Failure" xml:space="preserve">
+    <value>删除工作流程签核明细失败</value>
+  </data>
+  <data name="EditWFSignatureDetail_Failure" xml:space="preserve">
+    <value>编辑工作流程签核明细失败</value>
+  </data>
+  <data name="JsMsg_SystemRoleIsEmpty" xml:space="preserve">
+    <value>系統角色：必须选取</value>
+  </data>
+  <data name="Label_Remark" xml:space="preserve">
+    <value>备注</value>
+  </data>
+  <data name="Label_Role" xml:space="preserve">
+    <value>角色</value>
+  </data>
+  <data name="Label_SigStep" xml:space="preserve">
+    <value>签核关卡</value>
+  </data>
+  <data name="Label_SysID" xml:space="preserve">
+    <value>应用系统</value>
+  </data>
+  <data name="Label_WFFlow" xml:space="preserve">
+    <value>工作流程</value>
+  </data>
+  <data name="Label_WFFlowVer" xml:space="preserve">
+    <value>工作流程版本</value>
+  </data>
+  <data name="Label_WFNode" xml:space="preserve">
+    <value>工作流程节点</value>
+  </data>
+  <data name="Label_WFSigSeq" xml:space="preserve">
+    <value>签核点序号</value>
+  </data>
+  <data name="Label_WFSigSeqENUS" xml:space="preserve">
+    <value>签核点名称(英)</value>
+  </data>
+  <data name="Label_WFSigSeqJAJP" xml:space="preserve">
+    <value>签核点名称(日)</value>
+  </data>
+  <data name="Label_WFSigSeqTHTH" xml:space="preserve">
+    <value>签核点名称(泰)</value>
+  </data>
+  <data name="Label_WFSigSeqZHCN" xml:space="preserve">
+    <value>签核点名称(简)</value>
+  </data>
+  <data name="Label_WFSigSeqZHTW" xml:space="preserve">
+    <value>签核点名称(繁)</value>
+  </data>
+  <data name="SystemMsg_AddWFSignatureDetailExist" xml:space="preserve">
+    <value>工作流程签核明细已存在</value>
+  </data>
+  <data name="SystemMsg_GetSysSystemRoleIDList" xml:space="preserve">
+    <value>无法取得系统角色列表</value>
+  </data>
+  <data name="SystemMsg_GetSysSystemWorkFlowIDList" xml:space="preserve">
+    <value>无法取得工作流程列表</value>
+  </data>
+  <data name="SystemMsg_GetSystemSysIDList" xml:space="preserve">
+    <value>无法取得应用系统列表</value>
+  </data>
+  <data name="SystemMsg_GetSystemWorkFlowSignatureDetail" xml:space="preserve">
+    <value>无法取得工作流程签核清单明细列表</value>
+  </data>
+  <data name="SystemMsg_GetSysUserSystemSysIDList" xml:space="preserve">
+    <value>无法取得员工应用系统列表</value>
+  </data>
+  <data name="SystemMsg_SetHasSysID" xml:space="preserve">
+    <value>您不具有使用此应用系统的权限</value>
+  </data>
+  <data name="TabText_WFSignatureDetail" xml:space="preserve">
+    <value>工作流程签核明细</value>
+  </data>
+  <data name="SystemMsg_GetSysSystemWorkFlowNodeIDList" xml:space="preserve">
+    <value>无法取得工作流程节点列表</value>
+  </data>
+  <data name="SystemMsg_GetSysUserSystemWorkFlowIDList" xml:space="preserve">
+    <value>无法取得工作流程列表</value>
+  </data>
+  <data name="DeleteWFSignatureDetail_RuntimeExist" xml:space="preserve">
+    <value>该签核设计已被使用于流程中，不能删除</value>
+  </data>
+  <data name="SystemMsg_GetSysSystemWFNode" xml:space="preserve">
+    <value>取得工作流程节点文件失败</value>
+  </data>
+  <data name="Label_SystemRoleMemo" xml:space="preserve">
+    <value>＊若要由流程建立者「自行输入」签核人员，请不要点选任何前签核点、API功能资料、及角色；&lt;br /&gt;
+　若要「与前签核点相同」签核人员（例如验收节点），请输入前签核点；&lt;br /&gt;
+　若要由「系统使用API自订」签核人员，请设定API功能资料；&lt;br /&gt;
+　若要使用「预设权限签核表」代入签核人员，请勾选USER角色；&lt;br /&gt;
+　若勾选任一角色，代表签核人员为符合该角色的「角色使用者下拉选单」，由流程建立者自行选取。</value>
+  </data>
+  <data name="Label_FunActionName" xml:space="preserve">
+    <value>API自订功能名称</value>
+  </data>
+  <data name="Label_FunControllerID" xml:space="preserve">
+    <value>API自订功能群组</value>
+  </data>
+  <data name="Label_FunSysID" xml:space="preserve">
+    <value>API自订功能应用系统</value>
+  </data>
+  <data name="SystemMsg_GetSysSystemAPIFuntionList" xml:space="preserve">
+    <value>无法取得API功能列表</value>
+  </data>
+  <data name="SystemMsg_GetSysSystemAPIGroupList" xml:space="preserve">
+    <value>无法取得API群组列表</value>
+  </data>
+  <data name="Label_APIMemo" xml:space="preserve">
+    <value>＊API参数：?ClientSysID=&amp;APIPara={"WFNo":"","NodeNo":"","UserID":"","SysID":"","FlowID":"","FlowVer":"","NodeID":"","SigSeq":""}&lt;br /&gt;
+　回传结果：{"UserIDList":[""]}</value>
+  </data>
+  <data name="Label_ChkFunActionName" xml:space="preserve">
+    <value>驗證功能名稱</value>
+  </data>
+  <data name="Label_ChkFunControllerID" xml:space="preserve">
+    <value>驗證功能群組</value>
+  </data>
+  <data name="Label_ChkFunSysID" xml:space="preserve">
+    <value>驗證功能應用系統</value>
+  </data>
+  <data name="Label_SigType" xml:space="preserve">
+    <value>签核人员类型</value>
+  </data>
+  <data name="Label_SigSeq" xml:space="preserve">
+    <value>前签核点</value>
+  </data>
+  <data name="Label_CheckMemo" xml:space="preserve">
+    <value>＊API参数：?ClientSysID=&amp;APIPara={"WFNo":"","NodeNo":"","UserID":"","SysID":"","FlowID":"","FlowVer":"","NodeID":"","SigSeq":""}&lt;br /&gt;
+　回传结果：{"Result":"", "Message":""} Result=Y/N</value>
+  </data>
+  <data name="Label_IsReq" xml:space="preserve">
+    <value>是否为必要签核</value>
+  </data>
+  <data name="Label_WFSigSeqKOKR" xml:space="preserve">
+    <value>签核点名称(韩)</value>
+  </data>
+</root>

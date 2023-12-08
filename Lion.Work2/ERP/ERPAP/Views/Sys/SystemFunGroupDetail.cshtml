@@ -1,0 +1,108 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemFunGroupDetailModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemFunGroupDetail.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+<div class="page-title"><h3>@SysSystemFunGroupDetail.TabText_SystemFunGroupDetail</h3></div>
+@using (Html.BeginFormSubmit("SystemFunGroupDetailForm"))
+{
+    bool readOnlyAttribute = Model.ExecAction == EnumActionType.Update || Model.ExecAction == EnumActionType.Delete;
+    <table class="tblvertical">
+        <tr>
+            <th nowrap="nowrap">
+                @Html.FormLabel(SysSystemFunGroupDetail.Label_SysID, IsRequired: true)
+            </th>
+            <td nowrap="nowrap">
+                <span style="display: none">
+                    @Html.InputComboBoxFor(model => model.SysID, Model.GetDictionaryFormSelectItem(Model.UserSystemByIdList, false), isDisabled: false, TitleName: SysSystemFunGroupDetail.Label_SysID)
+                </span>
+                <span style="display: block">
+                    @Html.InputTextBox("SysIDReadOnlyText", string.Empty, ReadOnly: true, Size: 30)
+                </span>
+            </td>
+            <th nowrap="nowrap">
+                @Html.FormLabel(SysSystemFunGroupDetail.Label_FunControllerID, IsRequired: true)
+            </th>
+            <td nowrap="nowrap" colspan="3">
+                @Html.InputTextBoxFor(model => model.FunControllerID, ReadOnly: readOnlyAttribute, Size: 30, TitleName: SysSystemFunGroupDetail.Label_FunControllerID)
+            </td>
+        </tr>
+        <tr>
+            <th nowrap="nowrap">
+                @Html.FormLabel(SysSystemFunGroupDetail.Label_FunGroupZHTW, IsRequired: true)
+            </th>
+            <td nowrap="nowrap">
+                @Html.InputTextBoxFor(model => model.FunGroupZHTW, false, 30, TitleName: SysSystemFunGroupDetail.Label_FunGroupZHTW)
+            </td>
+            <th nowrap="nowrap">
+                @Html.FormLabel(SysSystemFunGroupDetail.Label_FunGroupZHCN, IsRequired: true)
+            </th>
+            <td nowrap="nowrap">
+                @Html.InputTextBoxFor(model => model.FunGroupZHCN, false, 30, TitleName: SysSystemFunGroupDetail.Label_FunGroupZHCN)
+            </td>
+            <th nowrap="nowrap">
+                @Html.FormLabel(SysSystemFunGroupDetail.Label_FunGroupENUS, IsRequired: true)
+            </th>
+            <td nowrap="nowrap">
+                @Html.InputTextBoxFor(model => model.FunGroupENUS, false, 30, TitleName: SysSystemFunGroupDetail.Label_FunGroupENUS)
+            </td>
+        </tr>
+        <tr>
+            <th nowrap="nowrap">
+                @Html.FormLabel(SysSystemFunGroupDetail.Label_FunGroupTHTH, IsRequired: true)
+            </th>
+            <td nowrap="nowrap">
+                @Html.InputTextBoxFor(model => model.FunGroupTHTH, false, 30, TitleName: SysSystemFunGroupDetail.Label_FunGroupTHTH)
+            </td>
+            <th nowrap="nowrap">
+                @Html.FormLabel(SysSystemFunGroupDetail.Label_FunGroupJAJP, IsRequired: true)
+            </th>
+            <td nowrap="nowrap">
+                @Html.InputTextBoxFor(model => model.FunGroupJAJP, false, 30, TitleName: SysSystemFunGroupDetail.Label_FunGroupJAJP)
+            </td>
+            <th nowrap="nowrap">
+                @Html.FormLabel(SysSystemFunGroupDetail.Label_FunGroupKOKR, IsRequired: true)
+            </th>
+            <td nowrap="nowrap">
+                @Html.InputTextBoxFor(model => model.FunGroupKOKR, false, 30, TitleName: SysSystemFunGroupDetail.Label_FunGroupKOKR)
+            </td>
+        </tr>
+        <tr>
+            <th nowrap="nowrap">
+                @Html.FormLabel(SysSystemFunGroupDetail.Label_SortOrder)
+            </th>
+            <td colspan="5">
+                @Html.InputTextBoxFor(model => model.SortOrder, false, 30, TitleName: SysSystemFunGroupDetail.Label_SortOrder)
+            </td>
+        </tr>
+    </table>
+
+    <div>
+        @if (Model.ExecAction == EnumActionType.Add)
+        {
+            @Html.ButtonClient("AddButton", Resource.Button_Add, className: "btn")
+        }
+        @if (Model.ExecAction == EnumActionType.Update ||
+             Model.ExecAction == EnumActionType.Delete)
+        {
+            @Html.ButtonClient("UpdateButton", Resource.Button_Update, className: "btn")
+            <span></span>
+            @Html.ButtonClient("DeleteButton", Resource.Button_Delete, className: "btn")
+        }
+        @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+    </div>
+
+    using (Html.BeginConfirmDialog("dialog_Confirm", Resource.SysMsg_Title, Resource.SysMsg_DeleteConfirm))
+    {
+        @Html.ButtonClient("ConfirmOKButton", Resource.Button_Delete)
+        @Html.ButtonClient("ConfirmNOButton", Resource.Button_Cancel)
+    }
+}

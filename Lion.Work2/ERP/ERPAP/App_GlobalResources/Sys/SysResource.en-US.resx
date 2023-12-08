@@ -1,0 +1,330 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Combobox_DefaultSysID" xml:space="preserve">
+    <value>Default System AP</value>
+  </data>
+  <data name="Label_UserCompNM" xml:space="preserve">
+    <value>User CompNM</value>
+  </data>
+  <data name="Label_UserOrgAreaNM" xml:space="preserve">
+    <value>User Org AreaNM</value>
+  </data>
+  <data name="Label_UserOrgDeptNM" xml:space="preserve">
+    <value>User Org DeptNM</value>
+  </data>
+  <data name="Label_UserOrgGroupNM" xml:space="preserve">
+    <value>User Org GroupNM</value>
+  </data>
+  <data name="Label_UserOrgLevelNM" xml:space="preserve">
+    <value>User Org LevelNM</value>
+  </data>
+  <data name="Label_UserOrgPlaceNM" xml:space="preserve">
+    <value>User Org PlaceNM</value>
+  </data>
+  <data name="Label_UserOrgPTitle2NM" xml:space="preserve">
+    <value>User Org PTitle2NM</value>
+  </data>
+  <data name="Label_UserOrgPTitleNM" xml:space="preserve">
+    <value>User Org PTitleNM</value>
+  </data>
+  <data name="Label_UserOrgTeamNM" xml:space="preserve">
+    <value>User Org TeamNM</value>
+  </data>
+  <data name="Label_UserOrgTitleNM" xml:space="preserve">
+    <value>User Org TitleNM</value>
+  </data>
+  <data name="Label_UserOrgWorkCompNM" xml:space="preserve">
+    <value>User Org WorkCompNM</value>
+  </data>
+  <data name="Label_UserTitleNM" xml:space="preserve">
+    <value>User Titl eNM</value>
+  </data>
+  <data name="Label_UserUnitNM" xml:space="preserve">
+    <value>User Unit NM</value>
+  </data>
+  <data name="Label_UserWorkNM" xml:space="preserve">
+    <value>User Work NM</value>
+  </data>
+  <data name="SystemMsg_RefreshChartFailure" xml:space="preserve">
+    <value>Generate chart was failure!</value>
+  </data>
+  <data name="SystemMsg_RefreshChartSuccess" xml:space="preserve">
+    <value>Generate chart was success!</value>
+  </data>
+  <data name="TabText_ADSReport" xml:space="preserve">
+    <value>ADS Report</value>
+  </data>
+  <data name="TabText_DomainGroup" xml:space="preserve">
+    <value>Domain Group</value>
+  </data>
+  <data name="TabText_GoogleAccountSetting" xml:space="preserve">
+    <value>Google Account Setting</value>
+  </data>
+  <data name="TabText_SRCProject" xml:space="preserve">
+    <value>SRC Project Account</value>
+  </data>
+  <data name="TabText_SysSystemRoleCondition" xml:space="preserve">
+    <value>System Role Condition</value>
+  </data>
+  <data name="TabText_SystemAPI" xml:space="preserve">
+    <value>API Function</value>
+  </data>
+  <data name="TabText_SystemAPIGroup" xml:space="preserve">
+    <value>API Group</value>
+  </data>
+  <data name="TabText_SystemAPILog" xml:space="preserve">
+    <value>API Log</value>
+  </data>
+  <data name="TabText_SystemEDICon" xml:space="preserve">
+    <value>System EDI Connection</value>
+  </data>
+  <data name="TabText_SystemEDIFlow" xml:space="preserve">
+    <value>System EDI Flow</value>
+  </data>
+  <data name="TabText_SystemEDIFlowLog" xml:space="preserve">
+    <value>System EDI Flow Log</value>
+  </data>
+  <data name="TabText_SystemEDIJob" xml:space="preserve">
+    <value>System EDI Job</value>
+  </data>
+  <data name="TabText_SystemEDIJobLog" xml:space="preserve">
+    <value>System EDI Job Log</value>
+  </data>
+  <data name="TabText_SystemEvent" xml:space="preserve">
+    <value>Event Subscribe</value>
+  </data>
+  <data name="TabText_SystemEventEDI" xml:space="preserve">
+    <value>EDI Event</value>
+  </data>
+  <data name="TabText_SystemEventGroup" xml:space="preserve">
+    <value>Event Group</value>
+  </data>
+  <data name="TabText_SystemEventTargetEDI" xml:space="preserve">
+    <value>EDI Event</value>
+  </data>
+  <data name="TabText_SystemEventTargetSend" xml:space="preserve">
+    <value>Event Send</value>
+  </data>
+  <data name="TabText_SystemFun" xml:space="preserve">
+    <value>System Function List</value>
+  </data>
+  <data name="TabText_SystemFunAssign" xml:space="preserve">
+    <value>System Fun Assign</value>
+  </data>
+  <data name="TabText_SystemFunDetail" xml:space="preserve">
+    <value>System Fun Detail</value>
+  </data>
+  <data name="TabText_SystemFunGroup" xml:space="preserve">
+    <value>Function Group</value>
+  </data>
+  <data name="TabText_SystemFunMenu" xml:space="preserve">
+    <value>Function Menu</value>
+  </data>
+  <data name="TabText_SystemPurview" xml:space="preserve">
+    <value>Purview</value>
+  </data>
+  <data name="TabText_SystemRecord" xml:space="preserve">
+    <value>System Record</value>
+  </data>
+  <data name="TabText_SystemRole" xml:space="preserve">
+    <value>System Role</value>
+  </data>
+  <data name="TabText_SystemSetting" xml:space="preserve">
+    <value>System Setting</value>
+  </data>
+  <data name="TabText_SystemSub" xml:space="preserve">
+    <value>Subsystem List</value>
+  </data>
+  <data name="TabText_SystemWorkFlow" xml:space="preserve">
+    <value>WorkFlow</value>
+  </data>
+  <data name="TabText_SystemWorkFlowChart" xml:space="preserve">
+    <value>WorkFlow Chart</value>
+  </data>
+  <data name="TabText_SystemWorkFlowDocument" xml:space="preserve">
+    <value>WorkFlowDocument</value>
+  </data>
+  <data name="TabText_SystemWorkFlowGroup" xml:space="preserve">
+    <value>WorkFlowGroup</value>
+  </data>
+  <data name="TabText_SystemWorkFlowNext" xml:space="preserve">
+    <value>WorkFlowNext</value>
+  </data>
+  <data name="TabText_SystemWorkFlowNode" xml:space="preserve">
+    <value>FlowNode</value>
+  </data>
+  <data name="TabText_SystemWorkFlowNodeDetail" xml:space="preserve">
+    <value>FlowNodeDetail</value>
+  </data>
+  <data name="TabText_SystemWorkFlowSignature" xml:space="preserve">
+    <value>FlowSignature</value>
+  </data>
+  <data name="TabText_UserBasicInfo" xml:space="preserve">
+    <value>User Basic Information</value>
+  </data>
+  <data name="TabText_UserBasicInfoDetail" xml:space="preserve">
+    <value>User Basic Information Detail</value>
+  </data>
+  <data name="TabText_UserDomain" xml:space="preserve">
+    <value>Domain User</value>
+  </data>
+  <data name="TabText_UserFunction" xml:space="preserve">
+    <value>User Function Authorize</value>
+  </data>
+  <data name="TabText_UserRoleFun" xml:space="preserve">
+    <value>User Role Function</value>
+  </data>
+  <data name="TabText_UserRoleFunDetail" xml:space="preserve">
+    <value>User Role Authorize</value>
+  </data>
+  <data name="TabText_UserSystem" xml:space="preserve">
+    <value>User External System</value>
+  </data>
+  <data name="TabText_UserSystemRole" xml:space="preserve">
+    <value>User System Role</value>
+  </data>
+  <data name="TabText_UserPurview" xml:space="preserve">
+    <value>User Purview</value>
+  </data>
+  <data name="SystemMsg_CheckIsSerpITManager_Failure" xml:space="preserve">
+    <value>Check Is Serp ITManager Failure</value>
+  </data>
+  <data name="SystemMsg_CheckIsITManager_Failure" xml:space="preserve">
+    <value>Check Is ITManager Failure</value>
+  </data>
+  <data name="Label_UserBusinessNM" xml:space="preserve">
+    <value>User BusinessNM</value>
+  </data>
+  <data name="SystemMsg_CheckIsITManager_False" xml:space="preserve">
+    <value>You are not a manager of this site</value>
+  </data>
+  <data name="TabText_RoleUser" xml:space="preserve">
+    <value>Role User</value>
+  </data>
+  <data name="TabText_SystemFunElm" xml:space="preserve">
+    <value>System Function Element</value>
+  </data>
+  <data name="TabText_UserConnect" xml:space="preserve">
+    <value>User Connect Record</value>
+  </data>
+  <data name="TabText_LatestUseIP" xml:space="preserve">
+    <value>Latest User</value>
+  </data>
+</root>

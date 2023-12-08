@@ -1,0 +1,27 @@
+﻿@using ERPAP.Models.Pub
+@using LionTech.Web.ERPHelper
+@using Resources
+@model PushNotificationModel
+@{
+    Layout = "~/Views/_Popup.cshtml";
+}
+
+@using (Html.BeginFormSubmit("PushNotificationErrorMsgForm"))
+{
+    <div class="page-title">
+        <h3>
+            @PubPushNotification.Label_PushErrorMessage
+        </h3>
+    </div>
+
+    <table class="tblvertical">
+        <tr>
+            <th style="width: 50px">
+                @Html.FormLabel(PubPushNotification.Label_Message)
+            </th>
+            <td>
+                @Model.ErrorMsg
+            </td>
+        </tr>
+    </table>
+}

@@ -1,0 +1,105 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity
+@using LionTech.Entity.ERP
+@using LionTech.Entity.ERP.Sys
+@using LionTech.Utility
+@using LionTech.Utility.ERP
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.UserSystemDetailModel
+
+@{
+    string editionNo = ViewData[EnumViewDataItem.EditionNo.ToString()].ToString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/UserSystemDetail.js?@(editionNo)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("UserSystemDetailForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.TabList))
+    {
+        @Html.InputTextBox("UserID", Model.UserID, inputType: EnumInputType.TextBoxHidden)
+
+        <table class="tblvertical">
+            <tr>
+                <th>
+                    @Html.FormLabel(SysUserSystemDetail.Label_UserID)
+                </th>
+                <td>
+                    @Html.InputTextBox("UserNMReadOnlyText", Model.EntityUserRawData.UserNM, ReadOnly: true, maximumLength: 200, Size: 30)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysUserSystemDetail.Label_SysID)
+                </th>
+                <td>
+                    <table width="100%" id="UserSystemDetailTable">
+                        @if (Model.EntityUserSystemRoleList != null)
+                        {
+                            int Count = 1;
+                            int totalCount = 1;
+                            string DeptNM = string.Empty;
+                            <tr>
+                                @foreach (var userSystemRole in Model.EntityUserSystemRoleList)
+                                {
+                                    if (DeptNM != userSystemRole.DeptNM)
+                                    {
+                                        if (!string.IsNullOrWhiteSpace(DeptNM) &&
+                                            (totalCount % 5) > 0)
+                                        {
+                                            for (int i = totalCount; (i % 5) > 0; i++)
+                                            {
+                                                <td style="border: none"></td>
+                                            }
+                                        }
+                                        @:</tr>
+                                        @:<tr>
+                                        @:<th style="border: none; background-color: #EBEBEB; height: 30px;text-align: left" colspan="5">@userSystemRole.DeptNM</th>
+                                        @:</tr>
+                                        @:<tr>
+                                        totalCount = 1;
+                                    }
+
+                                    <td style="border: none">
+                                        @Html.InputCheckBox(
+                                            "HasSys",
+                                            string.Format("{0}", userSystemRole.SysNM),
+                                            userSystemRole.SysID,
+                                            (userSystemRole.HasSys == EnumYN.Y.ToString()) ? true : false)
+                                    </td>
+
+                                    if (Count == Model.EntityUserSystemRoleList.Count &&
+                                        (totalCount % 5) > 0)
+                                    {
+                                        for (int i = totalCount; (i % 5) > 0; i++)
+                                        {
+                                            <td style="border: none"></td>
+                                        }
+                                    }
+
+                                    if (totalCount % 5 == 0)
+                                    {
+                                        @:</tr>
+                                        @:<tr>
+                                    }
+                                    Count ++;
+                                    totalCount++;
+                                    DeptNM = userSystemRole.DeptNM;
+                                }
+                            </tr>
+                        }
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <div>
+            @if (Model.ExecAction == EnumActionType.Update)
+            {
+                @Html.ButtonClient("UpdateButton", Resource.Button_Update, className: "btn")
+            }
+            @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+        </div>
+    }
+}

@@ -1,0 +1,176 @@
+﻿@using LionTech.Utility
+@using ERPAP.Models.Sys
+@using LionTech.Entity
+@using LionTech.Entity.ERP
+@using LionTech.Web.ERPHelper
+@using Resources
+@model SystemLoginEventSettingDetailModel
+@{
+    Layout = "~/Views/_Layout.cshtml";
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemLoginEventSettingDetail.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemLoginEventSettingDetailForm"))
+{
+    @Html.InputTextBox("SysID", Model.SysID, inputType: EnumInputType.TextBoxHidden)
+    @Html.InputTextBox("SysNMID", Model.SysNMID, inputType: EnumInputType.TextBoxHidden)
+
+    <div class="page-title">
+        <h3>
+            @SysSystemLoginEventSettingDetail.Label_LoginEventSettingDetail
+        </h3>
+    </div>
+
+    <table class="tblvertical">
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemLoginEventSettingDetail.Label_SysID,IsRequired:true)
+            </th>
+            <td>
+                @Model.SysNMID
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemLoginEventSettingDetail.Label_LoginEventID, IsRequired: true)
+            </th>
+            <td>
+                @if (Model.ExecAction == EnumActionType.Add)
+                {
+                    @Html.InputTextBoxFor(model => model.LoginEventID, Size:30, TitleName: SysSystemLoginEventSettingDetail.Label_LoginEventID)
+                }
+                else
+                {
+                    @Html.InputTextBox("LoginEventID", Model.LoginEventID, inputType: EnumInputType.TextBoxHidden)
+                    @Model.LoginEventID
+                }
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemLoginEventSettingDetail.Label_SubSysID)
+            </th>
+            <td>
+                @Html.InputComboBoxFor(model => model.SubSysID, Model.GetDictionaryFormSelectItem(Model.SysSystemSubByIdList, true), TitleName: SysSystemFunDetail.Label_SubSysID)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemLoginEventSettingDetail.Label_LoginEventNMZHCN, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.LoginEventNMZHCN, Size: 30, TitleName: SysSystemLoginEventSettingDetail.Label_LoginEventNMZHCN)
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemLoginEventSettingDetail.Label_LoginEventNMZHTW, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.LoginEventNMZHTW, Size: 30, TitleName: SysSystemLoginEventSettingDetail.Label_LoginEventNMZHTW)
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemLoginEventSettingDetail.Label_LoginEventNMENUS, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.LoginEventNMENUS, Size: 30, TitleName: SysSystemLoginEventSettingDetail.Label_LoginEventNMENUS)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemLoginEventSettingDetail.Label_LoginEventNMTHTH, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.LoginEventNMTHTH, Size: 30, TitleName: SysSystemLoginEventSettingDetail.Label_LoginEventNMTHTH)
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemLoginEventSettingDetail.Label_LoginEventNMJAJP, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.LoginEventNMJAJP, Size: 30, TitleName: SysSystemLoginEventSettingDetail.Label_LoginEventNMJAJP)
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemLoginEventSettingDetail.Label_LoginEventNMKOKR, IsRequired: true)
+            </th>
+            <td colspan="3">
+                @Html.InputTextBoxFor(model => model.LoginEventNMKOKR, Size: 30, TitleName: SysSystemLoginEventSettingDetail.Label_LoginEventNMKOKR)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemLoginEventSettingDetail.Label_IsDisable)
+            </th>
+            <td>
+                @Html.InputCheckBox("IsDisable", SysSystemLoginEventSettingDetail.Label_IsDisable, EnumYN.Y.ToString(), Model.IsDisable == EnumYN.Y.ToString())
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemLoginEventSettingDetail.Label_SortOrder, IsRequired:true)
+            </th>
+            <td colspan="3">
+                @Html.InputTextBoxFor(model => model.SortOrder, TitleName: SysSystemLoginEventSettingDetail.Label_SortOrder)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemLoginEventSettingDetail.Label_StartDT, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.StartDT, TitleName: SysSystemLoginEventSettingDetail.Label_StartDT)
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemLoginEventSettingDetail.Label_EndDT, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.EndDT, TitleName: SysSystemLoginEventSettingDetail.Label_EndDT)
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemLoginEventSettingDetail.Label_Frequency)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.Frequency, TitleName: SysSystemLoginEventSettingDetail.Label_Frequency)
+                @SysSystemLoginEventSettingDetail.Label_Days
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemLoginEventSettingDetail.Label_StartExecTime)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.StartExecTime, TitleName: SysSystemLoginEventSettingDetail.Label_StartExecTime)
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemLoginEventSettingDetail.Label_EndExecTime)
+            </th>
+            <td colspan="3">
+                @Html.InputTextBoxFor(model => model.EndExecTime, TitleName: SysSystemLoginEventSettingDetail.Label_EndExecTime)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemLoginEventSettingDetail.Label_TargePath, IsRequired: true)
+            </th>
+            <td colspan="5">
+                @Html.InputTextBoxFor(model => model.TargetPath, Size: 150, TitleName: SysSystemLoginEventSettingDetail.Label_TargePath)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemLoginEventSettingDetail.Label_ValidPath)
+            </th>
+            <td colspan="5">
+                @Html.InputTextBoxFor(model => model.ValidPath, Size: 150, TitleName: SysSystemLoginEventSettingDetail.Label_ValidPath)
+                @Html.Raw("?ClientSysID=ERPAP&ClientUserID={UserID}")
+            </td>
+        </tr>
+    </table>
+
+    <div>
+        @if (Model.ExecAction == EnumActionType.Add)
+        {
+            @Html.ButtonSubmit("Sys", "SystemLoginEventSettingDetail", "AddButton", Resource.Button_Add, "btn")
+        }
+        @if (Model.ExecAction == EnumActionType.Update)
+        {
+            @Html.ButtonSubmit("Sys", "SystemLoginEventSettingDetail", "UpdateButton", Resource.Button_Update, "btn")
+            @Html.ButtonSubmit("Sys", "SystemLoginEventSettingDetail", "DeleteButton", Resource.Button_Delete, "btn")
+        }
+        @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+    </div>
+}

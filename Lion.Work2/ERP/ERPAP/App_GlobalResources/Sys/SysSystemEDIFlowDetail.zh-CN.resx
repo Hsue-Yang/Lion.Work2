@@ -1,0 +1,345 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="DeleteSystemEDIFlowDetailResult_DataExist" xml:space="preserve">
+    <value>删除EDI流程列表明细失败，EDI工作列表尚有数据使用此项设定</value>
+  </data>
+  <data name="DeleteSystemEDIFlowDetailResult_Failure" xml:space="preserve">
+    <value>删除EDI流程列表明细失败</value>
+  </data>
+  <data name="EditSystemEDIFlowDetailResult_Failure" xml:space="preserve">
+    <value>编辑EDI流程列表明细失败</value>
+  </data>
+  <data name="JsMsg_Confirm" xml:space="preserve">
+    <value>确定</value>
+  </data>
+  <data name="JsMsg_ExecuteTimeFormateError" xml:space="preserve">
+    <value>请输入正确24小时制时间格式(EX: 2035)</value>
+  </data>
+  <data name="JsMsg_IsValidExecuteTimeRequired_Failure" xml:space="preserve">
+    <value>排程运行时间于字段必填</value>
+  </data>
+  <data name="JsMsg_IsValidSCHEndTimeRequired_Failure" xml:space="preserve">
+    <value>排程最后运行时间字段必填</value>
+  </data>
+  <data name="JsMsg_IsValidSCHExecuteDayListRequired_Failure" xml:space="preserve">
+    <value>排程日期必须勾选</value>
+  </data>
+  <data name="JsMsg_IsValidSCHExecuteWeeklyListRequired_Failure" xml:space="preserve">
+    <value>排程周期(每周)字段必须勾选</value>
+  </data>
+  <data name="JsMsg_IsValidSCHIntervalNumRequired_Failure" xml:space="preserve">
+    <value>排程重复间隔字段必填</value>
+  </data>
+  <data name="JsMsg_IsValidSCHIntervalTimeRequired_Failure" xml:space="preserve">
+    <value>排程间隔时间(分钟)字段必填</value>
+  </data>
+  <data name="JsMsg_MonthFinalDay" xml:space="preserve">
+    <value>每月最后一日</value>
+  </data>
+  <data name="JsMsg_RemarkContentContinuity" xml:space="preserve">
+    <value>等待被触发。</value>
+  </data>
+  <data name="JsMsg_RemarkContentDaily" xml:space="preserve">
+    <value>每 {0} 天，于 {1} 执行排程。</value>
+  </data>
+  <data name="JsMsg_RemarkContentFixedTime" xml:space="preserve">
+    <value>从 {0} 到 {1}，每隔 {2} 分钟执行排程。</value>
+  </data>
+  <data name="JsMsg_RemarkContentMonthly" xml:space="preserve">
+    <value>每 {0} 个月，于勾选之日期的 {1} 执行排程。</value>
+  </data>
+  <data name="JsMsg_RemarkContentWeekly" xml:space="preserve">
+    <value>每 {0} 周，于勾选之星期的 {1} 执行排程。</value>
+  </data>
+  <data name="JsMsg_Reset" xml:space="preserve">
+    <value>重设</value>
+  </data>
+  <data name="JsMsg_SetMonthlyDate" xml:space="preserve">
+    <value>设定排程每月执行日期</value>
+  </data>
+  <data name="Label_EDIFlowENUS" xml:space="preserve">
+    <value>EDI流程名称(英)</value>
+  </data>
+  <data name="Label_EDIFlowID" xml:space="preserve">
+    <value>EDI流程代码</value>
+  </data>
+  <data name="Label_EDIFlowJAJP" xml:space="preserve">
+    <value>EDI流程名称(日)</value>
+  </data>
+  <data name="Label_EDIFlowTHTH" xml:space="preserve">
+    <value>EDI流程名称(泰)</value>
+  </data>
+  <data name="Label_EDIFlowZHCN" xml:space="preserve">
+    <value>EDI流程名称(简)</value>
+  </data>
+  <data name="Label_EDIFlowZHTW" xml:space="preserve">
+    <value>EDI流程名称(繁)</value>
+  </data>
+  <data name="Label_Friday" xml:space="preserve">
+    <value>星期五</value>
+  </data>
+  <data name="Label_Monday" xml:space="preserve">
+    <value>星期一</value>
+  </data>
+  <data name="Label_MonthFinalDay" xml:space="preserve">
+    <value>每月最后一日</value>
+  </data>
+  <data name="Label_MonthlySCHStartTime" xml:space="preserve">
+    <value>排程日期</value>
+  </data>
+  <data name="Label_PATHSBad" xml:space="preserve">
+    <value>路径BAD</value>
+  </data>
+  <data name="Label_PATHSCmd" xml:space="preserve">
+    <value>路径CMD</value>
+  </data>
+  <data name="Label_PATHSDat" xml:space="preserve">
+    <value>路径DAT</value>
+  </data>
+  <data name="Label_PATHSException" xml:space="preserve">
+    <value>路径Exception</value>
+  </data>
+  <data name="Label_PATHSFlowCmd" xml:space="preserve">
+    <value>路径FlowCMD</value>
+  </data>
+  <data name="Label_PATHSFlowXml" xml:space="preserve">
+    <value>路径FlowXML</value>
+  </data>
+  <data name="Label_PATHSLog" xml:space="preserve">
+    <value>路径LOG</value>
+  </data>
+  <data name="Label_PATHSRes" xml:space="preserve">
+    <value>路径RES</value>
+  </data>
+  <data name="Label_PATHSSrc" xml:space="preserve">
+    <value>路径SRC</value>
+  </data>
+  <data name="Label_PATHSSummary" xml:space="preserve">
+    <value>路径Summary</value>
+  </data>
+  <data name="Label_PATHSZipDat" xml:space="preserve">
+    <value>路径ZipDAT</value>
+  </data>
+  <data name="Label_Remark" xml:space="preserve">
+    <value>描述</value>
+  </data>
+  <data name="Label_Saturday" xml:space="preserve">
+    <value>星期六</value>
+  </data>
+  <data name="Label_SCHDataDelay" xml:space="preserve">
+    <value>排程数据延迟天数</value>
+  </data>
+  <data name="Label_SCHFinalRunTime" xml:space="preserve">
+    <value>排程最后运行时间</value>
+  </data>
+  <data name="Label_SCHFrequency" xml:space="preserve">
+    <value>排程频率</value>
+  </data>
+  <data name="Label_SCHIntervalNum" xml:space="preserve">
+    <value>排程重复间隔</value>
+  </data>
+  <data name="Label_SCHIntervalTime" xml:space="preserve">
+    <value>排程间隔时间(分钟)</value>
+  </data>
+  <data name="Label_SCHMultiStartTime" xml:space="preserve">
+    <value>排程运行时间于</value>
+  </data>
+  <data name="Label_SCHStartDate" xml:space="preserve">
+    <value>排程开始日期</value>
+  </data>
+  <data name="Label_SCHStartTime" xml:space="preserve">
+    <value>排程开始时间</value>
+  </data>
+  <data name="Label_SortOrder" xml:space="preserve">
+    <value>排序</value>
+  </data>
+  <data name="Label_Sunday" xml:space="preserve">
+    <value>星期日</value>
+  </data>
+  <data name="Label_SysID" xml:space="preserve">
+    <value>应用系统</value>
+  </data>
+  <data name="Label_Thursday" xml:space="preserve">
+    <value>星期四</value>
+  </data>
+  <data name="Label_Tuesday" xml:space="preserve">
+    <value>星期二</value>
+  </data>
+  <data name="Label_Wednesday" xml:space="preserve">
+    <value>星期三</value>
+  </data>
+  <data name="Label_WeeklySCHStartTime" xml:space="preserve">
+    <value>排程周期(每周)</value>
+  </data>
+  <data name="SysMsg_IsValidSCHExecuteDayListRequired_Failure" xml:space="preserve">
+    <value>排程日期必须勾选</value>
+  </data>
+  <data name="SystemMsg_AddSystemEDIFlowDetailExist" xml:space="preserve">
+    <value>EDI流程列表明细已存在</value>
+  </data>
+  <data name="SystemMsg_GetSCHFrequencyList" xml:space="preserve">
+    <value>无法取得排程频率列表</value>
+  </data>
+  <data name="SystemMsg_GetSCHIntervalTimeList" xml:space="preserve">
+    <value>无法取得排程间隔时间列表</value>
+  </data>
+  <data name="SystemMsg_GetSystemEDIFlowDetail" xml:space="preserve">
+    <value>无法取得EDI流程列表明细列表</value>
+  </data>
+  <data name="SystemMsg_GetSystemSysIDList" xml:space="preserve">
+    <value>无法取得应用系统列表</value>
+  </data>
+  <data name="SystemMsg_GetSysUserSystemSysIDList" xml:space="preserve">
+    <value>无法取得员工应用系统列表</value>
+  </data>
+  <data name="SystemMsg_IsValidExecuteTimeRequired_Failure" xml:space="preserve">
+    <value>排程运行时间于字段必填</value>
+  </data>
+  <data name="SystemMsg_IsValidSCHEndTimeRequired_Failure" xml:space="preserve">
+    <value>排程最后运行时间字段必填</value>
+  </data>
+  <data name="SystemMsg_IsValidSCHExecuteWeeklyListRequired_Failure" xml:space="preserve">
+    <value>排程周期(每周)字段必须勾选</value>
+  </data>
+  <data name="SystemMsg_IsValidSCHIntervalNumRequired_Failure" xml:space="preserve">
+    <value>排程重复间隔字段必填</value>
+  </data>
+  <data name="SystemMsg_IsValidSCHIntervalTimeRequired_Failure" xml:space="preserve">
+    <value>排程间隔时间(分钟)字段必填</value>
+  </data>
+  <data name="SystemMsg_SetHasSysID" xml:space="preserve">
+    <value>您不具有使用此应用系统的权限</value>
+  </data>
+  <data name="TabText_SystemEDIFlowDetail" xml:space="preserve">
+    <value>电子数据交换明细</value>
+  </data>
+  <data name="JsMsg_IsValidKeepLogDayNumRequired_Failure" xml:space="preserve">
+    <value>纪录保留天数栏位必填数字</value>
+  </data>
+  <data name="Label_KeepLogDay" xml:space="preserve">
+    <value>纪录保留天数(含当天)</value>
+  </data>
+  <data name="Model_KeepLogDay" xml:space="preserve">
+    <value>纪录保留天数</value>
+  </data>
+  <data name="Label_EDIFlowKOKR" xml:space="preserve">
+    <value>EDI流程名称(韩)</value>
+  </data>
+</root>

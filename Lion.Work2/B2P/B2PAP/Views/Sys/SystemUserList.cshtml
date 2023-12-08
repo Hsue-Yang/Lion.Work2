@@ -1,0 +1,91 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity.B2P
+@using LionTech.Entity.B2P.Sys
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model B2PAP.Models.Sys.SystemUserListModel
+
+<script src="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Scripts/Sys/SystemUserList.js" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemUserListForm"))
+{
+    using (Html.BeginTabs(B2PAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.TabList))
+    {
+        @Html.InputTextBoxFor(model => model.SysID, true, 6)
+        @Html.InputTextBoxFor(model => model.SysNM, true, 150)
+        @Html.InputTextBox("UserID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+
+        <table class="tblsearch">
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <th nowrap="nowrap">
+                                @Html.FormLabel(SysSystemUserList.Label_SysNM)
+                            </th>
+                            <td nowrap="nowrap">
+                                @Model.SysNM
+                            </td>
+                            <th nowrap="nowrap">
+                                @Html.FormLabel(SysSystemUserList.Label_UserID)
+                            </th>
+                            <td nowrap="nowrap">
+                                @Html.InputTextBoxFor(model => model.QueryUserID, false, 10, TitleName: SysSystemUserList.Label_UserID)
+                                @Html.ButtonClient("Help03Button", "?", className: "qmark")
+                            </td>
+                            <th nowrap="nowrap">
+                                @Html.FormLabel(SysSystemUserList.Label_UserNM)
+                            </th>
+                            <td nowrap="nowrap">
+                                @Html.InputTextBoxFor(model => model.QueryUserNM, false, 10, TitleName: SysSystemUserList.Label_UserNM)
+                            </td>
+                            <td nowrap="nowrap">
+                                @Html.ButtonClient("SelectButton", Resource.Button_Select, className: "btnSearch")
+                            </td>
+                            <td nowrap="nowrap" class="width"></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        
+        using (Html.BeginPager(Model.PageIndex, Model.PageSize, Model.RowCount))
+        {
+            <table id="SystemUserListTable" class="tblzebra">
+                <tr>
+                    <th nowrap="nowrap" style="width: 30px;">@SysSystemUserList.Text_Detail</th>
+                    <th nowrap="nowrap">@SysSystemUserList.Table_UserNM</th>
+                    <th nowrap="nowrap">@SysSystemUserList.Table_UpdUserNM</th>
+                    <th nowrap="nowrap">@SysSystemUserList.Table_UpdDT</th>
+                </tr>
+                @if (Model.EntitySystemUserList != null)
+                {
+                    foreach (EntitySystemUserList.SystemUserList data in Model.EntitySystemUserList)
+                    {
+                        <tr>
+                            <td data-th="@SysSystemUserList.Text_Detail：" nowrap="nowrap" class="center">
+                                @Html.TextSubmitLink(
+                                    "Sys",
+                                    "UserRoleFunDetail",
+                                    "LinkFunKey",
+                                    SysSystemUserList.Text_Detail,
+                                    new List<string>() {
+                                        data.UserID.GetValue()
+                                    }
+                                )
+                            </td>
+                            <td data-th="@SysSystemUserList.Table_UserNM：" nowrap="nowrap" title="@SysSystemUserList.Table_UserNM">@data.UserNM.HtmlValue()</td>
+                            <td data-th="@SysSystemUserList.Table_UpdUserNM：" nowrap="nowrap" title="@SysSystemUserList.Table_UpdUserNM">@Html.Raw(data.UpdUserNM.HtmlValue())</td>
+                            <td data-th="@SysSystemUserList.Table_UpdDT：" nowrap="nowrap" title="@SysSystemUserList.Table_UpdDT">@Html.Raw(data.UpdDT.HtmlValue())</td>
+                        </tr>
+                    }
+                }
+            </table>
+        }
+
+        <div>
+            @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+        </div>
+    }
+}

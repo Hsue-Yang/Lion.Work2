@@ -1,0 +1,337 @@
+﻿@{
+    Layout = "~/Views/_Layout.cshtml";
+}
+@using System.Web.WebPages
+@using LionTech.Entity
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemRecordModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemRecord.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemRecordForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.SysADSTabList))
+    {
+        <table class="tblsearch">
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <th style="width: 90px">
+                                @Html.FormLabel(SysSystemRecord.Label_RecordType, IsRequired: true)
+                            </th>
+                            <td colspan="7">
+                                @Html.InputComboBoxFor(model => model.RecordType, Model.GetDictionaryFormSelectItem(Model.EntityBaseRecordTypeList.Where(x => x.CodeID != "UserPassword" && x.CodeID != "UserPurview" && x.CodeID != "SysRoleGroupCollect"), false), TitleName: SysSystemRecord.Label_RecordType)
+
+                                <span class="QueryDiffData" style="display: none;">
+                                    @Html.InputCheckBox("IsOnlyDiffData", SysSystemRecord.CheckBox_IsOnlyDiffData, EnumYN.Y.ToString(), (Model.IsOnlyDiffData == EnumYN.Y.ToString()) ? true : false)
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                @Html.FormLabel(SysSystemRecord.Label_DateBegin, IsRequired: true)
+                            </th>
+                            <td>
+                                @Html.InputTextBoxFor(model => model.DateBegin, Size: 8, TitleName: SysSystemRecord.Label_DateBegin)
+                            </td>
+                            <th style="width: 70px">
+                                @Html.FormLabel(SysSystemRecord.Label_TimeBegin, IsRequired: true)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.TimeBegin, Model.BeginTimeList)
+                            </td>
+                            <th style="width: 70px">
+                                @Html.FormLabel(SysSystemRecord.Label_DateEnd, IsRequired: true)
+                            </th>
+                            <td>
+                                @Html.InputTextBoxFor(model => model.DateEnd, Size: 8, TitleName: SysSystemRecord.Label_DateEnd)
+                            </td>
+                            <th style="width: 70px">
+                                @Html.FormLabel(SysSystemRecord.Label_TimeEnd, IsRequired: true)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.TimeEnd, Model.EndTimeList)
+                            </td>
+                        </tr>
+                        <tr id="TR_User" class="refreshValue">
+                            <th>
+                                @Html.FormLabel(SysSystemRecord.Label_UserID, IsRequired: true)
+                            </th>
+                            <td>
+                                @Html.InputTextBoxFor(model => model.UserID, Size: 6, TitleName: SysSystemRecord.Label_UserID)
+                                @Html.ButtonClient("Help03Button", "?", className: "qmark")
+                            </td>
+                            <th class="SysID">
+                                @Html.FormLabel(SysSystemRecord.Label_SysID)
+                            </th>
+                            <td class="SysID">
+                                @Html.InputComboBoxFor(model => model.SysID, Model.GetDictionaryFormSelectItem(Model.EntitySystemSysIDList, true), TitleName: SysSystemRecord.Label_SysID)
+                            </td>
+                        </tr>
+                        <tr id="TR_Sys" class="refreshValue">
+                            <th>
+                                @Html.FormLabel(SysSystemRecord.Label_SysID, IsRequired: true)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.SysID, Model.GetDictionaryFormSelectItem(Model.EntitySystemSysIDList, true), TitleName: SysSystemRecord.Label_SysID)
+                            </td>
+                            <th class="QueryConditionID">
+                                @Html.FormLabel(SysSystemRecord.Label_ConditionID)
+                            </th>
+                            <td class="QueryConditionID">
+                                @Html.InputComboBoxFor(model => model.ConditionID, Model.GetDictionaryFormSelectItem(Model.EntitySysSystemConditionIDList, true), TitleName: SysSystemRecord.Label_ConditionID)
+                            </td>
+                            <th class="QueryLineID">
+                                @Html.FormLabel(SysSystemRecord.Label_LineID)
+                            </th>
+                            <td class="QueryLineID">
+                                @Html.InputComboBoxFor(model => model.LineID, Model.GetDictionaryFormSelectItem(Model.LineBotIDList.ToDictionary(p => p.LineID, p => p.LineNMID), true), TitleName: SysSystemRecord.Label_LineID)
+                            </td>
+                            <th class="QueryFunControllerID">
+                                @Html.FormLabel(SysSystemRecord.Label_FunControllerID, IsRequired: true)
+                            </th>
+                            <td class="QueryFunControllerID">
+                                @Html.InputComboBoxFor(model => model.FunControllerID, Model.GetDictionaryFormSelectItem(Model.EntitySysSystemFunControllerIDList.ToDictionary(p => p.ItemValue(), p => p.ItemText()), true), TitleName: SysSystemRecord.Label_FunControllerID)
+                            </td>
+                            <th class="QueryFunActionName">
+                                @Html.FormLabel(SysSystemRecord.Label_FunActionName, IsRequired: true)
+                            </th>
+                            <td class="QueryFunActionName">
+                                @Html.InputComboBoxFor(model => model.FunActionName, Model.GetDictionaryFormSelectItem(Model.EntitySysSystemFunNameList, true), TitleName: SysSystemRecord.Label_FunActionName)
+                            </td>
+                        </tr>
+                        <tr id="TR_RoleGroup" class="refreshValue">
+                            <th>
+                                @Html.FormLabel(SysSystemRecord.Label_RoleGroupID, IsRequired: true)
+                            </th>
+                            <td colspan="7">
+                                @Html.InputComboBoxFor(model => model.RoleGroupID, Model.GetDictionaryFormSelectItem(Model.EntitySysSystemRoleGroupList, true), false, TitleName: SysUserRoleFunDetail.Label_RoleGroupID)
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <div class="buttons text-left">@Html.ButtonClient("SelectButton", Resource.Button_Query, className: "btnSearch")</div>
+
+        if (Request.HttpMethod == "POST")
+        {
+            if (Model.systemRecords.Count == 0)
+            {
+                <table class="tblzebra">
+                    <tr>
+                        <td style="text-align: center">@SysSystemRecord.Text_NoData</td>
+                    </tr>
+                </table>
+            }
+            else
+            {
+                using (Html.BeginPager(Model.PageIndex, Model.PageSize, Model.RowCount))
+                {
+                    <table id="SystemRecordTable" class="tblzebra" cellspacing="0" cellpadding="4">
+                        @{
+                            string classNM = string.Empty;
+
+                            <tr>
+                                @foreach (var titles in Model.titleList)
+                                {
+                                    <th nowrap="nowrap">@titles</th>
+                                }
+                            </tr>
+
+                            string trClass = string.Empty;
+                            string borderClass = string.Empty;
+                            string logNo = string.Empty;
+
+                            foreach (ERPAP.Models.Sys.SystemRecordModel.SystemRecord data in Model.systemRecords)
+                            {
+                                int index = 0;
+
+                                if (!string.IsNullOrWhiteSpace(logNo) &&
+                                    logNo != data.ContentDict[ERPAP.Models.Sys.SystemRecordModel.Field.LogNo.ToString()])
+                                {
+                                    borderClass = classNM;
+                                }
+                                else
+                                {
+                                    borderClass = string.Empty;
+                                }
+                                var value = Model.CollectionColumns[Model.collectionNM];
+
+                                <tr class="@trClass">
+                                    @foreach (var item in value)
+                                    {
+                                        foreach (KeyValuePair<string, string> content in data.ContentDict)
+                                        {
+                                            if (item == content.Key)
+                                            {
+                                                <td nowrap="nowrap" class="@borderClass">
+                                                    @if (Model.IsOnlyDiffData == EnumYN.Y.ToString() &&
+                                                    (Model.RecordType == ERPAP.Models.Sys.SystemRecordModel.EnumRecordType.UserSystemRole.ToString() ||
+                                                     Model.RecordType == ERPAP.Models.Sys.SystemRecordModel.EnumRecordType.UserFun.ToString() ||
+                                                     Model.RecordType == ERPAP.Models.Sys.SystemRecordModel.EnumRecordType.SysRoleFun.ToString()))
+                                                    {
+                                                        if (content.Key != ERPAP.Models.Sys.SystemRecordModel.Field.LogNo.ToString())
+                                                        {
+                                                            if (content.Key == ERPAP.Models.Sys.SystemRecordModel.Field.UserID.ToString())
+                                                            {
+                                                                @Html.TextSubmitLink(
+                                                                    "Sys",
+                                                                    "UserBasicInfoDetail",
+                                                                    "LinkFunKeyDetail",
+                                                                    content.Value,
+                                                                    new List<string>()
+                                                                    {
+                                                                        content.Value
+                                                                    }
+                                                                    )
+                                                            }
+                                                            else if (content.Key == ERPAP.Models.Sys.SystemRecordModel.Field.ErpSign.ToString() &&
+                                                                     content.Value.IsEmpty() == false)
+                                                            {
+                                                                @Html.TextSubmitLink(
+                                                                    "Sys",
+                                                                    "SystemRecordUserApplyList",
+                                                                    "LinkFunKeyUserApplyList",
+                                                                    content.Value,
+                                                                    new List<string>
+                                                                    {
+                                                                        content.Value
+                                                                    }
+                                                                    )
+                                                            }
+                                                            else if (content.Key == ERPAP.Models.Sys.SystemRecordModel.Field.APINo.ToString() &&
+                                                                     !string.IsNullOrWhiteSpace(data.ContentDict[ERPAP.Models.Sys.SystemRecordModel.Field.APINo.ToString()]))
+                                                            {
+                                                                @Html.TextSubmitLink(
+                                                                    "Sys",
+                                                                    "SystemAPIClientDetail",
+                                                                    "LinkFunKeyAPIClientDetail",
+                                                                    content.Value,
+                                                                    new List<string>()
+                                                                    {
+                                                                        data.ContentDict[ERPAP.Models.Sys.SystemRecordModel.Field.APINo.ToString()]
+                                                                    }
+                                                                    )
+                                                            }
+                                                            else if (Model.RecordType == ERPAP.Models.Sys.SystemRecordModel.EnumRecordType.UserSystemRole.ToString() &&
+                                                                     content.Key == ERPAP.Models.Sys.SystemRecordModel.Field.Condition.ToString() &&
+                                                                     content.Value.IsEmpty() == false)
+                                                            {
+                                                                @Html.TextSubmitLink("Sys", "SystemRecordSysRoleConditionDetail", "RoleConditionDetail", SysSystemRecord.Text_Detail, new List<string> { content.Value })
+                                                            }
+                                                            else if (Model.RecordType == ERPAP.Models.Sys.SystemRecordModel.EnumRecordType.UserPurview.ToString() &&
+                                                                     content.Key == ERPAP.Models.Sys.SystemRecordModel.Field.Detail.ToString() &&
+                                                                     content.Value.IsEmpty() == false)
+                                                            {
+                                                                @Html.TextSubmitLink("Sys", "SystemRecordUserPurviewDetail", "UserPurviewDetail", SysSystemRecord.Text_Detail, new List<string> { content.Value, data.ContentDict[ERPAP.Models.Sys.SystemRecordModel.EnumUserPurview.SysID.ToString()], data.ContentDict[ERPAP.Models.Sys.SystemRecordModel.EnumUserPurview.UserID.ToString()], data.ContentDict[ERPAP.Models.Sys.SystemRecordModel.EnumUserPurview.PurviewID.ToString()] })
+                                                            }
+                                                            else
+                                                            {
+                                                                @Html.Raw(content.Value)
+                                                            }
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        if (content.Key == ERPAP.Models.Sys.SystemRecordModel.Field.UserID.ToString())
+                                                        {
+                                                            @Html.TextSubmitLink(
+                                                                "Sys",
+                                                                "UserBasicInfoDetail",
+                                                                "LinkFunKeyDetail",
+                                                                content.Value,
+                                                                new List<string>()
+                                                                {
+                                                                    content.Value
+                                                                }
+                                                                )
+                                                        }
+                                                        else if (content.Key == ERPAP.Models.Sys.SystemRecordModel.Field.ErpSign.ToString() &&
+                                                                 content.Value.IsEmpty() == false)
+                                                        {
+                                                            @Html.TextSubmitLink(
+                                                                "Sys",
+                                                                "SystemRecordUserApplyList",
+                                                                "LinkFunKeyUserApplyList",
+                                                                content.Value,
+                                                                new List<string>
+                                                                {
+                                                                    content.Value
+                                                                }
+                                                                )
+                                                        }
+                                                        else if (content.Key == ERPAP.Models.Sys.SystemRecordModel.Field.APINo.ToString() &&
+                                                                 !string.IsNullOrWhiteSpace(data.ContentDict[ERPAP.Models.Sys.SystemRecordModel.Field.APINo.ToString()]))
+                                                        {
+                                                            @Html.TextSubmitLink(
+                                                                "Sys",
+                                                                "SystemAPIClientDetail",
+                                                                "LinkFunKeyAPIClientDetail",
+                                                                content.Value,
+                                                                new List<string>()
+                                                                {
+                                                                    data.ContentDict[ERPAP.Models.Sys.SystemRecordModel.Field.APINo.ToString()]
+                                                                }
+                                                                )
+                                                        }
+                                                        else if (Model.RecordType == ERPAP.Models.Sys.SystemRecordModel.EnumRecordType.SysRoleCondition.ToString() &&
+                                                                 content.Key == ERPAP.Models.Sys.SystemRecordModel.Field.Condition.ToString() &&
+                                                                 content.Value.IsEmpty() == false)
+                                                        {
+                                                            @Html.TextSubmitLink("Sys", "SystemRecordSysRoleConditionDetail", "RoleConditionDetail", SysSystemRecord.Text_Detail, new List<string> { content.Value, data.ContentDict[ERPAP.Models.Sys.SystemRecordModel.EnumSysRoleCondition.RoleList.ToString()] })
+                                                        }
+                                                        else if (Model.RecordType == ERPAP.Models.Sys.SystemRecordModel.EnumRecordType.UserSystemRole.ToString() &&
+                                                                 content.Key == ERPAP.Models.Sys.SystemRecordModel.Field.Condition.ToString() &&
+                                                                 content.Value.IsEmpty() == false)
+                                                        {
+                                                            @Html.TextSubmitLink("Sys", "SystemRecordSysRoleConditionDetail", "RoleConditionDetail", SysSystemRecord.Text_Detail, new List<string> { content.Value })
+                                                        }
+                                                        else if (Model.RecordType == ERPAP.Models.Sys.SystemRecordModel.EnumRecordType.UserPurview.ToString() &&
+                                                                 content.Key == ERPAP.Models.Sys.SystemRecordModel.Field.Detail.ToString() &&
+                                                                 content.Value.IsEmpty() == false)
+                                                        {
+                                                            @Html.TextSubmitLink("Sys", "SystemRecordUserPurviewDetail", "UserPurviewDetail", SysSystemRecord.Text_Detail, new List<string> { content.Value, data.ContentDict[ERPAP.Models.Sys.SystemRecordModel.EnumUserPurview.SysID.ToString()], data.ContentDict[ERPAP.Models.Sys.SystemRecordModel.EnumUserPurview.UserID.ToString()], data.ContentDict[ERPAP.Models.Sys.SystemRecordModel.EnumUserPurview.PurviewID.ToString()] })
+                                                        }
+                                                        else
+                                                        {
+                                                            @Html.Raw(content.Value)
+                                                        }
+                                                    }
+                                                </td>
+                                                if (content.Key == ERPAP.Models.Sys.SystemRecordModel.Field.LogNo.ToString())
+                                                {
+                                                    logNo = content.Value;
+                                                }
+                                            }
+                                        }
+                                    }
+                                </tr>
+
+                                if (string.IsNullOrWhiteSpace(trClass))
+                                {
+                                    trClass = "tr2";
+                                }
+                                else
+                                {
+                                    trClass = string.Empty;
+                                }
+                            }
+                        }
+                    </table>
+                }
+            }
+        }
+    }
+}

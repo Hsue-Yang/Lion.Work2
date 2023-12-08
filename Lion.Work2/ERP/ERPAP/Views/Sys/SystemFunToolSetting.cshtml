@@ -1,0 +1,216 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity
+@using LionTech.Entity.ERP
+@using LionTech.Entity.ERP.Sys
+@using LionTech.Utility
+@using LionTech.Utility.ERP
+@using LionTech.Web.ERPHelper
+@using Resources
+@using ERPAP.Models.Sys
+@model ERPAP.Models.Sys.SystemFunToolSettingModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemFunToolSetting.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemFunToolSettingForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.TabList))
+    {
+        @Html.InputTextBox("IsAdSearch", EnumYN.N.ToString(), inputType:EnumInputType.TextBoxHidden)
+
+        <table class="tblsearch">
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <th>
+                                @Html.FormLabel(SysSystemFunToolSetting.Label_SysID, IsRequired: true)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.SysID, Model.GetDictionaryFormSelectItem(Model.EntitySystemSysIDList, true), TitleName: SysSystemFunToolSetting.Label_SysID)
+                            </td>
+                            <th id="SwitchSearchFunControllerID_th">
+                                @Html.FormLabel(SysSystemFunToolSetting.Label_FunControllerID, IsRequired: true)
+                            </th>
+                            <td id="SwitchSearchFunControllerID_td">
+                                @Html.InputComboBoxFor(model => model.FunControllerID, Model.GetDictionaryFormSelectItem(Model.EntitySysSystemFunControllerIDList.ToDictionary(p => p.ItemValue(), p => p.ItemText()), true), TitleName: SysSystemFunToolSetting.Label_FunControllerID)
+                            </td>
+                            <th id="SwitchSearchFunActionName_th">
+                                @Html.FormLabel(SysSystemFunToolSetting.Label_FunActionName, IsRequired: true)
+                            </th>
+                            <td id="SwitchSearchFunActionName_td">
+                                @Html.InputComboBoxFor(model => model.FunActionName, Model.GetDictionaryFormSelectItem(Model.EntitySysSystemFunNameList, true), TitleName: SysSystemFunToolSetting.Label_FunActionName)
+                            </td>
+                            <td id="AdvancedSearchOn">
+                                @Html.TextSubmitLink("Sys",
+                                    "SystemFunToolSetting",
+                                    "LinkFunKeyAdvancedSearchOn",
+                                    SysSystemFunToolSetting.Label_AdvancedSearchOn,
+                                    new List<string>() { EnumYN.Y.ToString() })
+                            </td>
+                            <td id="SwithcWidth"></td>
+                        </tr>
+                        <tr id="SwitchSearch">
+                            <th>
+                                @Html.FormLabel(SysSystemFunToolSetting.Label_SearchCondition)
+                            </th>
+                            <td>
+                                @Html.InputTextBox("SysCondition", Model.SysCondition, Size: 25, TitleName: SysSystemFunToolSetting.Label_SearchCondition)
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysSystemFunToolSetting.Label_FunControllerID, IsRequired: true)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.FunControllerIDSearch, new Dictionary<string, string>() { { string.Empty, string.Empty } }, TitleName: SysSystemFunToolSetting.Label_FunControllerID)
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysSystemFunToolSetting.Label_FunActionName, IsRequired: true)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.FunActionNameSearch, new Dictionary<string, string>() { { string.Empty, string.Empty } }, TitleName: SysSystemFunToolSetting.Label_FunActionName)
+                            </td>
+                            <td id="AdvancedSearchOff">
+                                @Html.TextSubmitLink("Sys",
+                                    "SystemFunToolSetting",
+                                    "LinkFunKeyAdvancedSearchOff",
+                                    SysSystemFunToolSetting.Label_AdvancedSearchOff,
+                                    new List<string>() { EnumYN.N.ToString() })
+                            </td>
+                            <td class="width"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="8">
+                                @Html.ButtonClient("SelectButton", Resource.Button_Select, className: "btnSearch")
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    
+            <table id="SystemFunToolSettingTable" class="tblzebra">
+            <thead>
+                <tr>
+                    <th nowrap="nowrap" style="width:20px;" title="@SysSystemFunToolSetting.Table_SortOrderFilter">
+                        @Html.ImageButton("MoveUp", string.Format("{0}{1}", @Common.GetEnumDesc(EnumSystemID.ERPAP), "/Content/images/imgSortUp.png"))
+                        @Html.ImageButton("MoveDown", string.Format("{0}{1}", @Common.GetEnumDesc(EnumSystemID.ERPAP), "/Content/images/imgSortDown.png"))
+                    </th>
+                    <th nowrap="nowrap" class="center">@SysSystemFunToolSetting.Table_PickData</th>
+                    @if(Model.AuthStateUserRole == true)
+                    {
+                        <th nowrap="nowrap">@SysSystemFunToolSetting.Table_Para</th>
+                    }
+                    <th nowrap="nowrap">@SysSystemFunToolSetting.Table_SysID</th>
+                    <th nowrap="nowrap">@SysSystemFunToolSetting.Table_ControllerID</th>
+                    <th nowrap="nowrap">@SysSystemFunToolSetting.Table_ActionName</th>
+                    <th nowrap="nowrap">@SysSystemFunToolSetting.Table_FunToolName</th>
+                    <th nowrap="nowrap">@SysSystemFunToolSetting.Table_SortOrder</th>
+                    <th nowrap="nowrap">@SysSystemFunToolSetting.Table_IsCurrently</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.SystemFunToolSettingList != null)
+                {
+                    string trClass = string.Empty;
+                    string rowListNM = string.Empty;
+
+                    SystemFunToolSettingModel.FunToolSetting data = new SystemFunToolSettingModel.FunToolSetting();
+                    for (int rowCount = 0; rowCount < Model.SystemFunToolSettingList.Count; rowCount++)
+                    {
+                        data = Model.SystemFunToolSettingList[rowCount];
+                        rowListNM = "funToolSettingValueList[" + rowCount + "]";
+
+                        <tr class="@trClass">
+                            <td nowrap="nowrap" class="center" title="@SysSystemFunToolSetting.Table_SortOrderFilter">
+                                @Html.InputRadioButton("IsMoved", string.Empty, EnumYN.Y.ToString(), isChecked: (Model.IsMoved == EnumYN.Y.ToString()))
+                                @Html.InputTextBox(rowListNM + ".AfterSortOrder", data.SortOrder, inputType: EnumInputType.TextBoxHidden)
+                                @Html.InputTextBox(rowListNM + ".BeforeSortOrder", data.SortOrder, inputType: EnumInputType.TextBoxHidden)
+                            </td>
+                            <td nowrap="nowrap" class="center" title="@SysSystemFunToolSetting.Table_PickData">
+                                @Html.InputCheckBox(rowListNM + ".PickData", string.Empty, EnumYN.Y.ToString(), false)
+                                @Html.InputTextBox(rowListNM + ".UserID", data.UserID, inputType: EnumInputType.TextBoxHidden)
+                            </td>
+                            @if (Model.AuthStateUserRole == true)
+                            {
+                                <td data-th="@SysSystemFunToolSetting.Table_Para：" nowrap="nowrap" class="center" title="@SysSystemFunToolSetting.Table_Para">
+                                    @Html.TextSubmitLink("Sys",
+                                                         "SystemFunToolPara",
+                                                         "LinkFunKeySystemFunToolPara",
+                                                         SysSystemFunToolSetting.Table_Para,
+                                                         new List<string>() { 
+                                                         data.UserID,
+                                                         data.SysID,
+                                                         data.FunControllerID,
+                                                         data.FunActionName,
+                                                         data.ToolNo})
+                                    
+                                    @Html.InputTextBox("UserID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+                                    @Html.InputTextBox("SysID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+                                    @Html.InputTextBox("FunControllerID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+                                    @Html.InputTextBox("FunActionName", string.Empty, inputType: EnumInputType.TextBoxHidden)
+                                    @Html.InputTextBox("ToolNo", string.Empty, inputType: EnumInputType.TextBoxHidden)
+                                </td>
+                           }
+                            <td data-th="@SysSystemFunToolSetting.Table_SysID：" nowrap="nowrap" title="@SysSystemFunToolSetting.Table_SysID">
+                                @Html.Raw(data.SysNM)
+                                @Html.InputTextBox(rowListNM + ".SysID", data.SysID, inputType: EnumInputType.TextBoxHidden)
+                            </td>
+                            <td data-th="@SysSystemFunToolSetting.Table_ControllerID：" nowrap="nowrap" title="@SysSystemFunToolSetting.Table_ControllerID">
+                                @Html.Raw(data.FunGroupNM)
+                                @Html.InputTextBox(rowListNM + ".FunControllerID", data.FunControllerID, inputType: EnumInputType.TextBoxHidden)
+                            </td>
+                            <td data-th="@SysSystemFunToolSetting.Table_ActionName：" nowrap="nowrap" title="@SysSystemFunToolSetting.Table_ActionName">
+                                @Html.Raw(data.FunNM)
+                                @Html.InputTextBox(rowListNM + ".FunActionName", data.FunActionName, inputType: EnumInputType.TextBoxHidden)
+                            </td>
+                            <td data-th="@SysSystemFunToolSetting.Table_FunToolName：" nowrap="nowrap" title="@SysSystemFunToolSetting.Table_FunToolName">
+                                @Html.InputTextBox(rowListNM + ".ToolNo", data.ToolNo, inputType: EnumInputType.TextBoxHidden)
+                                @Html.InputTextBox(rowListNM + ".ToolNM", data.ToolNM, inputType: EnumInputType.TextBox, maximumLength: 150)
+                            </td>
+                            <td data-th="@SysSystemFunToolSetting.Table_SortOrder：" nowrap="nowrap" title="@SysSystemFunToolSetting.Table_SortOrder">
+                                @Html.Raw(data.SortOrder)
+                            </td>
+                            <td data-th="@SysSystemFunToolSetting.Table_IsCurrently：" nowrap="nowrap" class="center" title="@SysSystemFunToolSetting.Table_IsCurrently">
+                                @Html.Raw(data.IsCurrently)
+                            </td>
+                        </tr>
+                
+                        if (string.IsNullOrWhiteSpace(trClass)) { trClass = "tr2"; }
+                        else { trClass = string.Empty; }
+                    }
+                }
+            </tbody>
+        </table>
+
+        <div>
+            @Html.ButtonClient("UpdateButton", Resource.Button_Update, className: "btn")
+            @Html.ButtonClient("CopyButton", Resource.Button_Copy, className: "btn")
+            @Html.ButtonClient("DeleteButton", Resource.Button_Delete, className: "btn") 
+        </div>
+        
+        using(Html.BeginConfirmDialog("SysSystemFunToolSettingCopyConfirmDialog", Resource.SysMsg_Title, Resource.SysMsg_RequiredUserID))
+        { 
+            <table>
+                <tr>
+                    <td>
+                        @Html.AutoCompleteTextBox("CopyToUserID", Model.CopyToUserID, Model.CopyToUserID, size: 15)
+                    </td>
+                    <td>
+                        @Html.InputCheckBox("IsUseDefault", Resource.Text_FunTool_IsUseDefaultNo, EnumYN.Y.ToString(), true)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        @Html.ButtonClient("SysSystemFunToolSettingCopyConfirmOKButton", Resource.Button_Save, className: "btn")
+                        @Html.ButtonClient("SysSystemFunToolSettingCopyConfirmNOButton", Resource.Button_Cancel, className: "btn")
+                    </td>
+                </tr>
+            </table>
+        }
+    }
+}

@@ -1,0 +1,257 @@
+﻿/* FORM CSS ------------------------------------------------------------ */
+table.SelectTable{margin-bottom: 10px; border-bottom: 1px solid #C0C0C0;}
+table.display{display:none;}
+table.SelectTable div.paddingLeft48px{padding-left: 48px;}
+table.SelectTable div.paddingLeft72px{padding-left: 72px;}
+table.SelectTable hr.borderTop{border-top: 1px solid #C0C0C0;}
+
+table.SelectTable tr.display{display:none;}
+
+table.SelectTable th{font-weight: bold;background-color: #EFEFEF;text-align: right;  }
+table.SelectTable th.borderbottom{border-bottom: 1px solid #C0C0C0;}
+table.SelectTable th.bordertop{border-top: 1px solid #C0C0C0;}
+table.SelectTable th.padding{padding: 5px 5px 5px 5px;}
+table.SelectTable th.marginbottom{margin-bottom: 10px;}
+table.SelectTable th.width{width: 100%;}
+table.SelectTable th.red{color:#FF0000;}
+
+table.SelectTable th label i {
+color: #e60012;
+}
+
+table.SelectTable td{font-weight: bold;  }
+table.SelectTable td.borderbottom{border-bottom: 1px solid #C0C0C0;}
+table.SelectTable td.bordertop{border-top: 1px solid #C0C0C0;}
+table.SelectTable td.grey{background-color: #EFEFEF;}
+table.SelectTable td.padding{padding: 5px 5px 5px 5px;}
+table.SelectTable td.marginbottom{margin-bottom: 10px;}
+table.SelectTable td.width{width: 100%;}
+table.SelectTable td.red{color:#FF0000;}
+table.SelectTable td.right{text-align: right;}
+table.SelectTable td label i {
+color: #e60012;
+}
+.labelright{float: right;}
+/*BTN CSS -------------------------------------------------------------------*/
+.btn  {
+border: none;
+height: 25px;
+width: 65px;
+color: white;
+font-size:12px;
+background: #5a5d5c;
+padding: 0;
+display: inline-block;
+line-height: 25px;
+-webkit-border-radius: 3px;
+}
+
+.redhover:hover { background: #c82322; color: white;  cursor: pointer; }
+.greenhover:hover { background: #0B756E; color: white;  cursor: pointer; }
+.btn.bigwidth{width: 100px;}
+.btn.longwidth{width: 170px;}
+.btn.smallwidth{width: 25px;}
+.btn.display{display:none;}
+.messageBox.BodyBorder input[type="button"]:hover { background: #c82322; color: white; text-decoration: none; cursor: pointer; }
+
+/* Grid CSS ------------------------------------------------------------ */
+table.BIGrid { background-color: #FFFFFF; border-collapse: collapse; margin: 3px; font-size: 12px; width: 99%; border:2px solid #000000; }
+table.BIGrid tr.tr-hover td { background: #ADDEC6; }
+table.BIGrid tr.tr-selected td { background: #FFFF80; color:#000; }
+table.BIGrid th { background-color:#DEDEDE; color: #000; font-weight: bold; padding: 5px 11px; text-align:center; border-bottom:1px solid #000000; line-height: 1.2; }
+table.BIGrid td { padding: 3px 10px; text-align:right; }
+
+/* Grid CSS ------------------------------------------------------------ */
+table.BIReport { background-color: #FFFFFF; border-collapse: collapse; margin: 3px; font-size: 12px; width: 99%;border: 1px solid lightgrey; }
+table.BIReport tr.tr-hover td { background: #d7e6e4; }
+table.BIReport tr.tr-selected td { background: #FFFF80;  }
+table.BIReport tr.tr1{background-color: #FFFFFF;}
+table.BIReport tr.tr2{background-color: #f2f2f2;}
+table.BIReport tr.footTr{color: #000000;border-top: 1px solid lightgrey;background-color: #789e9e;}
+table.BIReport tr.borderTop {border-top: 1px solid #478384;}
+table.BIReport tr.borderBottom {border-bottom: 1px solid #478384;}
+table.BIReport tr.borderLeft {border-left:1px solid #478384;}
+table.BIReport tr.borderRight {border-right:1px solid #478384;}
+table.BIReport tr.borderTop2px {border-top: 2px solid #478384;}
+table.BIReport tr.saturday{background-color:#E0FFFF}
+table.BIReport tr.sunday{background-color:#F2DCDB}
+table.BIReport tr.display {display:none;}
+
+table.BIReport th { padding: 5px 11px;color: #FFFFFF;font-weight: bold; text-align:center; border-right: 1px solid #fff; line-height: 1.2;background-color: #478384;height: 21px;  }
+table.BIReport th.borderRed{border:2px solid #ff0000;}
+table.BIReport th.borderTop {border-top: 1px solid #FFFFFF;}
+table.BIReport th.left{text-align:left;}
+table.BIReport th.display {display:none;}
+
+table.BIReport td { padding: 3px 10px;border-right: 1px solid lightgrey;height: 21px;  }
+table.BIReport td.header{ padding: 3px 10px;border-right: 1px solid lightgrey;height: 21px;background-color: #478384;  }
+table.BIReport td.bold{font-weight: bold;}
+table.BIReport td.right{text-align:right;}
+table.BIReport td.left{text-align:left;}
+table.BIReport td.center{text-align:center;}
+table.BIReport td.red{color:#FF0000;}
+table.BIReport td.blue{color:#0000FF;}
+table.BIReport td.borderTop2px {border-top: 2px solid #478384;}
+table.BIReport td.borderLeft2px {border-left:2px solid #478384;}
+table.BIReport td.borderRight0px {border-right:0px solid #478384;}
+table.BIReport td.darkgray{color:#a9a9a9;}
+table.BIReport td.borderBottom2px {border-bottom:2px solid #478384;}
+table.BIReport td.saturday{background-color:#E0FFFF}
+table.BIReport td.sunday{background-color:#F2DCDB}
+table.BIReport td.display {display:none;}
+table.BIReport td.borderTop {border-top: 1px solid #478384;}
+table.BIReport td.borderBottom {border-bottom: 1px solid #478384;}
+table.BIReport td.borderLeft {border-left:1px solid #478384;}
+table.BIReport td.borderRight {border-right:1px solid #478384;}
+table.BIReport td.borderRight2px {border-right:2px solid #478384;}
+table.BIReport td.borderRed{border:2px solid #ff0000;}
+table.BIReport td.tr1{background-color: #FFFFFF;}
+table.BIReport td.tr2{background-color: #f2f2f2;}
+/* table CSS ------------------------------------------------------------ */
+table.BITableList { border: 1px solid lightgrey; background-color: #FFFFFF; border-collapse: collapse; margin: 3px; font-size: 12px; width: 99%; margin-left: 5px; }
+table.BITableList.width30Percent { width: 30%;}
+table.BITableList tr.tr1 {background-color: #FFFFFF;}
+table.BITableList tr.tr2 {background: #e8e8e8; }
+table.BITableList tr.tr-hover { background: #d7e6e4; }
+table.BITableList tr.tr-selected { background: #FFFF80; color:#000; }
+table.BITableList tr.saturday{background-color:#E0FFFF}
+table.BITableList tr.sunday{background-color:#F2DCDB}
+table.BITableList tr.pink td{background-color:#F5CFE2}
+table.BITableList th { background: #478384; color: #fff; font-weight: bold; padding: 5px 11px; text-align:left; border-right: 1px solid #fff; line-height: 1.2;height: 21px;  }
+table.BITableList th.borderRed{border:2px solid #ff0000;}
+table.BITableList th.display {display:none;}
+
+table.BITableList td { vertical-align: middle; padding: 6px 11px;border-color: lightgrey; border-bottom: 1px solid lightgrey; border-right: 1px solid #fff; height: 21px;  }
+table.BITableList td.header{ padding: 3px 10px;border-right: 1px solid lightgrey;height: 21px;background-color: #478384;  }
+table.BITableList td.saturday{background-color:#E0FFFF}
+table.BITableList td.sunday{background-color:#F2DCDB}
+table.BITableList td a { color: #0075a9; }
+table.BITableList td a:hover { color: #c82322; }
+table.BITableList td a:visited { color: #0075a9; }
+table.BITableList td.width240px{width: 240px;}
+table.BITableList td.width400px {width: 400px;}
+table.BITableList td.display {display:none;}
+table.BITableList td.bold{font-weight: bold;}
+table.BITableList td.red{color: #FF0000;}
+table.BITableList td.blue{color:#0000FF;}
+table.BITableList td.pink{background-color:#F2DCDB}
+table.BITableList td.darkgray{color:#a9a9a9;}
+table.BITableList td.right{text-align:right;}
+table.BITableList td.left{text-align:left;}
+table.BITableList td.center{text-align:center;}
+table.BITableList td.borderTop {border-top: 1px solid #478384;}
+table.BITableList td.borderBottom {border-bottom: 1px solid #478384;}
+table.BITableList td.borderLeft {border-left:1px solid #478384;}
+table.BITableList td.borderRight {border-right:1px solid #478384;}
+table.BITableList td.borderRight2px {border-right:2px solid #478384;}
+table.BITableList td.borderBlue{border:2px solid #6895d8;}
+table.BITableList td.borderRed{border:2px solid #ff0000;}
+
+/* list(不翻頁) CSS ------------------------------------------------------------ */
+table.BIList { border: 1px solid lightgrey; background-color: #FFFFFF; border-collapse: collapse; margin: 3px; font-size: 12px; width: 99%; margin-left: 5px; }
+table.BIList tr.tr1  { background: #ffffff; }
+table.BIList tr.tr2  { background: #e8e8e8; }
+table.BIList tr.tr-hover{ background: #d7e6e4; }
+table.BIList tr.tr-selected{ background: #FFFF80; color:#000; }
+
+table.BIList th { background: #478384; color: #fff; font-weight: bold; padding: 5px 11px; text-align:left; border-right: 1px solid #fff; line-height: 1.2;height: 21px;  }
+table.BIList th.borderRed{border:2px solid #ff0000;}
+table.BIList th.display {display:none;}
+
+table.BIList td { vertical-align: middle; padding: 6px 11px; border-color: lightgrey;border-bottom: 1px solid lightgrey; border-right: 1px solid #fff;height: 21px;  }
+table.BIList td.header{ padding: 3px 10px;border-right: 1px solid lightgrey;height: 21px;background-color: #478384;  }
+table.BIList td a { color: #0075a9; }
+table.BIList td a:hover { color: #c82322; }
+table.BIList td a:visited { color: #0075a9; }
+table.BIList td.bold{font-weight: bold;}
+table.BIList td.red{color: #FF0000;}
+table.BIList td.blue{color:#0000FF;}
+table.BIList td.saturday{background-color:#E0FFFF}
+table.BIList td.sunday{background-color:#F2DCDB}
+table.BIList td.right{text-align:right;}
+table.BIList td.left{text-align:left;}
+table.BIList td.center{text-align:center;}
+table.BIList td.display {display:none;}
+table.BIList td.borderTop {border-top: 1px solid #478384;}
+table.BIList td.borderBottom {border-bottom: 1px solid #478384;}
+table.BIList td.borderLeft {border-left:1px solid #478384;}
+table.BIList td.borderRight {border-right:1px solid #478384;}
+table.BIList td.borderRight2px {border-right:2px solid #478384;}
+table.BIList td.borderBlue{border:2px solid #6895d8;}
+table.BIList td.borderRed{border:2px solid #ff0000;}
+/* Summary CSS ------------------------------------------------------------ */
+table.BISummary { background-color: #FFFFFF; border-collapse: collapse; margin: 3px; font-size: 12px; border: 1px solid #D3D3D3; }
+table.BISummary tr.tr-hover td { background: #d7e6e4; }
+table.BISummary tr.tr-selected td { background: #FFFF80; color:#000; }
+table.BISummary th { padding: 5px 11px;color: #FFFFFF;font-weight: bold; text-align:center; border-right: 1px solid #fff; line-height: 1.2;background-color: #478384;height: 21px;  }
+table.BISummary td { padding: 3px 10px;border-right: 1px solid lightgrey;height: 21px;  }
+table.BISummary th.borderTop {border-top: 1px solid #FFFFFF;}
+table.BISummary th.display {display:none;}
+
+table.BISummary td.display {display:none;}
+table.BISummary td.right{text-align:right;}
+table.BISummary td.left{text-align:left;}
+table.BISummary td.borderTop {border-top: 1px solid #D3D3D3;}
+table.BISummary td.borderRight {border-right:1px solid #478384;}
+table.BISummary td.borderBlue{border:2px solid #6895d8;}
+table.BISummary td.borderRed{border:2px solid #ff0000;}
+
+
+/* Chart CSS ------------------------------------------------------------ */
+table.BIChart { background-color: #FFFFFF; border-collapse: collapse; margin: 1%; font-size: 12px; width: 98%; }
+table.BIChart th { color: #052B75; font-weight: bold; padding: 5px 11px;  text-align:center; font-size: 14px; }
+table.BIChart td { padding: 0px 5px; text-align:center; }
+table.BIChart td.smallChart { height:150px; }
+table.BIChart div.vertical_rl {writing-mode:tb-rl;-webkit-writing-mode:vertical-rl;-moz-writing-mode:tb-rl;-o-writing-mode:tb-rl;}
+table.BIChart div.vertical_lr {writing-mode:tb-lr;-webkit-writing-mode:vertical-lr;-moz-writing-mode:tb-lr;-o-writing-mode:tb-lr;}
+table.BIChart div.width {width: 100%}
+
+/* Function Menu CSS ------------------------------------------------------------ */
+table.FunMenu td div { padding: 5px 10px; border-bottom: 1px solid #95bce2; vertical-align: middle; font-weight: normal; text-align:left; background-color:#FFFFFF; }
+.activeLink { color:#0000FF; }
+.lastLink { color:#1C3361; }
+
+/* BlockUI Message CSS ------------------------------------------------------------ */
+.blockMessage { font-size: 16px; font-weight: bold; color: #666666; background-color: #DEDEDE; border: 1px solid #999999; padding:5px 0px 5px 0px; }
+
+.guideMessage { padding:10px 10px 6px 16px; font-weight:bold; }
+.guideWording { color:#DB3082; }
+.noticeWording { color:#FF0000; }
+
+/* SystemFunMenu Help CSS ------------------------------------------------------------ */
+.functionHelpTitle 
+{
+    font-size: 18px; font-weight: bold; color: #666666; 
+}
+.functionHelpLink
+{
+    color:#0000FF; cursor:pointer; text-decoration: underline;
+}
+
+/* Go to top CSS ------------------------------------------------------------ */
+#goTop {
+    display: none;
+    position: fixed;
+    right: 20px;
+    bottom: 20px;    
+    padding: 10px 15px;    
+    font-size: 20px;
+    background: #770077;
+    color: white;
+    cursor: pointer;
+    opacity:0.1;
+    border-radius:5px;
+}
+
+/* Page-title ---------------------------------------------------------------------*/
+abbr[title], abbr[data-original-title] { cursor: help; border-bottom: 1px dotted #999999; }
+
+.greenStyle .page-title { color: #0b756e; }
+.redStyle .page-title { color: #a0434a; }
+
+.page-title { margin-bottom: 10px; position: relative; line-height: 30px; color: #a0434a; font-size: 18px; background: url(../Content/images/dot-repeat2.png); padding-left: 10px; letter-spacing: 1px; }
+.page-title input { line-height: 24px; color: #a0434a; font-size: 18px; height: 24px; margin-bottom: 0; }
+.page-title , .page-title h3 input { font-family: '\5FAE\8EDF\6B63\9ED1\9AD4', 'Microsoft JhengHei', '\5FAE\8F6F\96C5\9ED1', 'Microsoft YaHei'; }
+
+/* InputTextBox to ReadyOnly CSS ---------------------------------------------------------------------*/
+.inputReadonly{ background-color: #EBEBE4; }

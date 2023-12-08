@@ -1,0 +1,172 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity
+@using LionTech.Entity.ERP
+@using LionTech.Entity.ERP.Sys
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.UserBasicInfoModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/UserBasicInfo.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("UserBasicInfoForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.SysADSTabList))
+    {
+        @Html.InputTextBox("UserID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+
+        <table class="tblsearch">
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <th>
+                                @Html.FormLabel(SysUserBasicInfo.Label_UserID)
+                            </th>
+                            <td>
+                                @Html.InputTextBoxFor(model => model.QueryUserID, false, 6, TitleName: SysUserBasicInfo.Label_UserID)
+                                @Html.ButtonClient("Help03Button", "?", className: "qmark")
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysUserBasicInfo.Label_UserNM)
+                            </th>
+                            <td>
+                                @Html.InputTextBoxFor(model => model.QueryUserNM, false, 10, TitleName: SysUserBasicInfo.Label_UserNM)
+                            </td>
+                            <td colspan="4">
+                                @Html.InputCheckBox("IsDisable", SysUserBasicInfo.Text_IsDisable, EnumYN.Y.ToString(), (Model.IsDisable == EnumYN.Y.ToString()) ? true : false)
+                                @Html.InputCheckBox("IsLeft", SysUserBasicInfo.Text_IsLeft, EnumYN.Y.ToString(), (Model.IsLeft == EnumYN.Y.ToString()) ? true : false)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                @Html.FormLabel(SysUserBasicInfo.Label_DateBegin)
+                            </th>
+                            <td>
+                                @Html.InputTextBoxFor(model => model.DateBegin, Size: 8, TitleName: SysUserBasicInfo.Label_DateBegin)
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysUserBasicInfo.Label_TimeBegin)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.TimeBegin, Model.BeginTimeList)
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysUserBasicInfo.Label_DateEnd)
+                            </th>
+                            <td>
+                                @Html.InputTextBoxFor(model => model.DateEnd, Size: 8, TitleName: SysUserBasicInfo.Label_DateEnd)
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysUserBasicInfo.Label_TimeEnd)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.TimeEnd, Model.EndTimeList)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="8">
+                                @Html.ButtonClient("SelectButton", Resource.Button_Select, className: "btnSearch")
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        
+        using (Html.BeginPager(Model.PageIndex, Model.PageSize, Model.RowCount))
+        {
+            <table id="UserBasicInfoTable" class="tblzebra">
+                <tr>
+                    <th style="width: 30px;">@SysUserBasicInfo.Text_Detail</th>
+                    <th>@SysUserBasicInfo.Table_UserNM</th>
+                    <th>@SysUserBasicInfo.Table_ComNM</th>
+                    <th>@SysUserBasicInfo.Table_UnitNM</th>
+                    <th>@SysUserBasicInfo.Table_RestrictTypeNM</th>
+                    <th>@SysUserBasicInfo.Table_IsLock</th>
+                    <th>@SysUserBasicInfo.Table_IsDisable</th>
+                    <th>@SysUserBasicInfo.Table_IsLeft</th>
+                    <th>@SysUserBasicInfo.Table_LastConnectDT</th>
+                </tr>
+                @if (Model.UserBasicInfoList != null)
+                {
+                    string trClass = string.Empty;
+                    foreach (var data in Model.UserBasicInfoList)
+                    {
+                        <tr class="@trClass">
+                            <td data-th="@SysUserBasicInfo.Text_Detail：" class="center">
+                                @Html.TextSubmitLink(
+                                    "Sys",
+                                    "UserBasicInfoDetail",
+                                    "LinkFunKeyDetail",
+                                    SysUserBasicInfo.Text_Detail,
+                                    new List<string>() {
+                                        data.UserID
+                                    }
+                                )
+                            </td>
+                            <td data-th="@SysUserBasicInfo.Table_UserNM：" title="@SysUserBasicInfo.Table_UserNM">@data.UserNM</td>
+                            <td data-th="@SysUserBasicInfo.Table_ComNM：" title="@SysUserBasicInfo.Table_ComNM">@data.ComNM</td>
+                            <td data-th="@SysUserBasicInfo.Table_UnitNM：" title="@SysUserBasicInfo.Table_UnitNM" class="borderRight2px">@data.UnitNM</td>
+                            <td data-th="@SysUserBasicInfo.Table_RestrictTypeNM：" title="@SysUserBasicInfo.Table_RestrictTypeNM">@Html.Raw(data.RestrictTypeNM)</td>
+                            <td data-th="@SysUserBasicInfo.Table_IsLock：" title="@SysUserBasicInfo.Table_IsLock">
+                                @if (string.IsNullOrEmpty(data.IsLock))
+                                {
+                                    @Html.Raw(data.IsLock)
+                                }
+                                else
+                                {
+                                    if (data.IsLock == EnumYN.Y.ToString())
+                                    {
+                                        @SysUserBasicInfo.Label_Lock
+                                    }
+                                }
+                            </td>
+                            <td data-th="@SysUserBasicInfo.Table_IsDisable：" title="@SysUserBasicInfo.Table_IsDisable" class="borderRight2px">
+                                @if (string.IsNullOrEmpty(data.IsDisable))
+                                {
+                                    @Html.Raw(data.IsDisable)
+                                }
+                                else
+                                {
+                                    if (data.IsDisable == EnumYN.Y.ToString())
+                                    {
+                                        @SysUserBasicInfo.Label_Disable
+                                    }
+                                }
+                            </td>
+                            <td data-th="@SysUserBasicInfo.Table_IsLeft：" title="@SysUserBasicInfo.Table_IsLeft">
+                                @if (string.IsNullOrEmpty(data.IsLeft))
+                                {
+                                    @Html.Raw(data.IsLeft)
+                                }
+                                else
+                                {
+                                    if (data.IsLeft == EnumYN.Y.ToString())
+                                    {
+                                        @SysUserBasicInfo.Label_Left
+                                    }
+                                }
+                            </td>
+                            <td data-th="@SysUserBasicInfo.Table_LastConnectDT：" title="@SysUserBasicInfo.Table_LastConnectDT">
+                                @if (data.LastConnectDT.HasValue)
+                                {
+                                    @Common.GetDateTimeFormattedText(data.LastConnectDT.Value, Common.EnumDateTimeFormatted.FullDateTime)
+                                }
+                            </td>
+                        </tr>
+                
+                        if (string.IsNullOrWhiteSpace(trClass)) { trClass = "tr2"; }
+                        else { trClass = string.Empty; }
+                    }
+                }
+            </table>
+        }
+    }
+}

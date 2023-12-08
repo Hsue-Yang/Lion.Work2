@@ -1,0 +1,64 @@
+﻿@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemRecordModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+    Layout = "~/Views/_Popup.cshtml";
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemRecordUserApplyList.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemRecordUserApplyForm"))
+{
+    <table class="tblvertical">
+        <tr>
+            <th>
+                @SysSystemRecord.Label_ErpSign
+            </th>
+            <td>
+                @Model.ErpWFNo
+            </td>
+            <th>
+                @SysSystemRecord.Label_RecordType
+            </th>
+            <td>
+                @Model.GetDictionaryFormSelectItem(Model.EntityBaseRecordTypeList)[Model.RecordType]
+            </td>
+        </tr>
+    </table>
+    <table class="tblzebra">
+        <tr>
+            <th>
+                @SysSystemRecord.Label_ModifyRecord
+            </th>
+            <th>
+                @SysSystemRecord.Lable_UpdUserID
+            </th>
+            <th>
+                @SysSystemRecord.Lable_UpdDT
+            </th>
+        </tr>
+
+        @foreach (var apply in Model._LogUserApplyList)
+        {
+            <tr>
+                <td data-th="@SysSystemRecord.Label_ModifyRecord：">
+                    @apply.Memo
+                </td>
+                <td data-th="@SysSystemRecord.Lable_UpdUserID：">
+                    @(apply.UpdUserID == apply.UpdUserNM ? apply.UpdUserID : string.Format("{0} {1}", apply.UpdUserID, apply.UpdUserNM))
+                </td>
+                <td data-th="@SysSystemRecord.Lable_UpdDT：">
+                    @apply.UpdDT.ToLocalTime()
+                </td>
+            </tr>
+        }
+    </table>
+    <div id="ButtonBox" class="text-right">
+        @Html.ButtonClient("CloseButton", Resource.Button_Close, "btn")
+    </div>
+}
+

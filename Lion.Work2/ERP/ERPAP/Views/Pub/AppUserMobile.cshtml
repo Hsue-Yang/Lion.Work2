@@ -1,0 +1,73 @@
+﻿@using ERPAP.Models.Pub
+@using LionTech.Entity
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model AppUserMobileModel
+@{
+    Layout = "~/Views/_Layout.cshtml";
+    int rowCount = 0;
+    string rowNM = string.Empty;
+}
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Pub/AppUserMobile.js" type="text/javascript"></script>
+
+<div class="page-title">
+    <h3>
+        @PubAppUserMobile.Label_AppUserMobile
+    </h3>
+</div>
+
+@using (Html.BeginFormSubmit("AppUserMobileForm"))
+{
+    <table class="tblzebra" width="100%">
+        <tr>
+            <th style="width: 7%">
+                @PubAppUserMobile.Table_IsMaster
+            </th>
+            <th>
+                @PubAppUserMobile.Table_App
+            </th>
+            <th>
+                @PubAppUserMobile.Table_MobileOS
+            </th>
+            <th>
+                @PubAppUserMobile.Table_MobileType
+            </th>
+            <th>
+                @PubAppUserMobile.Table_UpdDT
+            </th>
+        </tr>
+
+        @foreach (var mobile in Model.AppUserMobileList)
+        {
+            rowNM = "IsMasterCheckList[" + rowCount + "]";
+
+            <tr>
+                <td data-th="@PubAppUserMobile.Table_IsMaster：">
+                    @Html.InputCheckBox(rowNM + ".IsMaster", string.Empty, EnumYN.Y.ToString(), mobile.IsMaster.GetValue() == EnumYN.Y.ToString())
+                    @Html.InputTextBox(rowNM + ".AppUUID", mobile.AppUUID.GetValue(), inputType: EnumInputType.TextBoxHidden)
+                    @Html.InputTextBox(rowNM + ".DeviceTokenID", mobile.DeviceTokenID.GetValue(), inputType: EnumInputType.TextBoxHidden)
+                </td>
+                <td data-th="@PubAppUserMobile.Table_App：">
+                    @Model.AppIDDic[mobile.AppID.GetValue()]
+                </td>
+                <td data-th="@PubAppUserMobile.Table_MobileOS：">
+                    @mobile.MobileOS.GetValue()
+                </td>
+                <td data-th="@PubAppUserMobile.Table_MobileType：">
+                    @mobile.MobileType.GetValue()
+                </td>
+                <td data-th="@PubAppUserMobile.Table_UpdDT：">
+                    @mobile.UpdDT.GetValue()
+                </td>
+            </tr>
+
+            rowCount++;
+        }
+    </table>
+
+    <div>
+        @Html.ButtonSubmit("Pub", "AppUserMobile", "SaveButton", Resource.Button_Save, "btn")
+    </div>
+}

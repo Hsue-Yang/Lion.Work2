@@ -1,0 +1,8 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Web.ERPHelper
+@model TRAININGAP.Models.Demo.TestActionModel
+           
+@using (Html.BeginFormSubmit("DemoForm"))
+{    
+    @Html.FormLabelFor(model => Model.DemoString)
+}

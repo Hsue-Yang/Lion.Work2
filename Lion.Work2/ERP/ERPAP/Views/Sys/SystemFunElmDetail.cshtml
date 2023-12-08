@@ -1,0 +1,150 @@
+﻿@using LionTech.Web.ERPHelper
+@using Resources
+@using ERPAP.Models.Sys
+@using LionTech.Entity
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@model SystemFunElmDetailModel
+@{
+    Layout = "~/Views/_Layout.cshtml";
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script type="text/javascript"> var systemInfo = @Html.Raw(Model.SystemInfoJsonString);</script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemFunElmDetail.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemFunElmDetailForm"))
+{
+    @Html.InputTextBox("SysID", Model.SysID, inputType: EnumInputType.TextBoxHidden)
+
+    <div class="page-title">
+        <h3>
+            @SysSystemFunElmDetail.Label_SystemFunElmDetail
+        </h3>
+    </div>
+
+    <table class="tblvertical">
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemFunElmDetail.Label_SysID)
+            </th>
+            <td>
+                @Model.SysID
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemFunElmDetail.Label_FunControllerID, IsRequired: true)
+            </th>
+            <td>
+                @if (Model.ExecAction == EnumActionType.Add)
+                {
+                    @Html.InputComboBoxFor(model => model.FunControllerID, Model.SystemFunControllerDic, TitleName: SysSystemFunElmDetail.Label_FunControllerID)
+                }
+                else
+                {
+                    @Model.FunControllerID
+                    @Html.InputTextBox("FunControllerID", Model.FunControllerID, inputType: EnumInputType.TextBoxHidden)
+                }
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemFunElmDetail.Label_FunActionName, IsRequired: true)
+            </th>
+            <td>
+                @if (Model.ExecAction == EnumActionType.Add)
+                {
+                    @Html.InputComboBoxFor(model => model.FunActionName, Model.SystemFunActionDic, TitleName: SysSystemFunElmDetail.Label_FunActionName)
+                }
+                else
+                {
+                    @Model.FunActionName
+                    @Html.InputTextBox("FunActionName", Model.FunActionName, inputType: EnumInputType.TextBoxHidden)
+                }
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemFunElmDetail.Label_FunElmID, IsRequired: true)
+            </th>
+            <td>
+                @if (Model.ExecAction == EnumActionType.Add)
+                {
+                    @Html.InputTextBoxFor(model => model.FunElmID, TitleName: SysSystemFunElmDetail.Label_FunElmID, Size: 30)
+                }
+                else
+                {
+                    @Model.FunElmID
+                    @Html.InputTextBox("FunElmID", Model.FunElmID, inputType: EnumInputType.TextBoxHidden, TitleName: SysSystemFunElmDetail.Label_FunElmID)
+                }
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemFunElmDetail.Label_FunElmDisplayDefaultType)
+            </th>
+            <td>
+                @Html.InputRadioButtonList("FunElmDisplayDefaultType", Model.FunElmDisplayDefaultTypeDic, Model.FunElmDisplayDefaultType.ToString())
+            </td>
+            <th>
+
+            </th>
+            <td>
+                @Html.InputCheckBox("IsDisable", SysSystemFunElmDetail.Label_Disable, EnumYN.Y.ToString(), Model.IsDisable == EnumYN.Y.ToString())
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemFunElmDetail.Label_FunElmNMZHTW, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.FunElmNMZHTW, false, 30, TitleName: SysSystemFunElmDetail.Label_FunElmNMZHTW)
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemFunElmDetail.Label_FunElmNMZHCN, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.FunElmNMZHCN, false, 30, TitleName: SysSystemFunElmDetail.Label_FunElmNMZHCN)
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemFunElmDetail.Label_FunElmNMENUS, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.FunElmNMENUS, false, 30, TitleName: SysSystemFunElmDetail.Label_FunElmNMENUS)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemFunElmDetail.Label_FunElmNMTHTH, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.FunElmNMTHTH, false, 30, TitleName: SysSystemFunElmDetail.Label_FunElmNMTHTH)
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemFunElmDetail.Label_FunElmNMJAJP, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.FunElmNMJAJP, false, 30, TitleName: SysSystemFunElmDetail.Label_FunElmNMJAJP)
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemFunElmDetail.Label_FunElmNMKOKR, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.FunElmNMKOKR, false, 30, TitleName: SysSystemFunElmDetail.Label_FunElmNMKOKR)
+            </td>
+            <td></td>
+        </tr>
+    </table>
+
+    if (Model.ExecAction == EnumActionType.Add)
+    {
+        <div>
+            @Html.ButtonSubmit("Sys", "SystemFunElmDetail", "AddButton", Resource.Button_Add, "btn")
+            @Html.ButtonClient("CancelButton", Resource.Button_Cancel, "btn")
+        </div>
+    }
+    if (Model.ExecAction == EnumActionType.Update)
+    {
+        <div>
+            @Html.ButtonSubmit("Sys", "SystemFunElmDetail", "SaveButton", Resource.Button_Update, "btn")
+            @Html.ButtonClient("CancelButton", Resource.Button_Cancel, "btn")
+        </div>
+    }
+}

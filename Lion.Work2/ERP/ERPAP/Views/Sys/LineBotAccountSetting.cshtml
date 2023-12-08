@@ -1,0 +1,137 @@
+﻿@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using ERPAP.Models.Sys
+@using Resources
+@model LineBotAccountSettingModel
+@{
+    Layout = "~/Views/_Layout.cshtml";
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/LineBotAccountSetting.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+<div class="page-title">
+    <h3>
+        @SysLineBotAccountSetting.Label_LineBotAccountSetting
+    </h3>
+</div>
+
+@using (Html.BeginFormSubmit("LineBotAccountSettingForm"))
+{
+    <table class="tblsearch">
+        <tr>
+            <td>
+                <table>
+                    <tr>
+                        <th>
+                            @Html.FormLabel(SysLineBotAccountSetting.Label_SysID, IsRequired: true)
+                        </th>
+                        <td>
+                            @Html.InputComboBoxFor(model => model.SysID, Model.GetDictionaryFormSelectItem(Model.UserSystemByIdList), TitleName: SysLineBotAccountSetting.Label_SysID)
+                        </td>
+                        <th>
+                            @Html.FormLabel(SysLineBotAccountSetting.Label_LineID)
+                        </th>
+                        <td>
+                            @Html.InputComboBoxFor(model => model.LineID, Model.GetDictionaryFormSelectItem(Model.LineBotIDList.ToDictionary(p => p.LineID, p => p.LineNMID), true), TitleName: SysSystemFun.Label_SysID)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            @Html.ButtonSubmit("Sys", "LineBotAccountSetting", "SelectButton", Resource.Button_Select, "btnSearch")
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    using (Html.BeginPager(Model.PageIndex, Model.PageSize, Model.RowCount))
+    {
+        <table id="LineBotAccountSettingTable" class="tblzebra">
+            <tr>
+                <th>
+                    @SysLineBotAccountSetting.Table_Detail
+                </th>
+                <th>
+                    @SysLineBotAccountSetting.Table_LineFriendList
+                </th>
+                <th>
+                    @SysLineBotAccountSetting.Table_LineID
+                </th>
+                <th>
+                    @SysLineBotAccountSetting.Table_LineNM
+                </th>
+                <th>
+                    @SysLineBotAccountSetting.Table_Disable
+                </th>
+                <th>
+                    @SysLineBotAccountSetting.Table_SortOrder
+                </th>
+                <th>
+                    @SysLineBotAccountSetting.Table_UpdUser
+                </th>
+                <th>
+                    @SysLineBotAccountSetting.Table_UpdDT
+                </th>
+            </tr>
+            @if (Model.LineBotAccountSettingsList != null)
+            {
+                foreach (var row in Model.LineBotAccountSettingsList)
+                {
+                    <tr>
+                        <td data-th="@SysLineBotAccountSetting.Label_Detail：">
+                            @Html.TextSubmitLink(
+                                 "Sys",
+                                 "LineBotAccountSettingDetail",
+                                 "DetailLinkFunKey",
+                                 SysLineBotAccountSetting.Label_Detail,
+                                 new List<string>()
+                                 {
+                                    row.SysID,
+                                    row.LineID
+                                 }
+                                 )
+                        </td>
+                        <td data-th="@SysLineBotAccountSetting.Label_LineFriendList：">
+                            @Html.TextSubmitLink(
+                                 "Sys",
+                                 "LineBotReceiver",
+                                 "ListLinkFunKey",
+                                 SysLineBotAccountSetting.Label_LineFriendList,
+                                 new List<string>()
+                                 {
+                                    row.SysID,
+                                    row.LineID
+                                 }
+                                 )
+                        </td>
+                        <td data-th="@SysLineBotAccountSetting.Table_LineID：">
+                            @row.LineID
+                        </td>
+                        <td data-th="@SysLineBotAccountSetting.Table_LineNM：">
+                            @row.LineNM
+                        </td>
+                        <td data-th="@SysLineBotAccountSetting.Table_Disable：">
+                            @row.IsDisable
+                        </td>
+                        <td data-th="@SysLineBotAccountSetting.Table_SortOrder：">
+                            @row.SortOrder
+                        </td>
+                        <td data-th="@SysLineBotAccountSetting.Table_UpdUser：">
+                            @row.UpdUserNM
+                        </td>
+                        <td data-th="@SysLineBotAccountSetting.Table_UpdDT：">
+                            @row.UpdDT.ToString("yyyy/MM/dd HH:mm:ss.fff")
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+    }
+    <div>
+        @Html.ButtonSubmit("Sys", "LineBotAccountSettingDetail", "AddButton", Resource.Button_Add, "btn")
+    </div>
+}

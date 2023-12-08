@@ -1,0 +1,137 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@using System.Globalization;
+@model ERPAP.Models.Sys.SystemRoleFunListModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+<script type="text/javascript">
+    var systemInfo = @Html.Raw(Model.SystemInfoJsonString);
+    var deletebutton = '@string.Format("{0}{1}", Common.GetEnumDesc(EnumSystemID.ERPAP), "/Content/images/delete.png")';
+</script>
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css"/>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemRoleFunList.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemRoleFunListForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.TabList))
+    {
+        @Html.InputTextBox("FunControllerID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("FunActionName", string.Empty, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("SysID", Model.SysID, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("RoleID", Model.RoleID, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("SysNM", Model.SysNM, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("RoleNM", Model.RoleNM, inputType: EnumInputType.TextBoxHidden)
+
+        <table class="tblsearch">
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <th nowrap="nowrap">
+                                @Html.FormLabel(SysSystemRoleFunList.Label_SysID)
+                            </th>
+                            <td nowrap="nowrap">
+                                @Model.SysNM
+                            </td>
+                            <th nowrap="nowrap">
+                                @Html.FormLabel(SysSystemRoleFunList.Label_RoleNM)
+                            </th>
+                            <td nowrap="nowrap">
+                                @Model.RoleNM
+                            </td>
+                            <th nowrap="nowrap">
+                                @Html.FormLabel(SysSystemRoleFunList.Label_FunGroup)
+                            </th>
+                            <td nowrap="nowrap" class="width">
+                                @Html.InputComboBoxFor(model => model.QueryFunControllerID, Model.GetDictionaryFormSelectItem(Model.EntitySysSystemFunControllerIDList.ToDictionary(p => p.ItemValue(), p => p.ItemText()), true), false, TitleName: SysSystemRoleFunList.Label_FunGroup)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td nowrap="nowrap" colspan="6" class="padding grey bordertop">
+                                @Html.ButtonClient("SelectButton", Resource.Button_Select, className: "btnSearch")
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        using (Html.BeginPager(Model.PageIndex, Model.PageSize, Model.RowCount))
+        {
+            <table id="SystemRoleFunListTable" class="tblzebra">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th nowrap="nowrap">@SysSystemRoleFunList.Text_Detail</th>
+                        <th nowrap="nowrap">@SysSystemRoleFunList.Label_SubSysID</th>
+                        <th nowrap="nowrap">@SysSystemRoleFunList.Label_FunGroup</th>
+                        <th nowrap="nowrap">@SysSystemRoleFunList.Table_FunNM</th>
+                        <th nowrap="nowrap">@SysSystemRoleFunList.Table_UpdUserNM</th>
+                        <th nowrap="nowrap">@SysSystemRoleFunList.Table_UpdDT</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @if (Model.EntitySystemRoleFunList != null)
+                    {
+                        var trClass = string.Empty;
+                        var index = 0;
+
+                        foreach (var data in Model.EntitySystemRoleFunList)
+                        {
+                            <tr class="@trClass">
+                                <td>
+                                    @Html.ImageButton("DeleteRowButton", string.Format("{0}{1}", Common.GetEnumDesc(EnumSystemID.ERPAP), "/Content/images/delete.png"))
+                                    @Html.InputTextBox("OriginalFunInfo", string.Format("{0}|{1}", data.FunControllerID, data.FunActionName), inputType: EnumInputType.TextBoxHidden)
+                                </td>
+                                <td data-th="@SysSystemRoleFunList.Text_Detail：" nowrap="nowrap" class="center">
+                                    @Html.TextSubmitLink(
+                                        "Sys",
+                                        "SystemFunDetail",
+                                        "LinkFunKey",
+                                        SysSystemRoleFunList.Text_Detail,
+                                        new List<string>()
+                                        {
+                                            Model.SysID,
+                                            data.FunControllerID,
+                                            data.FunActionName
+                                        }
+                                        )
+                                </td>
+                                <td data-th="@SysSystemRoleFunList.Label_SubSysID：" nowrap="nowrap">
+                                    @if (data.SubSysNM != null)
+                                    {
+                                        <span style="color:black;">@(data.SubSysNM)</span>
+                                    }
+                                    else
+                                    {
+                                        <span style="color:red;">@("NULL")</span>
+                                    }
+                                </td>
+                                <td data-th="@SysSystemRoleFunList.Label_FunGroup：" nowrap="nowrap" style="width: 15%">@data.FunGroupNM</td>
+                                <td data-th="@SysSystemRoleFunList.Table_FunNM：" nowrap="nowrap" style="width: 15%">@data.FunActionNMID</td>
+                                <td data-th="@SysSystemRoleFunList.Table_UpdUserNM：" nowrap="nowrap">@data.UpdUserNM</td>
+                                <td data-th="@SysSystemRoleFunList.Table_UpdDT：" nowrap="nowrap">@Html.Raw(data.UpdDT.ToString("yyyy/MM/dd HH:mm:ss.fff", CultureInfo.InvariantCulture))</td>
+                            </tr>
+
+                            trClass = string.IsNullOrWhiteSpace(trClass) ? "tr2" : string.Empty;
+                            index++;
+                        }
+                    }
+                </tbody>
+            </table>
+        }
+
+        <div>
+            @Html.ButtonClient("AddButton", Resource.Button_Add, className: "btn")
+            @Html.ButtonClient("SaveButton", Resource.Button_Save, className: "btn")
+            @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+        </div>
+    }
+}

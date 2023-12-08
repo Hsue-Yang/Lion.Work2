@@ -1,0 +1,99 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemAPIGroupModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemAPIGroup.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemAPIGroupForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.SysAPITabList))
+    {
+        @Html.InputTextBox("SysID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("APIGroupID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+
+        <table class="tblsearch">
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <th style="width: 20px">
+                                @Html.FormLabel(SysSystemAPIGroup.Label_SysID, IsRequired: true)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.QuerySysID, Model.GetDictionaryFormSelectItem(Model.UserSystemByIdList, true), isDisabled: false, TitleName: SysSystemAPIGroup.Label_SysID)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                @Html.ButtonClient("SelectButton", Resource.Button_Select, className: "btnSearch")
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        using (Html.BeginPager(Model.PageIndex, Model.PageSize, Model.RowCount))
+        {
+            <table id="SystemAPIGroupTable" class="tblzebra">
+                <thead>
+                <tr>
+                    <th style="width: 30px;">@SysSystemAPIGroup.Text_Detail</th>
+                    <th>@SysSystemAPIGroup.Table_APIGroupNM</th>
+                    <th>@SysSystemAPIGroup.Table_SortOrder</th>
+                    <th>@SysSystemAPIGroup.Table_UpdUserNM</th>
+                    <th>@SysSystemAPIGroup.Table_UpdDT</th>
+                </tr>
+                </thead>
+                <tbody>
+                @if (Model.SystemAPIGroupList != null)
+                {
+                    string trClass = string.Empty;
+                    foreach (var data in Model.SystemAPIGroupList)
+                    {
+                        <tr class="@trClass">
+                            <td data-th="@SysSystemAPIGroup.Text_Detail：" class="center">
+                                @Html.TextSubmitLink(
+                                    "Sys",
+                                    "SystemAPIGroupDetail",
+                                    "LinkFunKey",
+                                    SysSystemAPIGroup.Text_Detail,
+                                    new List<string>()
+                                    {
+                                        Model.QuerySysID,
+                                        data.APIGroupID
+                                    }
+                                    )
+                            </td>
+
+                            <td data-th="@SysSystemAPIGroup.Table_APIGroupNM：" title="@SysSystemAPIGroup.Table_APIGroupNM">@data.APIGroupNM (@data.APIGroupID)</td>
+                            <td data-th="@SysSystemAPIGroup.Table_SortOrder：" title="@SysSystemAPIGroup.Table_SortOrder">@Html.Raw(data.SortOrder)</td>
+                            <td data-th="@SysSystemAPIGroup.Table_UpdUserNM：" title="@SysSystemAPIGroup.Table_UpdUserNM">@Html.Raw(data.UpdUserNM)</td>
+                            <td data-th="@SysSystemAPIGroup.Table_UpdDT：" title="@SysSystemAPIGroup.Table_UpdDT">@Common.GetDateTimeText(data.UpdDT)</td>
+                        </tr>
+
+                        trClass = string.IsNullOrWhiteSpace(trClass) ? "tr2" : string.Empty;
+                    }
+                }
+                </tbody>
+            </table>
+        }
+
+        <table>
+            <tr>
+                <td nowrap="nowrap" class="padding grey bordertop">
+                    @Html.ButtonSubmit("Sys", "SystemAPIGroupDetail", "AddButton", Resource.Button_Add, className: "btn")
+                </td>
+            </tr>
+        </table>
+    }
+}

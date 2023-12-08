@@ -1,0 +1,42 @@
+﻿@{ Layout = "~/Views/_Popup.cshtml"; }
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Utility.ERP
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemEventTargetDetailModel
+
+@{
+    string editionNo = ViewData[EnumViewDataItem.EditionNo.ToString()].ToString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemEventTargetDetail.js?@(editionNo)" type="text/javascript"></script>
+
+<div class="page-title"><h3>@SysSystemEventTargetDetail.TabText_SystemEventTargetDetail</h3></div>
+@using (Html.BeginFormSubmit("SystemEventTargetDetailForm"))
+{
+    <table class="tblvertical">
+        <tr>
+            <th style="width:85px;">
+                @Html.FormLabel(SysSystemEventTargetDetail.Label_ExecEDIEventNo)
+            </th>
+            <td>
+                @Html.InputTextBox("ExecEDIEventNoReadOnlyText", Model.ExecEDIEventNo, ReadOnly: true, Size: 14)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ButtonClient("CloseButton", Resource.Button_Close, className: "btn")
+            </td>
+        </tr>
+    </table>
+
+    <div style="margin: 10px">
+        <pre style="white-space:pre-wrap;">
+                @if (string.IsNullOrWhiteSpace(Model.EventPara) == false)
+                {
+                    @Html.Raw(Common.GetFormingJsonString(Model.EventPara).Replace(Environment.NewLine, "<br/>"))
+                }
+            </pre>
+    </div>
+}

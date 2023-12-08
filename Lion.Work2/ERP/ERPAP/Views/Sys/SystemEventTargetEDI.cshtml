@@ -1,0 +1,246 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemEventTargetEDIModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemEventTargetEDI.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+<div class="page-title"><h3>@SysSystemEventTargetEDI.TabText_SystemEventTargetEDI</h3></div>
+@using (Html.BeginFormSubmit("SystemEventTargetEDIForm"))
+{
+    @Html.InputTextBox("ExecEDIEventNo", string.Empty, inputType: EnumInputType.TextBoxHidden)
+    @Html.InputTextBox("TargetSysID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+
+    <table class="tblsearch">
+        <tr>
+            <td>
+                <table>
+                    <tr>
+                        <th>
+                            @Html.FormLabel(SysSystemEventTargetEDI.Label_SysID)
+                        </th>
+                        <td>
+                            @Html.InputTextBoxFor(model => Model.SysID)
+                            @Html.InputTextBox("SysIDReadOnlyText", Model.SystemEventFullName.SysNM, ReadOnly: true, maximumLength: 200, Size: 30)
+                        </td>
+                        <th>
+                            @Html.FormLabel(SysSystemEventTargetEDI.Label_EventGroupID)
+                        </th>
+                        <td nowrap="nowrap">
+                            @Html.InputTextBoxFor(model => Model.EventGroupID)
+                            @Html.InputTextBox("EventGroupIDReadOnlyText", Model.SystemEventFullName.EventGroupNM, ReadOnly: true, maximumLength: 200, Size: 50)
+                        </td>
+                        <th nowrap="nowrap">
+                            @Html.FormLabel(SysSystemEventTargetEDI.Label_EventID)
+                        </th>
+                        <td nowrap="nowrap">
+                            @Html.InputTextBoxFor(model => Model.EventID)
+                            @Html.InputTextBox("EventIDReadOnlyText", Model.SystemEventFullName.EventNM, ReadOnly: true, maximumLength: 200, Size: 30)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th nowrap="nowrap">
+                            @Html.FormLabel(SysSystemEventTargetEDI.Label_DTBegin)
+                        </th>
+                        <td nowrap="nowrap">
+                            @Html.InputTextBoxFor(model => model.DTBegin, false, 8, TitleName: SysSystemEventTargetEDI.Label_DTBegin)
+                        </td>
+                        <th nowrap="nowrap">
+                            @Html.FormLabel(SysSystemEventTargetEDI.Label_DTEnd)
+                        </th>
+                        <td nowrap="nowrap" colspan="3">
+                            @Html.InputTextBoxFor(model => model.DTEnd, false, 8, TitleName: SysSystemEventTargetEDI.Label_DTEnd)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th nowrap="nowrap">
+                            @Html.FormLabel(SysSystemEventTargetEDI.Label_TargetSysID)
+                        </th>
+                        <td nowrap="nowrap">
+                            @Html.InputComboBoxFor(model => model.QueryTargetSysID, Model.GetDictionaryFormSelectItem(Model.SystemByIdList, true), isDisabled: false, TitleName: SysSystemEventTargetEDI.Label_TargetSysID)
+                        </td>
+                        <td nowrap="nowrap" colspan="3">
+                            @Html.InputCheckBox("IsOnlyFail", SysSystemEventTargetEDI.Label_IsOnlyFail, EnumYN.Y.ToString(), Model.IsOnlyFail == EnumYN.Y.ToString())
+                        </td>
+                        <td nowrap="nowrap" class="width"></td>
+                    </tr>
+                    <tr>
+                        <td nowrap="nowrap" colspan="6" class="padding grey bordertop">
+                            @Html.ButtonSubmit("Sys", "SystemEventTargetEDI", "SelectButton", Resource.Button_Select, className: "btn")
+                            @Html.ButtonClient("EventParaButton", SysSystemEventTargetEDI.Button_EventPara, className: "btn")
+                            @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    using (Html.BeginPager(Model.PageIndex, Model.PageSize, Model.RowCount))
+    {
+        <table id="SystemEventTargetEDITable" class="tblzebra">
+            <thead>
+                <tr>
+                    <th style="width: 30px;">@SysSystemEventTargetEDI.Table_Resend</th>
+                    <th style="width: 30px;">@SysSystemEventTargetEDI.Table_Detail</th>
+                    <th>@SysSystemEventTargetEDI.Table_ExecEDIEventNo</th>
+                    <th>@SysSystemEventTargetEDI.Table_InsertEDINo</th>
+                    <th>@SysSystemEventTargetEDI.Table_InsertEDIDate</th>
+                    <th>@SysSystemEventTargetEDI.Table_InsertEDITime</th>
+                    <th>@SysSystemEventTargetEDI.Table_StatusNM</th>
+                    <th>@SysSystemEventTargetEDI.Table_ResultNM</th>
+                    <th>@SysSystemEventTargetEDI.Table_SpecifyResend</th>
+                    <th>@SysSystemEventTargetEDI.Table_TargetSysNM</th>
+                    <th>@SysSystemEventTargetEDI.Table_TargetStatusNM</th>
+                    <th>@SysSystemEventTargetEDI.Table_TargetResultNM</th>
+                    <th>@SysSystemEventTargetEDI.Table_TargetReturnAPINo</th>
+                    <th>@SysSystemEventTargetEDI.Table_TargetDTBegin</th>
+                    <th>@SysSystemEventTargetEDI.Table_TargetDTEnd</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.SystemEventTargetEDIList != null)
+                {
+                    string ediEventNo = string.Empty;
+                    string background = string.Empty;
+
+                    foreach (var row in Model.SystemEventTargetEDIList)
+                    {
+                        string writeStatusNM = (row.EDIEventNo == ediEventNo) ? string.Empty : string.Format("{0} ({1})", row.StatusNM, row.StatusID);
+                        string writeResultNM = (row.EDIEventNo == ediEventNo) ? string.Empty : (string.IsNullOrWhiteSpace(row.ResultID) ? null : string.Format("{0} ({1})", row.ResultNM, row.ResultID));
+                        string writeInsertEDINo = (row.EDIEventNo == ediEventNo) ? string.Empty : row.InsertEDINo;
+                        string writeInsertEDIDate = (row.EDIEventNo == ediEventNo) ? string.Empty : row.InsertEDIDate;
+                        string writeInsertEDITime = (row.EDIEventNo == ediEventNo) ? string.Empty : row.InsertEDITime;
+                        string writeExecEDIEventNo = (row.EDIEventNo == ediEventNo) ? string.Empty : row.ExecEDIEventNo;
+
+                        background = (row.ResultID == ERPAP.Models.Sys.SystemEventTargetEDIModel.EnumResultID.F.ToString() ||
+                            row.TargetResultID == ERPAP.Models.Sys.SystemEventTargetEDIModel.EnumResultID.F.ToString()) ? "background-color:#f6bfbc;" : string.Empty;
+
+                        <tr style="@background">
+                            <td data-th="@SysSystemEventTargetEDI.Table_Resend：" nowrap="nowrap" class="center">
+                                @if (row.EDIEventNo != ediEventNo && Model.IsITManager)
+                                {
+                                    @Html.TextSubmitLink(
+                                        "Sys",
+                                        "SystemEventTargetEDI",
+                                        "LinkFunKeyTargetEDI",
+                                        SysSystemEventTargetEDI.Table_Resend,
+                                        new List<string>()
+                                        {
+                                            row.ExecEDIEventNo
+                                        }
+                                        )
+                                }
+                            </td>
+                            <td data-th="@SysSystemEventTargetEDI.Table_Detail：" nowrap="nowrap" class="center">
+                                @if (row.EDIEventNo != ediEventNo)
+                                {
+                                    @Html.TextSubmitLink(
+                                        "Sys",
+                                        "SystemEventTargetDetail",
+                                        "LinkFunKeyTargetDetail",
+                                        SysSystemEventTargetEDI.Table_Detail,
+                                        new List<string>()
+                                        {
+                                            row.ExecEDIEventNo
+                                        }
+                                        )
+                                }
+                            </td>
+                            <td data-th="@SysSystemEventTargetEDI.Table_ExecEDIEventNo：" nowrap="nowrap" class="borderRight2px" title="@SysSystemEventTargetEDI.Table_ExecEDIEventNo">@Html.Raw(writeExecEDIEventNo)</td>
+                            <td data-th="@SysSystemEventTargetEDI.Table_InsertEDINo：" nowrap="nowrap" title="@SysSystemEventTargetEDI.Table_InsertEDINo">@Html.Raw(writeInsertEDINo)</td>
+                            <td data-th="@SysSystemEventTargetEDI.Table_InsertEDIDate：" nowrap="nowrap" title="@SysSystemEventTargetEDI.Table_InsertEDIDate">@Html.Raw(writeInsertEDIDate)</td>
+                            <td data-th="@SysSystemEventTargetEDI.Table_InsertEDITime：" nowrap="nowrap" title="@SysSystemEventTargetEDI.Table_InsertEDITime">@Html.Raw(writeInsertEDITime)</td>
+                            <td data-th="@SysSystemEventTargetEDI.Table_StatusNM：" nowrap="nowrap" title="@SysSystemEventTargetEDI.Table_StatusNM">@Html.Raw(writeStatusNM)</td>
+                            <td data-th="@SysSystemEventTargetEDI.Table_ResultNM：" nowrap="nowrap" class="borderRight2px" title="@SysSystemEventTargetEDI.Table_ResultNM">
+                                @if (string.IsNullOrWhiteSpace(row.ResultID) == false)
+                                {
+                                    @Html.TextSubmitLink(
+                                    "Sys",
+                                    "SystemEventTargetLog",
+                                    "LinkFunKeyTargetLog",
+                                    writeResultNM,
+                                    new List<string>()
+                                    {
+                                        writeInsertEDIDate,
+                                        writeInsertEDITime,
+                                        Model.SysID
+                                    }
+                                    )
+                                }
+                            </td>
+
+                            <td data-th="@SysSystemEventTargetEDI.Table_Resend：" nowrap="nowrap" title="@SysSystemEventTargetEDI.Table_Resend">
+                                @if (Model.IsITManager || row.HasAuth)
+                                {
+                                    @Html.TextSubmitLink(
+                                        "Sys",
+                                        "SystemEventTargetEDI",
+                                        "LinkFunKeySpecifyResend",
+                                        SysSystemEventTargetEDI.Table_Resend,
+                                        new List<string>()
+                                        {
+                                            row.TargetSysID,
+                                            row.ExecEDIEventNo
+                                        }
+                                        )
+                                }
+                            </td>
+                            <td data-th="@SysSystemEventTargetEDI.Table_TargetSysNM：" nowrap="nowrap" title="@SysSystemEventTargetEDI.Table_TargetSysNM">
+                                @(string.IsNullOrWhiteSpace(row.TargetSysID) ? null : string.Format("{0} ({1})", row.TargetSysNM, row.TargetSysID))
+                            </td>
+                            <td data-th="@SysSystemEventTargetEDI.Table_TargetStatusNM：" nowrap="nowrap" title="@SysSystemEventTargetEDI.Table_TargetStatusNM">
+                                @(string.IsNullOrWhiteSpace(row.TargetStatusID) ? null : string.Format("{0} ({1})", row.TargetStatusNM, row.TargetStatusID))
+                            </td>
+                            <td data-th="@SysSystemEventTargetEDI.Table_TargetResultNM：" nowrap="nowrap" title="@SysSystemEventTargetEDI.Table_TargetResultNM">
+                                @(string.IsNullOrWhiteSpace(row.TargetResultID) ? null : string.Format("{0} ({1})", row.TargetResultNM, row.TargetResultID))
+                            </td>
+                            <td data-th="@SysSystemEventTargetEDI.Table_TargetReturnAPINo：" nowrap="nowrap" title="@SysSystemEventTargetEDI.Table_TargetReturnAPINo">
+                                @if (string.IsNullOrWhiteSpace(row.TargetReturnAPINo) == false)
+                                {
+                                    @Html.TextSubmitLink(
+                                        "Sys",
+                                        "SystemAPIClientDetail",
+                                        "LinkFunKeyAPIDetailByAPINo",
+                                        row.TargetReturnAPINo,
+                                        new List<string>()
+                                        {
+                                            row.TargetReturnAPINo
+                                        }
+                                        )
+                                }
+                                else
+                                {
+                                    @Html.Raw(row.TargetReturnAPINo)
+                                }
+                            </td>
+                            <td data-th="@SysSystemEventTargetEDI.Table_TargetDTBegin：" nowrap="nowrap" title="@SysSystemEventTargetEDI.Table_TargetDTBegin">
+                                @(row.TargetDTBegin.HasValue == false ? null : Common.GetDateTimeText(row.TargetDTBegin.Value))
+                            </td>
+                            <td data-th="@SysSystemEventTargetEDI.Table_TargetDTEnd：" nowrap="nowrap" title="@SysSystemEventTargetEDI.Table_TargetDTEnd">
+                                @(row.TargetDTEnd.HasValue == false ? null : Common.GetDateTimeText(row.TargetDTEnd.Value))
+                            </td>
+                        </tr>
+
+                        ediEventNo = row.EDIEventNo;
+                    }
+                }
+            </tbody>
+        </table>
+    }
+
+    using (Html.BeginConfirmDialog("dialog_Confirm", Resource.SysMsg_Title, SysSystemEventTargetEDI.SysMsg_Resend))
+    {
+        @Html.ButtonClient("ConfirmOKButton", Resource.Button_Okay)
+        @Html.ButtonClient("ConfirmNOButton", Resource.Button_Cancel)
+    }
+}

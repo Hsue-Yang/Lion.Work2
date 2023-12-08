@@ -1,0 +1,139 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity
+@using LionTech.Entity.ERP
+@using LionTech.Entity.ERP.Sys
+@using LionTech.Utility
+@using LionTech.Utility.ERP
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.UserDomainDetailModel
+
+@{
+    string editionNo = ViewData[EnumViewDataItem.EditionNo.ToString()].ToString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/UserDomainDetail.js?@(editionNo)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("UserDomainDetailForm"))
+{
+    using (Html.BeginTabStrip(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.TabList))
+    {
+        int count = 0;
+        int listcount = 0;
+        string domainName = null;
+        bool readOnlyAttribute = Model.ExecAction == EnumActionType.Update;
+        
+        <table width="100%" class="SelectTable" cellspacing="0" cellpadding="4">
+            <tr>               
+                <th nowrap="nowrap" style="width: 150px">
+                    @Html.FormLabel(SysUserDomainDetail.Label_UserID, IsRequired: true)
+                </th>
+                <td nowrap="nowrap">
+                    @Html.InputTextBoxFor(model => model.QueryUserID, readOnlyAttribute, Size: 10, TitleName: SysUserDomainDetail.Label_UserID)
+                    @if (readOnlyAttribute == false)
+                    {
+                        @Html.ButtonClient("Help03Button", "?", className: "btn greenhover smallwidth")
+                    }
+                </td>
+            </tr>
+            <tr>
+                <th nowrap="nowrap" style="width: 150px">
+                    @Html.FormLabel(SysUserDomainDetail.Label_DomainAccount, IsRequired: true)
+                </th>
+                <td nowrap="nowrap">
+                    @Html.InputTextBoxFor(model => model.DomainAccount, readOnlyAttribute, Size: 20, TitleName: SysUserDomainDetail.Label_DomainAccount)
+                </td>
+            </tr>
+            @if (Model.EntityDomainGroupList != null)
+            {
+                EntityUserDomainDetail.UserDomainDetail data = new EntityUserDomainDetail.UserDomainDetail();
+                for (int rowCount = 0; rowCount < Model.EntityDomainGroupList.Count; rowCount++)
+                {
+                    if (rowCount != 0)
+                    {
+                        listcount = rowCount - 1;
+                    }
+                    data = Model.EntityDomainGroupList[rowCount];
+                    if (Model.EntityDomainGroupList[rowCount].DomainName.GetValue() != Model.EntityDomainGroupList[listcount].DomainName.GetValue())
+                    {
+                        @:</tr>
+                        @:</table>
+                        @:        </td>
+                        @:       </tr>
+                    }
+
+                    if (data.DomainName.GetValue() != domainName)
+                    {
+                        <tr>
+                            <th nowrap="nowrap" class="bordertop borderbottom" style="width: 150px;">
+                                @Html.FormLabel(SysUserDomainDetail.Label_DomainName, IsRequired: true)
+                            </th>
+                
+                            <td nowrap="nowrap" class="bordertop borderbottom">
+                                @Html.InputTextBox("DomainName", data.DomainName.HtmlValue(), ReadOnly: true, maximumLength: 200, Size: 30)
+                            </td>
+                        </tr>
+                        @:<tr>
+                            @:<th nowrap="nowrap" style="width: 150px;">
+                                @Html.FormLabel(SysUserDomainDetail.Label_DomainGroupID, IsRequired: true)
+                            @:</th>
+                            @:<td nowrap="nowrap">
+                                @:<table width="100%">
+                                    @:<tr>
+                                        <td nowrap="nowrap">
+                                            @Html.InputCheckBox(
+                                                "DomainGroupID",
+                                                data.DomainGroupNM.HtmlValue(),
+                                                data.DomainGroupID.GetValue(),
+                                                (data.HasDomainGroupID.GetValue() == EnumYN.Y.ToString()) ? true : false)
+                                        </td>
+                        count = 0;
+                        count++;
+                    }
+                    else
+                    {
+                        <td nowrap="nowrap">
+                            @Html.InputCheckBox(
+                                "DomainGroupID",
+                                data.DomainGroupNM.HtmlValue(),
+                                data.DomainGroupID.GetValue(),
+                                (data.HasDomainGroupID.GetValue() == EnumYN.Y.ToString()) ? true : false)
+                        </td>
+                        count++;
+                        if (count == 2)
+                        {
+                            @:</tr><tr>
+                            count = 0;
+                        }
+                    }
+                    domainName = data.DomainName.GetValue();
+                }
+                @:</tr>
+                @:</table>
+                @:        </td>
+                @:       </tr>
+            }
+            <tr>
+                <td nowrap="nowrap" colspan="2" class="padding grey bordertop">
+                    @if (Model.ExecAction == EnumActionType.Add)
+                    {
+                        @Html.ButtonClient("AddButton", Resource.Button_Add, className: "btn greenhover")
+                    }
+                    @if (Model.ExecAction == EnumActionType.Update)
+                    {
+                        @Html.ButtonClient("UpdateButton", Resource.Button_Update, className: "btn greenhover")
+                        <span></span>
+                        @Html.ButtonClient("DeleteButton", Resource.Button_Delete, className: "btn greenhover")
+                    }
+                    @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn greenhover")
+                </td>
+            </tr>
+        </table>
+
+        using (Html.BeginConfirmDialog("dialog_Confirm", Resource.SysMsg_Title, Resource.SysMsg_DeleteConfirm))
+        {
+            @Html.ButtonClient("ConfirmOKButton", Resource.Button_Delete)
+            @Html.ButtonClient("ConfirmNOButton", Resource.Button_Cancel)
+        }
+    }
+}

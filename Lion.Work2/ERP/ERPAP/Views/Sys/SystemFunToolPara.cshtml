@@ -1,0 +1,105 @@
+﻿@{ Layout = "~/Views/_Popup.cshtml"; }
+@using LionTech.Entity
+@using LionTech.Entity.ERP
+@using LionTech.Entity.ERP.Sys
+@using LionTech.Utility
+@using LionTech.Utility.ERP
+@using LionTech.Web.ERPHelper
+@using Resources
+@using ERPAP.Models.Sys
+@model ERPAP.Models.Sys.SystemFunToolParaModel
+
+@{
+    string editionNo = ViewData[EnumViewDataItem.EditionNo.ToString()].ToString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemFunToolPara.js?@(editionNo)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemFunToolParaForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.TabList))
+    {
+        <table class="tblvertical">
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemFunToolPara.Label_SysID)
+                </th>
+                <td>
+                    @Html.FormLabel(Model.SystemFunToolParaForm.SysNM)
+                    @Html.InputTextBox("SysID", Model.SystemFunToolParaForm.SysID, inputType: EnumInputType.TextBoxHidden)
+                    @Html.InputTextBox("UserID", Model.SystemFunToolParaForm.UserID, inputType: EnumInputType.TextBoxHidden)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemFunToolPara.Label_FunControllerID)
+                </th>
+                <td>
+                    @Html.FormLabel(Model.SystemFunToolParaForm.FunGroupNM)
+                    @Html.InputTextBox("FunControllerID", Model.SystemFunToolParaForm.FunControllerID, inputType: EnumInputType.TextBoxHidden)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemFunToolPara.Label_FunActionName)
+                </th>
+                <td>
+                    @Html.FormLabel(Model.SystemFunToolParaForm.FunNM)
+                    @Html.InputTextBox("FunActionName", Model.SystemFunToolParaForm.FunActionName, inputType: EnumInputType.TextBoxHidden)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemFunToolPara.Label_ToolNo)
+                </th>
+                <td>
+                    @Html.FormLabel(Model.SystemFunToolParaForm.ToolNo)
+                    @Html.InputTextBox("ToolNo", Model.SystemFunToolParaForm.ToolNo, inputType: EnumInputType.TextBoxHidden)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemFunToolPara.Label_TooNM)
+                </th>
+                <td>
+                    @Html.FormLabel(Model.SystemFunToolParaForm.ToolNM)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemFunToolPara.Lable_IsCurrently)
+                </th>
+                <td>
+                    @Html.InputCheckBox("IsCurrently", string.Empty, EnumYN.Y.ToString(), (Model.SystemFunToolParaForm.IsCurrently == EnumYN.Y.ToString() ? true : false), isDisabled: true)
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td nowrap="nowrap" colspan="8">
+                    @Html.ButtonClient("CloseButton", Resource.Button_Close, className: "btn")
+                </td>
+            </tr>
+        </table>
+
+        using (Html.BeginPager(Model.PageIndex, Model.PageSize, Model.RowCount))
+        {
+            <table id="SystemFunToolParaTable" class="tblzebra">
+                <tr>
+                    <th>@SysSystemFunToolPara.Label_ParaID</th>
+                    <th>@SysSystemFunToolPara.Label_ParaValue</th>
+                </tr>
+                @if (Model.SystemFunToolParaList != null)
+                {
+                    string trClass = string.Empty;
+                    foreach (SystemFunToolParaModel.SystemFunTool data in Model.SystemFunToolParaList)
+                    {
+                        <tr class="@trClass">
+                            <td data-th="@SysSystemFunToolPara.Label_ParaID：" nowrap="nowrap" style="width:500px" title="@SysSystemFunToolPara.Label_ParaID">@Html.Raw(data.ParaID)</td>
+                            <td data-th="@SysSystemFunToolPara.Label_ParaValue：" nowrap="nowrap" title="@SysSystemFunToolPara.Label_ParaValue">@Html.Raw(data.ParaValue)</td>
+                        </tr>
+                        if (string.IsNullOrWhiteSpace(trClass))
+                        {
+                            trClass = "tr2";
+                        }
+                        else
+                        {
+                            trClass = string.Empty;
+                        }
+                    }
+                }
+            </table>
+        }
+    }
+}

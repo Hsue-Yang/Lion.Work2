@@ -1,0 +1,96 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemTeamsModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemTeams.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<div class="page-title"><h3>@SysSystemTeams.TabText_SystemTeams</h3></div>
+@using (Html.BeginFormSubmit("SystemTeamsForm"))
+{
+    @Html.InputTextBox("TeamsChannelID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+
+    <table class="tblsearch">
+        <tr>
+            <td>
+                <table>
+                    <tr>
+                        <th style="width: 70px">
+                            @Html.FormLabel(SysSystemTeams.Label_SysID, IsRequired: true)
+                        </th>
+                        <td>
+                            @Html.InputComboBoxFor(model => model.SysID, Model.GetDictionaryFormSelectItem(Model.UserSystemByIdList, true), isDisabled: false, TitleName: SysSystemTeams.Label_SysID)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @Html.ButtonClient("SelectButton", Resource.Button_Select, className: "btnSearch")
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    using (Html.BeginPager(Model.PageIndex, Model.PageSize, Model.RowCount))
+    {
+        <table id="SystemTeamsTable" class="tblzebra">
+            <thead>
+            <tr>
+                <th>@SysSystemTeams.Text_Detail</th>
+                <th>@SysSystemTeams.Table_TeamsChannelNM</th>
+                <th>@SysSystemTeams.Table_IsDisable</th>
+                <th>@SysSystemTeams.Table_SortOrder</th>
+                <th>@SysSystemTeams.Table_UpdUserNM</th>
+                <th>@SysSystemTeams.Table_UpdDT</th>
+            </tr>
+            </thead>
+            <tbody>
+            @if (Model.SystemTeamsList != null)
+            {
+                string trClass = string.Empty;
+                foreach (var row in Model.SystemTeamsList)
+                {
+                    <tr class="@trClass">
+                        <td data-th="@SysSystemTeams.Text_Detail：" class="center">
+                            @Html.TextSubmitLink(
+                                "Sys",
+                                "SystemTeamsDetail",
+                                "DetailLinkFunKey",
+                                SysSystemTeams.Text_Detail,
+                                new List<string>()
+                                {
+                                    Model.SysID,
+                                    row.TeamsChannelID
+                                }
+                                )
+                        </td>
+                        <td data-th="@SysSystemTeams.Table_TeamsChannelNM：" title="@SysSystemTeams.Table_TeamsChannelNM">@Html.Raw(string.Format("{0} ({1})", row.TeamsChannelNM, row.TeamsChannelID))</td>
+                        <td data-th="@SysSystemTeams.Table_IsDisable：" title="@SysSystemTeams.Table_IsDisable">@Html.Raw(row.IsDisable)</td>
+                        <td data-th="@SysSystemTeams.Table_SortOrder：" title="@SysSystemTeams.Table_SortOrder">@Html.Raw(row.SortOrder)</td>
+                        <td data-th="@SysSystemTeams.Table_UpdUserNM：" title="@SysSystemTeams.Table_UpdUserNM">@Html.Raw(row.UpdUserNM)</td>
+                        <td data-th="@SysSystemTeams.Table_UpdDT：" title="@SysSystemTeams.Table_UpdDT">@Common.GetDateTimeText(row.UpdDT)</td>
+                    </tr>
+
+                    trClass = string.IsNullOrWhiteSpace(trClass) ? "tr2" : string.Empty;
+                }
+            }
+            </tbody>
+        </table>
+    }
+
+    <table class="tblsearch">
+        <tr>
+            <td nowrap="nowrap" colspan="2" class="padding grey bordertop">
+                @Html.ButtonSubmit("Sys", "SystemTeamsDetail", "AddButton", Resource.Button_Add, className: "btn")
+            </td>
+        </tr>
+    </table>
+}

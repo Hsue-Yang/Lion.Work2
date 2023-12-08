@@ -1,0 +1,105 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemAPIAuthorizeModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemAPIAuthorize.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+<div class="page-title"><h3>@SysSystemAPIAuthorize.TabText_SystemAPIAuthorize</h3></div>
+@using (Html.BeginFormSubmit("SystemAPIAuthorizeForm"))
+{
+    <table class="tblsearch">
+        <tr>
+            <td>
+                <table>
+                    <tr>
+                        <th>
+                            @Html.FormLabel(SysSystemAPIAuthorize.Label_SysID)
+                        </th>
+                        <td>
+                            @Html.InputTextBoxFor(model => Model.SysID)
+                            @Html.InputTextBox("SysIDReadOnlyText", Model.SysSystemAPIFullName.SysNM, ReadOnly: true, maximumLength: 200, Size: 30)
+                        </td>
+                        <th>
+                            @Html.FormLabel(SysSystemAPIAuthorize.Label_APIGroupID)
+                        </th>
+                        <td>
+                            @Html.InputTextBoxFor(model => Model.APIGroupID)
+                            @Html.InputTextBox("APIGroupIDReadOnlyText", Model.SysSystemAPIFullName.APIGroupNM, ReadOnly: true, maximumLength: 200, Size: 50)
+                        </td>
+                        <th>
+                            @Html.FormLabel(SysSystemAPIAuthorize.Label_APIFunID)
+                        </th>
+                        <td>
+                            @Html.InputTextBoxFor(model => Model.APIFunID)
+                            @Html.InputTextBox("APIFunIDReadOnlyText", Model.SysSystemAPIFullName.APIFunNM, ReadOnly: true, maximumLength: 200, Size: 50)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            @Html.FormLabel(SysSystemAPIAuthorize.Label_ClientSysID, IsRequired: true)
+                        </th>
+                        <td colspan="5">
+                            @Html.InputComboBoxFor(model => model.ClientSysID, Model.GetDictionaryFormSelectItem(Model.SystemByIdList, true), isDisabled: false, TitleName: SysSystemAPIAuthorize.Label_ClientSysID)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="6">
+                            @Html.ButtonSubmit("Sys", "SystemAPIAuthorize", "AddButton", Resource.Button_Add, className: "btn")
+                            @Html.ButtonClient("APIParaButton", SysSystemAPIAuthorize.Button_APIPara, className: "btn")
+                            @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    <table id="SystemAPIAuthorizeTable" class="tblzebra">
+        <tr>
+            <th style="width: 30px;">@SysSystemAPIAuthorize.Label_Delete</th>
+            <th>@SysSystemAPIAuthorize.Label_ClientSysID</th>
+            <th>@SysSystemAPIAuthorize.Label_UpdUserNM</th>
+            <th>@SysSystemAPIAuthorize.Label_UpdDT</th>
+        </tr>
+        @if (Model.SystemAPIAuthorizeList != null)
+        {
+            string trClass = string.Empty;
+            foreach (var row in Model.SystemAPIAuthorizeList)
+            {
+                <tr class="@trClass">
+                    <td data-th="@SysSystemAPIAuthorize.Label_Delete：" class="center">
+                        @Html.TextSubmitLink(
+                            "Sys",
+                            "SystemAPIAuthorize",
+                            "LinkFunKey",
+                            SysSystemAPIAuthorize.Label_Delete,
+                            new List<string>() {
+                                row.ClientSysID
+                            }
+                        )
+                    </td>
+                    <td data-th="@SysSystemAPIAuthorize.Label_ClientSysID：" title="@SysSystemAPIAuthorize.Label_ClientSysID">@Html.Raw(row.ClientSysNM)</td>
+                    <td data-th="@SysSystemAPIAuthorize.Label_UpdUserNM：" title="@SysSystemAPIAuthorize.Label_UpdUserNM">@Html.Raw(row.UpdUserNM)</td>
+                    <td data-th="@SysSystemAPIAuthorize.Label_UpdDT：" title="@SysSystemAPIAuthorize.Label_UpdDT">@Common.GetDateTimeText(row.UpdDT)</td>
+                </tr>
+
+                trClass = string.IsNullOrWhiteSpace(trClass) ? "tr2" : string.Empty;
+            }
+        }
+    </table>
+
+    using (Html.BeginConfirmDialog("dialog_Confirm", Resource.SysMsg_Title, Resource.SysMsg_DeleteConfirm))
+    {
+        @Html.ButtonClient("ConfirmOKButton", Resource.Button_Delete)
+        @Html.ButtonClient("ConfirmNOButton", Resource.Button_Cancel)
+    }
+}

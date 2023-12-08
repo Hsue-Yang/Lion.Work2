@@ -1,0 +1,133 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity
+@using LionTech.Entity.ERP
+@using LionTech.Entity.ERP.Sys
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.GoogleAccountSettingModel
+           
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/GoogleAccountSetting.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("GoogleAccountSettingForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.GoogleAccountSettingTabList))
+    {
+        <table class="tblsearch">
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <th style="width: 60px">
+                                @Html.FormLabel(SysGoogleAccountSetting.Label_UserID)
+                            </th>
+                            <td>
+                                @Html.InputTextBoxFor(model => model.QueryUserID, false, 10, TitleName: SysGoogleAccountSetting.Label_UserID)
+                                @Html.ButtonClient("Help03Button", "?", className: "qmark")
+                            </td>
+                            <td>
+                                @Html.InputCheckBox("IsOnlyGAccEnable", SysGoogleAccountSetting.IsOnlyGAccEnable, EnumYN.Y.ToString(), (Model.IsOnlyGAccEnable == EnumYN.Y.ToString()) ? true : false)
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="8">
+                    @Html.ButtonClient("SelectButton", Resource.Button_Select, className: "btnSearch")
+                </td>
+            </tr>
+        </table>
+
+        using (Html.BeginPager(Model.PageIndex, Model.PageSize, Model.RowCount))
+        {
+            <table id="GoogleAccountSettingTable" class="tblzebra">
+                <thead>
+                <tr>
+                    <th>@SysGoogleAccountSetting.Table_PicklList</th>
+                    <th>@SysGoogleAccountSetting.Table_UserNM</th>
+                    <th>@SysGoogleAccountSetting.Table_ComNM</th>
+                    <th>@SysGoogleAccountSetting.Table_UnitNM</th>
+                    <th>@SysGoogleAccountSetting.Table_ISLeft</th>
+                    <th>@SysGoogleAccountSetting.Table_GoogleAccount</th>
+                    <th>@SysGoogleAccountSetting.Table_IsGAccEnable</th>
+                    <th>@SysGoogleAccountSetting.Table_UpdateUser</th>
+                    <th>@SysGoogleAccountSetting.Table_UpdateDate</th>
+                </tr>
+                </thead>
+                <tbody>
+                @if (Model.EntityGoogleAccountSettingList != null)
+                {
+                    string trClass = string.Empty;
+                    string background = string.Empty;
+                    string rowListNM = string.Empty;
+
+
+                    EntityGoogleAccountSetting.GoogleAccountSetting data = new EntityGoogleAccountSetting.GoogleAccountSetting();
+                    for (int rowCount = 0; rowCount < Model.EntityGoogleAccountSettingList.Count; rowCount++)
+                    {
+                        data = Model.EntityGoogleAccountSettingList[rowCount];
+
+                        if (data.BgColor.GetValue() > 0)
+                        {
+                            background = "background-color:#f6bfbc;";
+                        }
+                        else if (data.BgColor.GetValue() < 0)
+                        {
+                            background = "background-color:#D2E9FF;";
+                        }
+                        else
+                        {
+                            background = string.Empty;
+                        }
+
+                        rowListNM = "googleAccountValueList[" + rowCount + "]";
+                        <tr class="@trClass" style="@background">
+                            <td data-th="@SysGoogleAccountSetting.Table_PicklList：" style="text-align: center">@Html.InputCheckBox(rowListNM + ".Picklist", string.Empty, EnumYN.Y.ToString(), false)</td>
+                            <td data-th="@SysGoogleAccountSetting.Table_UserNM：" title="@SysGoogleAccountSetting.Table_UserNM">
+                                @Html.InputTextBox(rowListNM + ".UserID", data.UserID.GetValue(), inputType: EnumInputType.TextBoxHidden)
+                                @Html.Raw(data.UserNM.HtmlValue())
+                            </td>
+                            <td data-th="@SysGoogleAccountSetting.Table_ComNM：" title="@SysGoogleAccountSetting.Table_ComNM">@Html.Raw(data.ComNM.HtmlValue())</td>
+                            <td data-th="@SysGoogleAccountSetting.Table_UnitNM：" title="@SysGoogleAccountSetting.Table_UnitNM">@Html.Raw(data.UnitNM.HtmlValue())</td>
+                            <td data-th="@SysGoogleAccountSetting.Table_ISLeft：" title="@SysGoogleAccountSetting.Table_ISLeft">@Html.Raw(data.IsLeft.HtmlValue())</td>
+                            <td data-th="@SysGoogleAccountSetting.Table_GoogleAccount：" title="@SysGoogleAccountSetting.Table_GoogleAccount">@Html.InputTextBox(rowListNM + ".GoogleAccount", data.GoogleAccount.GetValue(), maximumLength: 40, Size: 30, Validation: false, maximum: 40)</td>
+                            <td data-th="@SysGoogleAccountSetting.Table_IsGAccEnable：" style="text-align: center">
+
+                                @if (data.IsGAccEnable.GetValue() == EnumYN.Y.ToString())
+                                {
+                                    @Html.InputCheckBox(rowListNM + ".IsGAccEnable", string.Empty, EnumYN.Y.ToString(), true)
+                                }
+                                else
+                                {
+                                    @Html.InputCheckBox(rowListNM + ".IsGAccEnable", string.Empty, EnumYN.Y.ToString(), false)
+                                }
+
+                            </td>
+                            <td data-th="@SysGoogleAccountSetting.Table_UpdateUser：" title="@SysGoogleAccountSetting.Table_UpdateUser">@Html.Raw(data.UpdUser.HtmlValue())</td>
+                            <td data-th="@SysGoogleAccountSetting.Table_UpdateDate：" title="@SysGoogleAccountSetting.Table_UpdateDate">@Html.Raw(data.UpdDT.HtmlValue())</td>
+                        </tr>
+
+                        if (string.IsNullOrWhiteSpace(trClass))
+                        {
+                            trClass = "tr2";
+                        }
+                        else
+                        {
+                            trClass = string.Empty;
+                        }
+                    }
+                }
+                </tbody>
+            </table>
+        }
+
+        <div>
+            @Html.ButtonSubmit("Sys", "GoogleAccountSetting", "UpdateButton", Resource.Button_Update, className: "btn")
+        </div>
+    }
+}

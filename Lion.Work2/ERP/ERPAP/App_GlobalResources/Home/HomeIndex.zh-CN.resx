@@ -1,0 +1,270 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Label_Birthday" xml:space="preserve">
+    <value>出生日期</value>
+  </data>
+  <data name="Label_CapsLockRemind" xml:space="preserve">
+    <value>大写锁定中，请留意输入信息的正确性</value>
+  </data>
+  <data name="Label_CultureID" xml:space="preserve">
+    <value>多国语系</value>
+  </data>
+  <data name="Label_IdNo" xml:space="preserve">
+    <value>身份证字号</value>
+  </data>
+  <data name="Label_InCompany" xml:space="preserve">
+    <value>公司</value>
+  </data>
+  <data name="Label_InHome" xml:space="preserve">
+    <value>在家</value>
+  </data>
+  <data name="Label_InOther" xml:space="preserve">
+    <value>所在地</value>
+  </data>
+  <data name="Label_Location" xml:space="preserve">
+    <value>您现在在：</value>
+  </data>
+  <data name="Label_Login" xml:space="preserve">
+    <value>登录</value>
+  </data>
+  <data name="Label_LoginTo" xml:space="preserve">
+    <value>您现在要登入的是 {0}</value>
+  </data>
+  <data name="Label_LoginType" xml:space="preserve">
+    <value>登入方式</value>
+  </data>
+  <data name="Label_NotInCompany" xml:space="preserve">
+    <value>不在公司时请再输入：</value>
+  </data>
+  <data name="Label_OTPRemind" xml:space="preserve">
+    <value>请输入员工编号6码</value>
+  </data>
+  <data name="Label_UserID" xml:space="preserve">
+    <value>使用者代码</value>
+  </data>
+  <data name="Label_UserPassword" xml:space="preserve">
+    <value>通行码</value>
+  </data>
+  <data name="SystemMsg_AccountIsLeft" xml:space="preserve">
+    <value>账号无效，请洽管理员</value>
+  </data>
+  <data name="SystemMsg_AccountIsLock" xml:space="preserve">
+    <value>账号已锁定，请等候30分钟后启用或洽管理员</value>
+  </data>
+  <data name="SystemMsg_AccountNotExist" xml:space="preserve">
+    <value>账号不存在，请洽管理员</value>
+  </data>
+  <data name="SystemMsg_ERPLoginMsgError" xml:space="preserve">
+    <value>登入失败，请洽管理员</value>
+  </data>
+  <data name="SystemMsg_ExternalLocationError" xml:space="preserve">
+    <value>您现在不在公司内，请确认现在位置并输入身份证字号及出生日期</value>
+  </data>
+  <data name="SystemMsg_GetBaseCultureIDList" xml:space="preserve">
+    <value>无法取得多国语系列表</value>
+  </data>
+  <data name="SystemMsg_GetUserLoginEvent_Failure" xml:space="preserve">
+    <value>取得使用者登入事件失败</value>
+  </data>
+  <data name="SystemMsg_InternalLocationError" xml:space="preserve">
+    <value>您现在应该在公司，请选择现在位置为「公司」</value>
+  </data>
+  <data name="SystemMsg_OTP_STAT_DIGIPASS_EXPIRED" xml:space="preserve">
+    <value>密码已过期，请重新产生密码。</value>
+  </data>
+  <data name="SystemMsg_OTP_STAT_DISABLED" xml:space="preserve">
+    <value>[帳號被停用]
+您的帳號因故停用，請聯絡資訊客服#7885確認原因。</value>
+  </data>
+  <data name="SystemMsg_OTP_STAT_LOCAL_PASSWORD_MISMATCH" xml:space="preserve">
+    <value>[密码错误]
+您所输入的静态密码不正确，请确认格式是否符合下列原则。
+静态密码组成：
+1. 至少一个大写英文字母
+2. 至少一个小写英文字母
+3. 至少一个数字
+4. 半形且密码长度为七码</value>
+  </data>
+  <data name="SystemMsg_OTP_STAT_LOCKED" xml:space="preserve">
+    <value>[帐号被锁定]
+密码连续输入错误累计超过三次，您有三次的机会可自行解锁。若自行解锁仍不成功，请上【资安需求单】申请解锁。
+密码输入错误三次等待5分钟，第四次错误等待7.5分钟，第五次错误需等待十分钟，第六次错误。</value>
+  </data>
+  <data name="SystemMsg_OTP_STAT_OTP_INCORRECT" xml:space="preserve">
+    <value>[密码错误]
+您所输入的动态密码不正确．请确认格式是否符合下列原则。
+动态密码组成：
+1. 全数字没有英文字母及符号
+2. 半形且密码长度为七码</value>
+  </data>
+  <data name="SystemMsg_OTP_STAT_PASSWORD_EXPIRED" xml:space="preserve">
+    <value>密码已过期，请重新产生密码。</value>
+  </data>
+  <data name="SystemMsg_OTP_STAT_REPLAY" xml:space="preserve">
+    <value>[密码错误]
+您所输入的OTP已使用过，请重新产生一组新的OTP。</value>
+  </data>
+  <data name="SystemMsg_OTP_STAT_USER_UNKNOWN" xml:space="preserve">
+    <value>[帐号被停用]
+您的帐号因故停用，请洽资安组(00D853/翁铭骅 #9776)确认原因。</value>
+  </data>
+  <data name="SystemMsg_RejectIP" xml:space="preserve">
+    <value>您所在的网络环境不被信任，无法提供服务</value>
+  </data>
+  <data name="SystemMsg_RequiredUserInformation" xml:space="preserve">
+    <value>不在公司时请再输入：使用者的身份证字号及生日</value>
+  </data>
+  <data name="SystemMsg_UserInformationError" xml:space="preserve">
+    <value>员工资讯验证失败</value>
+  </data>
+  <data name="SystemMsg_ValidateError" xml:space="preserve">
+    <value>密码或数据错误{0}次</value>
+  </data>
+  <data name="Text_AccountPSW" xml:space="preserve">
+    <value>使用帐密登入</value>
+  </data>
+  <data name="Text_DigipassOTP" xml:space="preserve">
+    <value>使用动态密码</value>
+  </data>
+  <data name="Text_LionTestingRemind" xml:space="preserve">
+    <value>这是测试机</value>
+  </data>
+  <data name="Text_LionToday" xml:space="preserve">
+    <value>雄狮报报</value>
+  </data>
+  <data name="Text_Marketing" xml:space="preserve">
+    <value>网络营销</value>
+  </data>
+  <data name="Text_PublicRelationship" xml:space="preserve">
+    <value>公关讯息</value>
+  </data>
+  <data name="Text_QRCode" xml:space="preserve">
+    <value>使用行动条码登入</value>
+  </data>
+  <data name="Text_Sharing" xml:space="preserve">
+    <value>文章分享</value>
+  </data>
+  <data name="Text_Video" xml:space="preserve">
+    <value>影音分享</value>
+  </data>
+  <data name="Title_InOther" xml:space="preserve">
+    <value>所在地：请简要输入您的所在地</value>
+  </data>
+</root>

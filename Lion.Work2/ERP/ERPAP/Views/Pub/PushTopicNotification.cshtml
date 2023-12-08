@@ -1,0 +1,137 @@
+﻿@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using ERPAP.Models.Pub
+@using LionTech.Web.ERPHelper
+@using Resources
+@model PushTopicNotificationModel
+@{
+    Layout = "~/Views/_Layout.cshtml";
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.datepicker.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Pub/PushTopicNotification.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+@using (Html.BeginFormSubmit("PushTopicNotificationForm"))
+{
+    <div class="page-title">
+        <h3>
+            @PubPushTopicNotification.Label_PushTopicNotification
+        </h3>
+    </div>
+
+    <table class="tblsearch">
+        <tr>
+            <td>
+                <table>
+                    <tr>
+                        <th>
+                            @Html.FormLabel(PubPushTopicNotification.Label_Title)
+                        </th>
+                        <td>
+                            @Html.InputTextBoxFor(model => model.Title)
+                        </td>
+                        <th>
+                            @Html.FormLabel(PubPushTopicNotification.Label_Body)
+                        </th>
+                        <td>
+                            @Html.InputTextBoxFor(model => model.Body)
+                        </td>
+                        <th>
+                            @Html.FormLabel(PubPushTopicNotification.Label_PushStatus)
+                        </th>
+                        <td>
+                            @Html.InputComboBoxFor(model => model.PushStatus, Model.PushStatusDictionary)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            @Html.FormLabel(PubPushTopicNotification.Label_StartPushDT)
+                        </th>
+                        <td>
+                            @Html.InputTextBoxFor(model => model.StartPushDT, TitleName: PubPushTopicNotification.Label_StartPushDT)
+                        </td>
+                        <th>
+                            @Html.FormLabel(PubPushTopicNotification.Label_EndPushDT)
+                        </th>
+                        <td>
+                            @Html.InputTextBoxFor(model => model.EndPushDT, TitleName: PubPushTopicNotification.Label_EndPushDT)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            @Html.ButtonClient("SelectButton", Resource.Button_Select, "btnSearch")
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    using (Html.BeginPager(Model.PageIndex, Model.PageSize, Model.RowCount))
+    {
+        <table id="PushTopicNotificationTable" class="tblzebra">
+            <thead>
+                <tr>
+                    <th style="width: 100px;">
+                        @PubPushTopicNotification.Table_Statues
+                    </th>
+                    <th>
+                        @PubPushTopicNotification.Table_PushDateTime
+                    </th>
+                    <th>
+                        @PubPushTopicNotification.Table_Title
+                    </th>
+                    <th>
+                        @PubPushTopicNotification.Table_Body
+                    </th>
+                    <th>
+                        @PubPushTopicNotification.Table_ExecSys
+                    </th>
+                    <th>
+                        @PubPushTopicNotification.Table_UpdDT
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.PushTopicNotificationList.Any() && Model.PushTopicNotificationList != null)
+                {
+                    foreach (var data in Model.PushTopicNotificationList)
+                    {
+                        <tr>
+                            <td data-th="@PubPushTopicNotification.Table_Statues：">
+                                @if (data.PushSts.IsNull() == false)
+                                {
+                                    @Model.PushStatusDictionary[data.PushSts.GetValue()]
+                                }
+                            </td>
+                            <td data-th="@PubPushTopicNotification.Table_PushDateTime：">
+                                @if (data.PushDT.IsNull() == false)
+                                {
+                                    @data.PushDT.GetFormattedValue(Common.EnumDateTimeFormatted.FullDateForSeconds)
+                                }
+                            </td>
+                            <td data-th="@PubPushTopicNotification.Table_Title：">
+                                @data.Title.GetValue()
+                            </td>
+                            <td data-th="@PubPushTopicNotification.Table_Body：">
+                                @data.Body.GetValue()
+                            </td>
+                            <td data-th="@PubPushNotification.Table_ExecSys：">
+                                @string.Format("{0} ({1})", data.ExecSysNM.GetValue(), data.ExecSysID.GetValue())
+                            </td>
+                            <td data-th="@PubPushNotification.Table_UpdDT：">
+                                @data.UpdDT.GetFormattedValue(Common.EnumDateTimeFormatted.FullDateForSeconds)
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    }
+
+    <div>
+        @Html.ButtonSubmit("Pub", "PushTopicNotificationDetail", "AddButton", Resource.Button_Add, "btn")
+    </div>
+}

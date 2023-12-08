@@ -1,0 +1,57 @@
+﻿@{ Layout = "~/Views/_Popup.cshtml"; }
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Utility.ERP
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemEventParaModel
+
+@{
+    string editionNo = ViewData[EnumViewDataItem.EditionNo.ToString()].ToString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemEventPara.js?@(editionNo)" type="text/javascript"></script>
+
+<div class="page-title"><h3>@SysSystemEventPara.TabText_SystemEventPara</h3></div>
+@using (Html.BeginFormSubmit("SystemEventParaForm"))
+{
+    <table class="tblvertical">
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemEventPara.Label_SysID)
+            </th>
+            <td>
+                @Html.InputTextBox("SysIDReadOnlyText", Model.SystemEventFullName.SysNM, ReadOnly: true, maximumLength: 200, Size: 30)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemEventPara.Label_EventGroupID)
+            </th>
+            <td>
+                @Html.InputTextBox("EventGroupIDReadOnlyText", Model.SystemEventFullName.EventGroupNM, ReadOnly: true, maximumLength: 200, Size: 50)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemEventPara.Label_EventID)
+            </th>
+            <td>
+                @Html.InputTextBox("EventIDReadOnlyText", Model.SystemEventFullName.EventNM, ReadOnly: true, maximumLength: 200, Size: 30)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ButtonClient("CloseButton", Resource.Button_Close, className: "btn")
+            </td>
+        </tr>
+    </table>
+
+    <div style="margin: 10px">
+        <span style="color: Blue;">@Html.FormLabel(SysSystemEventPara.Table_Remark)</span><br />
+        @Model.Remark
+        <br /><br />
+        <span style="color: Blue;">@Html.FormLabel(SysSystemEventPara.Table_EventPara)</span>
+        <pre style="white-space: pre-wrap; margin: 0;">@Html.Raw(PublicFun.GetFormattedRequestString(Model.EventPara))</pre>
+    </div>
+}

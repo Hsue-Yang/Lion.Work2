@@ -1,0 +1,174 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity
+@using LionTech.Entity.ERP
+@using LionTech.Entity.ERP.Sys
+@using LionTech.Utility
+@using LionTech.Utility.ERP
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.TrustIPModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/TrustIP.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("TrustIPForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.TabList))
+    {
+        @Html.InputTextBox("IPBegin", string.Empty, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("IPEnd", string.Empty, inputType: EnumInputType.TextBoxHidden)
+
+        <table class="tblsearch">
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <th>
+                                @Html.FormLabel(SysTrustIP.Label_IPBegin)
+                            </th>
+                            <td>
+                                @Html.InputTextBoxFor(model => model.QueryIPBegin, Size: 15, TitleName: SysTrustIP.Label_IPBegin)
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysTrustIP.Label_IPEnd)
+                            </th>
+                            <td>
+                                @Html.InputTextBoxFor(model => model.QueryIPEnd, Size: 15, TitleName: SysTrustIP.Label_IPEnd)
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysTrustIP.Label_ComID)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.QueryComID, Model.GetDictionaryFormSelectItem(Model.EntityBaseRawCMOrgComList, true), TitleName: SysTrustIP.Label_ComID)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                @Html.FormLabel(SysTrustIP.Label_TrustStatus)
+                            </th>
+                            <td>
+                                @Html.InputCheckBox("QueryTrustStatus", SysTrustIP.Label_TrustStatus, EnumYN.Y.ToString(), (Model.QueryTrustStatus == EnumYN.Y.ToString()) ? true : false)
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysTrustIP.Label_TrustType)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.QueryTrustType, Model.GetDictionaryFormSelectItem(Model.EntityBaseTrustTypeList, true), TitleName: SysTrustIP.Label_TrustType)
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysTrustIP.Label_SourceType)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.QuerySourceType, Model.GetDictionaryFormSelectItem(Model.EntityBaseSourceTypeList, true), TitleName: SysTrustIP.Label_SourceType)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                @Html.FormLabel(SysTrustIP.Label_Remark)
+                            </th>
+                            <td colspan="5">
+                                @Html.InputTextBoxFor(model => model.QueryRemark, Size: 100, TitleName: SysTrustIP.Label_Remark)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="6">
+                                @Html.ButtonClient("SelectButton", Resource.Button_Select, className: "btnSearch")
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        using (Html.BeginPager(Model.PageIndex, Model.PageSize, Model.RowCount))
+        {
+            <table id="TrustIPTable" class="tblzebra">
+                <thead>
+                <tr>
+                    <th nowrap="nowrap">@SysTrustIP.Text_Detail</th>
+                    <th nowrap="nowrap">@SysTrustIP.Table_IPBegin</th>
+                    <th nowrap="nowrap">@SysTrustIP.Table_IPEnd</th>
+                    <th nowrap="nowrap">@SysTrustIP.Table_ComNM</th>
+                    <th nowrap="nowrap">@SysTrustIP.Table_TrustStatus</th>
+                    <th nowrap="nowrap">@SysTrustIP.Table_TrustTypeNM</th>
+                    <th nowrap="nowrap">@SysTrustIP.Table_SourceTypeNM</th>
+                    <th nowrap="nowrap">@SysTrustIP.Table_Remark</th>
+                    <th nowrap="nowrap">@SysTrustIP.Table_SortOrder</th>
+                    <th nowrap="nowrap">@SysTrustIP.Table_UpdUserNM</th>
+                    <th nowrap="nowrap">@SysTrustIP.Table_UpdDT</th>
+                </tr>
+                </thead>
+                <tbody>
+                @if (Model.EntityTrustIPList != null)
+                {
+                    string trClass = string.Empty;
+                    foreach (var data in Model.EntityTrustIPList)
+                    {
+                        <tr class="@trClass">
+                            <td data-th="@SysTrustIP.Text_Detail：" nowrap="nowrap" class="center">
+                                @Html.TextSubmitLink(
+                                    "Sys",
+                                    "TrustIPDetail",
+                                    "LinkFunKey",
+                                    SysTrustIP.Text_Detail,
+                                    new List<string>()
+                                    {
+                                        data.IPBegin,
+                                        data.IPEnd
+                                    }
+                                    )
+                            </td>
+                            <td data-th="@SysTrustIP.Table_IPBegin：" nowrap="nowrap" title="@SysTrustIP.Table_IPBegin">@Html.Raw(data.IPBegin)</td>
+                            <td data-th="@SysTrustIP.Table_IPEnd：" nowrap="nowrap" title="@SysTrustIP.Table_IPEnd">@Html.Raw(data.IPEnd)</td>
+                            <td data-th="@SysTrustIP.Table_ComNM：" nowrap="nowrap" title="@SysTrustIP.Table_ComNM">
+                                @if (data.ComNM != null)
+                                {
+                                    <span style="color:black;">@Html.Raw(data.ComNM)</span>
+                                }
+                                else
+                                {
+                                    <span style="color:red;">@("NULL")</span>
+                                }
+                            </td>
+                            <td data-th="@SysTrustIP.Table_TrustStatus：" nowrap="nowrap" title="@SysTrustIP.Table_TrustStatus">@Html.Raw(data.TrustStatus)</td>
+                            <td data-th="@SysTrustIP.Table_TrustTypeNM：" nowrap="nowrap" title="@SysTrustIP.Table_TrustTypeNM">@Html.Raw(data.TrustTypeNM)</td>
+                            <td data-th="@SysTrustIP.Table_SourceTypeNM：" nowrap="nowrap" title="@SysTrustIP.Table_SourceTypeNM">@Html.Raw(data.SourceTypeNM)</td>
+                            <td data-th="@SysTrustIP.Table_Remark：" nowrap="nowrap" title="@SysTrustIP.Table_Remark">@Html.Raw(data.Remark)</td>
+                            <td data-th="@SysTrustIP.Table_SortOrder：" nowrap="nowrap" title="@SysTrustIP.Table_SortOrder">
+                                @if (data.SortOrder != null)
+                                {
+                                    <span style="color:black;">@Html.Raw(data.SortOrder)</span>
+                                }
+                                else
+                                {
+                                    <span style="color:red;">@("NULL")</span>
+                                }
+                            </td>
+                            <td data-th="@SysTrustIP.Table_UpdUserNM：" nowrap="nowrap" title="@SysTrustIP.Table_UpdUserNM">@Html.Raw(data.UpdUserNM)</td>
+                            <td data-th="@SysTrustIP.Table_UpdDT：" nowrap="nowrap" title="@SysTrustIP.Table_UpdDT">@Html.Raw(data.UpdDT.ToString("yyyy/MM/dd HH:mm:ss.fff"))</td>
+                        </tr>
+
+                        if (string.IsNullOrWhiteSpace(trClass))
+                        {
+                            trClass = "tr2";
+                        }
+                        else
+                        {
+                            trClass = string.Empty;
+                        }
+                    }
+                }
+                </tbody>
+            </table>
+        }
+
+        <div>
+            @Html.ButtonSubmit("Sys", "TrustIPDetail", "AddButton", Resource.Button_Add, className: "btn")
+        </div>
+    }
+}

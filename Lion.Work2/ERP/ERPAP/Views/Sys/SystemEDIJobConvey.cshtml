@@ -1,0 +1,54 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Utility.ERP
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemEDIJobConveyModel
+
+@{
+    string editionNo = ViewData[EnumViewDataItem.EditionNo.ToString()].ToString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemEDIJobConvey.js?@(editionNo)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemEDIJobConveyForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.TabList))
+    {
+        @Html.InputTextBox("SysID", Model.QuerySysID, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("EDIFlowID", Model.QueryEDIFlowID, inputType: EnumInputType.TextBoxHidden)
+
+        <table class="tblvertical">
+            <tr>
+                <th style="width: 180px">
+                    @Html.FormLabel(SysSystemEDIJobConvey.Label_SysID)
+                </th>
+                <td>
+                    @Html.InputTextBox("SysIDReadOnlyText", Model.QuerySysID, ReadOnly: true, maximumLength: 200, Size: 30)
+                    @Html.InputTextBoxFor(model => model.QuerySysID)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemEDIJobConvey.Label_EDIFlowID)
+                </th>
+                <td class="width">
+                    @Html.InputTextBox("EDIFlowIDReadOnlyText", Model.QueryEDIFlowID, ReadOnly: true, maximumLength: 200, Size: 30)
+                    @Html.InputTextBoxFor(model => model.QueryEDIFlowID)
+                </td>
+            </tr>
+            <tr>
+                <th></th>
+                <td>
+                    @Html.TextBoxFor(model => Model.UploadEdiJobFile, new { type = "file" })
+                </td>
+            </tr>
+        </table>
+    
+        <div class="text-left">
+            @Html.ButtonSubmit("Sys", "SystemEDIJobConvey", "UploadButton", Resource.Button_Upload, className: "btn")
+            @Html.ButtonSubmit("Sys", "SystemEDIJob", "CancelButton", Resource.Button_Cancel, className: "btn")
+        </div>
+    }
+}

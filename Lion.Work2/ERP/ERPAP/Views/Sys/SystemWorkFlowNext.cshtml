@@ -1,0 +1,170 @@
+﻿@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Utility.ERP
+@using LionTech.Web.ERPHelper
+@using LionTech.WorkFlow
+@using Resources
+@model ERPAP.Models.Sys.SystemWorkFlowNextModel
+
+@{
+    Layout = "~/Views/_Popup.cshtml";
+    string editionNo = ViewData[EnumViewDataItem.EditionNo.ToString()].ToString();
+}
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemWorkFlowNext.js?@(editionNo)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemWorkFlowNextForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.SysWFNodeTabList))
+    {
+        @Html.InputTextBox("SysID", Model.SysID, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("WFFlowGroupID", Model.WFFlowGroupID, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("WFCombineKey", Model.WFCombineKey, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("WFFlowID", Model.WFFlowID, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("WFFlowVer", Model.WFFlowVer, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("WFNodeID", Model.WFNodeID, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("NextWFNodeID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+
+        <table class="tblsearch">
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <th>
+                                @Html.FormLabel(SysSystemWorkFlowNext.Label_SysID, IsRequired: true)
+                            </th>
+                            <td>
+                                @Model.GetSelectedText(Model.EntityUserSystemSysIDList, Model.SysID)
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysSystemWorkFlowNext.Label_WFFlowGroupID, IsRequired: true)
+                            </th>
+                            <td>
+                                @Model.GetSelectedText(Model.EntitySystemWorkFlowGroupIDList, Model.WFFlowGroupID)
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysSystemWorkFlowNext.Label_WFFlowID, IsRequired: true)
+                            </th>
+                            <td>
+                                @Model.GetSelectedText(Model.EntityUserSystemWorkFlowIDList, Model.WFCombineKey)
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysSystemWorkFlowNext.Label_WFFlowNodeID, IsRequired: true)
+                            </th>
+                            <td>
+                                @Model.GetSelectedText(Model.EntitySystemWorkFlowNodeIDList, Model.WFNodeID)
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <table id="SystemWorkFlowNextTable" class="tblzebra">
+            <tr>
+                <th>@SysSystemWorkFlowNext.Table_Detail</th>
+                <th>@SysSystemWorkFlowNext.Table_NextWFNodeID</th>
+                <th>@SysSystemWorkFlowNext.Table_NextNodeTypeNM</th>
+                <th>@SysSystemWorkFlowNext.Table_NextResultValue</th>
+                <th>@SysSystemWorkFlowNext.Table_FunSysNM</th>
+                <th>@SysSystemWorkFlowNext.Table_SubSysNM</th>
+                <th>@SysSystemWorkFlowNext.Table_FunControllerNM</th>
+                <th>@SysSystemWorkFlowNext.Table_FunActionNameNM</th>
+                <th>@SysSystemWorkFlowNext.Table_SortOrder</th>
+                <th>@SysSystemWorkFlowNext.Table_UpdUserNM</th>
+                <th>@SysSystemWorkFlowNext.Table_UpdDt</th>
+            </tr>
+            @if (Model.EntitySystemWFNextList != null)
+            {
+                foreach (var data in Model.EntitySystemWFNextList)
+                {
+                    <tr>
+                        <td data-th="@SysSystemWorkFlowNext.Table_Detail：" class="center">
+                            @Html.TextSubmitLink(
+                                "Sys",
+                                "SystemWorkFlowNextDetail",
+                                "LinkFunKeyDetail",
+                                SysSystemWorkFlowNext.Table_Detail,
+                                new List<string>()
+                                {
+                                    data.NextWFNodeID
+                                })
+                        </td>
+                        <td data-th="@SysSystemWorkFlowNext.Table_NextWFNodeID：" title="@SysSystemWorkFlowNext.Table_NextWFNodeID">@Html.Raw(data.NextWFNodeNM)</td>
+                        <td data-th="@SysSystemWorkFlowNext.Table_NextNodeTypeNM：" title="@SysSystemWorkFlowNext.Table_NextNodeTypeNM">@Html.Raw(data.NextNodeTypeNM)</td>
+                        <td data-th="@SysSystemWorkFlowNext.Table_NextResultValue：" title="@SysSystemWorkFlowNext.Table_NextResultValue">
+                            @if (data.NextResultValue != null)
+                            {
+                                <span style="color:black;">@Html.Raw(data.NextResultValue)</span>
+                            }
+                            else
+                            {
+                                <span style="color:red;">@("NULL")</span>
+                            }
+                        </td>
+                        <td data-th="@SysSystemWorkFlowNext.Table_FunSysNM：" title="@SysSystemWorkFlowNext.Table_FunSysNM">
+                            @if (data.FunSysNM != null)
+                            {
+                                <span style="color:black;">@Html.Raw(data.FunSysNM)</span>
+                            }
+                            else
+                            {
+                                <span style="color:red;">@("NULL")</span>
+                            }
+                        </td>
+                        <td data-th="@SysSystemWorkFlowNext.Table_SubSysNM：" title="@SysSystemWorkFlowNext.Table_SubSysNM">
+                            @if (data.SubSysNM != null)
+                            {
+                                <span style="color:black;">@Html.Raw(data.SubSysNM)</span>
+                            }
+                            else
+                            {
+                                <span style="color:red;">@("NULL")</span>
+                            }
+                        </td>
+                        <td data-th="@SysSystemWorkFlowNext.Table_FunControllerNM：" title="@SysSystemWorkFlowNext.Table_FunControllerNM">
+                            @if (data.FunControllerNM != null)
+                            {
+                                <span style="color:black;">@Html.Raw(data.FunControllerNM)</span>
+                            }
+                            else
+                            {
+                                <span style="color:red;">@("NULL")</span>
+                            }
+                        </td>
+                        <td data-th="@SysSystemWorkFlowNext.Table_FunActionNameNM：" title="@SysSystemWorkFlowNext.Table_FunActionNameNM">
+                            @if (data.FunActionNameNM != null)
+                            {
+                                <span style="color:black;">@Html.Raw(data.FunActionNameNM)</span>
+                            }
+                            else
+                            {
+                                <span style="color:red;">@("NULL")</span>
+                            }
+                        </td>
+                        <td data-th="@SysSystemWorkFlowNext.Table_SortOrder：" title="@SysSystemWorkFlowNext.Table_SortOrder">
+                            @if (data.SortOrder != null)
+                            {
+                                <span style="color:black;">@Html.Raw(data.SortOrder)</span>
+                            }
+                            else
+                            {
+                                <span style="color:red;">@("NULL")</span>
+                            }
+                        </td>
+                        <td data-th="@SysSystemWorkFlowNext.Table_UpdUserNM：" title="@SysSystemWorkFlowNext.Table_UpdUserNM">@Html.Raw(data.UpdUserNM)</td>
+                        <td data-th="@SysSystemWorkFlowNext.Table_UpdDt：" title="@SysSystemWorkFlowNext.Table_UpdDt">@Html.Raw(data.UpdDt.ToString("yyyy/MM/dd HH:mm:ss.fff"))</td>
+                    </tr>
+                }
+            }
+        </table>
+        <pre class="red">@SysSystemWorkFlowNext.Label_NodeTypeMemo</pre>
+
+        <div class="text-left buttons">
+            @if (Model.EntitySystemWorkFlowNode.NodeType != EnumNodeType.E.ToString())
+            {
+                @Html.ButtonSubmit("Sys", "SystemWorkFlowNextDetail", "AddButton", Resource.Button_Add, className: "btn greenhover")
+            }
+            @Html.ButtonClient("CloseButton", Resource.Button_Close, className: "btn greenhover")
+        </div>
+    }
+}

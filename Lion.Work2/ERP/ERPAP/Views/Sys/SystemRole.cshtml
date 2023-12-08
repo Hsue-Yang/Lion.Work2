@@ -1,0 +1,180 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemRoleModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+    string sysNM = null;
+    var systemId = Model.UserSystemByIdList.Find(f => f.SysID == Model.QuerySysID);
+    if (systemId != null)
+    {
+        sysNM = systemId.SysNM;
+    }
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemRole.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemRoleForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.SysSystemTabList))
+    {
+        @Html.InputTextBox("SysID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("SysNM", string.Empty, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("RoleID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("RoleNM", string.Empty, inputType: EnumInputType.TextBoxHidden)
+
+        <table class="tblsearch">
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <th style="width: 70px">
+                                @Html.FormLabel(SysSystemRole.Label_SysID, IsRequired: true)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.QuerySysID, Model.GetDictionaryFormSelectItem(Model.UserSystemByIdList, true), isDisabled: false, TitleName: SysSystemRole.Label_SysID)
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysSystemRole.Label_RoleCategoryID)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.QueryRoleCategoryID, Model.GetDictionaryFormSelectItem(Model.SystemRoleCategoryByIdList, true), isDisabled: false, TitleName: SysSystemRole.Label_RoleCategoryID)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="6">
+                                @Html.ButtonClient("SelectButton", Resource.Button_Select, className: "btnSearch")
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        using (Html.BeginPager(Model.PageIndex, Model.PageSize, Model.RowCount))
+        {
+            <table id="SystemRoleTable" class="tblzebra">
+                <thead>
+                    <tr>
+                        <th>@SysSystemRole.Text_Detail</th>
+                        <th>@SysSystemRole.Text_Pick</th>
+                        <th>@SysSystemRole.Text_List</th>
+                        <th>@SysSystemRole.Text_FunList</th>
+                        <th>@SysSystemRole.Table_SystemRoleElmList</th>
+                        @*<th>加入角色群組</th>*@
+                        <th>@SysSystemRole.Table_RoleCategoryNM</th>
+                        <th>@SysSystemRole.Table_RoleNM</th>
+                        <th>@SysSystemRole.Table_IsMaster</th>
+                        <th>@SysSystemRole.Table_UpdUserNM</th>
+                        <th>@SysSystemRole.Table_UpdDT</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.SystemRoleList != null)
+                    {
+                        string trClass = string.Empty;
+                        foreach (var row in Model.SystemRoleList)
+                        {
+                            <tr class="@trClass">
+                                <td data-th="@SysSystemRole.Text_Detail：" class="center">
+                                    @Html.TextSubmitLink(
+                                        "Sys",
+                                        "SystemRoleDetail",
+                                        "DetailLinkFunKey",
+                                        SysSystemRole.Text_Detail,
+                                        new List<string>()
+                                        {
+                                            Model.QuerySysID,
+                                            row.RoleID
+                                        }
+                                      )
+                                </td>
+                                <td class="center">
+                                    @Html.InputCheckBox("PickList", string.Empty, row.GetPrimaryKey(Model.QuerySysID), false)
+                                </td>
+                                <td data-th="@SysSystemRole.Text_List：" class="center">
+                                    @Html.TextSubmitLink(
+                                        "Sys",
+                                        "SystemRoleUserList",
+                                        "ListLinkFunKey",
+                                        SysSystemRole.Text_List,
+                                        new List<string>()
+                                        {
+                                            Model.QuerySysID,
+                                            sysNM,
+                                            row.RoleID,
+                                            row.RoleNM
+                                        }
+                                        )
+                                </td>
+                                <td data-th="@SysSystemRole.Text_FunList：" class="center">
+                                    @Html.TextSubmitLink(
+                                        "Sys",
+                                        "SystemRoleFunList",
+                                        "ListLinkRoleFunKey",
+                                        SysSystemRole.Text_FunList,
+                                        new List<string>()
+                                        {
+                                            Model.QuerySysID,
+                                            sysNM,
+                                            row.RoleID,
+                                            row.RoleNM
+                                        }
+                                        )
+                                </td>
+                                <td data-th="@SysSystemRole.Text_SystemRoleElmList：" class="center">
+                                    @Html.TextSubmitLink(
+                                        "Sys",
+                                        "SystemRoleElmList",
+                                        "ListLinkRoleElmKey",
+                                        SysSystemRole.Text_SystemRoleElmList,
+                                        new List<string>()
+                                        {
+                                            Model.QuerySysID,
+                                            sysNM,
+                                            row.RoleID,
+                                            row.RoleNM
+                                        }
+                                     )
+                                </td>
+                                @*<td>
+                                        @Html.TextSubmitLink("Sys", "SystemRoleGroupJoin", "SystemRoleGroupJoinLink", "加入角色群組",new List<string>(){""},className: "helper TextSubmitLink")
+                                    </td>*@
+                                <td data-th="@SysSystemRole.Table_RoleCategoryNM：" title="@SysSystemRole.Table_RoleCategoryNM">@Html.Raw(row.RoleCategoryNM)</td>
+                                <td data-th="@SysSystemRole.Table_RoleNM：" title="@SysSystemRole.Table_RoleNM">@Html.Raw(row.RoleNM)</td>
+                                <td data-th="@SysSystemRole.Table_IsMaster：" title="@SysSystemRole.Table_IsMaster">@Html.Raw(row.IsMaster)</td>
+                                <td data-th="@SysSystemRole.Table_UpdUserNM：" title="@SysSystemRole.Table_UpdUserNM">@Html.Raw(row.UpdUserNM)</td>
+                                <td data-th="@SysSystemRole.Table_UpdDT：" title="@SysSystemRole.Table_UpdDT">@Common.GetDateTimeText(row.UpdDT)</td>
+                            </tr>
+
+                            trClass = string.IsNullOrWhiteSpace(trClass) ? "tr2" : string.Empty;
+                        }
+                    }
+                </tbody>
+            </table>
+        }
+
+        <table class="tblsearch">
+            <tr>
+                <th style="width: 60px" class="bordertop">
+                    @Html.FormLabel(SysSystemRole.Label_RoleCategoryID)
+                </th>
+                <td class="width bordertop">
+                    @Html.InputComboBoxFor(model => model.RoleCategoryID, Model.GetDictionaryFormSelectItem(Model.SystemRoleCategoryByIdList, true), false, TitleName: SysSystemRole.Label_RoleCategoryID)
+                </td>
+            </tr>
+            <tr>
+                <td nowrap="nowrap" colspan="2" class="padding grey bordertop">
+                    @Html.ButtonClient("EditButton", SysSystemRole.Button_RoleCategory, className: "btn")
+                    @Html.ButtonSubmit("Sys", "SystemRoleDetail", "AddButton", Resource.Button_Add, className: "btn")
+                    @Html.ButtonSubmit("Sys", "SystemRole", "SaveButton", Resource.Button_Save, className: "btn")
+                </td>
+            </tr>
+        </table>
+    }
+}

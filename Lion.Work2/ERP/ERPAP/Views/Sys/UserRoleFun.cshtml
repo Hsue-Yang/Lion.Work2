@@ -1,0 +1,96 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity
+@using LionTech.Entity.ERP
+@using LionTech.Entity.ERP.Sys
+@using LionTech.Utility
+@using LionTech.Utility.ERP
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.UserRoleFunModel
+
+@{
+    string editionNo = ViewData[EnumViewDataItem.EditionNo.ToString()].ToString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/UserRoleFun.js?@(editionNo)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("UserRoleFunForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.SysUserSystemTabList))
+    {
+        @Html.InputTextBox("UserID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+
+        <table class="tblsearch">
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <th style="width: 70px">
+                                @Html.FormLabel(SysUserRoleFun.Label_UserID)
+                            </th>
+                            <td>
+                                @Html.InputTextBoxFor(model => model.QueryUserID, false, 10, TitleName: SysUserRoleFun.Label_UserID)
+                                @Html.ButtonClient("Help03Button", "?", className: "qmark")
+                            </td>
+                            <th style="width: 70px">
+                                @Html.FormLabel(SysUserRoleFun.Label_UserNM)
+                            </th>
+                            <td>
+                                @Html.InputTextBoxFor(model => model.QueryUserNM, false, 10, TitleName: SysUserRoleFun.Label_UserNM)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                @Html.ButtonClient("SelectButton", Resource.Button_Select, className: "btnSearch")
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        using (Html.BeginPager(Model.PageIndex, Model.PageSize, Model.RowCount))
+        {
+            <table id="UserRoleFunTable" class="tblzebra">
+                <tr>
+                    <th style="width: 30px;">@SysUserRoleFun.Text_Detail</th>
+                    <th>@SysUserRoleFun.Table_UserNM</th>
+                    <th>@SysUserRoleFun.Table_UnitNM</th>
+                    <th>@SysUserRoleFun.Table_IsLeft</th>
+                    <th>@SysUserRoleFun.Table_IsDisable</th>
+                    <th>@SysUserRoleFun.Table_UpdUserNM</th>
+                    <th>@SysUserRoleFun.Table_UpdDT</th>
+                </tr>
+                @if (Model.UserRoleFunList != null)
+                {
+                    string trClass = string.Empty;
+                    foreach (var data in Model.UserRoleFunList)
+                    {
+                        <tr class="@trClass">
+                            <td data-th="@SysUserRoleFun.Text_Detail：" class="center">
+                                @Html.TextSubmitLink(
+                                    "Sys",
+                                    "UserRoleFunDetail",
+                                    "LinkFunKey",
+                                    SysUserRoleFun.Text_Detail,
+                                    new List<string>() {
+                                        data.UserID
+                                    }
+                                )
+                            </td>
+                            <td data-th="@SysUserRoleFun.Table_UserNM：" title="@SysUserRoleFun.Table_UserNM">@data.UserNM</td>
+                            <td data-th="@SysUserRoleFun.Table_UnitNM：" title="@SysUserRoleFun.Table_UnitNM">@data.UnitNM</td>
+                            <td data-th="@SysUserRoleFun.Table_IsLeft：" title="@SysUserRoleFun.Table_IsLeft">@((data.IsLeft == EnumYN.Y.ToString()) ? SysUserRoleFun.Label_Left : string.Empty)</td>
+                            <td data-th="@SysUserRoleFun.Table_IsDisable：" title="@SysUserRoleFun.Table_IsDisable">@((data.IsDisable == EnumYN.Y.ToString()) ? SysUserRoleFun.Label_Disable : string.Empty)</td>
+                            <td data-th="@SysUserRoleFun.Table_UpdUserNM：" title="@SysUserRoleFun.Table_UpdUserNM">@Html.Raw(data.UpdUserNM)</td>
+                            <td data-th="@SysUserRoleFun.Table_UpdDT：" title="@SysUserRoleFun.Table_UpdDT">@Html.Raw(data.UpdDT.ToString("yyyy/MM/dd HH:mm:ss.fff"))</td>
+                        </tr>
+
+                        if (string.IsNullOrWhiteSpace(trClass)) { trClass = "tr2"; }
+                        else { trClass = string.Empty; }
+                    }
+                }
+            </table>
+        }
+    }
+}

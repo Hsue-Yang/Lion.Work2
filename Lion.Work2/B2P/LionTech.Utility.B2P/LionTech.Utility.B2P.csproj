@@ -1,0 +1,70 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks Condition="'$(LibraryFrameworks)'==''">net461;net48;</TargetFrameworks>
+    <RootNamespace>LionTech.Utility.B2P</RootNamespace>
+    <AssemblyName>LionTech.Utility.B2P</AssemblyName>
+    <AssemblyVersion>1.21.6.2</AssemblyVersion>
+    <FileVersion>1.21.6.2</FileVersion>
+    <VersionPrefix>1.21.6.2</VersionPrefix>
+    <Authors>LionTech</Authors>
+    <Company>LionTech</Company>
+    <Product>LionTech.Utility.B2P</Product>
+    <Copyright>Copyright © 2021</Copyright>
+    <Title>LionTech.Utility.B2P</Title>
+    <PackageId>LionTech.Utility.B2P</PackageId>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LionTech.Entity.B2P\LionTech.Entity.B2P.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net461'">
+    <Reference Include="LionTech.Entity, Version=1.0.6228.33739, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Redistributable\LionTech\net461\LionTech.Entity.dll</HintPath>
+    </Reference>
+    <Reference Include="LionTech.Utility, Version=1.0.6221.33106, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Redistributable\LionTech\net461\LionTech.Utility.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
+    <Reference Include="LionTech.Entity, Version=1.0.6228.33739, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Redistributable\LionTech\net48\LionTech.Entity.dll</HintPath>
+    </Reference>
+    <Reference Include="LionTech.Utility, Version=1.0.6221.33106, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Redistributable\LionTech\net48\LionTech.Utility.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net461'">
+    <PackageReference Include="Microsoft.Web.Infrastructure" Version="1.0.0.0" />
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.3" />
+    <PackageReference Include="Microsoft.AspNet.Razor" Version="3.2.3" />
+    <PackageReference Include="Microsoft.AspNet.WebPages" Version="3.2.3" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
+    <PackageReference Include="Microsoft.Web.Infrastructure" Version="1.0.0.0" />
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
+    <PackageReference Include="Microsoft.AspNet.Razor" Version="3.2.7" />
+    <PackageReference Include="Microsoft.AspNet.WebPages" Version="3.2.7" />
+  </ItemGroup>
+
+</Project>

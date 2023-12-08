@@ -1,0 +1,80 @@
+﻿@{ Layout = "~/Views/_Popup.cshtml"; }
+@using LionTech.Entity
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Utility.ERP
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.UserBasicInfoDetailModel
+
+@{
+    string editionNo = ViewData[EnumViewDataItem.EditionNo.ToString()].ToString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/UserBasicInfoDetail.js?@(editionNo)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("UserBasicInfoDetailForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.UserADSTabList))
+    {
+        <table class="tblvertical">
+            <tr>
+                <th>
+                    @Html.FormLabel(SysUserBasicInfoDetail.Label_UserID)
+                </th>
+                <td>
+                    @Html.InputTextBox("UserID", Model.UserID, inputType: EnumInputType.TextBoxHidden)
+                    @Html.InputTextBoxFor(model => model.UserNM, Size: 15, ReadOnly: true, TitleName: SysUserBasicInfoDetail.Label_UserID)
+                </td>
+                <th>
+                    @Html.FormLabel(SysUserBasicInfoDetail.Label_ComID)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.ComNM, ReadOnly: true, TitleName: SysUserBasicInfoDetail.Label_ComID)
+                </td>
+                <th>
+                    @Html.FormLabel(SysUserBasicInfoDetail.Label_UnitID)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.UnitNM, ReadOnly: true, TitleName: SysUserBasicInfoDetail.Label_UnitID)
+                </td>
+                <th>
+                    @Html.FormLabel(SysUserBasicInfoDetail.Label_IsLeft)
+                </th>
+                <td>
+                    @Html.InputCheckBox("IsLeft", SysUserBasicInfoDetail.CheckBox_IsLeft, EnumYN.Y.ToString(), (Model.IsLeft == EnumYN.Y.ToString() ? true : false), isDisabled: true)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysUserBasicInfoDetail.Label_RestrictType)
+                </th>
+                <td>
+                    @Html.InputComboBoxFor(model => model.RestrictType, Model.GetDictionaryFormSelectItem(Model.EntityBaseRestrictTypeList, true), isDisabled: true, TitleName: SysUserBasicInfoDetail.Label_RestrictType)
+                </td>
+                <th>
+                    @Html.FormLabel(SysUserBasicInfoDetail.Label_IsDisable)
+                </th>
+                <td>
+                    @Html.InputCheckBox("IsDisable", SysUserBasicInfoDetail.CheckBox_IsDisable, EnumYN.Y.ToString(), (Model.IsDisable == EnumYN.Y.ToString() ? true : false), isDisabled: true)
+                </td>
+                <th>
+                    @Html.FormLabel(SysUserBasicInfoDetail.Label_ErrorTimes)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.ErrorTimes, ReadOnly: true, TitleName: SysUserBasicInfoDetail.Label_ErrorTimes)
+                </td>
+                <th>
+                    @Html.FormLabel(SysUserBasicInfoDetail.Label_IsLock)
+                </th>
+                <td>
+                    @Html.InputCheckBox("IsLock", SysUserBasicInfoDetail.CheckBox_IsLock, EnumYN.Y.ToString(), (Model.IsLock == EnumYN.Y.ToString() ? true : false), isDisabled: true)
+                </td>
+            </tr>
+        </table>
+
+        <div>
+            @Html.ButtonClient("CloseButton", Resource.Button_Close, className: "btn")
+        </div>
+    }
+}

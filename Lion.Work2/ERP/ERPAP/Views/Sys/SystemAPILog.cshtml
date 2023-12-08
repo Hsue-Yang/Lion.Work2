@@ -1,0 +1,145 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemAPILogModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemAPILog.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemAPILogForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.SysAPITabList))
+    {
+        @Html.InputTextBox("SysID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("APIGroupID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("APIFunID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+
+        <table class="tblsearch">
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <th>
+                                @Html.FormLabel(SysSystemAPILog.Label_SysID, IsRequired: true)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.QuerySysID, Model.GetDictionaryFormSelectItem(Model.UserSystemByIdList, true), isDisabled: false, TitleName: SysSystemAPILog.Label_SysID)
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysSystemAPILog.Label_APIGroupID, IsRequired: true)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.QueryAPIGroupID, Model.GetDictionaryFormSelectItem(Model.SystemAPIGroupByIdList, true), isDisabled: false, TitleName: SysSystemAPILog.Label_APIGroupID)
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysSystemAPILog.Label_APIFunID)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.QueryAPIFunID, Model.GetDictionaryFormSelectItem(Model.SystemAPIByIdList, true), isDisabled: false, TitleName: SysSystemAPILog.Label_APIFunID)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                @Html.FormLabel(SysSystemAPILog.Label_ClientSysID)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.QueryClientSysID, Model.GetDictionaryFormSelectItem(Model.SystemByIdList, true), isDisabled: false, TitleName: SysSystemAPILog.Label_ClientSysID)
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysSystemAPILog.Label_APINo)
+                            </th>
+                            <td>
+                                @Html.InputTextBoxFor(model => model.APINo, false, 16, TitleName: SysSystemAPILog.Label_APINo)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                @Html.FormLabel(SysSystemAPILog.Label_DTBegin, IsRequired: true)
+                            </th>
+                            <td>
+                                @Html.InputTextBoxFor(model => model.BeginDate, false, 8, TitleName: SysSystemAPILog.Label_DTBegin)
+                                @Html.InputTextBoxFor(model => model.BeginTime, false, 5, TitleName: SysSystemAPILog.Label_BeginTime)
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysSystemAPILog.Label_DTEnd, IsRequired: true)
+                            </th>
+                            <td colspan="3">
+                                @Html.InputTextBoxFor(model => model.EndDate, false, 8, TitleName: SysSystemAPILog.Label_DTEnd)
+                                @Html.InputTextBoxFor(model => model.EndTime, false, 5, TitleName: SysSystemAPILog.Label_EndTime)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="6">
+                                @Html.ButtonSubmit("Sys", "SystemAPILog", "SelectButton", Resource.Button_Select, className: "btnSearch")
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        using (Html.BeginPager(Model.PageIndex, Model.PageSize, Model.RowCount))
+        {
+            <table id="SystemAPILogTable" class="tblzebra">
+                <thead>
+                    <tr>
+                        <th nowrap="nowrap">@SysSystemAPILog.Label_APINo</th>
+                        <th nowrap="nowrap">@SysSystemAPILog.Label_APIFunID</th>
+                        <th nowrap="nowrap">@SysSystemAPILog.Label_ClientSysID</th>
+                        <th nowrap="nowrap">@SysSystemAPILog.Label_IPAddress</th>
+                        <th nowrap="nowrap">@SysSystemAPILog.Label_ClientDTBegin</th>
+                        <th nowrap="nowrap">@SysSystemAPILog.Label_ClientDTEnd</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.SystemAPILogList != null)
+                    {
+                        string trClass = string.Empty;
+                        foreach (var row in Model.SystemAPILogList)
+                        {
+                            <tr class="@trClass">
+                                <td data-th="@SysSystemAPILog.Label_APINo：" nowrap="nowrap" class="borderRight2px">
+                                    @Html.TextSubmitLink(
+                                        "Sys",
+                                        "SystemAPIClientDetail",
+                                        "LinkFunKeyDetail",
+                                        row.APINo,
+                                        new List<string>
+                                        {
+                                            row.APINo
+                                        })
+                                </td>
+                                <td data-th="@SysSystemAPILog.Label_APIFunID：" nowrap="nowrap" class="borderRight2px">
+                                    @row.APIFunNM (@row.APIFunID)
+                                </td>
+                                <td data-th="@SysSystemAPILog.Label_ClientSysID：" nowrap="nowrap">
+                                    @(string.IsNullOrWhiteSpace(row.ClientSysID) == false
+                                         ? string.Format("{0} ({1})", row.ClientSysNM, row.ClientSysID)
+                                         : string.Empty)
+                                </td>
+                                <td data-th="@SysSystemAPILog.Label_IPAddress：" nowrap="nowrap">
+                                    @row.IPAddress
+                                </td>
+                                <td data-th="@SysSystemAPILog.Label_ClientDTBegin：" nowrap="nowrap">
+                                    @Common.GetDateTimeText(row.ClientDTBegin)
+                                </td>
+                                <td data-th="@SysSystemAPILog.Label_ClientDTEnd：" nowrap="nowrap">
+                                    @(row.ClientDTEnd.HasValue == false ? null : Common.GetDateTimeText(row.ClientDTEnd.Value))
+                                </td>
+                            </tr>
+
+                            trClass = string.IsNullOrWhiteSpace(trClass) ? "tr2" : string.Empty;
+                        }
+                    }
+                </tbody>
+            </table>
+        }
+    }
+}

@@ -1,0 +1,148 @@
+﻿@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using ERPAP.Models.Sys
+@using LionTech.Entity
+@using Resources
+@model LineBotReceiverDetailModel
+@{
+    Layout = "~/Views/_Layout.cshtml";
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<style type="text/css">
+    .profile img {
+        width: 200px;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        -ms-border-radius: 50%;
+        -o-border-radius: 50%;
+        border-radius: 50%;
+    }
+</style>
+
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.dialog.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/LineBotReceiverDetail.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+@using (Html.BeginFormSubmit("LineBotReceiverDetailForm"))
+{
+    @Html.InputTextBox("SysNMID", Model.SysNMID, inputType: EnumInputType.TextBoxHidden)
+    @Html.InputTextBox("LineNMID", Model.LineNMID, inputType: EnumInputType.TextBoxHidden)
+
+    <div class="page-title">
+        <h3>
+            @SysLineBotReceiverDetail.Label_LineBotReceiverDetail
+        </h3>
+    </div>
+
+    @Html.InputTextBox("ReceiverID", Model.ReceiverID, inputType: EnumInputType.TextBoxHidden)
+
+    if (Model.SourceType == Entity_BaseAP.EnumLineSourceType.USER.ToString() &&
+        string.IsNullOrWhiteSpace(Model.ImageUrl) == false)
+    {
+        <div class="profile" style="text-align: center;">
+            @Html.Image(Model.ImageUrl)
+            <br/>
+            <h4>@Model.DisplayNM</h4>
+        </div>
+    }
+
+    <table class="tblvertical">
+        <tr>
+            <th>
+                @Html.FormLabel(SysLineBotReceiverDetail.Label_SysID, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBox("SysID", Model.SysID, inputType: EnumInputType.TextBoxHidden)
+                @Model.SysNMID
+            </td>
+            <th>
+                @Html.FormLabel(SysLineBotReceiverDetail.Label_Line, IsRequired: true)
+            </th>
+            <td colspan="3">
+                @Html.InputTextBox("LineID", Model.LineID, inputType: EnumInputType.TextBoxHidden)
+                @Model.LineNMID
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysLineBotReceiverDetail.Label_LineReceiverID, IsRequired: true)
+            </th>
+            <td>
+                @if (string.IsNullOrWhiteSpace(Model.LineReceiverID))
+                {
+                    @Html.InputTextBoxFor(model => model.LineReceiverID, TitleName: SysLineBotReceiverDetail.Label_LineReceiverID)
+                }
+                else
+                {
+                    @Html.InputTextBox("LineReceiverID", Model.LineReceiverID, inputType: EnumInputType.TextBoxHidden)
+                    @Model.LineReceiverID
+                }
+            </td>
+            <th>
+                @Html.FormLabel(SysLineBotReceiverDetail.Label_SourceType, IsRequired: true)
+            </th>
+            <td>
+                @Model.SourceTypeDic[Model.SourceType]
+            </td>
+            <th>
+                @Html.FormLabel(SysLineBotReceiverDetail.Label_IsDisable)
+            </th>
+            <td>
+                @if (Model.IsDisable == EnumYN.Y.ToString())
+                {
+                    @Model.IsDisable
+                }
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysLineBotReceiverDetail.Label_LineReceiverNMZHTW, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.LineReceiverNMZHTW, Size: 30, TitleName: SysLineBotReceiverDetail.Label_LineReceiverNMZHTW)
+            </td>
+            <th>
+                @Html.FormLabel(SysLineBotReceiverDetail.Label_LineReceiverNMZHCN, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.LineReceiverNMZHCN, Size: 30, TitleName: SysLineBotReceiverDetail.Label_LineReceiverNMZHCN)
+            </td>
+            <th>
+                @Html.FormLabel(SysLineBotReceiverDetail.Label_LineReceiverNMENUS, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.LineReceiverNMENUS, Size: 30, TitleName: SysLineBotReceiverDetail.Label_LineReceiverNMENUS)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysLineBotReceiverDetail.Label_LineReceiverNMTHTH, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.LineReceiverNMTHTH, Size: 30, TitleName: SysLineBotReceiverDetail.Label_LineReceiverNMTHTH)
+            </td>
+            <th>
+                @Html.FormLabel(SysLineBotReceiverDetail.Label_LineReceiverNMJAJP, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.LineReceiverNMJAJP, Size: 30, TitleName: SysLineBotReceiverDetail.Label_LineReceiverNMJAJP)
+            </td>
+            <th>
+                @Html.FormLabel(SysLineBotReceiverDetail.Label_LineReceiverNMKOKR, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.LineReceiverNMKOKR, Size: 30, TitleName: SysLineBotReceiverDetail.Label_LineReceiverNMKOKR)
+            </td>
+        </tr>
+    </table>
+
+    <div>
+        @Html.ButtonSubmit("Sys", "LineBotReceiverDetail", "UpdateButton", Resource.Button_Update, "btn")
+        @if ((Model.SourceType == Entity_BaseAP.EnumLineSourceType.USER.ToString()) == false &&
+             Model.IsDisable == EnumYN.N.ToString())
+        {
+            @Html.ButtonClient("LeaveButton", SysLineBotReceiverDetail.Button_Leave, "btn")
+        }
+        @Html.ButtonSubmit("Sys", "LineBotReceiver", "CancelButton", Resource.Button_Cancel, "btn")
+    </div>
+}

@@ -1,0 +1,99 @@
+﻿@using LionTech.Web.ERPHelper
+@using Resources
+@{
+    Layout = "~/Views/_Popup.cshtml";
+}
+<script type="text/javascript">
+    function SystemRoleLink_onClick(parameters) {
+        var para = 'RoleGroupID=PG&ExecAction=Select';
+        var objfeatures = { width: 800, height: 600, top: 0, left: 0 };
+        _openWin('SystemRoleRead', '/Sys/SystemRoleGroupDetail', para, objfeatures);
+    }
+
+    function SaveButton_onClick(parameters) {
+        $.blockUI({ message: '' });
+
+        _alert('dialog_Confirm');
+
+    }
+
+    function ConfirmOKButton_onClick(srcElement) {
+        _btnUnblockUI(this, false);
+    }
+
+    function ConfirmNOButton_onClick(srcElement) {
+        _btnUnblockUI(this, false);
+    }
+
+</script>
+<div class="page-title">
+    <h3>加入角色群組</h3>
+</div>
+
+<table class="tblvertical">
+    <tr>
+        <th>
+            應用系統
+        </th>
+        <td>
+            雄獅ERP平台 (ERPAP)
+        </td>
+        <th>
+            角色名稱
+        </th>
+        <td>
+            稽核人員 (ADS)
+        </td>
+    </tr>
+    <tr>
+        <th>
+            @Html.FormLabel("備註", IsRequired: true)
+        </th>
+        <td colspan="3">
+            @Html.InputTextArea("", "", 5, 50, style: "width:98%;")
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4">
+            <table class="tblzebra">
+                <tr>
+                    <th style="width: 80px;">加入</th>
+                    <th>角色群組名稱</th>
+                    <th>檢視</th>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.InputRadioButton("RoleGroupID", string.Empty, string.Empty, false)
+                    </td>
+                    <td>OP</td>
+                    <td>@Html.TextClientLink("SystemRoleLink", "檢視", new List<string>(), className: "helper TextSubmitLink")</td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.InputRadioButton("RoleGroupID", string.Empty, string.Empty, false)
+                    </td>
+                    <td>程式設計師</td>
+                    <td>@Html.TextClientLink("SystemRoleLink", "檢視", new List<string>(), className: "helper TextSubmitLink")</td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.InputRadioButton("RoleGroupID", string.Empty, string.Empty, false)
+                    </td>
+                    <td>系統分析師</td>
+                    <td>@Html.TextClientLink("SystemRoleLink", "檢視", new List<string>(), className: "helper TextSubmitLink")</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+<div>
+    @Html.ButtonSubmit("Sys", "SystemRole", "SaveButton", Resource.Button_Save, className: "btn")
+</div>
+
+@using (Html.BeginConfirmDialog("dialog_Confirm", Resource.SysMsg_Title, string.Empty))
+{
+    <pre><span class="red">系統角色 稽核人員(ADS)，<br>已設定[系統角色預設條件]，<br>確定是否要作廢[系統角色預設條件]，<br>並加入 程式設計師 角色群組?</span></pre>
+
+    @Html.ButtonClient("ConfirmOKButton", Resource.Button_Okay)
+    @Html.ButtonClient("ConfirmNOButton", Resource.Button_Cancel)
+}

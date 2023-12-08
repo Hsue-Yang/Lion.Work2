@@ -1,0 +1,169 @@
+﻿@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using ERPAP.Models.Pub
+@using LionTech.Web.ERPHelper
+@using Resources
+@model LogUserTraceActionModel
+@{
+    Layout = "~/Views/_Layout.cshtml";
+    string fullDateTimeNumber = Common.GetDateTimeString();
+    int rowCount = 0;
+}
+
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.datepicker.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Pub/LogUserTraceAction.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("LogUserTraceActionForm"))
+{<div class="page-title">
+        <h3>
+            @PubLogUserTraceAction.Label_LogUserTraceAction
+        </h3>
+    </div>
+    <table class="tblsearch">
+        <tr>
+            <td>
+                <table>
+                    <tr>
+                        <th>
+                            @Html.FormLabel(PubLogUserTraceAction.Label_SearchType)
+                        </th>
+                        <td>
+                            @Html.InputComboBoxFor(model => model.SearchType, Model.SearchTypeDictionary)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            @Html.FormLabel(PubLogUserTraceAction.Label_UserID, className: "label-user-id")
+                        </th>
+                        <td>
+                            @Html.InputTextBoxFor(model => model.UserID)
+                            @Html.ButtonClient("Help03Button", "?", className: "qmark")
+                        </td>
+                        <th>
+                            @Html.FormLabel(PubLogUserTraceAction.Label_SysID, className: "label-sys-id")
+                        </th>
+                        <td>
+                            @Html.InputTextBoxFor(model => model.SysID)
+                        </td>
+                        <th>
+                            @Html.FormLabel(PubLogUserTraceAction.Label_ControllerName, className: "label-controller-name")
+                        </th>
+                        <td>
+                            @Html.InputTextBoxFor(model => model.ControllerName)
+                        </td>
+                        <th>
+                            @Html.FormLabel(PubLogUserTraceAction.Label_ActionName, className: "label-action-name")
+                        </th>
+                        <td>
+                            @Html.InputTextBoxFor(model => model.ActionName)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            @Html.FormLabel(PubLogUserTraceAction.Label_SessionID, className: "label-session-id")
+                        </th>
+                        <td>
+                            @Html.InputTextBoxFor(model => model.SessionID)
+                        </td>
+                        <th>
+                            @Html.FormLabel(PubLogUserTraceAction.Label_RequestSessionID, className: "label-request-session-id")
+                        </th>
+                        <td>
+                            @Html.InputTextBoxFor(model => model.RequestSessionID)
+                        </td>
+                        <th>
+                            @Html.FormLabel(PubLogUserTraceAction.Label_StartTraceDate, IsRequired: true)
+                        </th>
+                        <td>
+                            @Html.InputTextBoxFor(model => model.StartTraceDate, false, 8, TitleName: PubLogUserTraceAction.Label_StartTraceDate)
+                            @Html.InputTextBoxFor(model => model.StartTraceTime, false, 5, TitleName: PubLogUserTraceAction.Label_StartTraceTime)
+                        </td>
+                        <th>
+                            @Html.FormLabel(PubLogUserTraceAction.Label_EndTraceDate, IsRequired: true, className: "")
+                        </th>
+                        <td>
+                            @Html.InputTextBoxFor(model => model.EndTraceDate, false, 8, TitleName: PubLogUserTraceAction.Label_EndTraceDate)
+                            @Html.InputTextBoxFor(model => model.EndTraceTime, false, 5, TitleName: PubLogUserTraceAction.Label_EndTraceTime)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            @Html.ButtonClient("SelectButton", Resource.Button_Select, "btnSearch")
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    using (Html.BeginPager(Model.PageIndex, Model.PageSize, Model.RowCount))
+    {
+        <table id="LogUserTraceActionTable" class="tblzebra">
+            <thead>
+                <tr>
+                    <th style="width: 40px;">
+                        @PubLogUserTraceAction.Table_User
+                    </th>
+                    <th style="width: 90px;">
+                        @PubLogUserTraceAction.Table_SysID
+                    </th>
+                    <th style="width: 80px;">
+                        @PubLogUserTraceAction.Table_ControllerName
+                    </th>
+                    <th style="width: 80px;">
+                        @PubLogUserTraceAction.Table_ActionName
+                    </th>
+                    <th style="width: 40px;">
+                        @PubLogUserTraceAction.Table_SessionID
+                    </th>
+                    <th>
+                        @PubLogUserTraceAction.Table_RequestUrl
+                    </th>
+                    <th>
+                        @PubLogUserTraceAction.Table_UsetIpAddress
+                    </th>
+                    <th>
+                        @PubLogUserTraceAction.Table_RequestDateTime
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.LogUserTraceActionList != null &&
+             Model.LogUserTraceActionList.Any())
+                {
+                    foreach (var trace in Model.LogUserTraceActionList)
+                    {
+                        <tr>
+                            <td data-th="@PubLogUserTraceAction.Table_User：">
+                                @trace.UserID.GetValue()
+                            </td>
+                            <td data-th="@PubLogUserTraceAction.Table_SysID：">
+                                @trace.SysID.GetValue()
+                            </td>
+                            <td data-th="@PubLogUserTraceAction.Table_ControllerName：">
+                                @trace.ControllerName.GetValue()
+                            </td>
+                            <td data-th="@PubLogUserTraceAction.Table_ActionName：">
+                                @trace.ActionName.GetValue()
+                            </td>
+                            <td data-th="@PubLogUserTraceAction.Table_SessionID：">
+                                @trace.SessionID.GetValue()
+                            </td>
+                            <td data-th="@PubLogUserTraceAction.Table_RequestUrl：">
+                                @trace.RequestURL.GetValue()
+                            </td>
+                            <td data-th="@PubLogUserTraceAction.Table_UsetIpAddress：">
+                                @trace.UserIPAddress.GetValue()
+                            </td>
+                            <td data-th="@PubLogUserTraceAction.Table_RequestDateTime：">
+                                @trace.UPDDT.GetValue()
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    }
+}

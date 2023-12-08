@@ -1,0 +1,101 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.TrustIPDetailModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/TrustIPDetail.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("TrustIPDetailForm"))
+{
+    @Html.InputTextBoxFor(model => model.IPBeginOriginal)
+    @Html.InputTextBoxFor(model => model.IPEndOriginal)
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.TabList))
+    {
+        <table class="tblvertical">
+            <tr>
+                <th>
+                    @Html.FormLabel(SysTrustIPDetail.Label_IPBegin, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.IPBegin, Size: 15, TitleName: SysTrustIPDetail.Label_IPBegin)
+                </td>
+                <th>
+                    @Html.FormLabel(SysTrustIPDetail.Label_IPEnd, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.IPEnd, Size: 15, TitleName: SysTrustIPDetail.Label_IPEnd)
+                </td>
+                <th>
+                    @Html.FormLabel(SysTrustIPDetail.Label_ComID, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputComboBoxFor(model => model.ComID, Model.GetDictionaryFormSelectItem(Model.EntityBaseRawCMOrgComList, true), TitleName: SysTrustIPDetail.Label_ComID)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysTrustIPDetail.Label_TrustStatus, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputCheckBox("TrustStatus", SysTrustIPDetail.Label_TrustStatus, EnumYN.Y.ToString(), (Model.TrustStatus == EnumYN.Y.ToString()) ? true : false)
+                </td>
+                <th>
+                    @Html.FormLabel(SysTrustIPDetail.Label_TrustType, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputComboBoxFor(model => model.TrustType, Model.GetDictionaryFormSelectItem(Model.EntityBaseTrustTypeList, true), TitleName: SysTrustIPDetail.Label_TrustType)
+                </td>
+                <th>
+                    @Html.FormLabel(SysTrustIPDetail.Label_SourceType, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputComboBoxFor(model => model.SourceType, Model.GetDictionaryFormSelectItem(Model.EntityBaseSourceTypeList, true), TitleName: SysTrustIPDetail.Label_SourceType)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysTrustIPDetail.Label_Remark)
+                </th>
+                <td colspan="3">
+                    @Html.InputTextBoxFor(model => model.Remark, Size: 100, TitleName: SysTrustIPDetail.Label_Remark)
+                </td>
+                <th>
+                    @Html.FormLabel(SysTrustIPDetail.Label_SortOrder)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.SortOrder, Size: 30, TitleName: SysTrustIPDetail.Label_SortOrder)
+                </td>
+            </tr>
+        </table>
+
+        <div>
+            @if (Model.ExecAction == EnumActionType.Add)
+            {
+                @Html.ButtonClient("AddButton", Resource.Button_Add, className: "btn")
+            }
+            @if (Model.ExecAction == EnumActionType.Update ||
+                 Model.ExecAction == EnumActionType.Delete)
+            {
+                @Html.ButtonClient("UpdateButton", Resource.Button_Update, className: "btn")
+                <span></span>
+                @Html.ButtonClient("DeleteButton", Resource.Button_Delete, className: "btn")
+            }
+            @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+        </div>
+
+        using (Html.BeginConfirmDialog("dialog_Confirm", Resource.SysMsg_Title, Resource.SysMsg_DeleteConfirm))
+        {
+            @Html.ButtonClient("ConfirmOKButton", Resource.Button_Delete)
+            @Html.ButtonClient("ConfirmNOButton", Resource.Button_Cancel)
+        }
+    }
+}

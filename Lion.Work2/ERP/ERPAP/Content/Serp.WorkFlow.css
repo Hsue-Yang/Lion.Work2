@@ -1,0 +1,59 @@
+/* FORM CSS ------------------------------------------------------------ */
+table.WorkFlowSelectTable{margin-bottom: 10px;border-bottom: 1px solid #C0C0C0;}
+table.display{display:none;}
+table.WorkFlowSelectTable div.paddingLeft48px{padding-left: 48px;}
+table.WorkFlowSelectTable div.paddingLeft72px{padding-left: 72px;}
+table.WorkFlowSelectTable hr.borderTop{border-top: 1px solid #C0C0C0;}
+
+table.WorkFlowSelectTable tr.display{display:none;}
+
+table.WorkFlowSelectTable th{height: 14px;font-weight: bold;background-color: #EFEFEF;text-align: right;margin: 6px;padding: 6px 6px 6px 6px;color: #333}
+table.WorkFlowSelectTable th.borderbottom{border-bottom: 1px solid #C0C0C0;}
+table.WorkFlowSelectTable th.bordertop{border-top: 1px solid #C0C0C0;}
+table.WorkFlowSelectTable th.padding{padding: 5px 5px 5px 5px;}
+table.WorkFlowSelectTable th.marginbottom{margin-bottom: 10px;}
+table.WorkFlowSelectTable th.width{width: 100%;}
+table.WorkFlowSelectTable th.red{color:#FF0000;}
+
+table.WorkFlowSelectTable th label i {
+color: #e60012;
+}
+
+table.WorkFlowSelectTable td{height: 14px;font-weight: normal;margin: 6px;padding: 6px 6px 6px 6px ;color: #333}
+table.WorkFlowSelectTable td.borderbottom{border-bottom: 1px solid #C0C0C0;}
+table.WorkFlowSelectTable td.bordertop{border-top: 1px solid #C0C0C0;}
+table.WorkFlowSelectTable td.grey{background-color: #EFEFEF;}
+table.WorkFlowSelectTable td.padding{padding: 5px 5px 5px 5px;}
+table.WorkFlowSelectTable td.marginbottom{margin-bottom: 10px;}
+table.WorkFlowSelectTable td.width{width: 100%;}
+table.WorkFlowSelectTable td.red{color:#FF0000;}
+table.WorkFlowSelectTable td.right{text-align: right;}
+table.WorkFlowSelectTable td label i {
+color: #e60012;
+}
+.labelright{float: right;}
+
+/*BTN CSS -------------------------------------------------------------------*/
+input[type=button].WFbtn  {
+border: none;
+height: 25px;
+width: 65px;
+color: white;
+font-size:12px;
+background: #5a5d5c;
+margin: 0px 0px 0px 0px;
+padding: 0px 0px;
+display: inline-block;
+line-height: 25px;
+-webkit-border-radius: 3px;
+border-radius: 3px;
+
+}
+
+.redhover:hover { background: #c82322; color: white;  cursor: pointer; }
+.greenhover:hover { background: #0B756E; color: white;  cursor: pointer; }
+input[type=button].WFbtn.bigwidth{width: 100px;}
+input[type=button].WFbtn.longwidth{width: 170px;}
+input[type=button].WFbtn.smallwidth{width: 25px;}
+input[type=button].WFbtn.display{display:none;}
+.messageBox.BodyBorder input[type="button"]:hover { background: #c82322; color: white; text-decoration: none; cursor: pointer; }

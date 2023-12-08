@@ -1,0 +1,168 @@
+﻿@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using ERPAP.Models.Sys
+@using Resources
+@model UserPurviewDetailModel
+@{
+    Layout = "~/Views/_Popup.cshtml";
+    string fullDateTimeNumber = Common.GetDateTimeString();
+    int rowIndex = 0, purDataRow = 0;
+}
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/UserPurviewDetail.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+@if (Model.SaveSuccess)
+{
+    using (Html.BeginConfirmDialog("dialog_Confirm", Resource.SysMsg_Title, SysUserPurviewDetail.SystemMsg_Save_Success))
+    {
+        @Html.ButtonClient("ConfirmOKButton", Resource.Button_Okay)
+    }
+
+    <script type="text/javascript">
+        _alert('dialog_Confirm');
+        document.domain = _domain;
+        $('#ExecAction', parent.opener._formElement).val(_ActionTypeUpdate);
+        parent.opener._formElement.submit();
+
+        function ConfirmOKButton_onClick(srcElement) {
+            window.close();
+        }
+    </script>
+}
+else
+{
+    <div class="page-title">
+        <h3>
+            @SysUserPurviewDetail.Label_UserPurviewSet
+        </h3>
+    </div>
+    using (Html.BeginFormSubmit("UserPurviewDetailForm"))
+    {
+        @Html.InputTextBox("SysID", Model.SysID, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("SysNM", Model.SysNM, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("UserID", Model.UserID, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("UserNM", Model.UserNM, inputType: EnumInputType.TextBoxHidden)
+
+        <table class="tblvertical">
+            <tr>
+                <th style="width: 100px;">
+                    @Html.FormLabel(SysUserPurviewDetail.Label_SysID)
+                </th>
+                <td>
+                    @string.Format("{0} ({1})", Model.SysNM, Model.SysID)
+                </td>
+                <th style="width: 100px;">
+                    @Html.FormLabel(SysUserPurviewDetail.Label_UserID)
+                </th>
+                <td>
+                    @Model.UserNM
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysUserPurviewDetail.Labe_DataAuthSet)
+                </th>
+                <td colspan="3">
+                    @foreach (var purview in Model.UserPurviewInfoList)
+                    {
+                        <div class="advancedFilter">
+                            @Html.InputTextBox("UserPurviewInfoList[" + rowIndex + "].PurviewID", purview.PurviewID, inputType: EnumInputType.TextBoxHidden)
+                            <div class="filterHd">
+                                <span class="ico-href"><i class="icon-angle-right"></i></span>@purview.PurviewNM
+                            </div>
+                            <div class="filterCont">
+                                <ul>
+                                    <li style="height: 57px;" class="flod_open">
+                                        <span class="item">@SysUserPurviewDetail.Label_Unit</span>
+                                        <div id="UnitTagListBox">
+                                            <div style="padding-top: 0;">
+                                                @Html.InputComboBox("Unit", string.Empty, Model.GetDictionaryFormSelectItem(Model.EntityRawCMOrgUnitList, true))
+                                            </div>
+                                            @foreach (var row in purview.PurList.Where(w => w.PurviewCodeType == Entity_BaseAP.EnumPurviewCodeType.UNIT))
+                                            {
+                                                using (Html.BeginTag("UnitTag", row.CodeNM, true))
+                                                {
+                                                    <br/>
+                                                    @Html.InputRadioButtonList("UserPurviewInfoList[" + rowIndex + "].PurList[" + purDataRow + "].PurviewOP", Model.PurviewOPDic, row.PurviewOP)
+                                                    @Html.InputTextBox("UserPurviewInfoList[" + rowIndex + "].PurList[" + purDataRow + "].PurviewCodeType", row.PurviewCodeType.ToString(), inputType: EnumInputType.TextBoxHidden)
+                                                    @Html.InputTextBox("UserPurviewInfoList[" + rowIndex + "].PurList[" + purDataRow + "].CodeID", row.CodeID, inputType: EnumInputType.TextBoxHidden)
+                                                }
+                                                purDataRow++;
+                                            }
+                                        </div>
+                                    </li>
+                                    <li style="height: 100%;">
+                                        <span class="item">@SysUserPurviewDetail.Label_Comp</span>
+                                        <div id="ComTagListBox">
+                                            <div style="padding-top: 0;">
+                                                @Html.InputComboBox("Com", string.Empty, Model.GetDictionaryFormSelectItem(Model.EntityBaseRawCMOrgComList, true))
+                                            </div>
+                                            @foreach (var row in purview.PurList.Where(w => w.PurviewCodeType == Entity_BaseAP.EnumPurviewCodeType.COMPANY))
+                                            {
+                                                using (Html.BeginTag("ComTag", row.CodeNM, true))
+                                                {
+                                                    <br/>
+                                                    @Html.InputRadioButtonList("UserPurviewInfoList[" + rowIndex + "].PurList[" + purDataRow + "].PurviewOP", Model.PurviewOPDic, row.PurviewOP)
+                                                    @Html.InputTextBox("UserPurviewInfoList[" + rowIndex + "].PurList[" + purDataRow + "].PurviewCodeType", row.PurviewCodeType.ToString(), inputType: EnumInputType.TextBoxHidden)
+                                                    @Html.InputTextBox("UserPurviewInfoList[" + rowIndex + "].PurList[" + purDataRow + "].CodeID", row.CodeID, inputType: EnumInputType.TextBoxHidden)
+                                                }
+                                                purDataRow++;
+                                            }
+                                        </div>
+                                    </li>
+                                    <li style="height: 100%;">
+                                        <span class="item">@SysUserPurviewDetail.Lable_Country</span>
+                                        <div id="CountryTagListBox">
+                                            <div style="padding-top: 0;">
+                                                @Html.InputComboBox("Country", string.Empty, Model.GetDictionaryFormSelectItem(Model.CMCodeDictionary[Entity_BaseAP.EnumCMCodeKind.LionCountryCode], true))
+                                            </div>
+                                            @foreach (var row in purview.PurList.Where(w => w.PurviewCodeType == Entity_BaseAP.EnumPurviewCodeType.COUNTRY))
+                                            {
+                                                using (Html.BeginTag("CountryTag", row.CodeNM, true))
+                                                {
+                                                    <br/>
+                                                    @Html.InputRadioButtonList("UserPurviewInfoList[" + rowIndex + "].PurList[" + purDataRow + "].PurviewOP", Model.PurviewOPDic, row.PurviewOP)
+                                                    @Html.InputTextBox("UserPurviewInfoList[" + rowIndex + "].PurList[" + purDataRow + "].PurviewCodeType", row.PurviewCodeType.ToString(), inputType: EnumInputType.TextBoxHidden)
+                                                    @Html.InputTextBox("UserPurviewInfoList[" + rowIndex + "].PurList[" + purDataRow + "].CodeID", row.CodeID, inputType: EnumInputType.TextBoxHidden)
+                                                }
+                                                purDataRow++;
+                                            }
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="subbtn">
+                                    <span>
+                                    @Html.ButtonClient("ClearButton", SysUserPurviewDetail.Label_ClearAuth, "btn txtbtn")
+                                </span>
+                                </div>
+                            </div>
+                        </div>
+                        rowIndex++;
+                        purDataRow = 0;
+                    }
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysUserPurviewDetail.Label_ErpSign, IsRequired: true)
+                </th>
+                <td colspan="3">
+                    @Html.InputTextBoxFor(model => model.ErpWFNo, TitleName: SysUserPurviewDetail.Label_ErpSign)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysUserPurviewDetail.Label_ModifyRecord)
+                </th>
+                <td colspan="3">
+                    @Html.InputTextAreaFor(model => model.Memo, 4, 60, TitleName: SysUserPurviewDetail.Label_ModifyRecord)
+                </td>
+            </tr>
+        </table>
+        <div id="ButtonBox" class="text-right">
+            @Html.ButtonSubmit("Sys", "UserPurviewDetail", "AddButton", Resource.Button_Save, "btn")
+            @Html.ButtonClient("CloseButton", Resource.Button_Close, "btn")
+        </div>
+    }
+}

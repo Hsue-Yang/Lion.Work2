@@ -1,0 +1,129 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.UserDomainModel
+           
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+    int rowIndex = 0;
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/UserDomain.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("UserDomainForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.SysSRCProjectTabList))
+    {
+        @Html.InputTextBox("DomainAccount", string.Empty, inputType: EnumInputType.TextBoxHidden)
+
+        <table class="tblsearch">
+            <tr>
+                <td> 
+                    <table>
+                        <tr>
+                            <th style="width: 80px;">
+                                @Html.FormLabel(SysUserDomain.Label_UserID)
+                            </th>
+                            <td nowrap="nowrap">
+                                @Html.InputTextBoxFor(model => model.UserID, false, 10, TitleName: SysUserDomain.Label_UserID)
+                                @Html.ButtonClient("Help03Button", "?", className: "qmark")
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysUserDomain.Label_UserNM)
+                            </th>
+                            <td>
+                                @Html.InputTextBoxFor(model => model.UserNM, false, 10, TitleName: SysUserDomain.Label_UserNM)
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysUserDomain.Label_DomainName)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.DomainPath, Model.DomainSelectListItems, false, TitleName: SysUserDomain.Label_DomainName)
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <div class="text-left">
+            @Html.ButtonClient("SelectButton", Resource.Button_Select, className: "btnSearch")
+        </div>
+
+        using (Html.BeginPager(Model.PageIndex, Model.PageSize, Model.RowCount))
+        {
+            <table id="UserDomainTable" class="tblzebra">
+                <tr>
+                    <th>@SysUserDomain.Text_UserID</th>
+                    <th>@SysUserDomain.Text_UserNM</th>
+                    <th>@SysUserDomain.Text_UserGroup</th>
+                    <th>@SysUserDomain.Text_UserPlace</th>
+                    <th>@SysUserDomain.Text_UserDept</th>
+                    <th>@SysUserDomain.Text_UserTeam</th>
+                    <th>@SysUserDomain.Text_DomainGroupID</th>
+                </tr>
+
+                @foreach (var row in Model.EntityUserDomainList)
+                {
+                    <tr>
+                        <td data-th="@SysUserDomain.Text_UserID：">
+                            @row.UserID.GetValue()
+                        </td>
+                        <td data-th="@SysUserDomain.Text_UserNM：">
+                            @row.UserNM.GetValue()
+                        </td>
+                        <td data-th="@SysUserDomain.Text_UserGroup：">
+                            @row.UserGroup.GetValue()
+                        </td>
+                        <td data-th="@SysUserDomain.Text_UserPlace：">
+                            @row.UserPlace.GetValue()
+                        </td>
+                        <td data-th="@SysUserDomain.Text_UserDept：">
+                            @row.UserDept.GetValue()
+                        </td>
+                        <td data-th="@SysUserDomain.Text_UserTeam：">
+                            @row.UserTeam.GetValue()
+                        </td>
+                        <td data-th="@SysUserDomain.Text_DomainGroupID：" class="center">
+                            @Html.TextSubmitLink(
+                                "Sys",
+                                "UserDomain",
+                                "TRLinkFunKey",
+                                SysUserDomain.Text_DomainGroupID,
+                                new List<string>()
+                                {
+                                    rowIndex.ToString(),
+                                    row.UserEMailAccount.GetValue()
+                                }
+                                )
+                        </td>
+                    </tr>
+                    <tr style="display: none" id="DomainGroupList[@rowIndex]"></tr>
+                    rowIndex++;
+                }
+            </table>
+        }
+    }
+}
+
+@using (Html.BeginConfirmDialog("dialog_Confirm", Resource.SysMsg_Title, string.Empty))
+{
+    <table class="tblvertical">
+        <tr>
+            <th>
+                @Html.FormLabel(SysUserDomain.Label_LoginPWD, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBox("PWD", string.Empty, maximumLength: 50, inputType: EnumInputType.TextBox)
+            </td>
+        </tr>
+    </table>
+
+    <div>
+        @Html.ButtonClient("OKButton", Resource.Button_Okay, "btn")
+        @Html.ButtonClient("CancelButton", Resource.Button_Cancel, "btn")
+    </div>
+}

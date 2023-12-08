@@ -1,0 +1,114 @@
+﻿@{ Layout = "~/Views/_Popup.cshtml"; }
+@using LionTech.Entity
+@using LionTech.Entity.ERP
+@using LionTech.Entity.ERP.Sys
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.UserSystemRoleModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/UserSystemRole.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("UserSystemRoleForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.UserADSTabList))
+    {
+        if (Model.EntityUserSystemRoleList != null)
+        {
+            <table class="tblvertical">
+                <tr>
+                    <th class="bordertop">
+                        @Html.FormLabel(SysUserSystemRole.Label_UserID)
+                    </th>
+                    <td class="bordertop">
+                        @Html.InputTextBox("UserID", Model.UserID, inputType: EnumInputType.TextBoxHidden)
+                        @Html.InputTextBox("UserNMReadOnlyText", Model.UserNM, ReadOnly: true, maximumLength: 200, Size: 30)
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        @Html.FormLabel(SysUserSystemRole.Label_RoleGroupID)
+                    </th>
+                    <td>
+                        @Html.InputComboBoxFor(model => model.RoleGroupID, Model.GetDictionaryFormSelectItem(Model.EntitySysSystemRoleGroupList, true), isDisabled: true, TitleName: SysUserSystemRole.Label_RoleGroupID)
+                        @Html.InputTextBox("RemarkReadOnlyText", string.Empty, ReadOnly: true, maximumLength: 200, Size: 30)
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        @Html.FormLabel(SysUserSystemRole.Label_Role)
+                    </th>
+                    <td>
+                        <div id="SystemRoleDiv">
+                            @{
+                                int entityCount = 1;
+                                int totalCount = 1;
+                                string sysNM = string.Empty;
+                                
+                                <table id="UserSystemRoleTable">
+                                    <tr>
+                                    @foreach (EntityUserSystemRole.UserSystemRole userSystemRole in Model.EntityUserSystemRoleList)
+                                    {
+                                        if (sysNM != userSystemRole.SysNM.GetValue())
+                                        {
+                                            if (!string.IsNullOrWhiteSpace(sysNM) && (entityCount % 5) > 0)
+                                            {
+                                                for (int i = entityCount - 1; (i % 5) > 0; i++)
+                                                { 
+                                                    <td style="border: none"></td>
+                                                }
+                                            }
+                                        
+                                            @:</tr>
+                                            @:<tr>
+                                            @:<th style="text-align: left; border: none; background-color: #EBEBEB; height: 30px;" colspan="5"><b>@userSystemRole.SysNM.HtmlValue()</b></th>
+                                            @:</tr>
+                                            @:<tr>
+                                            entityCount = 1;
+                                        }
+
+                                        <td style="border: none">
+                                            @Html.InputCheckBox(
+                                                "HasRole",
+                                                string.Format("{0}", userSystemRole.RoleNM.HtmlValue()),
+                                                userSystemRole.SysID.GetValue() + "|" + userSystemRole.RoleID.GetValue(),
+                                                (userSystemRole.HasRole.GetValue() == EnumYN.Y.ToString()) ? true : false)
+                                        </td>
+                                    
+                                        if (totalCount == Model.EntityUserSystemRoleList.Count && (entityCount % 5) > 0)
+                                        {
+                                            for (int i = entityCount; (i % 5) > 0; i++)
+                                            { 
+                                                <td style="border: none"></td>
+                                            }
+                                        }
+
+                                        if (entityCount % 5 == 0)
+                                        {
+                                            @:</tr>
+                                            @:<tr>
+                                        }
+
+                                        entityCount += 1;
+                                        totalCount++;
+                                        sysNM = userSystemRole.SysNM.GetValue();
+                                    }
+                                    </tr>
+                                </table>
+                            }
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ButtonClient("CloseButton", Resource.Button_Close, className: "btn")
+                    </td>
+                </tr>
+            </table>
+        }
+    }
+}

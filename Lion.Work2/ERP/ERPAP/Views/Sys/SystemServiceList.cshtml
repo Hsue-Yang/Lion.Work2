@@ -1,0 +1,151 @@
+﻿@{ Layout = "~/Views/_Popup.cshtml"; }
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemServiceListModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemServiceList.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<div class="page-title"><h3>@SysSystemServiceList.TabText_SystemServiceList</h3></div>
+@using (Html.BeginFormSubmit("SystemServiceListForm"))
+{
+    <table class="tblvertical">
+        @if (Model.IsITManager)
+        {
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemServiceList.Label_SysID, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.SysID, ReadOnly: true)
+                    @Html.InputTextBoxFor(model => model.SysNM, ReadOnly: true)
+                    @Model.SysNM
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemServiceList.Label_SystemSubsys)
+                </th>
+                <td>
+                    @Html.InputComboBoxFor(model => model.SubSysID, Model.GetDictionaryFormSelectItem(Model.SystemSubList, true), TitleName: SysSystemServiceList.Label_SystemSubsys)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemServiceList.Label_SysService, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputComboBoxFor(model => model.ServiceID, Model.GetDictionaryFormSelectItem(Model.SystemServiceTypeList, true), TitleName: SysSystemServiceList.Label_SysService)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemServiceList.Label_Remark)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.Remark, false, 50, TitleName: SysSystemIPList.Label_Remark)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    @Html.ButtonSubmit("Sys", "SystemServiceList", "AddButton", Resource.Button_Add, className: "btn")
+                    @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+                    @Html.InputTextBox("AddButtonHidden", Resource.Button_Add, inputType: EnumInputType.TextBoxHidden)
+                </td>
+            </tr>
+        }
+        else
+        {
+            <tr>
+                <th style="width: 12%">
+                    @Html.FormLabel(SysSystemServiceList.Label_SysID, IsRequired: true)
+                </th>
+                <td nowrap="nowrap">
+                    @Html.InputTextBoxFor(model => model.SysID, ReadOnly: true)
+                    @Html.InputTextBoxFor(model => model.SysNM, ReadOnly: true)
+                    @Model.SysNM
+                </td>
+            </tr>
+        }
+    </table>
+
+
+    <table id="SystemServiceListTable" class="tblzebra">
+        <tr>
+            @if (Model.IsITManager)
+            {
+                <th nowrap="nowrap">@SysSystemServiceList.Tabel_Delete</th>
+                <th nowrap="nowrap">@SysSystemServiceList.Tabel_Updata</th>
+            }
+            <th nowrap="nowrap">@SysSystemServiceList.Tabel_SysID</th>
+            <th nowrap="nowrap">@SysSystemServiceList.Label_SystemSubsys</th>
+            <th nowrap="nowrap">@SysSystemServiceList.Tabel_SysServer</th>
+            <th nowrap="nowrap">@SysSystemServiceList.Tabel_Remark</th>
+            <th nowrap="nowrap">@SysSystemServiceList.Tabel_UpdUserNM</th>
+            <th nowrap="nowrap">@SysSystemServiceList.Tabel_UpdDT</th>
+        </tr>
+        @if (Model.SystemServiceList != null)
+        {
+            foreach (var row in Model.SystemServiceList)
+            {
+                <tr>
+                    @if (Model.IsITManager)
+                    {
+                        <td data-th="@SysSystemServiceList.Tabel_Delete：">
+                            @Html.TextSubmitLink(
+                                "Sys",
+                                "SystemServiceList",
+                                "DeleteLinkFunKey",
+                                SysSystemServiceList.Tabel_Delete,
+                                new List<string>()
+                                {
+                                    row.ServiceID,
+                                    row.SubSysID,
+                                }
+                                )
+                        </td>
+                        <td data-th="@SysSystemServiceList.Tabel_Updata：">
+                            @Html.TextSubmitLink(
+                                "Sys",
+                                "SystemServiceList",
+                                "UpdataLinkFunKey",
+                                SysSystemServiceList.Tabel_Updata,
+                                new List<string>()
+                                {
+                                    row.ServiceID,
+                                    row.Remark,
+                                    Resource.Button_Save,
+                                    row.SubSysID,
+                                }
+                                )
+                        </td>
+                    }
+                    <td data-th="@SysSystemServiceList.Label_SysID：" title="@SysSystemServiceList.Label_SysID">@Html.Raw(row.SysNM)</td>
+                    <td data-th="@SysSystemServiceList.Label_SystemSubsys：" title="@SysSystemServiceList.Label_SystemSubsys">
+                        @Html.Raw(row.SubSysNM)
+                    </td>
+                    <td data-th="@SysSystemServiceList.Label_SysService：" nowrap="nowrap" title="@SysSystemServiceList.Label_SysService">
+                        @Html.Raw(row.ServiceNM)
+                        @Html.InputTextBox("UpdateButton", Resource.Button_Save, inputType: EnumInputType.TextBoxHidden)
+                        @Html.InputTextBox("ServiceID", row.ServiceID, inputType: EnumInputType.TextBoxHidden)
+                    </td>
+                    <td data-th="@SysSystemServiceList.Label_Remark：" title="@SysSystemServiceList.Label_Remark">@Html.Raw(row.Remark)</td>
+                    <td data-th="@SysSystemServiceList.Tabel_UpdUserNM：" title="@SysSystemServiceList.Tabel_UpdUserNM">@Html.Raw(row.UpdUserNM)</td>
+                    <td data-th="@SysSystemServiceList.Tabel_UpdUserNM：" title="@SysSystemServiceList.Tabel_UpdDT">@Common.GetDateTimeText(row.UpdDT)</td>
+                </tr>
+            }
+        }
+    </table>
+
+    using (Html.BeginConfirmDialog("dialog_Confirm", Resource.SysMsg_Title, Resource.SysMsg_DeleteConfirm))
+    {
+        @Html.ButtonClient("ConfirmOKButton", Resource.Button_Delete)
+        @Html.ButtonClient("ConfirmNOButton", Resource.Button_Cancel)
+    }
+
+    using (Html.BeginConfirmDialog("dialog_CofirmUpdate", Resource.SysMsg_Title, SysSystemServiceList.SysMsg_RepeatDataConfirm))
+    {
+        @Html.ButtonClient("ConfirmOKUpdateButton", Resource.Button_Save)
+        @Html.ButtonClient("ConfirmNOButton", Resource.Button_Cancel)
+    }
+}

@@ -1,0 +1,104 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity.B2P
+@using LionTech.Entity.B2P.Sys
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model B2PAP.Models.Sys.SystemEDIJobLogModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<link href="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Content/themes/base/jquery.ui.datepicker.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Scripts/jquery-ui-1.8.16.datepicker.min.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Scripts/Sys/SystemEDIJobLog.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemEDIJobLogForm"))
+{
+    using (Html.BeginTabs(B2PAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.SysEDITabList))
+    {
+        <table class="tblsearch">
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <th>
+                                @Html.FormLabel(SysSystemEDICon.Label_SysID, IsRequired: true)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.QuerySysID, Model.GetDictionaryFormSelectItem(Model.EntitySysUserSystemSysIDList, false), isDisabled: false, TitleName: SysSystemEDIJobDetail.Label_SysID)
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysSystemEDICon.Label_EDIFlowID, IsRequired: true)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.QueryEDIFlowID, Model.GetDictionaryFormSelectItem(Model.EntitySysSystemEDIFlowList, false), isDisabled: false, TitleName: SysSystemEDICon.Label_EDIFlowID)
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysSystemEDIJobLog.Label_EDIJobID)
+                            </th>
+                            <td>
+                                @Html.InputComboBox("QueryEDIJobID", Model.QueryEDIJobID, Model.GetDictionaryFormSelectItem(Model.EntitySysSystemEDIJobList, true), isDisabled: false, TitleName: SysSystemEDIJobDetail.Label_EDIJobID)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                @Html.FormLabel(SysSystemEDIFlowLog.Label_EDINO)
+                            </th>
+                            <td>
+                                @Html.InputTextBoxFor(model => model.EDINO, TitleName: SysSystemEDIJobLog.Label_EDINO)
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysSystemEDIJobLog.Label_EDIDate)
+                            </th>
+                            <td>
+                                @Html.InputTextBoxFor(model => model.EDIDate, TitleName: SysSystemEDIJobLog.Label_EDIDate)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="10">
+                                @Html.ButtonSubmit("Sys", "SystemEDIJobLog", "SearchButton", Resource.Button_Select, className: "btnSearch")
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        using (Html.BeginPager(Model.PageIndex, Model.PageSize, Model.RowCount))
+        {
+            <table id="SystemEDIJobLogTable" class="tblzebra">
+                <tr>
+                    <th>@SysSystemEDIJobLog.Label_EDINO</th>
+                    <th>@SysSystemEDIJobLog.Label_EDIJobID</th>
+                    <th>@SysSystemEDIJobLog.Label_StatusID</th>
+                    <th>@SysSystemEDIJobLog.Label_ResultID</th>
+                    <th>@SysSystemEDIJobLog.Label_DTBegin</th>
+                    <th>@SysSystemEDIJobLog.Label_DTEnd</th>
+                    <th>@SysSystemEDIJobLog.Label_UpdUserNM</th>
+                    <th>@SysSystemEDIJobLog.Label_UpdDT</th>
+                </tr>
+                @if (Model.EntitySystemEDIJobLogList != null)
+                {
+                    foreach (EntitySystemEDIJobLog.SystemEDIJobLog data in Model.EntitySystemEDIJobLogList)
+                    {
+                        <tr>
+                            <td data-th="@SysSystemEDIJobLog.Table_EDINO：" title="@SysSystemEDIJobLog.Table_EDINO">@Html.Raw(data.EDINO.HtmlValue())</td>
+                            <td data-th="@SysSystemEDIJobLog.Table_EDIJobID：" title="@SysSystemEDIJobLog.Table_EDIJobID">@Html.Raw(data.EDIJobNM.HtmlValue())</td>
+                            <td data-th="@SysSystemEDIJobLog.Table_StatusID：" title="@SysSystemEDIJobLog.Table_StatusID">@Html.Raw(data.EDIJobStatusNM.HtmlValue())</td>
+                            <td data-th="@SysSystemEDIJobLog.Table_ResultID：" title="@SysSystemEDIJobLog.Table_ResultID">@Html.Raw(data.EDIJobResultNM.HtmlValue())</td>
+                            <td data-th="@SysSystemEDIJobLog.Table_DTBegin：" title="@SysSystemEDIJobLog.Table_DTBegin">@Html.Raw(data.DTBegin.HtmlValue())</td>
+                            <td data-th="@SysSystemEDIJobLog.Table_DTEnd：" title="@SysSystemEDIJobLog.Table_DTEnd">@Html.Raw(data.DTEnd.HtmlValue())</td>
+                            <td data-th="@SysSystemEDIJobLog.Table_UpdUserNM：" title="@SysSystemEDIJobLog.Table_UpdUserNM">@Html.Raw(data.UpdUserID.HtmlValue())</td>
+                            <td data-th="@SysSystemEDIJobLog.Table_UpdDT：" title="@SysSystemEDIJobLog.Table_UpdDT">@Html.Raw(data.UpdDt.HtmlValue())</td>
+                        </tr>
+                    }
+                }
+            </table>
+        }
+        <div>
+            @Html.ButtonSubmit("Sys", "SystemEDIJobLog", "CancelButton", Resource.Button_Cancel, className: "btn")
+        </div>
+    }
+}

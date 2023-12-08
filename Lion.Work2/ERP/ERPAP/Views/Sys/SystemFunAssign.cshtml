@@ -1,0 +1,148 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity
+@using LionTech.Entity.ERP
+@using LionTech.Entity.ERP.Sys
+@using LionTech.Utility
+@using LionTech.Utility.ERP
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemFunAssignModel
+
+@{
+    string editionNo = ViewData[EnumViewDataItem.EditionNo.ToString()].ToString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemFunAssign.js?@(editionNo)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemFunAssignForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.SysSystemFunTabList))
+    {
+        <table class="tblvertical">
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemFunAssign.Label_SysID, IsRequired: true)
+                </th>
+                <td>
+                   @Html.InputTextBoxFor(model => model.SysID, true, 6, TitleName: SysSystemFunAssign.Label_SysID)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemFunAssign.Label_SubSysID)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.SubSysID, true, 6, TitleName: SysSystemFunAssign.Label_SubSysID)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemFunAssign.Label_FunType, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.FunType, true, 20, TitleName: SysSystemFunAssign.Label_FunType)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemFunAssign.Label_FunControllerID, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.FunControllerID, true, 20, TitleName: SysSystemFunAssign.Label_FunControllerID)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemFunAssign.Label_FunActionName, IsRequired: true)
+                </th>
+	            <td>
+		            @Html.InputTextBoxFor(model => model.FunActionName, true, 50, TitleName: SysSystemFunAssign.Label_FunActionName)
+	            </td>
+	            <th>
+                    @Html.FormLabel(SysSystemFunAssign.Label_FunNM, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.FunNM, true, 30, TitleName: SysSystemFunAssign.Label_FunNM)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6">
+                    @Html.ButtonClient("UpdateButton", Resource.Button_Update, className: "btn")
+					@Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+                </td>
+            </tr>
+        </table>
+    
+        <div style="padding:10px 10px 6px 16px; font-weight:bold;">@SysSystemFunAssign.Text_UserFunSetting</div>
+        <table id="SystemFunAssignTable" class="tblvertical">
+            @if (Model.EntitySystemFunAssignList != null)
+            {
+                string rowListNM = string.Empty;
+                int rowCount;
+
+                for (rowCount = 0; rowCount < Model.EntitySystemFunAssignList.Count; rowCount++)
+                {
+                    var data = Model.EntitySystemFunAssignList[rowCount];
+                    rowListNM = "systemFunAssignValueList[" + rowCount + "]";
+
+                    <tr>
+                        <th style="width: 70px" class="bordertop">
+                            @Html.ImageButton("DeleteRowButton", string.Format("{0}{1}", Common.GetEnumDesc(EnumSystemID.ERPAP), "/Content/images/delete.png"))
+                            <span style="display: none;">@Html.InputCheckBox("IsProcess", string.Empty, EnumYN.Y.ToString(), false)</span>
+                            @Html.FormLabel(SysSystemFunAssign.Table_UserID)
+                        </th>
+                        <td colspan="5" class="bordertop">
+                            @Html.InputTextBox(rowListNM + ".UserID", data.UserID, Size: 6, inputType: EnumInputType.TextBoxAlphanumeric, Validation: false)
+                            @Html.InputTextBox(rowListNM + ".UserNM", data.UserNM, ReadOnly: true, Size: 10)
+                        </td>
+                    </tr>
+                }
+
+                rowListNM = "systemFunAssignValueList[" + rowCount + "]";
+                <tr>
+                    <th style="width: 70px" class="bordertop">
+                        @Html.ImageButton("DeleteRowButton", string.Format("{0}{1}", Common.GetEnumDesc(EnumSystemID.ERPAP), "/Content/images/delete.png"))
+                        <span style="display: none;">@Html.InputCheckBox("IsProcess", string.Empty, EnumYN.Y.ToString(), false)</span>
+                        @Html.FormLabel(SysSystemFunAssign.Table_UserID)
+                    </th>
+                    <td colspan="5" class="bordertop">
+                        @Html.InputTextBox(rowListNM + ".UserID", string.Empty, Size: 6, inputType: EnumInputType.TextBoxAlphanumeric, Validation: false)
+                        @Html.InputTextBox(rowListNM + ".UserNM", string.Empty, ReadOnly: true, Size: 10)
+                    </td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <th style="width: 70px" class="bordertop">
+                        @Html.ImageButton("DeleteRowButton", string.Format("{0}{1}", Common.GetEnumDesc(EnumSystemID.ERPAP), "/Content/images/delete.png"))
+                        <span style="display: none;">@Html.InputCheckBox("IsProcess", string.Empty, EnumYN.Y.ToString(), false)</span>
+                        @Html.FormLabel(SysSystemFunAssign.Table_UserID)
+                    </th>
+                    <td colspan="5" class="bordertop">
+                        @Html.InputTextBox("systemFunAssignValueList[0].UserID", string.Empty, Size: 6, inputType: EnumInputType.TextBoxAlphanumeric, Validation: false)
+                        @Html.InputTextBox("systemFunAssignValueList[0].UserNM", string.Empty, ReadOnly: true, Size: 10)
+                    </td>
+                </tr>
+            }
+        </table>
+
+	    <table class="tblvertical">
+	        <tr>
+	            <th nowrap="nowrap" style="width: 6%" class="padding grey bordertop">
+	                @Html.FormLabel(SysSystemFunAssign.Label_ErpSign, IsRequired: true)
+	            </th>
+	            <td nowrap="nowrap" class="padding grey bordertop">
+	                @Html.InputTextBoxFor(model => model.ErpWFNo, TitleName: SysSystemFunAssign.Label_ErpSign)
+	            </td>
+	        </tr>
+	        <tr>
+	            <th nowrap="nowrap">
+	                @Html.FormLabel(SysSystemFunAssign.Label_ModifyRecord)
+	            </th>
+	            <td nowrap="nowrap">
+	                @Html.InputTextAreaFor(model => model.Memo, 4, 60, TitleName: SysSystemFunAssign.Label_ModifyRecord)
+	            </td>
+	        </tr>
+	        <tr>
+	            <td nowrap="nowrap" colspan="2" class="padding grey bordertop">
+	                @Html.ButtonClient("AddRowButton", SysSystemFunAssign.Button_AddRow, className: "btn")
+	            </td>
+	        </tr>
+	    </table>
+    }
+}

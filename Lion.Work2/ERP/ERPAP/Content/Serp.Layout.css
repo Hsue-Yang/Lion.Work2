@@ -1,0 +1,1231 @@
+/* line 382, ../_sass/_variables.scss */
+#main.col_2_left, #main.col_2_right, #main.col_3, #header .header-main .header_content, #header .header-sub .header_content ul, #nav ul, #nav ul li .subnav, #topnav ul {
+  display: block;
+}
+/* line 384, ../_sass/_variables.scss */
+#main.col_2_left:after, #main.col_2_right:after, #main.col_3:after, #header .header-main .header_content:after, #header .header-sub .header_content ul:after, #nav ul:after, #nav ul li .subnav:after, #topnav ul:after {
+  content: '.';
+  display: block;
+  clear: both;
+  visibility: hidden;
+  overflow: hidden;
+  line-height: 0;
+  height: 0;
+}
+
+/* line 390, ../_sass/_variables.scss */
+#sitename {
+  font-family: '\5FAE\8EDF\6B63\9ED1\9AD4', 'Microsoft JhengHei', '\5FAE\8F6F\96C5\9ED1', 'Microsoft YaHei';
+}
+
+/* line 400, ../_sass/_variables.scss */
+body [class^="icon-"], body [class*=" icon-"], body a.ico-href {
+  color: #555;
+  background-image: none;
+}
+/* line 402, ../_sass/_variables.scss */
+body [class^="icon-"]:hover, body [class*=" icon-"]:hover, body a.ico-href:hover {
+  color: #2a2c2a;
+}
+/* line 403, ../_sass/_variables.scss */
+body [class^="icon-"].icon-light, body [class*=" icon-"].icon-light, body a.ico-href.icon-light {
+  color: #fff;
+}
+/* line 405, ../_sass/_variables.scss */
+body [class^="icon-"].icon-light:hover, body [class*=" icon-"].icon-light:hover, body a.ico-href.icon-light:hover {
+  color: #eee;
+}
+
+/* line 7, C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-core-1.0.1/stylesheets/bootstrap/_dropdowns.scss */
+.dropup,
+.dropdown {
+  position: relative;
+}
+
+/* line 11, C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-core-1.0.1/stylesheets/bootstrap/_dropdowns.scss */
+.dropdown-toggle {
+  *margin-bottom: -3px;
+}
+
+/* line 15, C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-core-1.0.1/stylesheets/bootstrap/_dropdowns.scss */
+.dropdown-toggle:active,
+.open .dropdown-toggle {
+  outline: 0;
+}
+
+/* line 22, C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-core-1.0.1/stylesheets/bootstrap/_dropdowns.scss */
+.caret {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  vertical-align: top;
+  border-top: 4px solid #000;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+  content: "";
+}
+
+/* line 34, C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-core-1.0.1/stylesheets/bootstrap/_dropdowns.scss */
+.dropdown .caret {
+  margin-top: 8px;
+  margin-left: 2px;
+}
+
+/* line 41, C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-core-1.0.1/stylesheets/bootstrap/_dropdowns.scss */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 160px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  list-style: none;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  *border-right-width: 2px;
+  *border-bottom-width: 2px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+}
+/* line 64, C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-core-1.0.1/stylesheets/bootstrap/_dropdowns.scss */
+.dropdown-menu.pull-right {
+  right: 0;
+  left: auto;
+}
+/* line 70, C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-core-1.0.1/stylesheets/bootstrap/_dropdowns.scss */
+.dropdown-menu .divider {
+  *width: 100%;
+  height: 1px;
+  margin: 9px 1px;
+  *margin: -5px 0 5px;
+  overflow: hidden;
+  background-color: #e5e5e5;
+  border-bottom: 1px solid #fff;
+}
+/* line 75, C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-core-1.0.1/stylesheets/bootstrap/_dropdowns.scss */
+.dropdown-menu > li > a {
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: normal;
+  line-height: 20px;
+  color: #333;
+  white-space: nowrap;
+}
+
+/* line 88, C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-core-1.0.1/stylesheets/bootstrap/_dropdowns.scss */
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus,
+.dropdown-submenu:hover > a,
+.dropdown-submenu:focus > a {
+  text-decoration: none;
+  color: #fff;
+  background-color: #0081c2;
+  background-image: -moz-linear-gradient(top, #08c, #0077b3);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#08c), to(#0077b3));
+  background-image: -webkit-linear-gradient(top, #08c, #0077b3);
+  background-image: -o-linear-gradient(top, #08c, #0077b3);
+  background-image: linear-gradient(to bottom, #0088cc, #0077b3);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF0088CC', endColorstr='#FF0077B3', GradientType=0);
+}
+
+/* line 99, C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-core-1.0.1/stylesheets/bootstrap/_dropdowns.scss */
+.dropdown-menu > .active > a,
+.dropdown-menu > .active > a:hover,
+.dropdown-menu > .active > a:focus {
+  color: #fff;
+  text-decoration: none;
+  outline: 0;
+  background-color: #0081c2;
+  background-image: -moz-linear-gradient(top, #08c, #0077b3);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#08c), to(#0077b3));
+  background-image: -webkit-linear-gradient(top, #08c, #0077b3);
+  background-image: -o-linear-gradient(top, #08c, #0077b3);
+  background-image: linear-gradient(to bottom, #0088cc, #0077b3);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF0088CC', endColorstr='#FF0077B3', GradientType=0);
+}
+
+/* line 111, C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-core-1.0.1/stylesheets/bootstrap/_dropdowns.scss */
+.dropdown-menu > .disabled > a,
+.dropdown-menu > .disabled > a:hover,
+.dropdown-menu > .disabled > a:focus {
+  color: #999;
+}
+
+/* line 117, C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-core-1.0.1/stylesheets/bootstrap/_dropdowns.scss */
+.dropdown-menu > .disabled > a:hover,
+.dropdown-menu > .disabled > a:focus {
+  text-decoration: none;
+  background-color: transparent;
+  background-image: none;
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+  cursor: default;
+}
+
+/* line 128, C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-core-1.0.1/stylesheets/bootstrap/_dropdowns.scss */
+.open {
+  *z-index: 1000;
+}
+/* line 133, C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-core-1.0.1/stylesheets/bootstrap/_dropdowns.scss */
+.open > .dropdown-menu {
+  display: block;
+}
+
+/* line 140, C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-core-1.0.1/stylesheets/bootstrap/_dropdowns.scss */
+.dropdown-backdrop {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  z-index: 990;
+}
+
+/* line 151, C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-core-1.0.1/stylesheets/bootstrap/_dropdowns.scss */
+.pull-right > .dropdown-menu {
+  right: 0;
+  left: auto;
+}
+
+/* line 163, C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-core-1.0.1/stylesheets/bootstrap/_dropdowns.scss */
+.dropup .caret,
+.navbar-fixed-bottom .dropdown .caret {
+  border-top: 0;
+  border-bottom: 4px solid #000;
+  content: "";
+}
+/* line 169, C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-core-1.0.1/stylesheets/bootstrap/_dropdowns.scss */
+.dropup .dropdown-menu,
+.navbar-fixed-bottom .dropdown .dropdown-menu {
+  top: auto;
+  bottom: 100%;
+  margin-bottom: 1px;
+}
+
+/* line 178, C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-core-1.0.1/stylesheets/bootstrap/_dropdowns.scss */
+.dropdown-submenu {
+  position: relative;
+}
+
+/* line 182, C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-core-1.0.1/stylesheets/bootstrap/_dropdowns.scss */
+.dropdown-submenu > .dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  -webkit-border-radius: 0 6px 6px 6px;
+  -moz-border-radius: 0 6px 6px 6px;
+  border-radius: 0 6px 6px 6px;
+}
+
+/* line 189, C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-core-1.0.1/stylesheets/bootstrap/_dropdowns.scss */
+.dropdown-submenu:hover > .dropdown-menu {
+  display: block;
+}
+
+/* line 194, C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-core-1.0.1/stylesheets/bootstrap/_dropdowns.scss */
+.dropup .dropdown-submenu > .dropdown-menu {
+  top: auto;
+  bottom: 0;
+  margin-top: 0;
+  margin-bottom: -2px;
+  -webkit-border-radius: 5px 5px 5px 0;
+  -moz-border-radius: 5px 5px 5px 0;
+  border-radius: 5px 5px 5px 0;
+}
+
+/* line 203, C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-core-1.0.1/stylesheets/bootstrap/_dropdowns.scss */
+.dropdown-submenu > a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+
+/* line 216, C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-core-1.0.1/stylesheets/bootstrap/_dropdowns.scss */
+.dropdown-submenu:hover > a:after {
+  border-left-color: #fff;
+}
+
+/* line 221, C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-core-1.0.1/stylesheets/bootstrap/_dropdowns.scss */
+.dropdown-submenu.pull-left {
+  float: none;
+}
+/* line 227, C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-core-1.0.1/stylesheets/bootstrap/_dropdowns.scss */
+.dropdown-submenu.pull-left > .dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  -webkit-border-radius: 6px 0 6px 6px;
+  -moz-border-radius: 6px 0 6px 6px;
+  border-radius: 6px 0 6px 6px;
+}
+
+/* line 237, C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-core-1.0.1/stylesheets/bootstrap/_dropdowns.scss */
+.dropdown .dropdown-menu .nav-header {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+/* line 244, C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-core-1.0.1/stylesheets/bootstrap/_dropdowns.scss */
+.typeahead {
+  z-index: 1051;
+  margin-top: 2px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+
+/*
+Copyright (c) 2013 Lion Travel/Lion Technology. All rights reserved.
+version: 1.2.0
+Last Updated: 2013-01-02
+*/
+/* line 10, ../_sass/_reset.scss */
+body {
+  font-size: 13px;
+  font-family: Verdana, Geneva, sans-serif;
+  color: #000;
+  line-height: 1;
+}
+
+/* line 17, ../_sass/_reset.scss */
+body, div, dl, dt, dd, ul, ol, li,
+h1, h2, h3, h4, h5, h6, pre, code,
+form, fieldset, legend, input, button, textarea, select,
+p, blockquote {
+  margin: 0;
+  padding: 0;
+}
+
+/* line 25, ../_sass/_reset.scss */
+pre {
+  white-space: pre-wrap;
+  *word-wrap: break-word;
+}
+
+/* line 27, ../_sass/_reset.scss */
+fieldset, img {
+  border: none;
+}
+
+/* line 28, ../_sass/_reset.scss */
+/*
+address, button, cite, code,
+dfn, input, option, select,
+textarea, var {
+  font: inherit;
+}
+*/
+
+/* line 33, ../_sass/_reset.scss */
+ul, ol {
+  list-style: none;
+}
+
+/* line 34, ../_sass/_reset.scss */
+caption, th {
+  text-align: left;
+}
+
+/* line 35, ../_sass/_reset.scss */
+h1, h2, h3, h4, h5, h6 {
+  font-size: 100%;
+  font-weight: normal;
+}
+
+/* line 36, ../_sass/_reset.scss */
+a {
+  text-decoration: none;
+}
+
+/* line 39, ../_sass/_reset.scss */
+a, button {
+  outline: none;
+  behavior: expression(this.onFocus=this.blur());
+  cursor: pointer;
+}
+
+/* line 44, ../_sass/_reset.scss */
+input[type=button],
+input[type=submit],
+input[type=reset] {
+  cursor: pointer;
+}
+
+/* line 47, ../_sass/_reset.scss */
+input[type=text], input[type=password], input[type=tel], input[type=email], select {
+  vertical-align: middle;
+  outline: none;
+  border: 1px solid #a7a7a7;
+  padding: 2px 3px;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  font-size: 13px;
+  height: 18px;
+  line-height: 18px;
+  color: #000;
+}
+
+/* line 51, ../_sass/_reset.scss */
+select, input[type="file"] {
+  height: 24px;
+}
+
+/* line 54, ../_sass/_reset.scss */
+input[type="file"] {
+  line-height: 26px;
+  color: #999;
+}
+
+/* line 55, ../_sass/_reset.scss */
+input:focus {
+  background: #f2f2f2;
+}
+
+/* line 56, ../_sass/_reset.scss */
+textarea {
+  resize: none;
+  outline: none;
+  color: #232423;
+  border: 1px solid #a7a7a7;
+  padding: 2px 3px;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  font-size: 13px;
+}
+
+/* line 60, ../_sass/_reset.scss */
+.watermark {
+  color: #999;
+}
+
+/* line 61, ../_sass/_reset.scss */
+input::-webkit-input-placeholder {
+  color: #999;
+}
+
+/* line 62, ../_sass/_reset.scss */
+input:-moz-placeholder {
+  color: #999;
+}
+
+/* line 68, ../_sass/_reset.scss */
+abbr, acronym {
+  border: 1px dotted #000;
+  font-variant: normal;
+  cursor: help;
+}
+
+/* line 69, ../_sass/_reset.scss */
+hr {
+  display: block;
+  margin: 15px 0;
+  padding: 0;
+  border: none;
+  border-top: 1px dashed #babcbd;
+  height: 1px;
+}
+
+/* line 73, ../_sass/_reset.scss */
+del {
+  text-decoration: line-through;
+}
+
+/* line 74, ../_sass/_reset.scss */
+ins {
+  text-decoration: none;
+  color: #f00;
+}
+
+/* line 78, ../_sass/_reset.scss */
+legend {
+  color: #000;
+}
+
+/* line 79, ../_sass/_reset.scss */
+i {
+  font-style: normal;
+}
+
+/* line 80, ../_sass/_reset.scss */
+q:before, q:after {
+  content: '';
+}
+
+/* line 5, ../_sass/_module.scss */
+.mobile-show {
+  display: none;
+}
+
+/* line 6, ../_sass/_module.scss */
+.mobile-hidden {
+  display: block;
+}
+
+/* line 8, ../_sass/_module.scss */
+[class^="icon-"], [class*=" icon-"] {
+  background-image: url(../Content/images/glyphicons-halflings.png);
+}
+
+/* line 337, ../_sass/_module.scss */
+.modal-backdrop, .modal-backdrop.fade.in {
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}
+
+/* line 19, ../_sass/_serplayout.scss */
+.greenStyle #header .header-main {
+  background-color: #0c776d;
+}
+/* line 21, ../_sass/_serplayout.scss */
+.greenStyle #function-bar .dropdown-menu > li > a:hover {
+  color: #0c746e;
+}
+
+/* line 19, ../_sass/_serplayout.scss */
+.redStyle #header .header-main {
+  background-color: #a0434a;
+}
+/* line 21, ../_sass/_serplayout.scss */
+.redStyle #function-bar .dropdown-menu > li > a:hover {
+  color: #a0434a;
+}
+
+/* line 39, ../_sass/_serplayout.scss */
+#main {
+  padding-bottom: 50px;
+  width: 1000px;
+  margin: 0 auto;
+  width: auto;
+  padding: 10px 10px 20px 10px;
+}
+/* line 15, ../_sass/_module.scss */
+#main.col_1 #main_content {
+  width: 100%;
+}
+/* line 16, ../_sass/_module.scss */
+#main.col_1 #side_col_left {
+  display: none;
+}
+/* line 17, ../_sass/_module.scss */
+#main.col_1 #side_col_right {
+  display: none;
+}
+/* line 19, ../_sass/_module.scss */
+#main.col_2_left {
+  min-height: 100px;
+}
+/* line 21, ../_sass/_module.scss */
+#main.col_2_left #main_content {
+  width: 805px;
+  float: right;
+}
+/* line 22, ../_sass/_module.scss */
+#main.col_2_left #side_col_left {
+  width: 170px;
+  float: left;
+  margin-left: 10px;
+}
+/* line 23, ../_sass/_module.scss */
+#main.col_2_left #side_col_right {
+  display: none;
+}
+/* line 25, ../_sass/_module.scss */
+#main.col_2_right {
+  min-height: 100px;
+}
+/* line 27, ../_sass/_module.scss */
+#main.col_2_right #main_content {
+  width: 750px;
+  float: left;
+  padding-top: 10px;
+}
+/* line 28, ../_sass/_module.scss */
+#main.col_2_right #side_col_left {
+  display: none;
+}
+/* line 29, ../_sass/_module.scss */
+#main.col_2_right #side_col_right {
+  width: 230px;
+  float: right;
+  padding-top: 10px;
+}
+/* line 31, ../_sass/_module.scss */
+#main.col_3 {
+  min-height: 100px;
+}
+/* line 33, ../_sass/_module.scss */
+#main.col_3 #main_content {
+  width: 470px;
+  float: left;
+  margin: 0 0 0 265px;
+}
+/* line 34, ../_sass/_module.scss */
+#main.col_3 #side_col_left {
+  width: 250px;
+  float: left;
+  margin: 0 0 0 -735px;
+}
+/* line 35, ../_sass/_module.scss */
+#main.col_3 #side_col_right {
+  width: 250px;
+  float: right;
+}
+
+/* line 43, ../_sass/_serplayout.scss */
+.icon {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  margin: 0 auto;
+  vertical-align: middle;
+  margin: 0 2px;
+}
+/* line 46, ../_sass/_serplayout.scss */
+.icon.menu2 {
+  background-image: url(../Content/images/icon-menu2.png);
+  margin: 0;
+}
+/* line 47, ../_sass/_serplayout.scss */
+.icon.dialog {
+  background-image: url(../Content/images/icon-dialog.png);
+  width: 16px;
+  margin-right: 5px;
+}
+
+/* line 53, ../_sass/_serplayout.scss */
+#header {
+  position: relative;
+  z-index: 1000;
+}
+/* line 41, ../_sass/_module.scss */
+#header .header-main {
+  height: 75px;
+  background: url(../Content/images/gradient1.png) repeat-x 0 bottom;
+  background-color: #0b756e;
+}
+/* line 44, ../_sass/_module.scss */
+#header .header-main .header_content {
+  position: relative;
+}
+/* line 48, ../_sass/_module.scss */
+#header .header-sub {
+  height: 38px;
+  background: url(../Content/images/gradient2.png) repeat-x 0 top #a2a2a2;
+}
+/* line 50, ../_sass/_module.scss */
+#header .header-sub .header_content {
+  padding: 12px 10px 0 216px;
+  width: 1000px;
+}
+/* line 54, ../_sass/_module.scss */
+#header .header-sub .header_content ul li {
+  float: left;
+  display: block;
+  color: #fff;
+}
+/* line 56, ../_sass/_module.scss */
+#header .header-sub .header_content ul li a {
+  color: #fff;
+  display: inline-block;
+}
+/* line 57, ../_sass/_module.scss */
+#header .header-sub .header_content ul li .sep {
+  display: inline-block;
+  margin: 0 10px;
+}
+/* line 55, ../_sass/_serplayout.scss */
+#header .header-main {
+  background-image: url(../Content/images/gradient1-erp.png);
+}
+/* line 58, ../_sass/_serplayout.scss */
+#header .header-sub {
+  height: 30px;
+  background-image: url(../Content/images/gradient2-erp.png);
+  overflow: hidden;
+}
+/* line 60, ../_sass/_serplayout.scss */
+#header .header-sub .header_content {
+  width: auto;
+  padding: 4px 10px 0 10px;
+  height: 26px;
+  overflow: hidden;
+}
+/* line 62, ../_sass/_serplayout.scss */
+#header .header-sub .header_content span {
+  display: table-cell;
+  padding: 0;
+  vertical-align: top;
+  *display: block;
+  *float: left;
+}
+/* line 63, ../_sass/_serplayout.scss */
+#header .header-sub .header_content ul li {
+  float: none;
+  display: list-item;
+  line-height: 18px;
+  margin-bottom: 10px;
+}
+/* line 65, ../_sass/_serplayout.scss */
+#header .header-sub .header_content ul li a {
+  color: #e8eab8;
+}
+/* line 67, ../_sass/_serplayout.scss */
+#header .header-sub .header_content ul li a:hover {
+  text-decoration: underline;
+}
+/* line 72, ../_sass/_serplayout.scss */
+#header .msg {
+  color: #000;
+}
+
+/* line 74, ../_sass/_serplayout.scss */
+#logo {
+  width: 60px;
+  height: 75px;
+  float: left;
+  background: url(../Content/images/lion-logo.png) no-repeat center center #000;
+}
+
+/* line 77, ../_sass/_serplayout.scss */
+#sitename {
+  padding: 0 10px;
+  line-height: 75px;
+  font-size: 18px;
+  float: left;
+  letter-spacing: 3px;
+  position: relative;
+  z-index: 1;
+  background: url(../Content/images/dot-repeat.png) #2a2c2a;
+}
+/* line 72, ../_sass/_module.scss */
+#sitename a {
+  color: #fff;
+}
+/* line 74, ../_sass/_module.scss */
+#sitename a:hover {
+  text-decoration: none;
+}
+
+/* line 80, ../_sass/_serplayout.scss */
+#nav {
+  float: left;
+  padding: 43px 0 0 0;
+  padding-left: 10px;
+  z-index: 99;
+  position: absolute;
+  top: 0;
+  left:164px;
+  right: 55px; /* f2e 將menu 增加展開/收合 start */
+  display: inline;
+}
+
+#nav ul { margin: 0; padding: 0; }
+
+/* line 82, ../_sass/_module.scss */
+#nav > ul > li {
+  background: url(../Content/images/gradient1.png) repeat-x 0 bottom #0c776d;
+}
+#nav ul li {
+  float: left;
+  display: block;
+  font-weight: bold;
+  position: relative;
+  line-height: 20px;
+}
+/* line 84, ../_sass/_module.scss */
+#nav ul li a {
+  padding: 5px 10px;
+  color: #fff;
+  border: 1px solid transparent;
+  display: block;
+}
+/* line 86, ../_sass/_module.scss */
+#nav ul li a:hover {
+  color: #e8eab8;
+  text-decoration: none;
+}
+/* line 90, ../_sass/_module.scss */
+#nav ul li .subnav {
+  border: 1px solid #fff;
+  background: #838383;
+  position: absolute;
+  z-index: 5;
+  width: 100px;
+  border-bottom: none;
+  left: 0;
+  top: 31px;
+  display: none;
+}
+/* line 93, ../_sass/_module.scss */
+#nav ul li .subnav li {
+  float: none;
+  font-weight: normal;
+  border-bottom: 1px solid #fff;
+  position: relative;
+}
+/* line 96, ../_sass/_module.scss */
+#nav ul li .subnav li a {
+  border: none;
+  color: #fff;
+}
+/* line 98, ../_sass/_module.scss */
+#nav ul li .subnav li a:hover {
+  border: none;
+  background-color: #4b4949;
+}
+/* line 100, ../_sass/_module.scss */
+#nav ul li .subnav li:hover .thirdnav {
+  display: block;
+}
+/* line 104, ../_sass/_module.scss */
+#nav ul li .subnav .thirdnav {
+  position: absolute;
+  top: 0;
+  left: 101px;
+  width: 100px;
+  display: none;
+  border: 1px solid #fff;
+}
+/* line 111, ../_sass/_module.scss */
+#nav ul li.hasmenu:hover a {
+  color: #e8eab8;
+  text-decoration: none;
+  background: #838383;
+  border-color: #fff;
+}
+/* line 115, ../_sass/_module.scss */
+/* android mobile 會有問題,改為js執行
+#nav ul li.hasmenu:hover .subnav {
+  display: block;
+}
+*/
+/* line 117, ../_sass/_module.scss */
+#nav ul li.hasmenu:hover .subnav a {
+  border: none;
+  color: #fff;
+}
+/* line 119, ../_sass/_module.scss */
+#nav ul li.hasmenu:hover .subnav a:hover {
+  border: none;
+  background-color: #4b4949;
+}
+/* f2e 將menu 增加展開/收合 start */
+#nav ul li.menu-more {
+    position: absolute;
+    right: -55px;
+}
+#nav ul li.menu-more > button {
+    height: 30px;
+    border: none;
+    background: rgba(0,0,0,0.15);
+    color: white;
+    padding: 0 10px;
+    border: 1px solid #074741;
+}
+#nav ul li.hasmenu.js-hidden{
+    display: none !important;
+}
+/* f2e 將menu 增加展開/收合 end */
+/* line 83, ../_sass/_serplayout.scss */
+#nav ul li {
+  line-height: 20px;
+}
+/* line 85, ../_sass/_serplayout.scss */
+#nav ul li .subnav {
+  padding: 10px;
+  width: auto;
+  border-color: transparent;
+  min-height: 10px;
+  background: #5a5d5c;
+}
+/* line 88, ../_sass/_serplayout.scss */
+#nav ul li .subnav ul {
+  display: block;
+  float: left;
+  border-left: 1px solid #9c9c9c;
+  padding: 0 0 0 10px;
+  margin-left: 10px;
+}
+/* line 91, ../_sass/_serplayout.scss */
+#nav ul li .subnav ul:first-child {
+  border-left: none;
+  padding-left: 0;
+  margin-left: 0;
+}
+/* line 93, ../_sass/_serplayout.scss */
+#nav ul li .subnav li {
+  border-bottom: none;
+  white-space: nowrap;
+}
+/* line 95, ../_sass/_serplayout.scss */
+#nav ul li .subnav li a {
+  padding: 2px;
+}
+/* line 97, ../_sass/_serplayout.scss */
+#nav ul li .subnav li a:hover {
+  background-color: transparent;
+  color: #e8eab8;
+}
+/* line 102, ../_sass/_serplayout.scss */
+#nav ul li.hasmenu:hover a {
+  background: #3e443f;
+  border-color: transparent;
+}
+/* line 104, ../_sass/_serplayout.scss */
+#nav ul li.hasmenu:hover .subnav li a {
+  background-color: transparent;
+}
+/* line 106, ../_sass/_serplayout.scss */
+#nav ul li.hasmenu:hover .subnav li a:hover {
+  background-color: transparent;
+  color: #e8eab8;
+}
+
+/* line 112, ../_sass/_serplayout.scss */
+#function-bar {
+  color: #fff;
+  width: 300px;
+  position: absolute;
+  right: 6px;
+  top: 10px;
+  text-align: right;
+  top: 3px;
+  z-index:99;
+}
+/* line 128, ../_sass/_module.scss */
+#function-bar span, #function-bar a {
+  vertical-align: middle;
+}
+/* line 129, ../_sass/_module.scss */
+#function-bar .sep {
+  color: #074642;
+  display: inline-block;
+  margin: 0 3px;
+}
+/* line 130, ../_sass/_module.scss */
+#function-bar .func-menu {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+}
+/* line 132, ../_sass/_module.scss */
+#function-bar .func-menu.open {
+  background: #074642;
+}
+/* line 134, ../_sass/_module.scss */
+#function-bar .dropdown-menu {
+  text-align: left;
+  padding: 5px 0;
+  left: auto;
+  right: 0;
+  top: 115%;
+  min-width: 120px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+/* line 137, ../_sass/_module.scss */
+#function-bar .dropdown-menu:before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  right: 5px;
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 0px 5px 5px 5px;
+  border-bottom-color: #fff;
+}
+/* line 141, ../_sass/_module.scss */
+#function-bar .dropdown-menu .divider {
+  margin: 0 12px;
+}
+/* line 142, ../_sass/_module.scss */
+#function-bar .dropdown-menu li a {
+  padding: 3px 12px;
+}
+/* line 144, ../_sass/_module.scss */
+#function-bar .dropdown-menu li a:hover {
+  background: none;
+  background-image: none;
+  background-color: transparent;
+  color: #08c;
+}
+/* line 115, ../_sass/_serplayout.scss */
+#function-bar .logintxt a {
+  color: #fff;
+  text-decoration: underline;
+}
+/* line 117, ../_sass/_serplayout.scss */
+#function-bar .logintxt a:hover {
+  color: #e8eab8;
+}
+/* line 119, ../_sass/_serplayout.scss */
+#function-bar .sep {
+  color: #292929;
+}
+/* line 121, ../_sass/_serplayout.scss */
+#function-bar .func-menu.open {
+  background: #100f0f;
+}
+
+/* line 129, ../_sass/_serplayout.scss */
+#footer {
+  padding: 10px;
+  background: #838383;
+  color: #fff;
+  line-height: 1.5;
+  position: relative;
+  background: #838383;
+  text-align: center;
+  min-height: 20px;
+}
+
+/* line 138, ../_sass/_serplayout.scss */
+#topnav {
+  position: absolute;
+  top: 8px;
+  *top: 5px;
+  left: 177px;
+  z-index:99;
+}
+/* line 140, ../_sass/_serplayout.scss */
+#topnav ul {
+  min-height: 10px;
+}
+/* line 142, ../_sass/_serplayout.scss */
+#topnav ul li {
+  float: left;
+  display: inline-block;
+  border-left: 1px solid #fff;
+  line-height: 13px;
+  position: relative;
+  *line-height: 21px;
+}
+/* line 145, ../_sass/_serplayout.scss */
+#topnav ul li a {
+  color: #fff;
+  padding: 8px;
+}
+/* line 147, ../_sass/_serplayout.scss */
+#topnav ul li a:hover {
+  color: #e8eab8;
+  text-decoration: none;
+}
+/* line 149, ../_sass/_serplayout.scss */
+#topnav ul li:first-child {
+  border-left: none;
+}
+/* line 150, ../_sass/_serplayout.scss */
+#topnav ul li .subnav {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 22px;
+  background: #3e443f;
+  padding: 5px 8px;
+  min-width: 65px;
+  z-index: 5;
+  top: 21px;
+}
+/* line 153, ../_sass/_serplayout.scss */
+#topnav ul li .subnav li {
+  display: block;
+  float: none;
+  white-space: nowrap;
+  border: none;
+  line-height: 1.8;
+}
+/* line 156, ../_sass/_serplayout.scss */
+#topnav ul li .subnav li a {
+  display: block;
+}
+/* line 160, ../_sass/_serplayout.scss */
+#topnav ul li.hasmenu a {
+  padding-right: 20px;
+  *background: url(../Content/images/icon-arrow.gif) no-repeat right center;
+}
+/* line 163, ../_sass/_serplayout.scss */
+#topnav ul li.hasmenu a:after {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 4px;
+  position: absolute;
+  top: 5px;
+  right: 8px;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 4px 4px 0px 4px;
+  border-top-color: #e8eab8;
+}
+/* line 169, ../_sass/_serplayout.scss */
+#topnav ul li.hasmenu a.active:after {
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 0px 4px 4px 4px;
+  border-bottom-color: #e8eab8;
+}
+/* line 175, ../_sass/_serplayout.scss */
+#topnav ul li.hasmenu .subnav a {
+  padding: 0;
+}
+/* line 177, ../_sass/_serplayout.scss */
+#topnav ul li.hasmenu .subnav a:after {
+  content: '';
+  display: none;
+}
+/* line 181, ../_sass/_serplayout.scss */
+#topnav ul li.hasmenu:hover a {
+  background-color: #5a5d5c;
+}
+/* line 182, ../_sass/_serplayout.scss */
+#topnav ul li.hasmenu:hover .subnav {
+  display: block;
+}
+/* line 184, ../_sass/_serplayout.scss */
+#topnav ul li.hasmenu:hover .subnav a {
+  background: none;
+  padding: 0;
+}
+/* line 186, ../_sass/_serplayout.scss */
+#topnav ul li.hasmenu:hover .subnav a:after {
+  content: '';
+  display: none;
+}
+
+/* line 211, ../_sass/_serplayout.scss */
+#navicon1 {
+  width: 37px;
+  height: 37px;
+  position: absolute;
+  display: none;
+  right: 74px;
+  top: 22px;
+  background-image: url("../Content/images/navicon1.png");
+  background-repeat: no-repeat;
+  -webkit-background-size: 37px 74px;
+  -moz-background-size: 37px 74px;
+  -o-background-size: 37px 74px;
+  background-size: 37px 74px;
+}
+/* line 205, ../_sass/_serplayout.scss */
+#navicon1.active {
+  background-position: 0 -37px;
+  background-color: #a2a2a2;
+}
+
+/* line 212, ../_sass/_serplayout.scss */
+#navicon2 {
+  width: 37px;
+  height: 37px;
+  position: absolute;
+  display: none;
+  right: 37px;
+  top: -37px;
+  background-image: url("../Content/images/navicon2.png");
+  background-repeat: no-repeat;
+  -webkit-background-size: 37px 74px;
+  -moz-background-size: 37px 74px;
+  -o-background-size: 37px 74px;
+  background-size: 37px 74px;
+}
+/* line 205, ../_sass/_serplayout.scss */
+#navicon2.active {
+  background-position: 0 -37px;
+  background-color: #a2a2a2;
+}
+
+/* line 213, ../_sass/_serplayout.scss */
+#navicon3 {
+  width: 37px;
+  height: 37px;
+  position: absolute;
+  display: none;
+  right: 0;
+  top: -37px;
+  background-image: url("../Content/images/navicon3.png");
+  background-repeat: no-repeat;
+  -webkit-background-size: 37px 74px;
+  -moz-background-size: 37px 74px;
+  -o-background-size: 37px 74px;
+  background-size: 37px 74px;
+}
+/* line 205, ../_sass/_serplayout.scss */
+#navicon3.active {
+  background-position: 0 -37px;
+  background-color: #a2a2a2;
+}
+/* line 215, ../_sass/_serplayout.scss */
+#navicon3.active {
+  background-color: #3f433f;
+}
+
+/* line 217, ../_sass/_serplayout.scss */
+#navicon4 {
+  width: 37px;
+  height: 37px;
+  position: absolute;
+  display: none;
+  right: 111px;
+  top: 30px;
+  background-image: url("../Content/images/navicon4.png");
+  background-repeat: no-repeat;
+  -webkit-background-size: 37px 74px;
+  -moz-background-size: 37px 74px;
+  -o-background-size: 37px 74px;
+  background-size: 37px 74px;
+}
+/* line 205, ../_sass/_serplayout.scss */
+#navicon4.active {
+  background-position: 0 -37px;
+  background-color: #a2a2a2;
+}
+
+#divContent #divContentWrapper { width: 70%; float: left; }
+#divContent #divGSAContent { float: right; margin-right: 5px; }
+#divContent #GoogleSearchButton { vertical-align:middle; }
+
+div.BaseContainer { position: relative; width: 100%; height: 100%; overflow: hidden; }
+div.BaseContainer div.HeaderContainer { position: absolute; z-index: 3; background-color: #ffffff; }
+div.BaseContainer div.Header { position: relative; }
+div.BaseContainer div.Header > table { border-spacing: 0px 0px !important; border-collapse: collapse !important; width: 1px !important; table-layout: fixed !important; background-color: #ffffff; }
+div.BaseContainer div.FixedHeader { position: absolute; z-index: 4; overflow: hidden; }
+div.BaseContainer div.FixedHeader > table { border-spacing: 0px 0px !important; border-collapse: collapse !important; width: 1px !important; table-layout: fixed !important; background-color: #ffffff; }
+div.BaseContainer div.Data { position: absolute; z-index: 2; overflow: auto; background-color: #ffffff; }
+div.BaseContainer div.Data > table { border-spacing: 0px 0px !important; border-collapse: collapse !important; width: 1px !important; table-layout: fixed !important; }
+div.BaseContainer div.FixedDataContainer { position: absolute; z-index: 1; background-color: #ffffff; }
+div.BaseContainer div.FixedDataContainer > table { border-spacing: 0px 0px !important; border-collapse: collapse !important; width: 1px !important; table-layout: fixed !important; }
+div.BaseContainer div.FixedData { position: relative; }
+.button-fixed-bottom { position: fixed; bottom: 0; width:100%; }

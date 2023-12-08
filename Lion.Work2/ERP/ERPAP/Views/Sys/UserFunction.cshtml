@@ -1,0 +1,165 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity
+@using LionTech.Entity.ERP
+@using LionTech.Entity.ERP.Sys
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@using ERPAP.Models.Sys
+@model ERPAP.Models.Sys.UserFunctionModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/UserFunction.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+
+@using (Html.BeginFormSubmit("UserFunctionForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.SysUserRoleFunctionTabList))
+    {
+        @Html.InputTextBox("UserID", Model.UserID, inputType: EnumInputType.TextBoxHidden)
+
+        <table class="tblvertical">
+            <tr>
+                <th style="width: 70px">
+                    @Html.FormLabel(SysUserFunction.Label_SysID)
+                </th>
+                <td>
+                    @Html.InputComboBoxFor(model => model.QuerySysID, Model.GetDictionaryFormSelectItem(Model.EntitySystemSysIDList, true), isDisabled: false)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysUserFunction.Label_UserID)
+                </th>
+                <td>
+                    @Html.InputTextBox("UserNMReadOnlyText", Model.EntityUserRawData.UserNM, ReadOnly: true, maximumLength: 200, Size: 30)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @if (Model.ExecAction == EnumActionType.Update)
+                    {
+                        @Html.ButtonClient("UpdateButton", SysUserFunction.Button_UpdateAndGenMenu, className: "btn")
+                    }
+                    @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+                </td>
+            </tr>
+        </table>
+
+        <div style="padding: 10px 10px 6px 16px; font-weight: bold;">@SysUserFunction.Text_UserFunSetting</div>
+
+        <table id="SystemFunTable" class="tblvertical">
+            <tr>
+                <th>@SysUserFunction.Table_Delete</th>
+                <th>@SysUserFunction.Table_SysNM</th>
+                <th>@SysUserFunction.Table_FunGroup</th>
+                <th>@SysUserFunction.Table_FunNM</th>
+                <th>@SysUserFunction.Table_UpdUserNM</th>
+                <th>@SysUserFunction.Table_UpdDT</th>
+            </tr>
+            @if (Model.EntityUserFunctionList != null)
+            {
+                string rowListNM = string.Empty;
+                int rowCount;
+
+                var data = new UserFunctionModel.UserFunction();
+                for (rowCount = 0; rowCount < Model.EntityUserFunctionList.Count; rowCount++)
+                {
+                    data = Model.EntityUserFunctionList[rowCount];
+                    rowListNM = "systemUserFunctionValueList[" + rowCount + "]";
+
+                    <tr>
+                        <td nowrap="nowrap" class="center" style="width: 4%;">
+                            @if (data.HasAuth == EnumYN.Y.ToString())
+                            {
+                                @Html.ImageButton("DeleteDataRowButton", string.Format("{0}{1}", Common.GetEnumDesc(EnumSystemID.ERPAP), "/Content/images/delete.png"))
+                                <span style="display: none;">@Html.InputCheckBox("IsProcess", string.Empty, EnumYN.Y.ToString(), false)</span>
+                            }
+                        </td>
+                        <td nowrap="nowrap" title="@SysUserFunction.Table_SysNM" style="width: 24%;">
+                            @Html.InputTextBox(rowListNM + ".SysID", data.SysID, inputType: EnumInputType.TextBoxHidden)
+                            @Html.Raw(data.SysNMID)
+                        </td>
+                        <td nowrap="nowrap" title="@SysUserFunction.Table_FunGroup" style="width: 24%;">
+                            @Html.InputTextBox(rowListNM + ".FunControllerID", data.FunControllerID, inputType: EnumInputType.TextBoxHidden)
+                            @Html.Raw(data.FunGroupNMID)
+                        </td>
+                        <td nowrap="nowrap" title="@SysUserFunction.Table_FunNM" style="width: 24%;">
+                            @Html.InputTextBox(rowListNM + ".FunActionName", data.FunActionName, inputType: EnumInputType.TextBoxHidden)
+                            @Html.Raw(data.FunNMID)
+                        </td>
+                        <td nowrap="nowrap" title="@SysUserFunction.Table_UpdUserNM" style="width: 12%;">@Html.Raw(data.UpdUserNM)</td>
+                        <td nowrap="nowrap" title="@SysUserFunction.Table_UpdDT" style="width: 12%;">@Html.Raw(data.UpdDT.ToString("yyyy/MM/dd HH:mm:ss.fff"))</td>
+                    </tr>
+                }
+
+                rowListNM = "systemUserFunctionValueList[" + rowCount + "]";
+                <tr>
+                    <td nowrap="nowrap" class="center" style="width: 4%;">
+                        @Html.ImageButton("DeleteRowButton", string.Format("{0}{1}", Common.GetEnumDesc(EnumSystemID.ERPAP), "/Content/images/delete.png"))
+                        <span style="display: none;">@Html.InputCheckBox("IsProcess", string.Empty, EnumYN.Y.ToString(), false)</span>
+                    </td>
+                    <td nowrap="nowrap" title="@SysUserFunction.Table_SysNM" style="width: 24%;">
+                        @Html.InputComboBox(rowListNM + ".SysID", string.Empty, Model.GetDictionaryFormSelectItem(Model.EntityUserSystemSysIDList, true))
+                    </td>
+                    <td nowrap="nowrap" title="@SysUserFunction.Table_FunGroup" style="width: 24%;">
+                        @Html.InputComboBox(rowListNM + ".FunControllerID", string.Empty, Model.GetDictionaryFormSelectItem(Model.EntitySysSystemFunControllerIDList.ToDictionary(p => p.ItemValue(), p => p.ItemText()), true))
+                    </td>
+                    <td nowrap="nowrap" title="@SysUserFunction.Table_FunNM" style="width: 24%;">
+                        @Html.InputComboBox(rowListNM + ".FunActionName", string.Empty, Model.GetDictionaryFormSelectItem(Model.EntitySysSystemFunNameList, true))
+                    </td>
+                    <td nowrap="nowrap" title="@SysUserFunction.Table_UpdUserNM" style="width: 12%;"></td>
+                    <td nowrap="nowrap" title="@SysUserFunction.Table_UpdDT" style="width: 12%;"></td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <td nowrap="nowrap" class="center" style="width: 4%;">
+                        @Html.ImageButton("DeleteRowButton", string.Format("{0}{1}", Common.GetEnumDesc(EnumSystemID.ERPAP), "/Content/images/delete.png"))
+                        <span style="display: none;">@Html.InputCheckBox("IsProcess", string.Empty, EnumYN.Y.ToString(), false)</span>
+                    </td>
+                    <td nowrap="nowrap" title="@SysUserFunction.Table_SysNM" style="width: 24%;">
+                        @Html.InputComboBox("systemUserFunctionValueList[0].SysID", string.Empty, Model.GetDictionaryFormSelectItem(Model.EntityUserSystemSysIDList, true))
+                    </td>
+                    <td nowrap="nowrap" title="@SysUserFunction.Table_FunGroup" style="width: 24%;">
+                        @Html.InputComboBox("systemUserFunctionValueList[0].FunControllerID", string.Empty, Model.GetDictionaryFormSelectItem(Model.EntitySysSystemFunControllerIDList.ToDictionary(p => p.ItemValue(), p => p.ItemText()), true))
+                    </td>
+                    <td nowrap="nowrap" title="@SysUserFunction.Table_FunNM" style="width: 24%;">
+                        @Html.InputComboBox("systemUserFunctionValueList[0].FunActionName", string.Empty, Model.GetDictionaryFormSelectItem(Model.EntitySysSystemFunNameList, true))
+                    </td>
+                    <td nowrap="nowrap" title="@SysUserFunction.Table_UpdUserNM" style="width: 12%;"></td>
+                    <td nowrap="nowrap" title="@SysUserFunction.Table_UpdDT" style="width: 12%;"></td>
+                </tr>
+            }
+        </table>
+
+        <table class="tblvertical">
+            <tr>
+                <th style="width: 6%">
+                    @Html.FormLabel(SysUserFunction.Label_ErpSign, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.ErpWFNo, TitleName: SysUserFunction.Label_ErpSign)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysUserFunction.Label_ModifyRecord)
+                </th>
+                <td>
+                    @Html.InputTextAreaFor(model => model.Memo, 4, 60, TitleName: SysUserFunction.Label_ModifyRecord)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.ButtonClient("AddRowButton", SysUserFunction.Button_AddRow, className: "btn")
+                </td>
+            </tr>
+        </table>
+    }
+}

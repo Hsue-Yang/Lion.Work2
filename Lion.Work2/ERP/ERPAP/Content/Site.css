@@ -1,0 +1,74 @@
+﻿body { margin: 0px; background-color: #FFFFFF; font-family: Verdana, Geneva, sans-serif; font-size: 12px; color: #333; }
+
+td { font-family: Arial; font-size: 12px; }
+pre { white-space: pre; white-space: pre-wrap; white-space: pre-line; white-space: -pre-wrap; white-space: -o-pre-wrap; white-space: -moz-pre-wrap; word-wrap: break-word; } 
+
+a { color: #333; text-decoration: none; }
+/* a:hover { position: relative; left: 1px; top: 1px; } 配合UED設計關閉設定 */
+
+select { background: #FFFFFF; padding: 0px; height: 21px; font-family: 細明體; font-size: 10pt; line-height: 1; border-left: 2px solid #808080; border-top: 2px solid #808080; border-right: 1px solid #D4D0C8; border-bottom: 1px solid #D4D0C8; }
+
+/* layout Css ------------------------------------------------------------ */
+.layout.Header { background: #0c776d; color: #FFFFFF; font-weight: bold; font-family: Verdana, Geneva, sans-serif; }
+.layout.Header.Title { font-size: 16px; }
+.layout.Header.SysItem { background: none; font-size: 11px; }
+.layout.Header.Bottom { background: #838383; font-size: 12px; color: #FFFFFF; }
+.layout.Main { margin: 10px; }
+.layout.MenuBorder { border-bottom: 2px solid #DFB42C; }
+.layout.Message { color: saddlebrown; background-color: gold; border-top: 0px solid goldenrod; border-bottom: 1px solid goldenrod; border-right: 0px solid goldenrod; border-left: 0px solid goldenrod; display: none; }
+.layout.Function { padding: 0px; background-color:#FFFFFF; }
+.layout.Function.Tool { width:100%; background-color:#FFFFFF; padding-top:15px; padding-bottom:5px; padding-left:15px; padding-right:15px; border: 1px solid #C0C0C0; }
+/* 配合UED設計關閉設定
+.layout.Separator { height:15px; border-left:1px solid #fff; }
+.layout.Menu { color: #FFFFFF; background-color: #008198; }
+.layout.Menu.TD { font-weight: bold; padding-left: 5px; padding-right: 5px; padding-top: 0px; padding-bottom: 0px; }
+.layout.Menu.Text { height: 16px; float:left; color: #FFFFFF; padding:4px 4px 0px 4px; }
+.layout.Menu.Text.Selected { color: #0b756e; background-color: #FFFFFF; }
+.layout.Menu.ImgExpand { height:16px; width:16px; margin: -2px 0px 0px 2px; background-image:url(/Content/images/imgSortDown.png); }
+.layout.Menu.ImgCollapse { height:16px; width:16px; margin: -2px 0px 0px 2px; background-image:url(/Content/images/imgSortUp.png); background-color: #FFFFFF; }
+.layout.Menu.Items { margin-left: -5px; padding: 10px 10px 10px 10px; position: absolute; color:#0b756e; background-color: #fff; display: none; border-left: 1px solid #808080; border-right: 1px solid #808080; border-bottom: 1px solid #808080; z-index:1000; }
+.layout.Menu.Item { padding: 0px; color: #0b756e; background-color: #FFFFFF; }
+.layout.Menu.ItemImg { height: 16px; width: 16px; margin: -5px 0px 0px 2px; background-color: #FFFFFF; background-image:url(/Content/images/item_models.png); }
+*/
+
+/* ERPHelper Css ------------------------------------------------------------ */
+.helper.output { font-family: 細明體; font-size: 10pt; height: 16px; border: medium none; background-color: transparent; }
+.helper.input { font-family: 細明體; font-size: 10pt; height: 16px; }
+.helper.outputArea { font-family: 細明體; font-size: 10pt; border: medium none; background-color: transparent; }
+.helper.inputArea { font-family: 細明體; font-size: 10pt; width: 100%; }
+.helper.input.TextboxColor { color:Red; }
+.helper.output.TextboxColor { color:Red; }
+.helper.TextSubmitLink { text-decoration: underline; cursor:pointer; }
+
+.helper.JsErrMessageBox { font-family: '\5FAE\8EDF\6B63\9ED1\9AD4', 'Microsoft JhengHei', '\5FAE\8F6F\96C5\9ED1', 'Microsoft YaHei'; border: 1px solid #0b756e; margin: 20px; padding: 0px 0px 0px 0px; color: #fff; display: none; }
+.helper.JsErrMessageBox { -webkit-border-radius: 0; -moz-border-radius: 0; border-radius: 0; }
+.helper.JsErrMessageBoxTitle { font-size: 15px; background: #0b756e; color: #ffffff; padding: 9px 9px; border-bottom: 1px solid #eee; }
+.helper.JsErrMessageBoxBody { line-height: 26px; text-align: left; background: #ffffff; border: none; color: #000000; padding: 10px; }
+.helper.JsErrMessageBoxBody label { font-family: Verdana, Geneva, sans-serif; font-size: 13px; }
+.helper.JsErrMessageBoxButton { font-size: 13px; padding: 3px 12px; border-color: #cccccc; background: #cccccc; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; text-shadow: none; -webkit-box-shadow: none; -moz-box-shadow: none; box-shadow: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; border: none; width: 75px; height: 25px; color: white; background: #5a5d5c; padding: 0; }
+.helper.JsErrMessageBoxButton:hover { background: #c82322; color: white; text-decoration: none; cursor: pointer; }
+
+.helper.calendar { background-image:url(/Content/images/calendar.png); width:16px; height:16px; border:0px; }
+
+/* pager CSS ------------------------------------------------------------ */
+.pager { border-collapse: collapse; margin: 3px; font-size: 12px; width: 99%; margin-left: 5px; }
+.pager.RowCount { color: #FF5600; font-weight: bold; }
+.pager.RowCountRed { color: #c82322; font-weight: bold; }
+.pager.PageItemCount { color: #FF5600; font-weight: bold; }
+.pager.PageItemCountRed { color: #c82322; font-weight: bold; }
+.pager.LinkDiv { width: auto; height: 16px; padding-left: 18px; padding-top: 3px; color: #35496A; text-decoration: underline; cursor:pointer; float: left; }
+.pager.LinkDiv.FirstPage { background-image: url(../../Content/images/pager_first.png); background-repeat: no-repeat; }
+.pager.LinkDiv.LastPage { background-image: url(../../Content/images/pager_last.png); background-repeat: no-repeat; }
+.pager.LinkDiv.NextPage { background-image: url(../../Content/images/pager_next.png); background-repeat: no-repeat; }
+.pager.LinkDiv.PrevPage { background-image: url(../../Content/images/pager_previous.png); background-repeat: no-repeat; }
+.pager.RightLinkDiv { display:inline; width: 25px; height: 16px; padding-left: 18px; padding-top: 3px; color: #35496A; text-decoration: underline; cursor:pointer; }
+.pager.RightLinkDiv.FirstPage { background-image: url(../../Content/images/pager_first.png); background-repeat: no-repeat; }
+.pager.RightLinkDiv.LastPage { background-image: url(../../Content/images/pager_last.png); background-repeat: no-repeat; }
+.pager.RightLinkDiv.NextPage { background-image: url(../../Content/images/pager_next.png); background-repeat: no-repeat; }
+.pager.RightLinkDiv.PrevPage { background-image: url(../../Content/images/pager_previous.png); background-repeat: no-repeat; }
+.pager.RightLinkDiv.Symbol { color: #a2a2a2; border: 1px solid #a2a2a2; padding: 1px 6px 1px 6px; text-decoration: none; }
+.pager.RightLinkDiv.Symbol:hover { color: white; background: #5a5d5c; }
+.pagerMarginTop { border-collapse: collapse; margin: 3px; font-size: 12px; width: 99%; margin-left: 5px; margin-top: 10px; }
+
+/* label CSS ------------------------------------------------------------ */
+label i { color: #e60012; }

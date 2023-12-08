@@ -1,0 +1,265 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemFunDetailModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemFunDetail.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemFunDetailForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.SysSystemFunTabList))
+    {
+        string comboBoxStyle = "block";
+        string readOnlyTextStyle = "none";
+        bool readOnlyAttribute = false;
+        if (Model.ExecAction == EnumActionType.Update)
+        {
+            comboBoxStyle = "none";
+            readOnlyTextStyle = "block";
+            readOnlyAttribute = true;
+        }
+
+        <table class="tblvertical">
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemFunDetail.Label_SysID, IsRequired: true)
+                </th>
+                <td>
+                    <span style="display: none">
+                        @Html.InputComboBoxFor(model => model.SysID, Model.GetDictionaryFormSelectItem(Model.SystemByIdList, false), isDisabled: false, TitleName: SysSystemFunDetail.Label_SysID)
+                    </span>
+                    <span style="display: block">
+                        @Html.InputTextBox("SysIDReadOnlyText", string.Empty, ReadOnly: true, maximumLength: 200, Size: 30)
+                    </span>
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemFunDetail.Label_SubSysID)
+                </th>
+                <td>
+                    @Html.InputComboBoxFor(model => model.SubSysID, Model.GetDictionaryFormSelectItem(Model.SysSystemSubByIdList, true), TitleName: SysSystemFunDetail.Label_SubSysID)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemFunDetail.Label_PurviewID)
+                </th>
+                <td>
+                    @Html.InputComboBoxFor(model => model.PurviewID, Model.GetDictionaryFormSelectItem(Model.SystemPurviewByIdList, true), TitleName: SysSystemFunDetail.Label_PurviewID)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemFunDetail.Label_FunControllerID, IsRequired: true)
+                </th>
+                <td>
+                    <span style="display: @comboBoxStyle">
+                        @Html.InputComboBoxFor(model => model.FunControllerID, Model.GetDictionaryFormSelectItem(Model.SystemFunGroupByIdList, true), isDisabled: false, TitleName: SysSystemFunDetail.Label_FunControllerID)
+                    </span>
+                    <span style="display: @readOnlyTextStyle">
+                        @Html.InputTextBox("FunControllerIDReadOnlyText", string.Empty, ReadOnly: true, maximumLength: 200, Size: 30)
+                    </span>
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemFunDetail.Label_FunActionName, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.FunActionName, readOnlyAttribute, 30, TitleName: SysSystemFunDetail.Label_FunActionName)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemFunDetail.Label_FunType, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputComboBoxFor(model => model.FunType, Model.CMCodeLists.ToDictionary(p => p.CodeID, p => p.CodeNM), TitleName: SysSystemFunDetail.Label_FunType)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemFunDetail.Label_FunNMZHTW, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.FunNMZHTW, false, 30, TitleName: SysSystemFunDetail.Label_FunNMZHTW)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemFunDetail.Label_FunNMZHCN, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.FunNMZHCN, false, 30, TitleName: SysSystemFunDetail.Label_FunNMZHCN)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemFunDetail.Label_FunNMENUS, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.FunNMENUS, false, 30, TitleName: SysSystemFunDetail.Label_FunNMENUS)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemFunDetail.Label_FunNMTHTH, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.FunNMTHTH, false, 30, TitleName: SysSystemFunDetail.Label_FunNMTHTH)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemFunDetail.Label_FunNMJAJP, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.FunNMJAJP, false, 30, TitleName: SysSystemFunDetail.Label_FunNMJAJP)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemFunDetail.Label_FunNMKOKR, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.FunNMKOKR, false, 30, TitleName: SysSystemFunDetail.Label_FunNMKOKR)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemFunDetail.Label_IsOutside)
+                </th>
+                <td>
+                    @Html.InputCheckBox("IsOutside", SysSystemFunDetail.Label_IsOutside, EnumYN.Y.ToString(), Model.IsOutside == EnumYN.Y.ToString())
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemFunDetail.Label_IsDisable)
+                </th>
+                <td>
+                    @Html.InputCheckBox("IsDisable", SysSystemFunDetail.Label_IsDisable, EnumYN.Y.ToString(), Model.IsDisable == EnumYN.Y.ToString())
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemFunDetail.Label_SortOrder)
+                </th>
+                <td nowrap="nowrap">
+                    @Html.InputTextBoxFor(model => model.SortOrder, false, 30, TitleName: SysSystemFunDetail.Label_SortOrder)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemFunDetail.Label_Role)
+                </th>
+                <td colspan="5">
+
+                    <table>
+                        @if (Model.SystemRoleFunList != null)
+                        {
+                            int count = 0;
+
+                            <tr>
+                                @foreach (var systemRoleFun in Model.SystemRoleFunList)
+                                {
+                                    <td style="border: none">
+                                        @Html.InputCheckBox(
+                                            "HasRole",
+                                            string.Format("{0}", systemRoleFun.RoleNM),
+                                            systemRoleFun.SysID + "|" + systemRoleFun.RoleID + "|" + systemRoleFun.RoleNM,
+                                            systemRoleFun.HasRole == EnumYN.Y.ToString())
+                                    </td>
+
+                                    count++;
+
+                                    if (count % 5 == 0)
+                                    {
+                                    @:</tr>
+                                    @:<tr>
+                                    }
+                                }
+                            </tr>
+                        }
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6">
+                    @if (Model.ExecAction == EnumActionType.Add || Model.ExecAction == EnumActionType.Copy)
+                    {
+                        @Html.ButtonClient("AddButton", Resource.Button_Add, className: "btn")
+                    }
+                    @if (Model.ExecAction == EnumActionType.Update)
+                    {
+                        @Html.ButtonClient("UpdateButton", Resource.Button_Update, className: "btn")
+                        <span></span>
+                        @Html.ButtonClient("DeleteButton", Resource.Button_Delete, className: "btn")
+                    }
+                    @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+                </td>
+            </tr>
+        </table>
+
+        if (Model.ExecAction == EnumActionType.Update)
+        {
+            <div style="padding:10px 10px 6px 16px; font-weight:bold;">@SysSystemFunDetail.Text_MenuFunSetting</div>
+            <table id="MenuSettingTable" class="tblvertical">
+
+                @if (Model.SystemMenuFunList != null && Model.SystemMenuFunList.Any())
+                {
+                    int rowCount = 0;
+
+                    foreach (var row in Model.SystemMenuFunList)
+                    {
+                        <tr>
+                            <th nowrap="nowrap" class="bordertop">
+                                @Html.ImageButton("DeleteRowButton", string.Format("{0}{1}", Common.GetEnumDesc(EnumSystemID.ERPAP), "/Content/images/delete.png"))
+                                <span style="display: none;">@Html.InputCheckBox("IsProcess", string.Empty, EnumYN.Y.ToString(), false)</span>
+                                @Html.FormLabel(SysSystemFunDetail.Label_FunMenu)
+                            </th>
+                            <td nowrap="nowrap" class="bordertop">
+                                @Html.InputComboBox("SystemMenuFunValueList[" + rowCount + "]" + ".FunMenuSysID", row.FunMenuSysID, Model.GetDictionaryFormSelectItem(Model.SystemByIdList, true), TitleName: SysSystemFunDetail.Label_FunMenuSysID)
+                                @Html.InputComboBox("SystemMenuFunValueList[" + rowCount + "]" + ".FunMenu", row.FunMenu, Model.GetDictionaryFormSelectItem(row.SystemFunMenuList, true), TitleName: SysSystemFunDetail.Label_FunMenu)
+                            </td>
+                            <th nowrap="nowrap" class="bordertop">@Html.FormLabel(SysSystemFunDetail.Label_FunMenuPosition)</th>
+                            <td nowrap="nowrap" class="bordertop">
+                                @Html.FormLabel(SysSystemFunDetail.Text_XAxis)
+                                @Html.InputComboBox("SystemMenuFunValueList[" + rowCount + "]" + ".FunMenuXAxis", row.FunMenuXAxis, Model.SysSystemFunMenuXAxisList, TitleName: SysSystemFunDetail.Label_FunMenuXAxis)
+                                @Html.FormLabel(SysSystemFunDetail.Text_YAxis)
+                                @Html.InputComboBox("SystemMenuFunValueList[" + rowCount + "]" + ".FunMenuYAxis", row.FunMenuYAxis, Model.SysSystemFunMenuYAxisList, TitleName: SysSystemFunDetail.Label_FunMenuYAxis)
+                            </td>
+                        </tr>
+                        rowCount++;
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <th class="bordertop">
+                            @Html.ImageButton("DeleteRowButton", string.Format("{0}{1}", Common.GetEnumDesc(EnumSystemID.ERPAP), "/Content/images/delete.png"))
+                            <span style="display: none;">@Html.InputCheckBox("IsProcess", string.Empty, EnumYN.Y.ToString(), false)</span>
+                            @Html.FormLabel(SysSystemFunDetail.Label_FunMenu)
+                        </th>
+                        <td class="bordertop">
+                            @{ var item = new Dictionary<string, string>(); }
+                            @Html.InputComboBox("SystemMenuFunValueList[0].FunMenuSysID", string.Empty, Model.GetDictionaryFormSelectItem(Model.SystemByIdList, true), TitleName: SysSystemFunDetail.Label_FunMenuSysID)
+                            @Html.InputComboBox("SystemMenuFunValueList[0].FunMenu", string.Empty, Model.GetDictionaryFormSelectItem(item, true), TitleName: SysSystemFunDetail.Label_FunMenu)
+                        </td>
+                        <th class="bordertop">@Html.FormLabel(SysSystemFunDetail.Label_FunMenuPosition)</th>
+                        <td class="bordertop">
+                            @Html.FormLabel(SysSystemFunDetail.Text_XAxis)
+                            @Html.InputComboBox("SystemMenuFunValueList[0].FunMenuXAxis", string.Empty, Model.SysSystemFunMenuXAxisList, TitleName: SysSystemFunDetail.Label_FunMenuXAxis)
+                            @Html.FormLabel(SysSystemFunDetail.Text_YAxis)
+                            @Html.InputComboBox("SystemMenuFunValueList[0].FunMenuYAxis", string.Empty, Model.SysSystemFunMenuYAxisList, TitleName: SysSystemFunDetail.Label_FunMenuYAxis)
+                        </td>
+                    </tr>
+                }
+            </table>
+
+            <table width="100%" class="SelectTable" cellspacing="0" cellpadding="4">
+                <tr>
+                    <td nowrap="nowrap" class="padding grey bordertop">
+                        @Html.ButtonClient("AddRowButton", SysSystemFunDetail.Button_AddRow, className: "btn")
+                    </td>
+                </tr>
+            </table>
+        }
+
+        using (Html.BeginConfirmDialog("dialog_Confirm", Resource.SysMsg_Title, Resource.SysMsg_DeleteConfirm))
+        {
+            @Html.ButtonClient("ConfirmOKButton", Resource.Button_Delete)
+            @Html.ButtonClient("ConfirmNOButton", Resource.Button_Cancel)
+        }
+    }
+}

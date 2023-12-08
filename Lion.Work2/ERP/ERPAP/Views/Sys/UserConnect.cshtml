@@ -1,0 +1,97 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity
+@using LionTech.Entity.ERP
+@using LionTech.Entity.ERP.Sys
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.UserConnectModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/UserConnect.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("UserConnectForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.ConnectLogTabList))
+    {
+        <table class="tblsearch">
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <th>
+                                @Html.FormLabel(SysUserConnect.Label_DateBegin, IsRequired: true)
+                            </th>
+                            <td>
+                                @Html.InputTextBoxFor(model => model.DateBegin, false, 8, TitleName: SysUserConnect.Label_DateBegin)
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysUserConnect.Label_TimeBegin, IsRequired: true)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.TimeBegin, Model.BeginTimeList, false)
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysUserConnect.Label_DateEnd, IsRequired: true)
+                            </th>
+                            <td>
+                                @Html.InputTextBoxFor(model => model.DateEnd, false, 8, TitleName: SysUserConnect.Label_DateEnd)
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysUserConnect.Label_TimeEnd, IsRequired: true)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.TimeEnd, Model.EndTimeList, false)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="8">
+                                @Html.ButtonClient("SelectButton", Resource.Button_Query, className: "btnSearch")
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        using (Html.BeginPager(Model.PageIndex, Model.PageSize, Model.RowCount))
+        {
+            <table id="UserConnectTable" class="tblzebra">
+                <thead>
+                    <tr>
+                        <th>@SysUserConnect.Table_UserNM</th>
+                        <th>@SysUserConnect.Table_LastConnectDT</th>
+                        <th>@SysUserConnect.Table_CustLogout</th>
+                        <th>@SysUserConnect.Table_IPAddress</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.UserConnectLists != null)
+                    {
+                        string trClass = string.Empty;
+                        foreach (var data in Model.UserConnectLists)
+                        {
+                            <tr class="@trClass">
+                                <td data-th="@SysUserConnect.Table_UserNM：" title="@SysUserConnect.Table_UserNM">@Html.Raw(data.UserNM)</td>
+                                <td data-th="@SysUserConnect.Table_LastConnectDT：" title="@SysUserConnect.Table_LastConnectDT">@Html.Raw(data.LastConnectDT)</td>
+                                <td data-th="@SysUserConnect.Table_CustLogout：" title="@SysUserConnect.Table_CustLogout">
+                                    @if (data.CustLogout == EnumYN.Y.ToString())
+                                    {@SysUserConnect.Table_CustLogout}
+                            </td>
+                            <td data-th="@SysUserConnect.Table_IPAddress：" title="@SysUserConnect.Table_IPAddress">@Html.Raw(data.IPAddress)</td>
+                        </tr>
+
+                        if (string.IsNullOrWhiteSpace(trClass)) { trClass = "tr2"; }
+                        else { trClass = string.Empty; }
+                    }
+                }
+                </tbody>
+            </table>
+        }
+    }
+}

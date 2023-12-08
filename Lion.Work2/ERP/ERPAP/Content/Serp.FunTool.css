@@ -1,0 +1,8 @@
+﻿/* FORM CSS ------------------------------------------------------------ */
+table.FunToolSelectTable { margin-bottom: 10px; border-bottom: 1px solid #C0C0C0; width: 100%; }
+table.FunToolSelectTable div { float:left; padding-right: 5px; }
+
+table.FunToolSelectTable td.width{ width: 100%; }
+
+#SysFunTooleBar { width: 100%; }
+#FunToolComboBox { padding-top: 2px; }

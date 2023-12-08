@@ -1,0 +1,191 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity
+@using LionTech.Entity.ERP
+@using LionTech.Entity.ERP.Dev
+@using LionTech.Utility
+@using LionTech.Utility.ERP
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Dev.FunScheduleModel
+
+@{
+    string editionNo = ViewData[EnumViewDataItem.EditionNo.ToString()].ToString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Dev/FunSchedule.js?@(editionNo)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("FunScheduleForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Dev.ToString(), Model.TabList))
+    {
+        @Html.InputTextBox("SysID", Model.SysID, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("FunControllerID", Model.FunControllerID, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("FunActionName", Model.FunActionName, inputType: EnumInputType.TextBoxHidden)
+        
+        <table class="tblvertical">
+            <tr>
+                <th>
+                    @Html.FormLabel(DevFunSchedule.Label_SysNM)
+                </th>
+                <td>
+                    @Html.InputTextBox("SysNMReadOnlyText", Model.EntitySystemFun.SysNM.GetValue(), ReadOnly: true, maximumLength: 200, Size: 30)
+                </td>
+                <th>
+                    @Html.FormLabel(DevFunSchedule.Label_FunGroup)
+                </th>
+                <td>
+                    @Html.InputTextBox("FunGroupReadOnlyText", Model.EntitySystemFun.FunGroup.GetValue(), ReadOnly: true, maximumLength: 200, Size: 50)
+                </td>
+                <th>
+                    @Html.FormLabel(DevFunSchedule.Label_FunNM)
+                </th>
+                <td>
+                    @Html.InputTextBox("FunNMReadOnlyText", Model.EntitySystemFun.FunNM.GetValue(), ReadOnly: true, maximumLength: 200, Size: 30)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(DevFunSchedule.Label_IsDisable)
+                </th>
+                <td>
+                    @Html.InputTextBox("IsDisableReadOnlyText", Model.EntitySystemFun.IsDisable.GetValue(), ReadOnly: true, maximumLength: 200, Size: 30)
+                </td>
+                <th>
+                    @Html.FormLabel(DevFunSchedule.Label_FunTypeNM)
+                </th>
+                <td>
+                    @Html.InputTextBox("FunTypeNMReadOnlyText", (Model.IsFun == EnumYN.N.ToString()) ? DevFunSchedule.Label_Event : Model.EntitySystemFun.FunTypeNM.GetValue(), ReadOnly: true, maximumLength: 200, Size: 30)
+                </td>
+                <th>
+                    
+                </th>
+                <td>
+                    @Html.InputTextBox("IsFun", Model.IsFun, inputType: EnumInputType.TextBoxHidden)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(DevFunSchedule.Label_DevPhase, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputComboBoxFor(model => model.DevPhase, Model.GetDictionaryFormSelectItem(Model.EntityDevPhaseList, false), isDisabled: false, TitleName: DevFunSchedule.Label_DevPhase)
+                </td>
+                <th>
+                    @Html.FormLabel(DevFunSchedule.Label_DevOwner, IsRequired: false)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.DevOwner, false, 10, TitleName: DevFunSchedule.Label_DevOwner)
+                    @Html.ButtonClient("Help03Button", "?", className: "qmark")
+                </td>
+                <th>
+                    
+                </th>
+                <td>
+                    
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(DevFunSchedule.Label_PreBeginDate)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.PreBeginDate, false, 10, TitleName: DevFunSchedule.Label_PreBeginDate)
+                </td>
+                <th>
+                    @Html.FormLabel(DevFunSchedule.Label_PreEndDate)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.PreEndDate, false, 10, TitleName: DevFunSchedule.Label_PreEndDate)
+                </td>
+                <th>
+                    @Html.FormLabel(DevFunSchedule.Label_PreWorkHours)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.PreWorkHours, false, 5, TitleName: DevFunSchedule.Label_PreWorkHours)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(DevFunSchedule.Label_ActBeginDate)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.ActBeginDate, false, 10, TitleName: DevFunSchedule.Label_ActBeginDate)
+                </td>
+                <th>
+                    @Html.FormLabel(DevFunSchedule.Label_ActEndDate)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.ActEndDate, false, 10, TitleName: DevFunSchedule.Label_ActEndDate)
+                </td>
+                <th>
+                    @Html.FormLabel(DevFunSchedule.Label_ActWorkHours)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.ActWorkHours, false, 5, TitleName: DevFunSchedule.Label_ActWorkHours)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6">
+                    @Html.ButtonClient("UpdateButton", Resource.Button_Update, className: "btn")
+                    @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+                </td>
+            </tr>
+        </table>
+    
+        <table id="FunScheduleTable" class="tblzebra">
+            <tr>
+                <th style="width: 30px;">@DevFunSchedule.Text_Detail</th>
+                <th>@DevFunSchedule.Table_DevPhaseNM</th>
+                <th>@DevFunSchedule.Table_DevOwnerNM</th>
+                <th>@DevFunSchedule.Table_PreDate</th>
+                <th>@DevFunSchedule.Table_PreWorkHours</th>
+                <th>@DevFunSchedule.Table_ActDate</th>
+                <th>@DevFunSchedule.Table_ActWorkHours</th>
+                <th>@DevFunSchedule.Table_UpdUserNM</th>
+                <th>@DevFunSchedule.Table_UpdDT</th>
+            </tr>
+            @if (Model.EntityFunScheduleList != null)
+            {
+                string trClass = string.Empty;
+                foreach (EntityFunSchedule.FunSchedule data in Model.EntityFunScheduleList)
+                {
+                    <tr class="@trClass">
+                        <td data-th="@DevFunSchedule.Text_Detail：" class="center">
+                            @Html.TextSubmitLink(
+                                "Dev",
+                                "FunIssue",
+                                "LinkFunKey",
+                                DevFunSchedule.Text_Detail,
+                                new List<string>() {
+                                    data.SysID.GetValue(),
+                                    data.FunControllerID.GetValue(),
+                                    data.FunActionName.GetValue(),
+                                    data.DevPhase.GetValue()
+                                }
+                            )
+                        </td>
+                        <td data-th="@DevFunSchedule.Table_DevPhaseNM：" title="@DevFunSchedule.Table_DevPhaseNM">@Html.Raw(data.DevPhaseNM.HtmlValue())</td>
+                        <td data-th="@DevFunSchedule.Table_DevOwnerNM：" title="@DevFunSchedule.Table_DevOwnerNM">@Html.Raw(data.DevOwnerNM.HtmlValue())</td>
+                        <td data-th="@DevFunSchedule.Table_PreDate：" title="@DevFunSchedule.Table_PreDate">
+                            @Html.Raw(data.PreBeginDate.HtmlValue())
+                            ~
+                            @Html.Raw(data.PreEndDate.HtmlValue())
+                        </td>
+                        <td data-th="@DevFunSchedule.Table_PreWorkHours：" class="right" title="@DevFunSchedule.Table_PreWorkHours">@Html.Raw(data.PreWorkHours.HtmlValue())</td>
+                        <td data-th="@DevFunSchedule.Table_ActDate：" title="@DevFunSchedule.Table_ActDate">
+                            @Html.Raw(data.ActBeginDate.HtmlValue())
+                            ~
+                            @Html.Raw(data.ActEndDate.HtmlValue())
+                        </td>
+                        <td data-th="@DevFunSchedule.Table_ActWorkHours：" title="@DevFunSchedule.Table_ActWorkHours" align="right">@Html.Raw(data.ActWorkHours.HtmlValue())</td>
+                        <td data-th="@DevFunSchedule.Table_UpdUserNM：" title="@DevFunSchedule.Table_UpdUserNM">@Html.Raw(data.UpdUserNM.HtmlValue())</td>
+                        <td data-th="@DevFunSchedule.Table_UpdDT：" title="@DevFunSchedule.Table_UpdDT">@Html.Raw(data.UpdDT.HtmlValue())</td>
+                    </tr>
+                
+                    if (string.IsNullOrWhiteSpace(trClass)) { trClass = "tr2"; }
+                    else { trClass = string.Empty; }
+                }
+            }
+        </table>
+    }
+}

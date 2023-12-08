@@ -1,0 +1,104 @@
+﻿@{ Layout = "~/Views/_Popup.cshtml"; }
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Utility.ERP
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemAPIClientDetailModel
+
+@{
+    string editionNo = ViewData[EnumViewDataItem.EditionNo.ToString()].ToString();
+}
+<link href="~/Content/beautify-json.css" rel="stylesheet" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.beautify-json.js"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemAPIClientDetail.js?@(editionNo)" type="text/javascript"></script>
+
+<div class="page-title"><h3>@SysSystemAPIClientDetail.TabText_SystemAPIClientDetail</h3></div>
+@using (Html.BeginFormSubmit("SystemAPIClientDetailForm"))
+{
+    <table class="tblvertical">
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemAPIClientDetail.Label_APINo)
+            </th>
+            <td>
+                @Html.InputTextBox("APINoReadOnlyText", Model.APINo, ReadOnly: true, Size: 20)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemAPIClientDetail.Label_SysID)
+            </th>
+            <td>
+                @Html.InputTextBox("SysIDReadOnlyText", Model.SysNM, ReadOnly: true, Size: 30)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemAPIClientDetail.Label_APIGroupID)
+            </th>
+            <td>
+                @Html.InputTextBox("APIGroupIDReadOnlyText", Model.APIGroupNM, ReadOnly: true, Size: 30)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemAPIClientDetail.Label_APIFunID)
+            </th>
+            <td>
+                @Html.InputTextBox("APIFunIDReadOnlyText", Model.APIFunNM, ReadOnly: true, Size: 100)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemAPIClientDetail.Label_ClientSysID)
+            </th>
+            <td>
+                @Html.InputTextBox("ClientSysIDReadOnlyText", Model.ClientSysNM, ReadOnly: true, Size: 30)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemAPIClientDetail.Label_ClientUserID)
+            </th>
+            <td>
+                @Html.InputTextBox("ClientUserIDReadOnlyText", Model.ClientUserNM, ReadOnly: true, Size: 30)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemAPIClientDetail.Label_ClientDTBegin)
+            </th>
+            <td>
+                @Html.InputTextBox("ClientDTBeginReadOnlyText", Common.GetDateTimeText(Model.ClientDTBegin), ReadOnly: true, Size: 30)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemAPIClientDetail.Label_ClientDTEnd)
+            </th>
+            <td>
+                @Html.InputTextBox("ClientDTEndReadOnlyText", Model.ClientDTEnd.HasValue == false ? null : Common.GetDateTimeText(Model.ClientDTEnd.Value), ReadOnly: true, Size: 30)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ButtonClient("CloseButton", Resource.Button_Close, className: "btn")
+            </td>
+        </tr>
+    </table>
+
+    <div style="margin: 10px">
+        <span style="color: Blue;">@Html.FormLabel(SysSystemAPIClientDetail.Label_IPAddress)</span><br />
+        @Model.IPAddress
+        <br /><br />
+        <span style="color: Blue;" onload="myFunction()">@Html.FormLabel(SysSystemAPIClientDetail.Label_ReqHeaders)</span><br />
+        <p>@Model.REQHeaders</p>
+        <br /><br />
+        <span style="color: Blue;">@Html.FormLabel(SysSystemAPIClientDetail.Label_ReqUrl)</span>
+        <pre style="white-space: pre-wrap; margin: 0;">@Html.Raw(Model.REQUrl)</pre>
+        <br /><br />
+        <span style="color: Blue;">@Html.FormLabel(SysSystemAPIClientDetail.Label_ReqReturn)</span><br />
+        <span style="word-break: break-all;">@Model.REQReturn</span>
+    </div>
+}

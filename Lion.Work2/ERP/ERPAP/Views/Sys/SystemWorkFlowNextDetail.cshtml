@@ -1,0 +1,124 @@
+﻿@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Utility.ERP
+@using LionTech.Web.ERPHelper
+@using LionTech.WorkFlow
+@using Resources
+@model ERPAP.Models.Sys.SystemWorkFlowNextDetailModel
+
+@{
+    Layout = "~/Views/_Popup.cshtml";
+    string editionNo = ViewData[EnumViewDataItem.EditionNo.ToString()].ToString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemWorkFlowNextDetail.js?@(editionNo)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemWorkFlowNextDetailForm"))
+{
+    <div class="page-title">
+        <h3>
+            @SysSystemWorkFlowNextDetail.TabText_SystemWorkFlowNextDetail
+        </h3>
+    </div>
+
+    @Html.InputTextBox("SysID", Model.SysID, inputType: EnumInputType.TextBoxHidden)
+    @Html.InputTextBox("WFFlowGroupID", Model.WFFlowGroupID, inputType: EnumInputType.TextBoxHidden)
+    @Html.InputTextBox("WFCombineKey", Model.WFCombineKey, inputType: EnumInputType.TextBoxHidden)
+    @Html.InputTextBox("WFFlowID", Model.WFFlowID, inputType: EnumInputType.TextBoxHidden)
+    @Html.InputTextBox("WFNodeID", Model.WFNodeID, inputType: EnumInputType.TextBoxHidden)
+    @Html.InputTextBox("WFFlowVer", Model.WFFlowVer, inputType: EnumInputType.TextBoxHidden)
+
+    @Html.InputTextBox("NodeType", Model.EntitySystemWorkFlowNode.NodeType, inputType: EnumInputType.TextBoxHidden)
+
+    <table class="tblvertical">
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemWorkFlowNextDetail.Label_SysID, IsRequired: true)
+            </th>
+            <td>
+                @Model.EntitySystemWorkFlowNode.SysNM
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemWorkFlowNextDetail.Label_WorkFlowID, IsRequired: true)
+            </th>
+            <td>
+                @Model.EntitySystemWorkFlowNode.WFFlowNM
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemWorkFlowNextDetail.Label_WorkFlowVER, IsRequired: true)
+            </th>
+            <td>
+                @Model.WFFlowVer
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemWorkFlowNextDetail.Label_WorkFlowNodeID, IsRequired: true)
+            </th>
+            <td>
+                @Model.EntitySystemWorkFlowNode.WFNodeNM
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemWorkFlowNextDetail.Label_NextWorkFlowNodeID, IsRequired: true)
+            </th>
+            <td colspan="3">
+                @if (Model.ExecAction == EnumActionType.Add)
+                {
+                    @Html.InputComboBoxFor(model => model.NextWFNodeID, Model.GetDictionaryFormSelectItem(Model.EntitySystemWFNodeList, false), TitleName: SysSystemWorkFlowNextDetail.Label_NextWorkFlowNodeID)
+                }
+                else
+                {
+                    @Html.InputTextBox("NextWFNodeID", Model.NextWFNodeID, inputType: EnumInputType.TextBoxHidden)
+                    @Model.GetSelectedText(Model.EntitySystemWFNodeList, Model.NextWFNodeID)
+                }
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @if (Model.EntitySystemWorkFlowNode.NodeType == EnumNodeType.D.ToString())
+                {
+                    @Html.FormLabel(SysSystemWorkFlowNextDetail.Label_NextResultValue, IsRequired: true)
+                }
+                else
+                {
+                    @Html.FormLabel(SysSystemWorkFlowNextDetail.Label_NextResultValue, IsRequired: false)
+                }
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.NextResultValue, false, 30, TitleName: SysSystemWorkFlowNextDetail.Label_NextResultValue)
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemWorkFlowNextDetail.Label_SortOrder)
+            </th>
+            <td colspan="3">
+                @Html.InputTextBoxFor(model => model.SortOrder, false, 30, TitleName: SysSystemWorkFlowNextDetail.Label_SortOrder)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemWorkFlowNextDetail.Label_Remark)
+            </th>
+            <td colspan="5">
+                @Html.InputTextAreaFor(model => model.Remark, 5, 100, TitleName: SysSystemWorkFlowNextDetail.Label_Remark, style: "width:98%")
+            </td>
+        </tr>
+    </table>
+    <div class="text-left buttons">
+        @if (Model.ExecAction == EnumActionType.Add)
+        {
+            @Html.ButtonClient("AddButton", Resource.Button_Add, className: "btn")
+        }
+        @if (Model.ExecAction == EnumActionType.Update ||
+             Model.ExecAction == EnumActionType.Delete)
+        {
+            @Html.ButtonClient("UpdateButton", Resource.Button_Update, className: "btn")
+            @Html.ButtonClient("DeleteButton", Resource.Button_Delete, className: "btn")
+        }
+        @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+    </div>
+    using (Html.BeginConfirmDialog("dialog_Confirm", Resource.SysMsg_Title, Resource.SysMsg_DeleteConfirm))
+    {
+        @Html.ButtonClient("ConfirmOKButton", Resource.Button_Delete)
+        @Html.ButtonClient("ConfirmNOButton", Resource.Button_Cancel)
+    }
+}

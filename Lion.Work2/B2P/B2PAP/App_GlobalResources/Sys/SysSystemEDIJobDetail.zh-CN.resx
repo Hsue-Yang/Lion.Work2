@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="DeleteSystemEDIJobDetailResult_DataExist" xml:space="preserve">
+    <value>删除EDI工作清单明细失败&lt;br /&gt;尚有參數使用此项设定</value>
+  </data>
+  <data name="DeleteSystemEDIJobDetailResult_Failure" xml:space="preserve">
+    <value>删除EDI工作清单明细失败</value>
+  </data>
+  <data name="EditSystemEDIJobDetailResult_Failure" xml:space="preserve">
+    <value>编辑EDI工作清单明细失败</value>
+  </data>
+  <data name="JsMsg_GetFunMenuList" xml:space="preserve">
+    <value>无法取得EDI联机字符串列表</value>
+  </data>
+  <data name="Label_DepEDIJobID" xml:space="preserve">
+    <value>依存工作代码</value>
+  </data>
+  <data name="Label_EDIConID" xml:space="preserve">
+    <value>联机字符串代码</value>
+  </data>
+  <data name="Label_EDIFlowID" xml:space="preserve">
+    <value>EDI流程代码</value>
+  </data>
+  <data name="Label_EDIJobENUS" xml:space="preserve">
+    <value>EDI工作名称(英)</value>
+  </data>
+  <data name="Label_EDIJobID" xml:space="preserve">
+    <value>EDI工作代码</value>
+  </data>
+  <data name="Label_EDIJobIsDisable" xml:space="preserve">
+    <value>EDI工作是否停用</value>
+  </data>
+  <data name="Label_EDIJobType" xml:space="preserve">
+    <value>EDI工作类型</value>
+  </data>
+  <data name="Label_EDIJobZHCN" xml:space="preserve">
+    <value>EDI工作名称(简)</value>
+  </data>
+  <data name="Label_EDIJobZHTW" xml:space="preserve">
+    <value>EDI工作名称(繁)</value>
+  </data>
+  <data name="Label_FileEncoding" xml:space="preserve">
+    <value>来源档案编码</value>
+  </data>
+  <data name="Label_FileSource" xml:space="preserve">
+    <value>来源档案路径</value>
+  </data>
+  <data name="Label_IsUseRes" xml:space="preserve">
+    <value>使用路径RES的档案</value>
+  </data>
+  <data name="Label_ObjectName" xml:space="preserve">
+    <value>执行对象名称</value>
+  </data>
+  <data name="Label_SortOrder" xml:space="preserve">
+    <value>排序</value>
+  </data>
+  <data name="Label_SysID" xml:space="preserve">
+    <value>应用系统</value>
+  </data>
+  <data name="SystemMsg_AddSystemEDIJobDetailExist" xml:space="preserve">
+    <value>EDI工作清单明细已存在</value>
+  </data>
+  <data name="SystemMsg_GetEDIFileEncodingList" xml:space="preserve">
+    <value>无法取得来源档案编码</value>
+  </data>
+  <data name="SystemMsg_GetEDIJobTypeList" xml:space="preserve">
+    <value>无法取得EDI工作类型列表</value>
+  </data>
+  <data name="SystemMsg_GetSysSystemDepEDIJobList" xml:space="preserve">
+    <value>无法取得依存工作代码列表</value>
+  </data>
+  <data name="SystemMsg_GetSysSystemEDIConList" xml:space="preserve">
+    <value>无法取得联机字符串代码列表</value>
+  </data>
+  <data name="SystemMsg_GetSysSystemEDIFlowList" xml:space="preserve">
+    <value>无法取得EDI流程列表</value>
+  </data>
+  <data name="SystemMsg_GetSystemEDIJobDetail" xml:space="preserve">
+    <value>无法取得EDI工作清单明细列表</value>
+  </data>
+  <data name="SystemMsg_GetSystemSysIDList" xml:space="preserve">
+    <value>无法取得应用系统列表</value>
+  </data>
+  <data name="SystemMsg_GetSysUserSystemSysIDList" xml:space="preserve">
+    <value>无法取得员工应用系统列表</value>
+  </data>
+  <data name="SystemMsg_SetHasSysID" xml:space="preserve">
+    <value>您不具有使用此应用系统的权限</value>
+  </data>
+  <data name="TabText_SystemEDIJobConvey" xml:space="preserve">
+    <value>电子资料交换工作档汇入</value>
+  </data>
+  <data name="TabText_SystemEDIJobDetail" xml:space="preserve">
+    <value>电子数据交换工作文件明细</value>
+  </data>
+  <data name="Label_EDIJobJAJP" xml:space="preserve">
+    <value>EDI工作名称(日)</value>
+  </data>
+  <data name="Label_EDIJobTHTH" xml:space="preserve">
+    <value>EDI工作名称(泰)</value>
+  </data>
+  <data name="Label_URLPath" xml:space="preserve">
+    <value>URL路径</value>
+  </data>
+</root>

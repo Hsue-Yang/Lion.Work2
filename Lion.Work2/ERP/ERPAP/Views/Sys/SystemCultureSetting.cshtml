@@ -1,0 +1,114 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemCultureSettingModel
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemCultureSetting.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+<div class="page-title">
+    <h3>
+        @SysSystemCultureSetting.Label_SystemCultureSetting
+    </h3>
+</div>
+
+@using (Html.BeginFormSubmit("SystemCultureSettingForm"))
+{
+    @Html.InputTextBox("CultureID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+    <table class="tblsearch">
+        <tr>
+            <td>
+                <table>
+                    <tr>
+                        <th style="width: 80px">
+                            @Html.FormLabel(SysSystemCultureSetting.Label_CultureID)
+                        </th>
+                        <td>
+                            @Html.InputComboBoxFor(model => model.QueryCultureID, Model.GetDictionaryFormSelectItem(Model.SystemCultureIDs, true), isDisabled: false, TitleName: SysSystemCultureSetting.Label_CultureID)
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                @Html.ButtonSubmit("Sys", "SystemCultureSetting", "SelectButton", Resource.Button_Select, className: "btnSearch")
+            </td>
+        </tr>
+    </table>
+
+    using (Html.BeginPager(Model.PageIndex, Model.PageSize, Model.RowCount))
+    {
+        <div>
+            <table id="SystemCultureSettingTable" class="tblzebra">
+                <thead>
+                    <tr>
+                        <th>@SysSystemCultureSetting.Text_Detail</th>
+                        <th>@SysSystemCultureSetting.Label_CultureID</th>
+                        <th>@SysSystemCultureSetting.Label_CultureNM</th>
+                        <th>@SysSystemCultureSetting.Label_DisplayNM</th>
+                        <th>@SysSystemCultureSetting.Label_IsSerpUse</th>
+                        <th>@SysSystemCultureSetting.Label_IsDisable</th>
+                        <th>@SysSystemCultureSetting.Label_UpdUserNM</th>
+                        <th>@SysSystemCultureSetting.Label_UpdDT</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.SystemCultures != null)
+                    {
+                        string trClass = string.Empty;
+                        foreach (var row in Model.SystemCultures)
+                        {
+                            <tr class="@trClass">
+                                <td data-th="@SysSystemCultureSetting.Text_Detail：" nowrap="nowrap">
+                                    @Html.TextSubmitLink(
+                                        "Sys",
+                                        "SystemCultureSettingDetail",
+                                        "LinkFunKeyDetail",
+                                        SysSystemCultureSetting.Text_Detail,
+                                        new List<string>()
+                                        {
+                                            row.CultureID
+                                        }
+                                        )
+                                </td>
+
+                                <td data-th="@SysSystemCultureSetting.Table_CultureID：" nowrap="nowrap" title="@SysSystemCultureSetting.Table_CultureID">@row.CultureID</td>
+                                <td data-th="@SysSystemCultureSetting.Table_CultureNM：" nowrap="nowrap" title="@SysSystemCultureSetting.Table_CultureNM">@row.CultureNM</td>
+                                <td data-th="@SysSystemCultureSetting.Table_DisplayNM：" nowrap="nowrap" title="@SysSystemCultureSetting.Table_DisplayNM">@Html.Raw(row.DisplayNM)</td>
+                                <td data-th="@SysSystemCultureSetting.Table_IsSerpUse：" nowrap="nowrap" title="@SysSystemCultureSetting.Table_IsSerpUse">
+                                    @if (row.IsSerpUse == EnumYN.Y.ToString())
+                                    {
+                                        @EnumYN.Y.ToString();
+                                    }
+                                </td>
+                                <td data-th="@SysSystemCultureSetting.Table_IsDisable：" nowrap="nowrap" title="@SysSystemCultureSetting.Table_IsDisable">
+                                    @if (row.IsDisable == EnumYN.Y.ToString())
+                                    {
+                                        @EnumYN.Y.ToString();
+                                    }
+                                </td>
+                                <td data-th="@SysSystemCultureSetting.Table_UpdUserNM：" nowrap="nowrap" title="@SysSystemCultureSetting.Table_UpdUserNM">@Html.Raw(row.UpdUserNM)</td>
+                                <td data-th="@SysSystemCultureSetting.Table_UpdDT：" nowrap="nowrap" title="@SysSystemCultureSetting.Table_UpdDT">@Common.GetDateTimeText(row.UpdDT)</td>
+                            </tr>
+
+                            trClass = string.IsNullOrWhiteSpace(trClass) ? "tr2" : string.Empty;
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+    <div>
+        @Html.ButtonSubmit("Sys", "SystemCultureSettingDetail", "AddButton", Resource.Button_Add, className: "btn")
+        @Html.ButtonSubmit("Sys", "SystemCultureSetting", "ReleaseButton", SysSystemCultureSetting.Button_Release, className: "btn")
+    </div>
+}

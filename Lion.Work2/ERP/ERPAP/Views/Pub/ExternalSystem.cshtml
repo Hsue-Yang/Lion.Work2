@@ -1,0 +1,65 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity.ERP
+@using LionTech.Entity.ERP.Pub
+@using LionTech.Utility
+@using LionTech.Utility.ERP
+@using LionTech.Web.ERPHelper
+@using Resources
+
+@model ERPAP.Models.Pub.ExternalSystemModel
+
+@{
+    string editionNo = ViewData[EnumViewDataItem.EditionNo.ToString()].ToString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Pub/ExternalSystem.js?@(editionNo)" type="text/javascript"></script>
+
+<div class="page-title">
+    <h3>
+        @PubExternalSystem.TabText_ExternalSystem
+    </h3>
+</div>
+
+@using (Html.BeginFormSubmit("ExternalSystemForm"))
+{
+    <table id="ExternalSystemTable" cellspacing="0">
+        @if (Model.EntityExternalSystemList != null)
+        {
+            EntityExternalSystem.ExternalSystem externalSystem = new EntityExternalSystem.ExternalSystem();
+            string sysIconPath = string.Empty;
+            <tr>
+                @for (int entityCount = 0; entityCount < Model.EntityExternalSystemList.Count(); entityCount++)
+                {
+                    externalSystem = Model.EntityExternalSystemList[entityCount];
+                    if (!string.IsNullOrWhiteSpace(externalSystem.SysIconPath.GetValue()))
+                    {
+                        sysIconPath = string.Format(@"{0}\{1}", Common.GetEnumDesc(EnumSystemID.ERPAP), externalSystem.SysIconPath.HtmlValue());
+                    }
+                    else
+                    {
+                        sysIconPath = "~/Content/images/ExternalSystem.png";
+                    }
+
+                    <td style="padding: 5px;">
+                        <img src="@Url.Content(sysIconPath)" alt="@externalSystem.SysNM.HtmlValue()" height="32" width="32"/>
+                    </td>
+                    <td>
+                        @Html.TextSubmitLink(
+                            "Pub",
+                            "ExternalSystem",
+                            "SSOLink",
+                            externalSystem.SysNM.HtmlValue(),
+                            new List<string> { externalSystem.SysID.HtmlValue() })
+                    </td>
+                    <td style="width: 20px;"></td>
+
+                    if ((entityCount + 1) % 4 == 0)
+                    {
+                        @:</tr>
+                        @:<tr>
+                    }
+                }
+            </tr>
+        }
+    </table>
+}

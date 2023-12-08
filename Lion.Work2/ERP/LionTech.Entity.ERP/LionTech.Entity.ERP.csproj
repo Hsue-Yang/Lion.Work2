@@ -1,0 +1,66 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks Condition="'$(LibraryFrameworks)'==''">net461;net48;</TargetFrameworks>
+    <RootNamespace>LionTech.Entity.ERP</RootNamespace>
+    <AssemblyName>LionTech.Entity.ERP</AssemblyName>
+    <AssemblyVersion>1.21.6.2</AssemblyVersion>
+    <FileVersion>1.21.6.2</FileVersion>
+    <VersionPrefix>1.21.6.2</VersionPrefix>
+    <Authors>LionTech</Authors>
+    <Company>LionTech</Company>
+    <Product>LionTech.Entity.ERP</Product>
+    <Copyright>Copyright © 2021</Copyright>
+    <Title>LionTech.Entity.ERP</Title>
+    <PackageId>LionTech.Entity.ERP</PackageId>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net461'">
+    <Reference Include="LionTech.EDI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Redistributable\LionTech\net461\LionTech.EDI.dll</HintPath>
+    </Reference>
+    <Reference Include="LionTech.Entity, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Redistributable\LionTech\net461\LionTech.Entity.dll</HintPath>
+    </Reference>
+    <Reference Include="LionTech.Entity.EDI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Redistributable\LionTech\net461\LionTech.Entity.EDI.dll</HintPath>
+    </Reference>
+    <Reference Include="LionTech.Utility, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Redistributable\LionTech\net461\LionTech.Utility.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
+    <Reference Include="LionTech.EDI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Redistributable\LionTech\net48\LionTech.EDI.dll</HintPath>
+    </Reference>
+    <Reference Include="LionTech.Entity, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Redistributable\LionTech\net48\LionTech.Entity.dll</HintPath>
+    </Reference>
+    <Reference Include="LionTech.Entity.EDI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Redistributable\LionTech\net48\LionTech.Entity.EDI.dll</HintPath>
+    </Reference>
+    <Reference Include="LionTech.Utility, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Redistributable\LionTech\net48\LionTech.Utility.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+
+</Project>

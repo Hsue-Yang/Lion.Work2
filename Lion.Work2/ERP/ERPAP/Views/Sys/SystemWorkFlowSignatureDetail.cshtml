@@ -1,0 +1,229 @@
+﻿@using LionTech.Entity
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemWorkFlowSignatureDetailModel
+
+@{
+    Layout = "~/Views/_Popup.cshtml";
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemWorkFlowSignatureDetail.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SignatureDetailForm"))
+{
+    <div class="page-title">
+        <h3>
+            @SysSystemWorkFlowSignatureDetail.TabText_WFSignatureDetail
+        </h3>
+    </div>
+
+    @Html.InputTextBox("SysID", Model.SysID, inputType: EnumInputType.TextBoxHidden)
+    @Html.InputTextBox("WFFlowGroupID", Model.WFFlowGroupID, inputType: EnumInputType.TextBoxHidden)
+    @Html.InputTextBox("WFCombineKey", Model.WFCombineKey, inputType: EnumInputType.TextBoxHidden)
+    @Html.InputTextBox("WFFlowID", Model.WFFlowID, inputType: EnumInputType.TextBoxHidden)
+    @Html.InputTextBox("WFNodeID", Model.WFNodeID, inputType: EnumInputType.TextBoxHidden)
+    @Html.InputTextBox("WFFlowVer", Model.WFFlowVer, inputType: EnumInputType.TextBoxHidden)
+    @Html.InputTextBox("WFSigSeq", Model.WFSigSeq, inputType: EnumInputType.TextBoxHidden)
+
+    <table class="tblvertical">
+        <tr>
+            <th nowrap="nowrap">
+                @Html.FormLabel(SysSystemWorkFlowSignatureDetail.Label_SysID, IsRequired: true)
+            </th>
+            <td nowrap="nowrap">
+                @Model.EntitySystemWorkFlowNode.SysNM
+            </td>
+            <th nowrap="nowrap">
+                @Html.FormLabel(SysSystemWorkFlowSignatureDetail.Label_WFFlow, IsRequired: true)
+            </th>
+            <td nowrap="nowrap">
+                @Model.EntitySystemWorkFlowNode.WFFlowNM
+            </td>
+            <th nowrap="nowrap">
+                @Html.FormLabel(SysSystemWorkFlowSignatureDetail.Label_WFFlowVer, IsRequired: true)
+            </th>
+            <td nowrap="nowrap">
+                @Model.WFFlowVer
+            </td>
+        </tr>
+        <tr>
+            <th nowrap="nowrap">
+                @Html.FormLabel(SysSystemWorkFlowSignatureDetail.Label_WFNode, IsRequired: true)
+            </th>
+            <td nowrap="nowrap">
+                @Model.EntitySystemWorkFlowNode.WFNodeNM
+            </td>
+            <th nowrap="nowrap">
+                @Html.FormLabel(SysSystemWorkFlowSignatureDetail.Label_SigStep, IsRequired: true)
+            </th>
+            <td nowrap="nowrap">
+                @Html.InputComboBox("SigStep", Model.SigStep.ToString(), Model.SigStepList, TitleName: SysSystemWorkFlowSignatureDetail.Label_SigStep)
+            </td>
+            <th nowrap="nowrap">
+                @Html.FormLabel(SysSystemWorkFlowSignatureDetail.Label_WFSigSeq, IsRequired: true)
+            </th>
+            <td nowrap="nowrap">
+                @Model.WFSigSeq
+            </td>
+        </tr>
+        <tr>
+            <th nowrap="nowrap">
+                @Html.FormLabel(SysSystemWorkFlowSignatureDetail.Label_WFSigSeqZHTW, IsRequired: true)
+            </th>
+            <td nowrap="nowrap">
+                @Html.InputTextBoxFor(model => model.WFSigZHTW, false, 30, TitleName: SysSystemWorkFlowSignatureDetail.Label_WFSigSeqZHTW)
+            </td>
+            <th nowrap="nowrap">
+                @Html.FormLabel(SysSystemWorkFlowSignatureDetail.Label_WFSigSeqZHCN, IsRequired: true)
+            </th>
+            <td nowrap="nowrap">
+                @Html.InputTextBoxFor(model => model.WFSigZHCN, false, 30, TitleName: SysSystemWorkFlowSignatureDetail.Label_WFSigSeqZHCN)
+            </td>
+            <th nowrap="nowrap">
+                @Html.FormLabel(SysSystemWorkFlowSignatureDetail.Label_WFSigSeqENUS, IsRequired: true)
+            </th>
+            <td nowrap="nowrap">
+                @Html.InputTextBoxFor(model => model.WFSigENUS, false, 30, TitleName: SysSystemWorkFlowSignatureDetail.Label_WFSigSeqENUS)
+            </td>
+        </tr>
+        <tr>
+            <th nowrap="nowrap">
+                @Html.FormLabel(SysSystemWorkFlowSignatureDetail.Label_WFSigSeqTHTH, IsRequired: true)
+            </th>
+            <td nowrap="nowrap">
+                @Html.InputTextBoxFor(model => model.WFSigTHTH, false, 30, TitleName: SysSystemWorkFlowSignatureDetail.Label_WFSigSeqTHTH)
+            </td>
+            <th nowrap="nowrap">
+                @Html.FormLabel(SysSystemWorkFlowSignatureDetail.Label_WFSigSeqJAJP, IsRequired: true)
+            </th>
+            <td nowrap="nowrap">
+                @Html.InputTextBoxFor(model => model.WFSigJAJP, false, 30, TitleName: SysSystemWorkFlowSignatureDetail.Label_WFSigSeqJAJP)
+            </td>
+            <th nowrap="nowrap">
+                @Html.FormLabel(SysSystemWorkFlowSignatureDetail.Label_WFSigSeqKOKR, IsRequired: true)
+            </th>
+            <td nowrap="nowrap" colspan="3">
+                @Html.InputTextBoxFor(model => model.WFSigKOKR, false, 30, TitleName: SysSystemWorkFlowSignatureDetail.Label_WFSigSeqKOKR)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemWorkFlowSignatureDetail.Label_IsReq)
+            </th>
+            <td colspan="5">
+                @Html.InputCheckBox("IsReq", SysSystemWorkFlowSignatureDetail.Label_IsReq, EnumYN.Y.ToString(), (Model.IsReq == EnumYN.Y.ToString()))
+            </td>
+        </tr>
+        <tr>
+            <th nowrap="nowrap">
+                @Html.FormLabel(SysSystemWorkFlowSignatureDetail.Label_Remark)
+            </th>
+            <td nowrap="nowrap" colspan="5">
+                @Html.InputTextAreaFor(model => model.Remark, 5, 100, TitleName: SysSystemWorkFlowSignatureDetail.Label_Remark, style: "width:98%")
+            </td>
+        </tr>
+        <tr>
+            <th nowrap="nowrap">
+                @Html.FormLabel(SysSystemWorkFlowSignatureDetail.Label_SigType)
+            </th>
+            <td nowrap="nowrap" colspan="5" class="bordertop">
+                @Html.InputComboBoxFor(model => model.SigType, Model.GetDictionaryFormSelectItem(Model.CMCodeLists.ToDictionary(p => p.CodeID, p => p.CodeNM), false), TitleName: SysSystemWorkFlowSignatureDetail.Label_SigType)
+            </td>
+        </tr>
+        <tr>
+            <th nowrap="nowrap">
+
+            </th>
+            <td nowrap="nowrap" colspan="5">
+                <pre class="red"><div style="white-space: nowrap">@Html.Raw(SysSystemWorkFlowSignatureDetail.Label_SystemRoleMemo)</div></pre>
+            </td>
+        </tr>
+        <tr>
+            <th nowrap="nowrap">
+                @SysSystemWorkFlowSignatureDetail.Label_ChkFunActionName
+            </th>
+            <td nowrap="nowrap" colspan="5">
+                @Html.InputComboBoxFor(model => model.ValidAPISysID, Model.GetDictionaryFormSelectItem(Model.ValidSystemSysIDSelectItems, true), false, TitleName: SysSystemWorkFlowSignatureDetail.Label_ChkFunSysID)
+                @Html.InputComboBoxFor(model => model.ValidAPIControllerID, Model.GetDictionaryFormSelectItem(Model.ValidSystemAPIGroupSelectItems, true), false, TitleName: SysSystemWorkFlowSignatureDetail.Label_ChkFunControllerID)
+                @Html.InputComboBoxFor(model => model.ValidAPIActionName, Model.GetDictionaryFormSelectItem(Model.ValidSystemAPIFuntionSelectItems, true), false, TitleName: SysSystemWorkFlowSignatureDetail.Label_ChkFunActionName)
+            </td>
+        </tr>
+        <tr>
+            <th nowrap="nowrap">
+
+            </th>
+            <td nowrap="nowrap" colspan="5">
+                <pre class="red"><div style="white-space: nowrap">@Html.FormLabel(SysSystemWorkFlowSignatureDetail.Label_CheckMemo)</div></pre>
+            </td>
+        </tr>
+    </table>
+
+    <table id="SigSeqBox" class="tblvertical hide">
+        <caption><i></i>@SysSystemWorkFlowSignatureDetail.Label_SigSeq</caption>
+        <tr>
+            <td nowrap="nowrap">
+                @Html.InputComboBoxFor(model => model.CompareWFSigSeq, Model.GetDictionaryFormSelectItem(Model.SystemWFSigSeqs,true), TitleName: SysSystemWorkFlowSignatureDetail.Label_SigSeq)
+            </td>
+        </tr>
+    </table>
+
+    <table id="APIFunBox" class="tblvertical hide">
+        <caption><i></i>@SysSystemWorkFlowSignatureDetail.Label_FunActionName</caption>
+        <tr>
+            <td nowrap="nowrap">
+                @Html.InputComboBoxFor(model => model.APISysID, Model.GetDictionaryFormSelectItem(Model.EntityUserSystemSysIDList, true), false, TitleName: SysSystemWorkFlowSignatureDetail.Label_FunSysID)
+                @Html.InputComboBoxFor(model => model.APIControllerID, Model.GetDictionaryFormSelectItem(Model.SystemAPIGroupByIdList, true), false, TitleName: SysSystemWorkFlowSignatureDetail.Label_FunControllerID)
+                @Html.InputComboBoxFor(model => model.APIActionName, Model.GetDictionaryFormSelectItem(Model.EntitySystemAPIFuntionList, true), false, TitleName: SysSystemWorkFlowSignatureDetail.Label_FunActionName)
+            </td>
+        </tr>
+        <tr>
+            <td nowrap="nowrap">
+                <pre class="red"><div style="white-space: nowrap">@Html.FormLabel(SysSystemWorkFlowSignatureDetail.Label_APIMemo)</div></pre>
+            </td>
+        </tr>
+    </table>
+
+    <table id="RoleBox" class="tblvertical hide">
+        <caption><i></i>@SysSystemWorkFlowSignatureDetail.Label_Role</caption>
+        <tr>
+            <td nowrap="nowrap">
+                @{
+                    var roleList = (from nodeRole in Model.SystemRoleSigs
+                                    where nodeRole.HasRole == EnumYN.Y.ToString()
+                                    select nodeRole.SysID + "|" + nodeRole.RoleID).ToList();
+                }
+                @Html.InputCheckBoxList(
+                    "HasRole",
+                    roleList,
+                    Model.SystemRoleSigs.ToDictionary(key => key.SysID + "|" + key.RoleID, value => value.RoleNM),
+                    columnNumber: 5
+                    )
+            </td>
+        </tr>
+    </table>
+
+    <div class="text-left buttons">
+        @if (Model.ExecAction == EnumActionType.Add)
+        {
+            @Html.ButtonClient("AddButton", Resource.Button_Add, className: "btn")
+        }
+        @if (Model.ExecAction == EnumActionType.Update ||
+             Model.ExecAction == EnumActionType.Delete)
+        {
+            @Html.ButtonClient("UpdateButton", Resource.Button_Update, className: "btn")
+            @Html.ButtonClient("DeleteButton", Resource.Button_Delete, className: "btn")
+        }
+        @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+    </div>
+
+    using (Html.BeginConfirmDialog("dialog_Confirm", Resource.SysMsg_Title, Resource.SysMsg_DeleteConfirm))
+    {
+        @Html.ButtonClient("ConfirmOKButton", Resource.Button_Delete)
+        @Html.ButtonClient("ConfirmNOButton", Resource.Button_Cancel)
+    }
+}

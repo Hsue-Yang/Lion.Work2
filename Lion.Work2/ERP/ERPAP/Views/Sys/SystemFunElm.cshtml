@@ -1,0 +1,142 @@
+﻿@using ERPAP.Models.Sys
+@using LionTech.Entity
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+
+@model SystemFunElmModel
+@{
+    Layout = "~/Views/_Layout.cshtml";
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css"/>
+<script type="text/javascript"> var systemInfo = @Html.Raw(Model.SystemInfoJsonString);</script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemFunElm.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemFunElmForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.SysSystemTabList))
+    {
+        <table class="tblsearch">
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <th>
+                                @Html.FormLabel(SysSystemFunElm.Label_SysID, IsRequired: true)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.SysID, Model.GetDictionaryFormSelectItem(Model.EntityUserSystemSysIDList))
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysSystemFunElm.Label_FunControllerID)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.FunControllerID, new Dictionary<string, string>() { { string.Empty, string.Empty } })
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysSystemFunElm.Label_FunActionName)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.FunActionName, new Dictionary<string, string>() { { string.Empty, string.Empty } })
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                @Html.FormLabel(SysSystemFunElm.Label_FunElmID)
+                            </th>
+                            <td>
+                                @Html.InputTextBoxFor(model => model.FunElmID, Size: 30)
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysSystemFunElm.Label_FunElmNM)
+                            </th>
+                            <td>
+                                @Html.InputTextBoxFor(model => model.FunElmNM, Size: 30)
+                            </td>
+                            <th>
+                                @Html.InputCheckBox("IsDisable", SysSystemFunElm.Label_IsDisable, EnumYN.Y.ToString(), Model.IsDisable == EnumYN.Y.ToString())
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.ButtonSubmit("Sys", "SystemFunElm", "SelectButton", Resource.Button_Select, "btnSearch")
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        using (Html.BeginPager(Model.PageIndex, Model.PageSize, Model.RowCount))
+        {
+            <table id="SystemFunElmTable" class="tblzebra">
+                <tr>
+                    <th>@SysSystemFunElm.Table_RoleSet</th>
+                    @*<th>@SysSystemFunElm.Table_UserSet</th>*@
+                    <th>@SysSystemFunElm.Table_FunElmID</th>
+                    <th>@SysSystemFunElm.Tabel_FunElmNM</th>
+                    <th>@SysSystemFunElm.Table_FunControllerID</th>
+                    <th>@SysSystemFunElm.Table_FunActionName</th>
+                    <th>@SysSystemFunElm.Table_DisplaySts</th>
+                    <th>@SysSystemFunElm.Table_IsDisable</th>
+                    <th>@SysSystemFunElm.Table_UpdUserNM</th>
+                    <th>@SysSystemFunElm.Table_UpdDT</th>
+                </tr>
+
+                @if (Model.SystemFunElmList != null &&
+             Model.SystemFunElmList.Any())
+                {
+                    foreach (var row in Model.SystemFunElmList)
+                    {
+                        <tr>
+                            <td>@Html.ButtonClient("RoleSetButton", SysSystemFunElm.Button_RoleSet, "btn")</td>
+                            @*<td>@Html.ButtonClient("UserSetButton", SysSystemFunElm.Button_UserSet, "btn")</td>*@
+                            <td data-th="@SysSystemFunElm.Table_FunElmID：">
+                                @Html.TextSubmitLink(
+                         "Sys",
+                         "SystemFunElmDetail",
+                         "LinkFunElmDetail",
+                         row.ElmID,
+                         new List<string>()
+                         {
+                                        row.ElmID,
+                                        Model.SysID,
+                                        row.FunControllerID,
+                                        row.FunActionNM
+                         }
+                         )
+                            </td>
+                            <td data-th="@SysSystemFunElm.Tabel_FunElmNM：">@row.ElmNM</td>
+                            <td data-th="@SysSystemFunElm.Table_FunControllerID：">@row.FunControllerID</td>
+                            <td data-th="@SysSystemFunElm.Table_FunActionName：">@row.FunActionNM</td>
+                            <td data-th="@SysSystemFunElm.Table_DisplaySts：">@Model.FunElmDisplayTypeDic[row.DefaultDisplaySts.ToString()]</td>
+                            <td data-th="@SysSystemFunElm.Table_IsDisable：">@row.IsDisable</td>
+                            <td data-th="@SysSystemFunElm.Table_UpdUserNM：">@row.UpdUserIDNM</td>
+                            <td data-th="@SysSystemFunElm.Table_UpdDT：">                                
+                                @Common.GetDateTimeFormattedText(@row.UpdDT, Common.EnumDateTimeFormatted.FullDateForSeconds)
+                                @{
+                                    var obj = new
+                                    {
+                                        ElmID = row.ElmID,
+                                        Model.SysID,
+                                        FunControllerID = row.FunControllerID,
+                                        FunActionNM = row.FunActionNM
+                                    };
+                                }
+                                @Html.InputTextBox("para", Common.GetJsonSerializeObject(obj), inputType: EnumInputType.TextBoxHidden)
+                            </td>
+                        </tr>
+                    }
+                }
+            </table>
+        }
+    }
+   
+    <div>
+        @Html.ButtonSubmit("Sys", "SystemFunElmDetail", "AddButton", Resource.Button_Add, "btn")
+    </div>
+}

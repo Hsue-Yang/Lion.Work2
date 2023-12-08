@@ -1,0 +1,214 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity
+@using LionTech.Entity.B2P
+@using LionTech.Entity.B2P.Sys
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model B2PAP.Models.Sys.SystemSettingModel
+
+<script src="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Scripts/Sys/SystemSetting.js" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemSettingForm"))
+{
+    using (Html.BeginTabs(B2PAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.SysSystemTabList))
+    {
+        @Html.InputTextBox("SysID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("SysNM", string.Empty, inputType: EnumInputType.TextBoxHidden)
+
+        <table id="SystemSettingTable" class="tblzebra">
+            <tr>
+                <th nowrap="nowrap">@SysSystemSetting.Text_Detail</th>
+                <th nowrap="nowrap">@SysSystemSetting.Text_HardwareList</th>
+                <th nowrap="nowrap">@SysSystemSetting.Text_SoftwareList</th>
+                <th nowrap="nowrap">@SysSystemSetting.Text_SubsystemList</th>
+                <th nowrap="nowrap">@SysSystemSetting.Text_List</th>
+                <th nowrap="nowrap">@SysSystemSetting.Table_SysNM</th>
+                <th nowrap="nowrap">@SysSystemSetting.Table_IsAP</th>
+                <th nowrap="nowrap">@SysSystemSetting.Table_IsAPI</th>
+                <th nowrap="nowrap">@SysSystemSetting.Table_IsEvent</th>
+                <th nowrap="nowrap">@SysSystemSetting.Table_IsEDI</th>
+                <th nowrap="nowrap">@SysSystemSetting.Table_SysMANUserNM</th>
+                <th nowrap="nowrap">@SysSystemSetting.Table_IsOutsourcing</th>
+                <th nowrap="nowrap">@SysSystemSetting.Table_IsDisable</th>
+                <th nowrap="nowrap">@SysSystemSetting.Table_SortOrder</th>
+                <th nowrap="nowrap">@SysSystemSetting.Table_SysIndexPath</th>
+                <th nowrap="nowrap">@SysSystemSetting.Table_UpdUserNM</th>
+                <th nowrap="nowrap">@SysSystemSetting.Table_UpdDT</th>
+            </tr>
+            @if (Model.EntitySystemSettingList != null)
+            {
+                int rowIndex = 0;
+
+                foreach (EntitySystemSetting.SystemSetting data in Model.EntitySystemSettingList)
+                {
+                    <tr>
+                        <td data-th="@SysSystemSetting.Text_Detail：" nowrap="nowrap" class="center">
+                            @Html.TextSubmitLink(
+                                "Sys",
+                                "SystemSettingDetail",
+                                "DetailLinkFunKey",
+                                SysSystemSetting.Text_Detail,
+                                new List<string>()
+                                {
+                                    data.SysID.GetValue()
+                                }
+                                )
+                        </td>
+                        <td data-th="@SysSystemSetting.Text_HardwareList：" nowrap="nowrap" class="center">
+                            @Html.TextSubmitLink(
+                                "Sys",
+                                "SystemIPList",
+                                "IPLinkFunKey",
+                                SysSystemSetting.Text_HardwareList,
+                                new List<string>()
+                                {
+                                    data.SysID.GetValue(),
+                                    data.SysNM.GetValue()
+                                }
+                                )
+                        </td>
+                        <td data-th="@SysSystemSetting.Text_SoftwareList：" nowrap="nowrap" class="center">
+                            @Html.TextSubmitLink(
+                                "Sys",
+                                "SystemServiceList",
+                                "ServiceLinkFunKey",
+                                SysSystemSetting.Text_SoftwareList,
+                                new List<string>()
+                                {
+                                    data.SysID.GetValue(),
+                                    data.SysNM.GetValue()
+                                }
+                                )
+                        </td>
+                        <td data-th="@SysSystemSetting.Text_SubsystemList：" nowrap="nowrap" class="center">
+                            @if (data.IsOutsourcing.GetValue() == EnumYN.N.ToString())
+                            {
+                                @Html.TextSubmitLink(
+                                    "Sys",
+                                    "SystemSubsysList",
+                                    "SubsystemLinkFunKey",
+                                    SysSystemSetting.Text_SubsystemList,
+                                    new List<string>()
+                                    {
+                                        data.SysID.GetValue(),
+                                        data.SysNM.GetValue()
+                                    }
+                                    )
+                            }
+                        </td>
+                        <td data-th="@SysSystemSetting.Text_List：" nowrap="nowrap" class="center">
+                            @Html.TextSubmitLink(
+                                "Sys",
+                                "SystemUserList",
+                                "ListLinkFunKey",
+                                SysSystemSetting.Text_List,
+                                new List<string>()
+                                {
+                                    data.SysID.GetValue(),
+                                    data.SysNM.GetValue()
+                                }
+                                )
+                        </td>
+                        <td data-th="@SysSystemSetting.Table_SysNM：" nowrap="nowrap" title="@SysSystemSetting.Table_SysNM">
+                            @if (data.IsOutsourcing.GetValue() == EnumYN.N.ToString())
+                            {
+                                @Html.TextSubmitLink(
+                                    "Sys",
+                                    "SystemSetting",
+                                    "LinkFunKey",
+                                    data.SysNM.HtmlValue(),
+                                    new List<string>()
+                                    {
+                                        rowIndex.ToString()
+                                    }
+                                    )
+                            }
+                            else
+                            {
+                                @Html.Raw(data.SysNM.HtmlValue())
+                            }
+                        </td>
+                        <td data-th="@SysSystemSetting.Table_IsAP：" align="center" nowrap="nowrap" title="@SysSystemSetting.Table_IsAP">
+                            @if (data.IsAP.GetValue() == EnumYN.Y.ToString())
+                            {
+                                @Html.Raw(data.IsAP.HtmlValue())
+                            }
+                        </td>
+                        <td data-th="@SysSystemSetting.Table_IsAPI：" align="center" nowrap="nowrap" title="@SysSystemSetting.Table_IsAPI">
+                            @if (data.IsAPI.GetValue() == EnumYN.Y.ToString())
+                            {
+                                @Html.Raw(data.IsAPI.HtmlValue())
+                            }
+                        </td>
+                        <td data-th="@SysSystemSetting.Table_IsEvent：" align="center" nowrap="nowrap" title="@SysSystemSetting.Table_IsEvent">
+                            @if (data.IsEvent.GetValue() == EnumYN.Y.ToString())
+                            {
+                                @Html.Raw(data.IsEvent.HtmlValue())
+                            }
+                        </td>
+                        <td data-th="@SysSystemSetting.Table_IsEDI：" align="center" nowrap="nowrap" title="@SysSystemSetting.Table_IsEDI">
+                            @if (data.IsEDI.GetValue() == EnumYN.Y.ToString())
+                            {
+                                @Html.Raw(data.IsEDI.HtmlValue())
+                            }
+                        </td>
+                        <td data-th="@SysSystemSetting.Table_SysMANUserNM：" nowrap="nowrap" title="@SysSystemSetting.Table_SysMANUserNM">@Html.Raw(data.SysMANUserNM.HtmlValue())</td>
+                        <td data-th="@SysSystemSetting.Table_IsOutsourcing：" nowrap="nowrap" title="@SysSystemSetting.Table_IsOutsourcing">@if (data.IsOutsourcing.GetValue() == EnumYN.Y.ToString())
+                                                                                          {
+                                                                                              @SysSystemSetting.Label_IsOutsourcing
+                                                                                          }</td>
+                        <td data-th="@SysSystemSetting.Table_IsDisable：" nowrap="nowrap" title="@SysSystemSetting.Table_IsDisable">@if (data.IsDisable.GetValue() == EnumYN.Y.ToString())
+                                                                                      {
+                                                                                          @SysSystemSetting.Label_IsDisable
+                                                                                      }</td>
+                        <td data-th="@SysSystemSetting.Table_SortOrder：" nowrap="nowrap" title="@SysSystemSetting.Table_SortOrder">@Html.Raw(data.SortOrder.HtmlValue())</td>
+                        <td data-th="@SysSystemSetting.Table_SysIndexPath：" nowrap="nowrap" title="@SysSystemSetting.Table_SysIndexPath">@Html.Raw(data.SysIndexPath.HtmlValue())</td>
+                        <td data-th="@SysSystemSetting.Table_UpdUserNM：" nowrap="nowrap" title="@SysSystemSetting.Table_UpdUserNM">@Html.Raw(data.UpdUserNM.HtmlValue())</td>
+                        <td data-th="@SysSystemSetting.Table_UpdDT：" nowrap="nowrap" title="@SysSystemSetting.Table_UpdDT">@Html.Raw(data.UpdDT.HtmlValue())</td>
+                    </tr>
+                    <tr id="SubsystemList[@rowIndex]" style="display: none;">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td colspan="7">
+                            <table class="zebraT" cellspacing="0">
+                                <tr>
+                                    <th nowrap="nowrap">@SysSystemSetting.Table_SubSystemNM</th>
+                                    <th nowrap="nowrap">@SysSystemSetting.Table_SortOrder</th>
+                                    <th nowrap="nowrap">@SysSystemSetting.Table_UpdUserNM</th>
+                                    <th nowrap="nowrap">@SysSystemSetting.Table_UpdDT</th>
+                                </tr>
+                                @if (data.SubsystemList != null)
+                                {
+                                    foreach (var subsystemList in data.SubsystemList)
+                                    {
+                                        <tr>
+                                            <td nowrap="nowrap" title="@SysSystemSetting.Table_SubSystemNM">@Html.Raw(subsystemList.SysNM.HtmlValue())</td>
+                                            <td nowrap="nowrap" title="@SysSystemSetting.Table_SortOrder">@Html.Raw(subsystemList.SortOrder.HtmlValue())</td>
+                                            <td nowrap="nowrap" title="@SysSystemSetting.Table_UpdUserNM">@Html.Raw(subsystemList.UpdUserNM.HtmlValue())</td>
+                                            <td nowrap="nowrap" title="@SysSystemSetting.Table_UpdDT">@Html.Raw(subsystemList.UpdDT.HtmlValue())</td>
+                                        </tr>
+                                    }
+                                }
+                            </table>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    rowIndex++;
+                }
+            }
+        </table>
+
+        <div>
+            @Html.ButtonSubmit("Sys", "SystemSettingDetail", "AddButton", Resource.Button_Add, className: "btn")
+        </div>
+    }
+}

@@ -1,0 +1,2868 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\Redistributable\Supplier\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\..\Redistributable\Supplier\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5A71B038-48D8-4C8A-83BC-A36BA5BB3EF0}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>B2PAP</RootNamespace>
+    <AssemblyName>B2PAP</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="LionTech.EDI">
+      <HintPath>..\..\Redistributable\LionTech\net48\LionTech.EDI.dll</HintPath>
+    </Reference>
+    <Reference Include="LionTech.Entity">
+      <HintPath>..\..\Redistributable\LionTech\net48\LionTech.Entity.dll</HintPath>
+    </Reference>
+    <Reference Include="LionTech.Entity.EDI">
+      <HintPath>..\..\Redistributable\LionTech\net48\LionTech.Entity.EDI.dll</HintPath>
+    </Reference>
+    <Reference Include="LionTech.Log">
+      <HintPath>..\..\Redistributable\LionTech\net48\LionTech.Log.dll</HintPath>
+    </Reference>
+    <Reference Include="LionTech.Utility">
+      <HintPath>..\..\Redistributable\LionTech\net48\LionTech.Utility.dll</HintPath>
+    </Reference>
+    <Reference Include="LionTech.Web.ERPHelper">
+      <HintPath>..\..\Redistributable\LionTech\net48\LionTech.Web.ERPHelper.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.Mvc">
+      <Version>5.2.7</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNet.Razor">
+      <Version>3.2.7</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNet.WebPages">
+      <Version>3.2.7</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Web.Infrastructure">
+      <Version>1.0.0</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Data\UserMenuContent.xsl" />
+    <Content Include="Content\B2PSite.css" />
+    <Content Include="Content\images\calendar.png" />
+    <Content Include="Content\images\delete.png" />
+    <Content Include="Content\images\dot-repeat.png" />
+    <Content Include="Content\images\dot-repeat2.png" />
+    <Content Include="Content\images\ErrorMessageBox.png" />
+    <Content Include="Content\images\ExternalSystem_BAPAP.png" />
+    <Content Include="Content\images\ExternalSystem_WMPAP.png" />
+    <Content Include="Content\images\glyphicons-halflings.png" />
+    <Content Include="Content\images\gradient1-erp.png" />
+    <Content Include="Content\images\gradient1.png" />
+    <Content Include="Content\images\gradient2-erp.png" />
+    <Content Include="Content\images\gradient2.png" />
+    <Content Include="Content\images\header_bg.png" />
+    <Content Include="Content\images\icon-arrow.gif" />
+    <Content Include="Content\images\icon-del.png" />
+    <Content Include="Content\images\icon-dialog.png" />
+    <Content Include="Content\images\icon-eye.png" />
+    <Content Include="Content\images\icon-menu.png" />
+    <Content Include="Content\images\icon-menu2.png" />
+    <Content Include="Content\images\icon-pen.png" />
+    <Content Include="Content\images\icon-q.png" />
+    <Content Include="Content\images\icon_arr.png" />
+    <Content Include="Content\images\icon_fold.png" />
+    <Content Include="Content\images\imgSortDown.png" />
+    <Content Include="Content\images\imgSortUp.png" />
+    <Content Include="Content\images\item_models.png" />
+    <Content Include="Content\images\lion-logo.png" />
+    <Content Include="Content\images\logo_lionb2b.png" />
+    <Content Include="Content\images\logo_lionb2c.png" />
+    <Content Include="Content\images\logo_xinmedia.png" />
+    <Content Include="Content\images\main_img.jpg" />
+    <Content Include="Content\images\message_bg.png" />
+    <Content Include="Content\images\navicon1.png" />
+    <Content Include="Content\images\navicon2.png" />
+    <Content Include="Content\images\navicon3.png" />
+    <Content Include="Content\images\navicon4.png" />
+    <Content Include="Content\images\pager_first.png" />
+    <Content Include="Content\images\pager_last.png" />
+    <Content Include="Content\images\pager_next.png" />
+    <Content Include="Content\images\pager_previous.png" />
+    <Content Include="Content\images\top.png" />
+    <Content Include="Content\images\warning.png" />
+    <Content Include="Content\jquery.tooltip.css" />
+    <Content Include="Content\jquery.ui.autocomplete.css" />
+    <Content Include="Content\mobileview.css" />
+    <Content Include="Content\Serp.BstrapUtil.css" />
+    <Content Include="Content\Serp.Layout.css" />
+    <Content Include="Content\Serp.Table.css" />
+    <Content Include="Content\Serp.Util.css" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Content\Site.MessageBox.css" />
+    <Content Include="Content\Site.Table.css" />
+    <Content Include="Content\Site.TabStrip.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\jquery.ui.accordion.css" />
+    <Content Include="Content\themes\base\jquery.ui.all.css" />
+    <Content Include="Content\themes\base\jquery.ui.autocomplete.css" />
+    <Content Include="Content\themes\base\jquery.ui.base.css" />
+    <Content Include="Content\themes\base\jquery.ui.button.css" />
+    <Content Include="Content\themes\base\jquery.ui.core.css" />
+    <Content Include="Content\themes\base\jquery.ui.datepicker.css" />
+    <Content Include="Content\themes\base\jquery.ui.dialog.css" />
+    <Content Include="Content\themes\base\jquery.ui.progressbar.css" />
+    <Content Include="Content\themes\base\jquery.ui.resizable.css" />
+    <Content Include="Content\themes\base\jquery.ui.selectable.css" />
+    <Content Include="Content\themes\base\jquery.ui.slider.css" />
+    <Content Include="Content\themes\base\jquery.ui.tabs.css" />
+    <Content Include="Content\themes\base\jquery.ui.theme.css" />
+    <Content Include="Global.asax" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\ckeditor\build-config.js" />
+    <Content Include="Scripts\ckeditor\ckeditor.js" />
+    <Content Include="Scripts\ckeditor\config.js" />
+    <Content Include="Scripts\ckeditor\contents.css" />
+    <Content Include="Scripts\ckeditor\lang\af.js" />
+    <Content Include="Scripts\ckeditor\lang\ar.js" />
+    <Content Include="Scripts\ckeditor\lang\bg.js" />
+    <Content Include="Scripts\ckeditor\lang\bn.js" />
+    <Content Include="Scripts\ckeditor\lang\bs.js" />
+    <Content Include="Scripts\ckeditor\lang\ca.js" />
+    <Content Include="Scripts\ckeditor\lang\cs.js" />
+    <Content Include="Scripts\ckeditor\lang\cy.js" />
+    <Content Include="Scripts\ckeditor\lang\da.js" />
+    <Content Include="Scripts\ckeditor\lang\de.js" />
+    <Content Include="Scripts\ckeditor\lang\el.js" />
+    <Content Include="Scripts\ckeditor\lang\en-au.js" />
+    <Content Include="Scripts\ckeditor\lang\en-ca.js" />
+    <Content Include="Scripts\ckeditor\lang\en-gb.js" />
+    <Content Include="Scripts\ckeditor\lang\en.js" />
+    <Content Include="Scripts\ckeditor\lang\eo.js" />
+    <Content Include="Scripts\ckeditor\lang\es.js" />
+    <Content Include="Scripts\ckeditor\lang\et.js" />
+    <Content Include="Scripts\ckeditor\lang\eu.js" />
+    <Content Include="Scripts\ckeditor\lang\fa.js" />
+    <Content Include="Scripts\ckeditor\lang\fi.js" />
+    <Content Include="Scripts\ckeditor\lang\fo.js" />
+    <Content Include="Scripts\ckeditor\lang\fr-ca.js" />
+    <Content Include="Scripts\ckeditor\lang\fr.js" />
+    <Content Include="Scripts\ckeditor\lang\gl.js" />
+    <Content Include="Scripts\ckeditor\lang\gu.js" />
+    <Content Include="Scripts\ckeditor\lang\he.js" />
+    <Content Include="Scripts\ckeditor\lang\hi.js" />
+    <Content Include="Scripts\ckeditor\lang\hr.js" />
+    <Content Include="Scripts\ckeditor\lang\hu.js" />
+    <Content Include="Scripts\ckeditor\lang\is.js" />
+    <Content Include="Scripts\ckeditor\lang\it.js" />
+    <Content Include="Scripts\ckeditor\lang\ja.js" />
+    <Content Include="Scripts\ckeditor\lang\ka.js" />
+    <Content Include="Scripts\ckeditor\lang\km.js" />
+    <Content Include="Scripts\ckeditor\lang\ko.js" />
+    <Content Include="Scripts\ckeditor\lang\ku.js" />
+    <Content Include="Scripts\ckeditor\lang\lt.js" />
+    <Content Include="Scripts\ckeditor\lang\lv.js" />
+    <Content Include="Scripts\ckeditor\lang\mk.js" />
+    <Content Include="Scripts\ckeditor\lang\mn.js" />
+    <Content Include="Scripts\ckeditor\lang\ms.js" />
+    <Content Include="Scripts\ckeditor\lang\nb.js" />
+    <Content Include="Scripts\ckeditor\lang\nl.js" />
+    <Content Include="Scripts\ckeditor\lang\no.js" />
+    <Content Include="Scripts\ckeditor\lang\pl.js" />
+    <Content Include="Scripts\ckeditor\lang\pt-br.js" />
+    <Content Include="Scripts\ckeditor\lang\pt.js" />
+    <Content Include="Scripts\ckeditor\lang\ro.js" />
+    <Content Include="Scripts\ckeditor\lang\ru.js" />
+    <Content Include="Scripts\ckeditor\lang\sk.js" />
+    <Content Include="Scripts\ckeditor\lang\sl.js" />
+    <Content Include="Scripts\ckeditor\lang\sr-latn.js" />
+    <Content Include="Scripts\ckeditor\lang\sr.js" />
+    <Content Include="Scripts\ckeditor\lang\sv.js" />
+    <Content Include="Scripts\ckeditor\lang\th.js" />
+    <Content Include="Scripts\ckeditor\lang\tr.js" />
+    <Content Include="Scripts\ckeditor\lang\ug.js" />
+    <Content Include="Scripts\ckeditor\lang\uk.js" />
+    <Content Include="Scripts\ckeditor\lang\vi.js" />
+    <Content Include="Scripts\ckeditor\lang\zh-cn.js" />
+    <Content Include="Scripts\ckeditor\lang\zh.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\a11yhelp.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ar.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\bg.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ca.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\cs.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\cy.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\da.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\de.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\el.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\en.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\eo.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\es.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\et.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\fa.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\fi.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\fr.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\gu.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\he.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\hi.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\hr.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\hu.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\it.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ja.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\km.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ku.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\lt.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\lv.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\mk.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\mn.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\nb.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\nl.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\no.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\pl.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\pt-br.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\pt.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ro.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ru.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\sk.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\sl.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\sv.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\th.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\tr.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ug.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\uk.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\vi.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\zh-cn.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\_translationstatus.txt" />
+    <Content Include="Scripts\ckeditor\plugins\about\dialogs\about.js" />
+    <Content Include="Scripts\ckeditor\plugins\about\dialogs\logo_ckeditor.png" />
+    <Content Include="Scripts\ckeditor\plugins\clipboard\dialogs\paste.js" />
+    <Content Include="Scripts\ckeditor\plugins\colordialog\dialogs\colordialog.js" />
+    <Content Include="Scripts\ckeditor\plugins\dialog\dialogDefinition.js" />
+    <Content Include="Scripts\ckeditor\plugins\div\dialogs\div.js" />
+    <Content Include="Scripts\ckeditor\plugins\fakeobjects\images\spacer.gif" />
+    <Content Include="Scripts\ckeditor\plugins\find\dialogs\find.js" />
+    <Content Include="Scripts\ckeditor\plugins\flash\dialogs\flash.js" />
+    <Content Include="Scripts\ckeditor\plugins\flash\images\placeholder.png" />
+    <Content Include="Scripts\ckeditor\plugins\forms\dialogs\button.js" />
+    <Content Include="Scripts\ckeditor\plugins\forms\dialogs\checkbox.js" />
+    <Content Include="Scripts\ckeditor\plugins\forms\dialogs\form.js" />
+    <Content Include="Scripts\ckeditor\plugins\forms\dialogs\hiddenfield.js" />
+    <Content Include="Scripts\ckeditor\plugins\forms\dialogs\radio.js" />
+    <Content Include="Scripts\ckeditor\plugins\forms\dialogs\select.js" />
+    <Content Include="Scripts\ckeditor\plugins\forms\dialogs\textarea.js" />
+    <Content Include="Scripts\ckeditor\plugins\forms\dialogs\textfield.js" />
+    <Content Include="Scripts\ckeditor\plugins\forms\images\hiddenfield.gif" />
+    <Content Include="Scripts\ckeditor\plugins\icons.png" />
+    <Content Include="Scripts\ckeditor\plugins\iframe\dialogs\iframe.js" />
+    <Content Include="Scripts\ckeditor\plugins\iframe\images\placeholder.png" />
+    <Content Include="Scripts\ckeditor\plugins\image\dialogs\image.js" />
+    <Content Include="Scripts\ckeditor\plugins\image\images\noimage.png" />
+    <Content Include="Scripts\ckeditor\plugins\link\dialogs\anchor.js" />
+    <Content Include="Scripts\ckeditor\plugins\link\dialogs\link.js" />
+    <Content Include="Scripts\ckeditor\plugins\link\images\anchor.png" />
+    <Content Include="Scripts\ckeditor\plugins\liststyle\dialogs\liststyle.js" />
+    <Content Include="Scripts\ckeditor\plugins\magicline\images\icon.png" />
+    <Content Include="Scripts\ckeditor\plugins\pagebreak\images\pagebreak.gif" />
+    <Content Include="Scripts\ckeditor\plugins\pastefromword\filter\default.js" />
+    <Content Include="Scripts\ckeditor\plugins\preview\preview.html" />
+    <Content Include="Scripts\ckeditor\plugins\scayt\dialogs\options.js" />
+    <Content Include="Scripts\ckeditor\plugins\scayt\dialogs\toolbar.css" />
+    <Content Include="Scripts\ckeditor\plugins\showblocks\images\block_address.png" />
+    <Content Include="Scripts\ckeditor\plugins\showblocks\images\block_blockquote.png" />
+    <Content Include="Scripts\ckeditor\plugins\showblocks\images\block_div.png" />
+    <Content Include="Scripts\ckeditor\plugins\showblocks\images\block_h1.png" />
+    <Content Include="Scripts\ckeditor\plugins\showblocks\images\block_h2.png" />
+    <Content Include="Scripts\ckeditor\plugins\showblocks\images\block_h3.png" />
+    <Content Include="Scripts\ckeditor\plugins\showblocks\images\block_h4.png" />
+    <Content Include="Scripts\ckeditor\plugins\showblocks\images\block_h5.png" />
+    <Content Include="Scripts\ckeditor\plugins\showblocks\images\block_h6.png" />
+    <Content Include="Scripts\ckeditor\plugins\showblocks\images\block_p.png" />
+    <Content Include="Scripts\ckeditor\plugins\showblocks\images\block_pre.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\dialogs\smiley.js" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\angel_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\angry_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\broken_heart.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\confused_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\cry_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\devil_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\embaressed_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\embarrassed_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\envelope.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\heart.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\kiss.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\lightbulb.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\omg_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\regular_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\sad_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\shades_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\teeth_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\thumbs_down.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\thumbs_up.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\tongue_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\tounge_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\whatchutalkingabout_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\wink_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\ca.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\cs.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\cy.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\de.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\el.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\en.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\eo.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\et.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\fa.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\fi.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\fr.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\he.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\hr.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\it.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\ku.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\lv.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\nb.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\nl.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\no.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\pl.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\pt-br.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\sk.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\sv.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\th.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\tr.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\ug.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\zh-cn.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\_translationstatus.txt" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\specialchar.js" />
+    <Content Include="Scripts\ckeditor\plugins\tabletools\dialogs\tableCell.js" />
+    <Content Include="Scripts\ckeditor\plugins\table\dialogs\table.js" />
+    <Content Include="Scripts\ckeditor\plugins\templates\dialogs\templates.css" />
+    <Content Include="Scripts\ckeditor\plugins\templates\dialogs\templates.js" />
+    <Content Include="Scripts\ckeditor\plugins\templates\templates\default.js" />
+    <Content Include="Scripts\ckeditor\plugins\templates\templates\images\template1.gif" />
+    <Content Include="Scripts\ckeditor\plugins\templates\templates\images\template2.gif" />
+    <Content Include="Scripts\ckeditor\plugins\templates\templates\images\template3.gif" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\ciframe.html" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\tmpFrameset.html" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\wsc.css" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\wsc.js" />
+    <Content Include="Scripts\ckeditor\skins\moono\dialog.css" />
+    <Content Include="Scripts\ckeditor\skins\moono\dialog_ie.css" />
+    <Content Include="Scripts\ckeditor\skins\moono\dialog_ie7.css" />
+    <Content Include="Scripts\ckeditor\skins\moono\dialog_ie8.css" />
+    <Content Include="Scripts\ckeditor\skins\moono\dialog_iequirks.css" />
+    <Content Include="Scripts\ckeditor\skins\moono\dialog_opera.css" />
+    <Content Include="Scripts\ckeditor\skins\moono\editor.css" />
+    <Content Include="Scripts\ckeditor\skins\moono\editor_gecko.css" />
+    <Content Include="Scripts\ckeditor\skins\moono\editor_ie.css" />
+    <Content Include="Scripts\ckeditor\skins\moono\editor_ie7.css" />
+    <Content Include="Scripts\ckeditor\skins\moono\editor_ie8.css" />
+    <Content Include="Scripts\ckeditor\skins\moono\editor_iequirks.css" />
+    <Content Include="Scripts\ckeditor\skins\moono\icons.png" />
+    <Content Include="Scripts\ckeditor\skins\moono\images\arrow.png" />
+    <Content Include="Scripts\ckeditor\skins\moono\images\close.png" />
+    <Content Include="Scripts\ckeditor\skins\moono\images\mini.png" />
+    <Content Include="Scripts\ckeditor\styles.js" />
+    <Content Include="Scripts\GlobalResources\Resources.en-US.js" />
+    <Content Include="Scripts\GlobalResources\Resources.ja-JP.js" />
+    <Content Include="Scripts\GlobalResources\Resources.js" />
+    <Content Include="Scripts\GlobalResources\Resources.th-TH.js" />
+    <Content Include="Scripts\GlobalResources\Resources.zh-CN.js" />
+    <Content Include="Scripts\highcharts.js" />
+    <Content Include="Scripts\Home\Index.js" />
+    <Content Include="Scripts\init.js" />
+    <Content Include="connectionStrings.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="appSettings.config" />
+    <None Include="Scripts\jquery-1.5.1-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.5.1.js" />
+    <Content Include="Scripts\jquery-1.5.1.min.js" />
+    <Content Include="Scripts\jquery-1.7.2.min.js" />
+    <Content Include="Scripts\jquery-ui-1.8.11.js" />
+    <Content Include="Scripts\jquery-ui-1.8.11.min.js" />
+    <Content Include="Scripts\jquery-ui-1.8.16.datepicker.min.js" />
+    <Content Include="Scripts\jquery.blockUI.js" />
+    <Content Include="Scripts\jquery.colorPicker.js" />
+    <Content Include="Scripts\jquery.form.js" />
+    <Content Include="Scripts\jquery.json-2.3.js" />
+    <Content Include="Scripts\jquery.json-2.3.min.js" />
+    <Content Include="Scripts\jquery.tablesorter.js" />
+    <Content Include="Scripts\jquery.tmpl.js" />
+    <Content Include="Scripts\jquery.tmpl.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\LionTechWebERPHelpers.js" />
+    <Content Include="Scripts\MicrosoftAjax.debug.js" />
+    <Content Include="Scripts\MicrosoftAjax.js" />
+    <Content Include="Scripts\MicrosoftMvcAjax.debug.js" />
+    <Content Include="Scripts\MicrosoftMvcAjax.js" />
+    <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
+    <Content Include="Scripts\MicrosoftMvcValidation.js" />
+    <Content Include="Scripts\modernizr-1.7.js" />
+    <Content Include="Scripts\modernizr-1.7.min.js" />
+    <Content Include="Scripts\Pub\Bulletin.js" />
+    <Content Include="Scripts\Pub\MenuSetting.js" />
+    <Content Include="Scripts\Sys\SystemEDICon.js" />
+    <Content Include="Scripts\Sys\SystemEDIConDetail.js" />
+    <Content Include="Scripts\Sys\SystemEDIFlow.js" />
+    <Content Include="Scripts\Sys\SystemEDIFlowDetail.js" />
+    <Content Include="Scripts\Sys\SystemEDIFlowError.js" />
+    <Content Include="Scripts\Sys\SystemEDIFlowLog.js" />
+    <Content Include="Scripts\Sys\SystemEDIFlowLogSetting.js" />
+    <Content Include="Scripts\Sys\SystemEDIJob.js" />
+    <Content Include="Scripts\Sys\SystemEDIJobConvey.js" />
+    <Content Include="Scripts\Sys\SystemEDIJobDetail.js" />
+    <Content Include="Scripts\Sys\SystemEDIJobLog.js" />
+    <Content Include="Scripts\Sys\SystemEDIPara.js" />
+    <Content Include="Scripts\Sys\SystemFun.js" />
+    <Content Include="Scripts\Sys\SystemFunAssign.js" />
+    <Content Include="Scripts\Sys\SystemFunDetail.js" />
+    <Content Include="Scripts\Sys\SystemFunGroup.js" />
+    <Content Include="Scripts\Sys\SystemFunGroupDetail.js" />
+    <Content Include="Scripts\Sys\SystemFunMenu.js" />
+    <Content Include="Scripts\Sys\SystemFunMenuDetail.js" />
+    <Content Include="Scripts\Sys\SystemIPList.js" />
+    <Content Include="Scripts\Sys\SystemPurview.js" />
+    <Content Include="Scripts\Sys\SystemPurviewDetail.js" />
+    <Content Include="Scripts\Sys\SystemRole.js" />
+    <Content Include="Scripts\Sys\SystemRoleDetail.js" />
+    <Content Include="Scripts\Sys\SystemRoleFunList.js" />
+    <Content Include="Scripts\Sys\SystemRoleGroup.js" />
+    <Content Include="Scripts\Sys\SystemRoleGroupCollect.js" />
+    <Content Include="Scripts\Sys\SystemRoleGroupDetail.js" />
+    <Content Include="Scripts\Sys\SystemRoleUserList.js" />
+    <Content Include="Scripts\Sys\SystemServiceList.js" />
+    <Content Include="Scripts\Sys\SystemSetting.js" />
+    <Content Include="Scripts\Sys\SystemSettingDetail.js" />
+    <Content Include="Scripts\Sys\SystemSubsysList.js" />
+    <Content Include="Scripts\Sys\SystemUserList.js" />
+    <Content Include="Scripts\Sys\UserConnect.js" />
+    <Content Include="Scripts\Sys\UserFunction.js" />
+    <Content Include="Scripts\Sys\UserRoleFun.js" />
+    <Content Include="Scripts\Sys\UserRoleFunDetail.js" />
+    <Content Include="Scripts\Sys\UserSetting.js" />
+    <Content Include="Scripts\Sys\UserSettingDetail.js" />
+    <Content Include="Scripts\Sys\UserSystem.js" />
+    <Content Include="Scripts\Sys\UserSystemDetail.js" />
+    <Content Include="Scripts\tooltip\jquery.tooltip.js" />
+    <Content Include="Scripts\tooltip\jquery.tooltip.min.js" />
+    <Content Include="Scripts\tooltip\jquery.tooltip.pack.js" />
+    <Content Include="Scripts\tooltip\lib\jquery.bgiframe.js" />
+    <Content Include="Scripts\tooltip\lib\jquery.delegate.js" />
+    <Content Include="Scripts\tooltip\lib\jquery.dimensions.js" />
+    <Content Include="Scripts\tooltip\lib\jquery.js" />
+    <Content Include="Scripts\_Layout.js" />
+    <Content Include="Scripts\_Popup.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_GlobalResources\Home\HomeIndex.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HomeIndex.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Home\HomeIndex.en-US.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HomeIndex.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Home\HomeIndex.ja-JP.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HomeIndex.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Home\HomeIndex.th-TH.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HomeIndex.th-TH.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Home\HomeIndex.zh-CN.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HomeIndex.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Pub\PubBulletin.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PubBulletin.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Pub\PubBulletin.en-US.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PubBulletin.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Pub\PubBulletin.ja-JP.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PubBulletin.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Pub\PubBulletin.th-TH.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PubBulletin.th-TH.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Pub\PubBulletin.zh-CN.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PubBulletin.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Pub\PubMenuSetting.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PubMenuSetting.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Pub\PubMenuSetting.en-US.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PubMenuSetting.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Pub\PubMenuSetting.ja-JP.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PubMenuSetting.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Pub\PubMenuSetting.th-TH.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PubMenuSetting.th-TH.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Pub\PubMenuSetting.zh-CN.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PubMenuSetting.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Resource.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Resource.en-US.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Resource.ja-JP.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Resource.th-TH.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.th-TH.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Resource.zh-CN.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysResource.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysResource.en-US.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysResource.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysResource.ja-JP.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysResource.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysResource.th-TH.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysResource.th-TH.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysResource.zh-CN.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysResource.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDICon.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDICon.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDICon.en-US.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDICon.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDICon.ja-JP.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDICon.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDICon.th-TH.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDICon.th-TH.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDICon.zh-CN.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDICon.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIConDetail.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIConDetail.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIConDetail.en-US.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIConDetail.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIConDetail.ja-JP.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIConDetail.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIConDetail.th-TH.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIConDetail.th-TH.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIConDetail.zh-CN.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIConDetail.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIFlow.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIFlow.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIFlow.en-US.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIFlow.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIFlow.ja-JP.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIFlow.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIFlow.th-TH.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIFlow.th-TH.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIFlow.zh-CN.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIFlow.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIFlowDetail.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIFlowDetail.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIFlowDetail.en-US.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIFlowDetail.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIFlowDetail.ja-JP.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIFlowDetail.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIFlowDetail.th-TH.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIFlowDetail.th-TH.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIFlowDetail.zh-CN.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIFlowDetail.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIFlowError.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIFlowError.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIFlowError.en-US.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIFlowError.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIFlowError.ja-JP.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIFlowError.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIFlowError.th-TH.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIFlowError.th-TH.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIFlowError.zh-CN.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIFlowError.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIFlowLog.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIFlowLog.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIFlowLog.en-US.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIFlowLog.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIFlowLog.ja-JP.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIFlowLog.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIFlowLog.th-TH.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIFlowLog.th-TH.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIFlowLog.zh-CN.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIFlowLog.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIFlowLogSetting.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIFlowLogSetting.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIFlowLogSetting.en-US.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIFlowLogSetting.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIFlowLogSetting.ja-JP.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIFlowLogSetting.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIFlowLogSetting.th-TH.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIFlowLogSetting.th-TH.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIFlowLogSetting.zh-CN.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIFlowLogSetting.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIJob.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIJob.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIJob.en-US.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIJob.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIJob.ja-JP.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIJob.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIJob.th-TH.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIJob.th-TH.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIJob.zh-CN.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIJob.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIJobConvey.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIJobConvey.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIJobConvey.en-US.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIJobConvey.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIJobConvey.ja-JP.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIJobConvey.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIJobConvey.th-TH.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIJobConvey.th-TH.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIJobConvey.zh-CN.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIJobConvey.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIJobDetail.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIJobDetail.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIJobDetail.en-US.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIJobDetail.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIJobDetail.ja-JP.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIJobDetail.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIJobDetail.th-TH.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIJobDetail.th-TH.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIJobDetail.zh-CN.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIJobDetail.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIJobLog.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIJobLog.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIJobLog.en-US.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIJobLog.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIJobLog.ja-JP.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIJobLog.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIJobLog.th-TH.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIJobLog.th-TH.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIJobLog.zh-CN.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIJobLog.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIPara.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIPara.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIPara.en-US.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIPara.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIPara.ja-JP.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIPara.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIPara.th-TH.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIPara.th-TH.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemEDIPara.zh-CN.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemEDIPara.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemFun.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemFun.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemFun.en-US.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemFun.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemFun.ja-JP.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemFun.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemFun.th-TH.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemFun.th-TH.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemFun.zh-CN.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemFun.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemFunAssign.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemFunAssign.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemFunAssign.en-US.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemFunAssign.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemFunAssign.ja-JP.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemFunAssign.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemFunAssign.th-TH.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemFunAssign.th-TH.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemFunAssign.zh-CN.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemFunAssign.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemFunDetail.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemFunDetail.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemFunDetail.en-US.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemFunDetail.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemFunDetail.ja-JP.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemFunDetail.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemFunDetail.th-TH.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemFunDetail.th-TH.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemFunDetail.zh-CN.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemFunDetail.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemFunGroup.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemFunGroup.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemFunGroup.en-US.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemFunGroup.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemFunGroup.ja-JP.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemFunGroup.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemFunGroup.th-TH.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemFunGroup.th-TH.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemFunGroup.zh-CN.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemFunGroup.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemFunGroupDetail.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemFunGroupDetail.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemFunGroupDetail.en-US.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemFunGroupDetail.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemFunGroupDetail.ja-JP.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemFunGroupDetail.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemFunGroupDetail.th-TH.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemFunGroupDetail.th-TH.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemFunGroupDetail.zh-CN.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemFunGroupDetail.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemFunMenu.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemFunMenu.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemFunMenu.en-US.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemFunMenu.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemFunMenu.ja-JP.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemFunMenu.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemFunMenu.th-TH.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemFunMenu.th-TH.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemFunMenu.zh-CN.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemFunMenu.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemFunMenuDetail.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemFunMenuDetail.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemFunMenuDetail.en-US.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemFunMenuDetail.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemFunMenuDetail.ja-JP.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemFunMenuDetail.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemFunMenuDetail.th-TH.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemFunMenuDetail.th-TH.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemFunMenuDetail.zh-CN.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemFunMenuDetail.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemIPList.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemIPList.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemIPList.en-US.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemIPList.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemIPList.ja-JP.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemIPList.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemIPList.th-TH.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemIPList.th-TH.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemIPList.zh-CN.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemIPList.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemPurview.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemPurview.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemPurview.en-US.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemPurview.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemPurview.ja-JP.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemPurview.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemPurview.th-TH.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemPurview.th-TH.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemPurview.zh-CN.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemPurview.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemPurviewDetail.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemPurviewDetail.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemPurviewDetail.en-US.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemPurviewDetail.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemPurviewDetail.ja-JP.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemPurviewDetail.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemPurviewDetail.th-TH.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemPurviewDetail.th-TH.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemPurviewDetail.zh-CN.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemPurviewDetail.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemRole.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemRole.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemRole.en-US.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemRole.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemRole.ja-JP.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemRole.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemRole.th-TH.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemRole.th-TH.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemRole.zh-CN.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemRole.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemRoleDetail.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemRoleDetail.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemRoleDetail.en-US.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemRoleDetail.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemRoleDetail.ja-JP.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemRoleDetail.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemRoleDetail.th-TH.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemRoleDetail.th-TH.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemRoleDetail.zh-CN.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemRoleDetail.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemRoleFunList.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemRoleFunList.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemRoleFunList.en-US.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemRoleFunList.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemRoleFunList.ja-JP.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemRoleFunList.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemRoleFunList.th-TH.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemRoleFunList.th-TH.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemRoleFunList.zh-CN.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemRoleFunList.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemRoleGroup.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemRoleGroup.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemRoleGroup.en-US.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemRoleGroup.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemRoleGroup.ja-JP.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemRoleGroup.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemRoleGroup.th-TH.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemRoleGroup.th-TH.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemRoleGroup.zh-CN.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemRoleGroup.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemRoleGroupCollect.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemRoleGroupCollect.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemRoleGroupCollect.en-US.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemRoleGroupCollect.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemRoleGroupCollect.ja-JP.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemRoleGroupCollect.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemRoleGroupCollect.th-TH.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemRoleGroupCollect.th-TH.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemRoleGroupCollect.zh-CN.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemRoleGroupCollect.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemRoleGroupDetail.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemRoleGroupDetail.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemRoleGroupDetail.en-US.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemRoleGroupDetail.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemRoleGroupDetail.ja-JP.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemRoleGroupDetail.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemRoleGroupDetail.th-TH.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemRoleGroupDetail.th-TH.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemRoleGroupDetail.zh-CN.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemRoleGroupDetail.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemRoleUserList.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemRoleUserList.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemRoleUserList.en-US.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemRoleUserList.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemRoleUserList.ja-JP.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemRoleUserList.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemRoleUserList.th-TH.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemRoleUserList.th-TH.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemRoleUserList.zh-CN.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemRoleUserList.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemServiceList.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemServiceList.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemServiceList.en-US.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemServiceList.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemServiceList.ja-JP.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemServiceList.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemServiceList.th-TH.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemServiceList.th-TH.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemServiceList.zh-CN.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemServiceList.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemSetting.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemSetting.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemSetting.en-US.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemSetting.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemSetting.ja-JP.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemSetting.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemSetting.th-TH.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemSetting.th-TH.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemSetting.zh-CN.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemSetting.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemSettingDetail.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemSettingDetail.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemSettingDetail.en-US.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemSettingDetail.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemSettingDetail.ja-JP.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemSettingDetail.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemSettingDetail.th-TH.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemSettingDetail.th-TH.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemSettingDetail.zh-CN.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemSettingDetail.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemSubsysList.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemSubsysList.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemSubsysList.en-US.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemSubsysList.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemSubsysList.ja-JP.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemSubsysList.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemSubsysList.th-TH.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemSubsysList.th-TH.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemSubsysList.zh-CN.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemSubsysList.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemUserList.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemUserList.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemUserList.en-US.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemUserList.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemUserList.ja-JP.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemUserList.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemUserList.th-TH.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemUserList.th-TH.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysSystemUserList.zh-CN.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysSystemUserList.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysUserConnect.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysUserConnect.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysUserConnect.en-US.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysUserConnect.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysUserConnect.ja-JP.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysUserConnect.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysUserConnect.th-TH.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysUserConnect.th-TH.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysUserConnect.zh-CN.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysUserConnect.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysUserFunction.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysUserFunction.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysUserFunction.en-US.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysUserFunction.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysUserFunction.ja-JP.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysUserFunction.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysUserFunction.th-TH.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysUserFunction.th-TH.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysUserFunction.zh-CN.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysUserFunction.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysUserRoleFun.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysUserRoleFun.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysUserRoleFun.en-US.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysUserRoleFun.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysUserRoleFun.ja-JP.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysUserRoleFun.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysUserRoleFun.th-TH.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysUserRoleFun.th-TH.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysUserRoleFun.zh-CN.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysUserRoleFun.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysUserRoleFunDetail.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysUserRoleFunDetail.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysUserRoleFunDetail.en-US.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysUserRoleFunDetail.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysUserRoleFunDetail.ja-JP.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysUserRoleFunDetail.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysUserRoleFunDetail.th-TH.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysUserRoleFunDetail.th-TH.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysUserRoleFunDetail.zh-CN.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysUserRoleFunDetail.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysUserSetting.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysUserSetting.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysUserSetting.en-US.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysUserSetting.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysUserSetting.ja-JP.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysUserSetting.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysUserSetting.th-TH.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysUserSetting.th-TH.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysUserSetting.zh-CN.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysUserSetting.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysUserSettingDetail.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysUserSettingDetail.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysUserSettingDetail.en-US.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysUserSettingDetail.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysUserSettingDetail.ja-JP.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysUserSettingDetail.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysUserSettingDetail.th-TH.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysUserSettingDetail.th-TH.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysUserSettingDetail.zh-CN.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysUserSettingDetail.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysUserSystem.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysUserSystem.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysUserSystem.en-US.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysUserSystem.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysUserSystem.ja-JP.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysUserSystem.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysUserSystem.th-TH.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysUserSystem.th-TH.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysUserSystem.zh-CN.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysUserSystem.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysUserSystemDetail.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysUserSystemDetail.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysUserSystemDetail.en-US.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysUserSystemDetail.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysUserSystemDetail.ja-JP.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysUserSystemDetail.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysUserSystemDetail.th-TH.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysUserSystemDetail.th-TH.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Sys\SysUserSystemDetail.zh-CN.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SysUserSystemDetail.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\Home\HomeController.B2PLogin.cs" />
+    <Compile Include="Controllers\Home\HomeController.cs" />
+    <Compile Include="Controllers\Home\HomeController.GenericError.cs" />
+    <Compile Include="Controllers\Home\HomeController.Index.cs" />
+    <Compile Include="Controllers\Home\HomeController.Logout.cs" />
+    <Compile Include="Controllers\Home\HomeController.UnAuthorizated.cs" />
+    <Compile Include="Controllers\Pub\PubController.Bulletin.cs" />
+    <Compile Include="Controllers\Pub\PubController.cs" />
+    <Compile Include="Controllers\Pub\PubController.MenuSetting.cs" />
+    <Compile Include="Controllers\Sys\SysController.cs" />
+    <Compile Include="Controllers\Sys\SysController.SystemEDICon.cs" />
+    <Compile Include="Controllers\Sys\SysController.SystemEDIConDetail.cs" />
+    <Compile Include="Controllers\Sys\SysController.SystemEDIFlow.cs" />
+    <Compile Include="Controllers\Sys\SysController.SystemEDIFlowDetail.cs" />
+    <Compile Include="Controllers\Sys\SysController.SystemEDIFlowError.cs" />
+    <Compile Include="Controllers\Sys\SysController.SystemEDIFlowLog.cs" />
+    <Compile Include="Controllers\Sys\SysController.SystemEDIFlowLogSetting.cs" />
+    <Compile Include="Controllers\Sys\SysController.SystemEDIJob.cs" />
+    <Compile Include="Controllers\Sys\SysController.SystemEDIJobConvey.cs" />
+    <Compile Include="Controllers\Sys\SysController.SystemEDIJobDetail.cs" />
+    <Compile Include="Controllers\Sys\SysController.SystemEDIJobLog.cs" />
+    <Compile Include="Controllers\Sys\SysController.SystemEDIPara.cs" />
+    <Compile Include="Controllers\Sys\SysController.SystemFun.cs" />
+    <Compile Include="Controllers\Sys\SysController.SystemFunAssign.cs" />
+    <Compile Include="Controllers\Sys\SysController.SystemFunDetail.cs" />
+    <Compile Include="Controllers\Sys\SysController.SystemFunGroup.cs" />
+    <Compile Include="Controllers\Sys\SysController.SystemFunGroupDetail.cs" />
+    <Compile Include="Controllers\Sys\SysController.SystemFunMenu.cs" />
+    <Compile Include="Controllers\Sys\SysController.SystemFunMenuDetail.cs" />
+    <Compile Include="Controllers\Sys\SysController.SystemIPList.cs" />
+    <Compile Include="Controllers\Sys\SysController.SystemPurview.cs" />
+    <Compile Include="Controllers\Sys\SysController.SystemPurviewDetail.cs" />
+    <Compile Include="Controllers\Sys\SysController.SystemRole.cs" />
+    <Compile Include="Controllers\Sys\SysController.SystemRoleDetail.cs" />
+    <Compile Include="Controllers\Sys\SysController.SystemRoleFunList.cs" />
+    <Compile Include="Controllers\Sys\SysController.SystemRoleGroup.cs" />
+    <Compile Include="Controllers\Sys\SysController.SystemRoleGroupCollect.cs" />
+    <Compile Include="Controllers\Sys\SysController.SystemRoleGroupDetail.cs" />
+    <Compile Include="Controllers\Sys\SysController.SystemRoleUserList.cs" />
+    <Compile Include="Controllers\Sys\SysController.SystemServiceList.cs" />
+    <Compile Include="Controllers\Sys\SysController.SystemSetting.cs" />
+    <Compile Include="Controllers\Sys\SysController.SystemSettingDetail.cs" />
+    <Compile Include="Controllers\Sys\SysController.SystemSubsysList.cs" />
+    <Compile Include="Controllers\Sys\SysController.SystemUserList.cs" />
+    <Compile Include="Controllers\Sys\SysController.UserConnect.cs" />
+    <Compile Include="Controllers\Sys\SysController.UserFunction.cs" />
+    <Compile Include="Controllers\Sys\SysController.UserRoleFun.cs" />
+    <Compile Include="Controllers\Sys\SysController.UserRoleFunDetail.cs" />
+    <Compile Include="Controllers\Sys\SysController.UserSetting.cs" />
+    <Compile Include="Controllers\Sys\SysController.UserSettingDetail.cs" />
+    <Compile Include="Controllers\Sys\SysController.UserSystem.cs" />
+    <Compile Include="Controllers\Sys\SysController.UserSystemDetail.cs" />
+    <Compile Include="Controllers\_BaseAPController.cs" />
+    <Compile Include="Controllers\_BaseController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Home\IndexModel.cs" />
+    <Compile Include="Models\Home\LogoutModel.cs" />
+    <Compile Include="Models\Pub\BulletinModel.cs" />
+    <Compile Include="Models\Pub\MenuSettingModel.cs" />
+    <Compile Include="Models\Pub\PubModel.cs" />
+    <Compile Include="Models\Sys\SysModel.cs" />
+    <Compile Include="Models\Sys\SystemEDIConDetailModel.cs" />
+    <Compile Include="Models\Sys\SystemEDIConModel.cs" />
+    <Compile Include="Models\Sys\SystemEDIFlowDetailModel.cs" />
+    <Compile Include="Models\Sys\SystemEDIFlowErrorModel.cs" />
+    <Compile Include="Models\Sys\SystemEDIFlowLogModel.cs" />
+    <Compile Include="Models\Sys\SystemEDIFlowLogSettingModel.cs" />
+    <Compile Include="Models\Sys\SystemEDIFlowModel.cs" />
+    <Compile Include="Models\Sys\SystemEDIJobConveyModel.cs" />
+    <Compile Include="Models\Sys\SystemEDIJobDetailModel.cs" />
+    <Compile Include="Models\Sys\SystemEDIJobLogModel.cs" />
+    <Compile Include="Models\Sys\SystemEDIJobModel.cs" />
+    <Compile Include="Models\Sys\SystemEDIParaModel.cs" />
+    <Compile Include="Models\Sys\SystemFunAssignModel.cs" />
+    <Compile Include="Models\Sys\SystemFunDetailModel.cs" />
+    <Compile Include="Models\Sys\SystemFunGroupDetailModel.cs" />
+    <Compile Include="Models\Sys\SystemFunGroupModel.cs" />
+    <Compile Include="Models\Sys\SystemFunMenuDetailModel.cs" />
+    <Compile Include="Models\Sys\SystemFunMenuModel.cs" />
+    <Compile Include="Models\Sys\SystemFunModel.cs" />
+    <Compile Include="Models\Sys\SystemIPListModel.cs" />
+    <Compile Include="Models\Sys\SystemPurviewDetailModel.cs" />
+    <Compile Include="Models\Sys\SystemPurviewModel.cs" />
+    <Compile Include="Models\Sys\SystemRoleDetailModel.cs" />
+    <Compile Include="Models\Sys\SystemRoleFunListModel.cs" />
+    <Compile Include="Models\Sys\SystemRoleGroupCollectModel.cs" />
+    <Compile Include="Models\Sys\SystemRoleGroupDetailModel.cs" />
+    <Compile Include="Models\Sys\SystemRoleGroupModel.cs" />
+    <Compile Include="Models\Sys\SystemRoleModel.cs" />
+    <Compile Include="Models\Sys\SystemRoleUserListModel.cs" />
+    <Compile Include="Models\Sys\SystemServiceListModel.cs" />
+    <Compile Include="Models\Sys\SystemSettingDetailModel.cs" />
+    <Compile Include="Models\Sys\SystemSettingModel.cs" />
+    <Compile Include="Models\Sys\SystemSubsysListModel.cs" />
+    <Compile Include="Models\Sys\SystemUserListModel.cs" />
+    <Compile Include="Models\Sys\UserConnectModel.cs" />
+    <Compile Include="Models\Sys\UserFunctionModel.cs" />
+    <Compile Include="Models\Sys\UserRoleFunDetailModel.cs" />
+    <Compile Include="Models\Sys\UserRoleFunModel.cs" />
+    <Compile Include="Models\Sys\UserSettingDetailModel.cs" />
+    <Compile Include="Models\Sys\UserSettingModel.cs" />
+    <Compile Include="Models\Sys\UserSystemDetailModel.cs" />
+    <Compile Include="Models\Sys\UserSystemModel.cs" />
+    <Compile Include="Models\_BaseAPModel.cs" />
+    <Compile Include="Models\_BaseModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\web.config" />
+    <Content Include="Scripts\ckeditor\CHANGES.md" />
+    <Content Include="Scripts\ckeditor\LICENSE.md" />
+    <Content Include="Scripts\ckeditor\plugins\scayt\LICENSE.md" />
+    <Content Include="Scripts\ckeditor\plugins\scayt\README.md" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\LICENSE.md" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\README.md" />
+    <Content Include="Scripts\ckeditor\README.md" />
+    <Content Include="Scripts\ckeditor\skins\moono\readme.md" />
+    <Content Include="Views\Home\GenericError.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\UnAuthorizated.cshtml" />
+    <Content Include="Views\Pub\Bulletin.cshtml" />
+    <Content Include="Views\Pub\MenuSetting.cshtml" />
+    <Content Include="Views\Sys\SystemEDICon.cshtml" />
+    <Content Include="Views\Sys\SystemEDIConDetail.cshtml" />
+    <Content Include="Views\Sys\SystemEDIFlow.cshtml" />
+    <Content Include="Views\Sys\SystemEDIFlowDetail.cshtml" />
+    <Content Include="Views\Sys\SystemEDIFlowError.cshtml" />
+    <Content Include="Views\Sys\SystemEDIFlowLog.cshtml" />
+    <Content Include="Views\Sys\SystemEDIFlowLogSetting.cshtml" />
+    <Content Include="Views\Sys\SystemEDIJob.cshtml" />
+    <Content Include="Views\Sys\SystemEDIJobConvey.cshtml" />
+    <Content Include="Views\Sys\SystemEDIJobDetail.cshtml" />
+    <Content Include="Views\Sys\SystemEDIJobLog.cshtml" />
+    <Content Include="Views\Sys\SystemEDIPara.cshtml" />
+    <Content Include="Views\Sys\SystemFun.cshtml" />
+    <Content Include="Views\Sys\SystemFunAssign.cshtml" />
+    <Content Include="Views\Sys\SystemFunDetail.cshtml" />
+    <Content Include="Views\Sys\SystemFunGroup.cshtml" />
+    <Content Include="Views\Sys\SystemFunGroupDetail.cshtml" />
+    <Content Include="Views\Sys\SystemFunMenu.cshtml" />
+    <Content Include="Views\Sys\SystemFunMenuDetail.cshtml" />
+    <Content Include="Views\Sys\SystemIPList.cshtml" />
+    <Content Include="Views\Sys\SystemPurview.cshtml" />
+    <Content Include="Views\Sys\SystemPurviewDetail.cshtml" />
+    <Content Include="Views\Sys\SystemRole.cshtml" />
+    <Content Include="Views\Sys\SystemRoleDetail.cshtml" />
+    <Content Include="Views\Sys\SystemRoleFunList.cshtml" />
+    <Content Include="Views\Sys\SystemRoleGroup.cshtml" />
+    <Content Include="Views\Sys\SystemRoleGroupCollect.cshtml" />
+    <Content Include="Views\Sys\SystemRoleGroupDetail.cshtml" />
+    <Content Include="Views\Sys\SystemRoleUserList.cshtml" />
+    <Content Include="Views\Sys\SystemServiceList.cshtml" />
+    <Content Include="Views\Sys\SystemSetting.cshtml" />
+    <Content Include="Views\Sys\SystemSettingDetail.cshtml" />
+    <Content Include="Views\Sys\SystemSubsysList.cshtml" />
+    <Content Include="Views\Sys\SystemUserList.cshtml" />
+    <Content Include="Views\Sys\UserConnect.cshtml" />
+    <Content Include="Views\Sys\UserFunction.cshtml" />
+    <Content Include="Views\Sys\UserRoleFun.cshtml" />
+    <Content Include="Views\Sys\UserRoleFunDetail.cshtml" />
+    <Content Include="Views\Sys\UserSetting.cshtml" />
+    <Content Include="Views\Sys\UserSettingDetail.cshtml" />
+    <Content Include="Views\Sys\UserSystem.cshtml" />
+    <Content Include="Views\Sys\UserSystemDetail.cshtml" />
+    <Content Include="Views\_Layout.cshtml" />
+    <Content Include="Views\_Popup.cshtml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LionTech.Entity.B2P\LionTech.Entity.B2P.csproj">
+      <Project>{30f4fead-5f4b-4f78-8f41-3bc65013fdfe}</Project>
+      <Name>LionTech.Entity.B2P</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LionTech.Utility.B2P\LionTech.Utility.B2P.csproj">
+      <Project>{3a08c1e2-370a-4c21-be8b-512a0e388a64}</Project>
+      <Name>LionTech.Utility.B2P</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\Home\HomeIndex.en-US.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>HomeIndex.en-US.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Home\HomeIndex.ja-JP.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>HomeIndex.ja-JP.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Home\HomeIndex.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>HomeIndex.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Home\HomeIndex.th-TH.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>HomeIndex.th-TH.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Home\HomeIndex.zh-CN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>HomeIndex.zh-CN.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Pub\PubBulletin.en-US.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>PubBulletin.en-US.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Pub\PubBulletin.ja-JP.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>PubBulletin.ja-JP.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Pub\PubBulletin.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>PubBulletin.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Pub\PubBulletin.th-TH.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>PubBulletin.th-TH.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Pub\PubBulletin.zh-CN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>PubBulletin.zh-CN.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Pub\PubMenuSetting.en-US.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>PubMenuSetting.en-US.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Pub\PubMenuSetting.ja-JP.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>PubMenuSetting.ja-JP.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Pub\PubMenuSetting.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>PubMenuSetting.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Pub\PubMenuSetting.th-TH.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>PubMenuSetting.th-TH.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Pub\PubMenuSetting.zh-CN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>PubMenuSetting.zh-CN.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Resource.en-US.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Resource.en-US.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Resource.ja-JP.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Resource.ja-JP.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Resource.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Resource.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Resource.th-TH.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Resource.th-TH.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Resource.zh-CN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Resource.zh-CN.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysResource.en-US.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysResource.en-US.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysResource.ja-JP.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysResource.ja-JP.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysResource.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysResource.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysResource.th-TH.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysResource.th-TH.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysResource.zh-CN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysResource.zh-CN.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDICon.en-US.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDICon.en-US.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDICon.ja-JP.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDICon.ja-JP.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDICon.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDICon.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDICon.th-TH.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDICon.th-TH.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDICon.zh-CN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDICon.zh-CN.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIConDetail.en-US.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIConDetail.en-US.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIConDetail.ja-JP.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIConDetail.ja-JP.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIConDetail.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIConDetail.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIConDetail.th-TH.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIConDetail.th-TH.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIConDetail.zh-CN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIConDetail.zh-CN.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIFlow.en-US.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIFlow.en-US.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIFlow.ja-JP.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIFlow.ja-JP.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIFlow.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIFlow.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIFlow.th-TH.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIFlow.th-TH.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIFlow.zh-CN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIFlow.zh-CN.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIFlowDetail.en-US.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIFlowDetail.en-US.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIFlowDetail.ja-JP.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIFlowDetail.ja-JP.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIFlowDetail.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIFlowDetail.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIFlowDetail.th-TH.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIFlowDetail.th-TH.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIFlowDetail.zh-CN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIFlowDetail.zh-CN.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIFlowError.en-US.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIFlowError.en-US.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIFlowError.ja-JP.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIFlowError.ja-JP.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIFlowError.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIFlowError.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIFlowError.th-TH.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIFlowError.th-TH.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIFlowError.zh-CN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIFlowError.zh-CN.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIFlowLog.en-US.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIFlowLog.en-US.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIFlowLog.ja-JP.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIFlowLog.ja-JP.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIFlowLog.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIFlowLog.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIFlowLog.th-TH.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIFlowLog.th-TH.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIFlowLog.zh-CN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIFlowLog.zh-CN.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIFlowLogSetting.en-US.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIFlowLogSetting.en-US.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIFlowLogSetting.ja-JP.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIFlowLogSetting.ja-JP.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIFlowLogSetting.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIFlowLogSetting.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIFlowLogSetting.th-TH.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIFlowLogSetting.th-TH.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIFlowLogSetting.zh-CN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIFlowLogSetting.zh-CN.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIJob.en-US.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIJob.en-US.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIJob.ja-JP.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIJob.ja-JP.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIJob.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIJob.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIJob.th-TH.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIJob.th-TH.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIJob.zh-CN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIJob.zh-CN.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIJobConvey.en-US.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIJobConvey.en-US.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIJobConvey.ja-JP.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIJobConvey.ja-JP.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIJobConvey.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIJobConvey.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIJobConvey.th-TH.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIJobConvey.th-TH.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIJobConvey.zh-CN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIJobConvey.zh-CN.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIJobDetail.en-US.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIJobDetail.en-US.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIJobDetail.ja-JP.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIJobDetail.ja-JP.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIJobDetail.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIJobDetail.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIJobDetail.th-TH.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIJobDetail.th-TH.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIJobDetail.zh-CN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIJobDetail.zh-CN.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIJobLog.en-US.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIJobLog.en-US.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIJobLog.ja-JP.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIJobLog.ja-JP.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIJobLog.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIJobLog.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIJobLog.th-TH.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIJobLog.th-TH.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIJobLog.zh-CN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIJobLog.zh-CN.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIPara.en-US.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIPara.en-US.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIPara.ja-JP.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIPara.ja-JP.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIPara.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIPara.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIPara.th-TH.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIPara.th-TH.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemEDIPara.zh-CN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemEDIPara.zh-CN.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemFun.en-US.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemFun.en-US.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemFun.ja-JP.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemFun.ja-JP.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemFun.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemFun.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemFun.th-TH.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemFun.th-TH.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemFun.zh-CN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemFun.zh-CN.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemFunAssign.en-US.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemFunAssign.en-US.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemFunAssign.ja-JP.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemFunAssign.ja-JP.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemFunAssign.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemFunAssign.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemFunAssign.th-TH.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemFunAssign.th-TH.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemFunAssign.zh-CN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemFunAssign.zh-CN.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemFunDetail.en-US.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemFunDetail.en-US.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemFunDetail.ja-JP.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemFunDetail.ja-JP.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemFunDetail.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemFunDetail.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemFunDetail.th-TH.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemFunDetail.th-TH.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemFunDetail.zh-CN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemFunDetail.zh-CN.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemFunGroup.en-US.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemFunGroup.en-US.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemFunGroup.ja-JP.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemFunGroup.ja-JP.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemFunGroup.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemFunGroup.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemFunGroup.th-TH.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemFunGroup.th-TH.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemFunGroup.zh-CN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemFunGroup.zh-CN.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemFunGroupDetail.en-US.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemFunGroupDetail.en-US.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemFunGroupDetail.ja-JP.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemFunGroupDetail.ja-JP.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemFunGroupDetail.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemFunGroupDetail.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemFunGroupDetail.th-TH.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemFunGroupDetail.th-TH.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemFunGroupDetail.zh-CN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemFunGroupDetail.zh-CN.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemFunMenu.en-US.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemFunMenu.en-US.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemFunMenu.ja-JP.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemFunMenu.ja-JP.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemFunMenu.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemFunMenu.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemFunMenu.th-TH.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemFunMenu.th-TH.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemFunMenu.zh-CN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemFunMenu.zh-CN.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemFunMenuDetail.en-US.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemFunMenuDetail.en-US.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemFunMenuDetail.ja-JP.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemFunMenuDetail.ja-JP.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemFunMenuDetail.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemFunMenuDetail.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemFunMenuDetail.th-TH.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemFunMenuDetail.th-TH.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemFunMenuDetail.zh-CN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemFunMenuDetail.zh-CN.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemIPList.en-US.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemIPList.en-US.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemIPList.ja-JP.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemIPList.ja-JP.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemIPList.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemIPList.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemIPList.th-TH.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemIPList.th-TH.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemIPList.zh-CN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemIPList.zh-CN.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemPurview.en-US.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemPurview.en-US.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemPurview.ja-JP.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemPurview.ja-JP.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemPurview.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemPurview.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemPurview.th-TH.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemPurview.th-TH.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemPurview.zh-CN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemPurview.zh-CN.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemPurviewDetail.en-US.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemPurviewDetail.en-US.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemPurviewDetail.ja-JP.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemPurviewDetail.ja-JP.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemPurviewDetail.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemPurviewDetail.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemPurviewDetail.th-TH.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemPurviewDetail.th-TH.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemPurviewDetail.zh-CN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemPurviewDetail.zh-CN.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemRole.en-US.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemRole.en-US.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemRole.ja-JP.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemRole.ja-JP.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemRole.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemRole.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemRole.th-TH.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemRole.th-TH.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemRole.zh-CN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemRole.zh-CN.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemRoleDetail.en-US.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemRoleDetail.en-US.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemRoleDetail.ja-JP.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemRoleDetail.ja-JP.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemRoleDetail.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemRoleDetail.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemRoleDetail.th-TH.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemRoleDetail.th-TH.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemRoleDetail.zh-CN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemRoleDetail.zh-CN.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemRoleFunList.en-US.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemRoleFunList.en-US.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemRoleFunList.ja-JP.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemRoleFunList.ja-JP.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemRoleFunList.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemRoleFunList.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemRoleFunList.th-TH.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemRoleFunList.th-TH.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemRoleFunList.zh-CN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemRoleFunList.zh-CN.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemRoleGroup.en-US.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemRoleGroup.en-US.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemRoleGroup.ja-JP.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemRoleGroup.ja-JP.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemRoleGroup.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemRoleGroup.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemRoleGroup.th-TH.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemRoleGroup.th-TH.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemRoleGroup.zh-CN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemRoleGroup.zh-CN.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemRoleGroupCollect.en-US.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemRoleGroupCollect.en-US.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemRoleGroupCollect.ja-JP.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemRoleGroupCollect.ja-JP.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemRoleGroupCollect.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemRoleGroupCollect.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemRoleGroupCollect.th-TH.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemRoleGroupCollect.th-TH.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemRoleGroupCollect.zh-CN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemRoleGroupCollect.zh-CN.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemRoleGroupDetail.en-US.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemRoleGroupDetail.en-US.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemRoleGroupDetail.ja-JP.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemRoleGroupDetail.ja-JP.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemRoleGroupDetail.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemRoleGroupDetail.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemRoleGroupDetail.th-TH.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemRoleGroupDetail.th-TH.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemRoleGroupDetail.zh-CN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemRoleGroupDetail.zh-CN.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemRoleUserList.en-US.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemRoleUserList.en-US.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemRoleUserList.ja-JP.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemRoleUserList.ja-JP.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemRoleUserList.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemRoleUserList.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemRoleUserList.th-TH.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemRoleUserList.th-TH.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemRoleUserList.zh-CN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemRoleUserList.zh-CN.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemServiceList.en-US.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemServiceList.en-US.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemServiceList.ja-JP.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemServiceList.ja-JP.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemServiceList.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemServiceList.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemServiceList.th-TH.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemServiceList.th-TH.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemServiceList.zh-CN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemServiceList.zh-CN.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemSetting.en-US.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemSetting.en-US.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemSetting.ja-JP.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemSetting.ja-JP.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemSetting.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemSetting.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemSetting.th-TH.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemSetting.th-TH.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemSetting.zh-CN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemSetting.zh-CN.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemSettingDetail.en-US.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemSettingDetail.en-US.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemSettingDetail.ja-JP.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemSettingDetail.ja-JP.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemSettingDetail.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemSettingDetail.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemSettingDetail.th-TH.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemSettingDetail.th-TH.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemSettingDetail.zh-CN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemSettingDetail.zh-CN.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemSubsysList.en-US.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemSubsysList.en-US.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemSubsysList.ja-JP.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemSubsysList.ja-JP.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemSubsysList.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemSubsysList.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemSubsysList.th-TH.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemSubsysList.th-TH.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemSubsysList.zh-CN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemSubsysList.zh-CN.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemUserList.en-US.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemUserList.en-US.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemUserList.ja-JP.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemUserList.ja-JP.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemUserList.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemUserList.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemUserList.th-TH.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemUserList.th-TH.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysSystemUserList.zh-CN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysSystemUserList.zh-CN.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysUserConnect.en-US.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysUserConnect.en-US.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysUserConnect.ja-JP.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysUserConnect.ja-JP.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysUserConnect.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysUserConnect.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysUserConnect.th-TH.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysUserConnect.th-TH.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysUserConnect.zh-CN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysUserConnect.zh-CN.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysUserFunction.en-US.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysUserFunction.en-US.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysUserFunction.ja-JP.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysUserFunction.ja-JP.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysUserFunction.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysUserFunction.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysUserFunction.th-TH.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysUserFunction.th-TH.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysUserFunction.zh-CN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysUserFunction.zh-CN.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysUserRoleFun.en-US.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysUserRoleFun.en-US.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysUserRoleFun.ja-JP.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysUserRoleFun.ja-JP.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysUserRoleFun.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysUserRoleFun.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysUserRoleFun.th-TH.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysUserRoleFun.th-TH.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysUserRoleFun.zh-CN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysUserRoleFun.zh-CN.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysUserRoleFunDetail.en-US.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysUserRoleFunDetail.en-US.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysUserRoleFunDetail.ja-JP.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysUserRoleFunDetail.ja-JP.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysUserRoleFunDetail.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysUserRoleFunDetail.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysUserRoleFunDetail.th-TH.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysUserRoleFunDetail.th-TH.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysUserRoleFunDetail.zh-CN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysUserRoleFunDetail.zh-CN.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysUserSetting.en-US.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysUserSetting.en-US.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysUserSetting.ja-JP.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysUserSetting.ja-JP.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysUserSetting.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysUserSetting.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysUserSetting.th-TH.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysUserSetting.th-TH.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysUserSetting.zh-CN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysUserSetting.zh-CN.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysUserSettingDetail.en-US.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysUserSettingDetail.en-US.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysUserSettingDetail.ja-JP.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysUserSettingDetail.ja-JP.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysUserSettingDetail.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysUserSettingDetail.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysUserSettingDetail.th-TH.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysUserSettingDetail.th-TH.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysUserSettingDetail.zh-CN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysUserSettingDetail.zh-CN.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysUserSystem.en-US.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysUserSystem.en-US.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysUserSystem.ja-JP.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysUserSystem.ja-JP.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysUserSystem.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysUserSystem.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysUserSystem.th-TH.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysUserSystem.th-TH.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysUserSystem.zh-CN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysUserSystem.zh-CN.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysUserSystemDetail.en-US.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysUserSystemDetail.en-US.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysUserSystemDetail.ja-JP.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysUserSystemDetail.ja-JP.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysUserSystemDetail.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysUserSystemDetail.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysUserSystemDetail.th-TH.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysUserSystemDetail.th-TH.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Sys\SysUserSystemDetail.zh-CN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SysUserSystemDetail.zh-CN.designer.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>18504</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://127.0.0.1:7777/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>此專案參考這部電腦上所缺少的 NuGet 封裝。請啟用 NuGet 封裝還原，以下載該封裝。如需詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的檔案是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\Redistributable\Supplier\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\Redistributable\Supplier\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

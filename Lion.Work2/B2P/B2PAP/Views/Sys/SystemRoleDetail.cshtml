@@ -1,0 +1,101 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity.B2P
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model B2PAP.Models.Sys.SystemRoleDetailModel
+
+<script src="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Scripts/Sys/SystemRoleDetail.js" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemRoleDetailForm"))
+{
+    using (Html.BeginTabs(B2PAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.TabList))
+    {
+        bool readOnlyAttribute = false;
+        if (Model.ExecAction == EnumActionType.Update || Model.ExecAction == EnumActionType.Delete)
+        {
+            readOnlyAttribute = true;
+        }
+
+        <table class="tblvertical">
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemRoleDetail.Label_SysID, IsRequired: true)
+                </th>
+                <td>
+                    <span style="display: none">
+                        @Html.InputComboBoxFor(model => model.SysID, Model.GetDictionaryFormSelectItem(Model.EntitySysUserSystemSysIDList, false), isDisabled: false, TitleName: SysSystemRoleDetail.Label_SysID)
+                    </span>
+                    <span style="display: block">
+                        @Html.InputTextBox("SysIDReadOnlyText", string.Empty, ReadOnly: true, maximumLength: 200, Size: 30)
+                    </span>
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemRoleDetail.Label_RoleID, IsRequired: true)
+                </th>
+                <td colspan="3">
+                    @Html.InputTextBoxFor(model => model.RoleID, ReadOnly: readOnlyAttribute, Size: 30, TitleName: SysSystemRoleDetail.Label_RoleID)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemRoleDetail.Label_RoleNMZHTW, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.RoleNMZHTW, false, 30, TitleName: SysSystemRoleDetail.Label_RoleNMZHTW)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemRoleDetail.Label_RoleNMZHCN, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.RoleNMZHCN, false, 30, TitleName: SysSystemRoleDetail.Label_RoleNMZHCN)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemRoleDetail.Label_RoleNMENUS, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.RoleNMENUS, false, 30, TitleName: SysSystemRoleDetail.Label_RoleNMENUS)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                </th>
+                <td>
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemRoleDetail.Label_RoleNMTHTH, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.RoleNMTHTH, false, 30, TitleName: SysSystemRoleDetail.Label_RoleNMTHTH)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemRoleDetail.Label_RoleNMJAJP, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.RoleNMJAJP, false, 30, TitleName: SysSystemRoleDetail.Label_RoleNMJAJP)
+                </td>
+            </tr>
+        </table>
+
+        <div>
+            @if (Model.ExecAction == EnumActionType.Add)
+            {
+                @Html.ButtonClient("AddButton", Resource.Button_Add, className: "btn")
+            }
+            @if (Model.ExecAction == EnumActionType.Update ||
+                 Model.ExecAction == EnumActionType.Delete)
+            {
+                @Html.ButtonClient("UpdateButton", Resource.Button_Update, className: "btn")
+                <span></span>
+                @Html.ButtonClient("DeleteButton", Resource.Button_Delete, className: "btn")
+            }
+            @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+        </div>
+    
+        using (Html.BeginConfirmDialog("dialog_Confirm", Resource.SysMsg_Title, Resource.SysMsg_DeleteConfirm))
+        {
+            @Html.ButtonClient("ConfirmOKButton", Resource.Button_Delete)
+            @Html.ButtonClient("ConfirmNOButton", Resource.Button_Cancel)
+        }
+    }
+}

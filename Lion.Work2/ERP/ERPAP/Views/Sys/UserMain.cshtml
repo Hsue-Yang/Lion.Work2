@@ -1,0 +1,122 @@
+﻿@{ Layout = "~/Views/_Popup.cshtml"; }
+@using LionTech.Entity
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Utility.ERP
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.UserMainModel
+
+@{
+    string editionNo = ViewData[EnumViewDataItem.EditionNo.ToString()].ToString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/UserMain.js?@(editionNo)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("UserMainForm"))
+{
+    @Html.InputTextBoxFor(model => model.IsForced)
+
+    <table class="tblvertical">
+        <tr>
+            <th>
+                @Html.FormLabel(SysUserMain.Label_UserID, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.UserID, ReadOnly: true, Size: 10, TitleName: SysUserMain.Label_UserID)
+            </td>
+            <th>
+                @Html.FormLabel(SysUserMain.Label_UserNM, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.UserNM, ReadOnly: true, Size: 10, TitleName: SysUserMain.Label_UserNM)
+            </td>
+            <th>
+                @Html.FormLabel(SysUserMain.Label_UserENM)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.UserENM, ReadOnly: true, Size: 20, TitleName: SysUserMain.Label_UserENM)
+            </td>
+        </tr>
+        @if (Model.IsPermissible)
+        {
+            <tr>
+                <th>
+                    @Html.FormLabel(SysUserMain.Label_UserTel)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.UserTel, ReadOnly: true, Size: 10, TitleName: SysUserMain.Label_UserTel)
+                </td>
+                <th>
+                    @Html.FormLabel(SysUserMain.Label_Extension)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.UserExtension, ReadOnly: true, Size: 5, TitleName: SysUserMain.Label_Extension)
+                </td>
+                <th>
+                    @Html.FormLabel(SysUserMain.Label_UserMobile)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.UserMobile, ReadOnly: true, Size: 10, TitleName: SysUserMain.Label_UserMobile)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysUserMain.Label_UserEMail)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.UserEMail, ReadOnly: true, Size: 30, TitleName: SysUserMain.Label_UserEMail)
+                </td>
+                <th>
+                    @Html.FormLabel(SysUserMain.Label_UserGoogleAccount)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.UserGoogleAccount, ReadOnly: true, Size: 30, TitleName: SysUserMain.Label_UserGoogleAccount)
+                </td>
+                <th>
+                    @Html.FormLabel(SysUserMain.Label_IsGAccEnable)
+                </th>
+                <td>
+                    @Html.InputCheckBox("IsGAccEnable", SysUserMain.Label_IsGAccEnable, EnumYN.Y.ToString(), (Model.IsGAccEnable == EnumYN.Y.ToString()) ? true : false, isDisabled: true)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysUserMain.Label_PWD)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.UserPWD, ReadOnly: true, Size: 20, TitleName: SysUserMain.Label_PWD)
+                </td>
+                <th>
+                    @Html.FormLabel(SysUserMain.Label_NewPWD)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.UserNewPWD, ReadOnly: true, Size: 20, TitleName: SysUserMain.Label_NewPWD)
+                </td>
+                <th>
+                    @Html.FormLabel(SysUserMain.Label_NewPWDCheck)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.UserNewPWDCheck, ReadOnly: true, Size: 20, TitleName: SysUserMain.Label_NewPWDCheck)
+                </td>
+            </tr>
+        }
+        <tr>
+            <td colspan="6">
+                @if (Model.IsPermissible)
+                {
+                    <span style="display: none;">@Html.ButtonClient("UpdateButton", Resource.Button_Update, className: "btn")</span>
+                    <span></span>
+                }
+                @if (!Model.IsForced)
+                {
+                    @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+                }
+            </td>
+        </tr>
+    </table>
+
+    <div>
+        @Html.Raw(SysUserMain.Label_PWDMemo)
+    </div>
+}

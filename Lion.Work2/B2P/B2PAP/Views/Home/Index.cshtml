@@ -1,0 +1,253 @@
+﻿@using LionTech.Entity.B2P
+@using LionTech.Utility
+@using LionTech.Utility.B2P
+@using LionTech.Web.ERPHelper
+@using Resources
+@model B2PAP.Models.Home.IndexModel
+
+@{
+    var styleString = "display:none;";
+    var errorMessage = string.Empty;
+    if (TempData["SystemErrorMessage"] != null)
+    {
+        styleString = "display:block;";
+        errorMessage = Convert.ToString(TempData["SystemErrorMessage"]);
+    }
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=10; IE=9; IE=8; IE=7;" />
+    <title>@Resources.Resource.AP_Title</title>
+    <link href="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Content/Site.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+    <link href="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Content/Site.MessageBox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+    <link href="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Content/Site.Table.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+    <link href="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Content/Site.TabStrip.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+    <link href="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Content/B2PSite.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+    <link href="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Content/themes/base/jquery.ui.core.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+    <link href="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Content/themes/base/jquery.ui.theme.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+    <link href="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Content/jquery.ui.autocomplete.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+    <link href="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Content/jquery.tooltip.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+    <script type="text/javascript">document.domain="@Common.GetEnumDesc(EnumSystemID.Domain)"; _enumB2PAP="@Common.GetEnumDesc(EnumSystemID.B2PAP)"</script>
+    <script src="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Scripts/jquery-1.7.2.min.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+    <script src="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Scripts/jquery.form.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+    <script src="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Scripts/jquery.blockUI.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+    <script src="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Scripts/jquery-ui-1.8.11.min.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+    <script src="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Scripts/GlobalResources/Resources@((Culture == Common.GetEnumDesc(LionTech.Entity.B2P.EnumCultureID.zh_TW) ? string.Empty : "." + Culture) + ".js")?@(fullDateTimeNumber)" type="text/javascript"></script>
+    <script src="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Scripts/LionTechWebERPHelpers.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+    <script src="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Scripts/tooltip/jquery.tooltip.min.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+    @Html.Raw(ViewData[EnumViewDataItem.JsMsg.ToString()].ToString())
+    <script src="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Scripts/Home/Index.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+</head>
+<body style="background: #838383;">
+
+    @using (Html.BeginFormSubmit("IndexForm"))
+    {
+        <div style="height: 100%;">
+            <div style="height: 9%; background: #FFFFFF;">
+                <table cellspacing="0" cellpadding="0" style="width:100%;">
+                    <tr>
+                        <td align="center">
+                            <div class="layout Header">
+                                <table style="width:100%; height:30px;">
+                                    <tr>
+                                        <td valign="middle" align="center">
+                                            <table>
+                                                <tr>
+                                                    <td valign="bottom"><span class="layout Header SysItem">|</span></td>
+                                                    <td valign="bottom">
+                                                        @Html.TextSubmitLink(
+                                                            "Home",
+                                                            "Index",
+                                                            "CultureLinkFunKey",
+                                                            Resources.Resource.AP_CultureInfo_zh_TW,
+                                                            new List<string>() {
+                                                                EnumCultureID.zh_TW.ToString()
+                                                            },
+                                                            className: "layout Header SysItem"
+                                                        )
+                                                    </td>
+                                                    <td valign="bottom"><span class="layout Header SysItem">|</span></td>
+                                                    <td valign="bottom">
+                                                        @Html.TextSubmitLink(
+                                                            "Home",
+                                                            "Index",
+                                                            "CultureLinkFunKey",
+                                                            Resources.Resource.AP_CultureInfo_zh_CN,
+                                                            new List<string>() {
+                                                                EnumCultureID.zh_CN.ToString()
+                                                            },
+                                                            className: "layout Header SysItem"
+                                                        )
+                                                    </td>
+                                                    <td valign="bottom"><span class="layout Header SysItem">|</span></td>
+                                                    <td valign="bottom">
+                                                        @Html.TextSubmitLink(
+                                                            "Home",
+                                                            "Index",
+                                                            "CultureLinkFunKey",
+                                                            Resources.Resource.AP_CultureInfo_en_US,
+                                                            new List<string>() {
+                                                                EnumCultureID.en_US.ToString()
+                                                            },
+                                                            className: "layout Header SysItem"
+                                                        )
+                                                    </td>
+                                                    <td valign="bottom"><span class="layout Header SysItem">|</span></td>
+                                                    <td valign="bottom">
+                                                        @Html.TextSubmitLink(
+                                                            "Home",
+                                                            "Index",
+                                                            "CultureLinkFunKey",
+                                                            Resources.Resource.AP_CultureInfo_ja_JP,
+                                                            new List<string>() {
+                                                                EnumCultureID.ja_JP.ToString()
+                                                            },
+                                                            className: "layout Header SysItem"
+                                                            )
+                                                    </td>
+                                                    <td valign="bottom"><span class="layout Header SysItem">|</span></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                    
+                            <div class="layout MenuBorder"></div>
+
+                            <div id="layoutMessage" class="layout Message" style="@styleString">
+                                <table style="width:100%; height:25px;">
+                                    <tr>
+                                        <td valign="middle" align="center">
+                                            <div id="layoutMessageBody">@errorMessage</div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div style="height: 77%; background: #FFFFFF;">
+                <table cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <td height="450" bgcolor="#FFFFFF" align="center">
+                            <table>
+                                <tr>
+                                    <td align="center">
+                                        <img src="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Content/images/main_img.jpg" alt="" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left">
+                                        <div style="padding-left: 5px; font: bold 14px Arial; color: Red;">
+                                            @Html.FormLabel(Model.EnvironmentRemind)
+                                            @Html.InputTextBox("EnvironmentRemind", Model.EnvironmentRemind, inputType: EnumInputType.TextBoxHidden)
+                                        </div>
+                                        <table>
+                                            <tr>
+                                                <td style="padding: 5px;">
+                                                    @Html.FormLabel(HomeIndex.Label_CultureID)
+                                                    @Html.InputComboBoxFor(model => model.CultureID, Model.GetDictionaryFormSelectItem(Model.EntityBaseCultureIDList, false), false, TitleName: HomeIndex.Label_CultureID)
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 5px;">
+                                                    @Html.InputTextBoxFor(model => model.TargetUrl, Size: 600)
+                                                    @Html.FormLabel(HomeIndex.Label_UserID)
+                                                    @Html.InputTextBoxFor(model => model.UserID, Size: 10, TitleName: HomeIndex.Label_UserID)
+                                                    @Html.FormLabel(HomeIndex.Label_UserPassword)
+                                                    @Html.InputTextBoxFor(model => model.UserPassword, Size: 10, TitleName: HomeIndex.Label_UserPassword)
+                                                    @Html.ButtonClient("LoginButton", HomeIndex.Label_Login, className: "btn greenhover")
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td id="CapsLockRemind" style="display:none; padding-left: 5px;">
+                                                    <div style="font: 12px Arial; color: Red;">
+                                                        @Html.FormLabel(HomeIndex.Label_CapsLockRemind)
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 0px; border-bottom: 1px solid silver;">
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <table id="LoginOption">
+                                            <tr>
+                                                <td style="padding: 5px; border-bottom: 1px solid silver;">
+                                                    @Html.FormLabel(HomeIndex.Label_Location)
+                                                    @Html.InputRadioButton("UserLocation", HomeIndex.Label_InCompany, B2PAP.Models.Home.IndexModel.EnumUserLocation.COMP.ToString(), isChecked: true)
+                                                    @Html.InputRadioButton("UserLocation", HomeIndex.Label_InHome, B2PAP.Models.Home.IndexModel.EnumUserLocation.HOME.ToString(), isChecked: false)
+                                                    @Html.InputRadioButton("UserLocation", HomeIndex.Label_InOther, B2PAP.Models.Home.IndexModel.EnumUserLocation.OTHER.ToString(), isChecked: false)
+                                                    @Html.InputTextBoxFor(model => model.LocationDesc, Size: 10, Title: HomeIndex.Title_InOther)
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 5px; border-bottom: 1px solid silver;">
+                                                    @Html.FormLabel(HomeIndex.Label_NotInCompany)
+                                                    @Html.FormLabel(HomeIndex.Label_IdNo)
+                                                    @Html.InputTextBoxFor(model => model.IdNo, Size: 10)
+                                                    @Html.FormLabel(HomeIndex.Label_Birthday)
+                                                    @Html.InputTextBoxFor(model => model.Birthday, Size: 10, TitleName: HomeIndex.Label_Birthday)
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div style="height: 14%; background: #838383;">
+                <table cellpadding="0" cellspacing="0" width="100%;">
+                    <tr>
+                        <td bgcolor="#EFEFEF" align="center" style="padding: 10px; border-top: 1px solid silver;">
+                            <table cellpadding="5">
+                                <tr>
+                                    <td><a href="http://www.xinmedia.com/" target="_blank"><img src="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Content/images/logo_xinmedia.png" border="0" /></a></td>
+                                    <td width="20"></td>
+                                    <td><a href="http://www.liontravel.com/" target="_blank"><img src="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Content/images/logo_lionb2c.png" border="0" /></a></td>
+                                    <td width="20"></td>
+                                    <td><a href="http://b2b.liontravel.com/" target="_blank"><img src="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Content/images/logo_lionb2b.png" border="0"/></a></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                <table align="center" cellpadding="0" cellspacing="10" style="width:100%; background: #838383;">
+                    <tr>
+                        <td align="center">
+                            <span style="padding-right:7px;">
+                                @Html.TextLink(HomeIndex.Text_PublicRelationship, "http://xms.liontravel.com/xms/index.php?reload=1&courseID=26", css: "layout Header Bottom", Target: EnumLinkTarget._blank)
+                            </span>
+                            <span style="padding-right:7px;">
+                                @Html.TextLink(HomeIndex.Text_Sharing, "http://xms.liontravel.com/xms/index.php?reload=1&courseID=5906", css: "layout Header Bottom", Target: EnumLinkTarget._blank)
+                            </span>
+                            <span style="padding-right:7px;">
+                                @Html.TextLink(HomeIndex.Text_Marketing, "http://xms.liontravel.com/xms/index.php?reload=1&courseID=5967", css: "layout Header Bottom", Target: EnumLinkTarget._blank)
+                            </span>
+                            <span style="padding-right:7px;">
+                                @Html.TextLink(HomeIndex.Text_Video, "http://xms.liontravel.com/xms/index.php?reload=1&courseID=6030", css: "layout Header Bottom", Target: EnumLinkTarget._blank)
+                            </span>
+                            <span>
+                                @Html.TextLink(HomeIndex.Text_LionToday, "http://www.liontravel.com/Comm/liontoday/erp/index.html", css: "layout Header Bottom", Target: EnumLinkTarget._blank)
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    }
+    
+    @if (TempData["SystemAlertMessage"] != null)
+    {
+        @Html.MessageBoxAlert("SysMessage", Resource.SysMsg_Title, Convert.ToString(TempData["SystemAlertMessage"]), Resource.Button_Close)
+    }
+
+</body>
+</html>

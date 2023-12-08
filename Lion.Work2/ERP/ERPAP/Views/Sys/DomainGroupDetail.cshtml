@@ -1,0 +1,110 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Utility.ERP
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.DomainGroupDetailModel
+           
+@{
+    string editionNo = ViewData[EnumViewDataItem.EditionNo.ToString()].ToString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/DomainGroupDetail.js?@(editionNo)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("DomainGroupDetailForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.TabList))
+    {
+        string comboBoxStyle = "block";
+        string readOnlyTextStyle = "none";
+        bool readOnlyAttribute = false;
+        if (Model.ExecAction == EnumActionType.Update)
+        {
+            comboBoxStyle = "none";
+            readOnlyTextStyle = "block";
+            readOnlyAttribute = true;
+        }
+        
+        <table width="100%" class="tblvertical">
+            <tr>               
+                <th>
+                    @Html.FormLabel(SysDomainGroupDetail.Label_DomainName, IsRequired: true)
+                </th>
+                <td>
+                    <span style="display: @comboBoxStyle">
+                        @Html.InputComboBoxFor(model => model.DomainName, Model.GetDictionaryFormSelectItem(Model.EntityBaseDomainNameList, true), isDisabled: false, TitleName: SysDomainGroupDetail.Label_DomainName)
+                    </span>
+                    <span style="display: @readOnlyTextStyle">
+                        @Html.InputTextBox("DomainNameReadOnlyText", string.Empty, ReadOnly: true, maximumLength: 200, Size: 30)
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysDomainGroupDetail.Label_DomainGroupID, IsRequired: true)
+                </th>
+                <td colspan="3">
+                    @Html.InputTextBoxFor(model => model.DomainGroupID, readOnlyAttribute, Size: 50, TitleName: SysDomainGroupDetail.Label_DomainGroupID)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysDomainGroupDetail.Label_DomainGroupNMZHTW, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.DomainGroupNMZHTW, Size: 30, TitleName: SysDomainGroupDetail.Label_DomainGroupNMZHTW)
+                </td>
+                <th>
+                    @Html.FormLabel(SysDomainGroupDetail.Label_DomainGroupNMZHCN, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.DomainGroupNMZHCN, Size: 30, TitleName: SysDomainGroupDetail.Label_DomainGroupNMZHCN)
+                </td>
+                <th>
+                    @Html.FormLabel(SysDomainGroupDetail.Label_DomainGroupNMENUS, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.DomainGroupNMENUS, Size: 30, TitleName: SysDomainGroupDetail.Label_DomainGroupNMENUS)
+                </td>
+            </tr>
+            <tr>
+                <th></th>
+                <td></td>
+                <th>
+                    @Html.FormLabel(SysDomainGroupDetail.Label_DomainGroupNMTHTH, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.DomainGroupNMTHTH, Size: 30, TitleName: SysDomainGroupDetail.Label_DomainGroupNMTHTH)
+                </td>
+                <th>
+                    @Html.FormLabel(SysDomainGroupDetail.Label_DomainGroupNMJAJP, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.DomainGroupNMJAJP, Size: 30, TitleName: SysDomainGroupDetail.Label_DomainGroupNMJAJP)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6">
+                    @if (Model.ExecAction == EnumActionType.Add)
+                    {
+                        @Html.ButtonClient("AddButton", Resource.Button_Add, className: "btn")
+                    }
+                    @if (Model.ExecAction == EnumActionType.Update)
+                    {
+                        @Html.ButtonClient("UpdateButton", Resource.Button_Update, className: "btn")
+                        <span></span>
+                        @Html.ButtonClient("DeleteButton", Resource.Button_Delete, className: "btn")
+                    }
+                    @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+                </td>
+            </tr>
+        </table>
+    
+        using (Html.BeginConfirmDialog("dialog_Confirm", Resource.SysMsg_Title, Resource.SysMsg_DeleteConfirm))
+        {
+            @Html.ButtonClient("ConfirmOKButton", Resource.Button_Delete)
+            @Html.ButtonClient("ConfirmNOButton", Resource.Button_Cancel)
+        }
+    }
+}

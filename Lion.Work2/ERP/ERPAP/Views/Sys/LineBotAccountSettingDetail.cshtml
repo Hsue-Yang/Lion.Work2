@@ -1,0 +1,145 @@
+﻿@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using ERPAP.Models.Sys
+@using LionTech.Entity
+@using Resources
+@model LineBotAccountSettingDetailModel
+@{
+    Layout = "~/Views/_Layout.cshtml";
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/LineBotAccountSettingDetail.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+@using (Html.BeginFormSubmit("LineBotAccountSettingDetailForm"))
+{
+    @Html.InputTextBox("SysID", Model.SysID, inputType: EnumInputType.TextBoxHidden)
+    @Html.InputTextBox("SysNMID", Model.SysNMID, inputType: EnumInputType.TextBoxHidden)
+
+    <div class="page-title">
+        <h3>
+            @SysLineBotAccountSettingDetail.Label_LineBotAccountSettingDetail
+        </h3>
+    </div>
+
+    <table class="tblvertical">
+        <tr>
+            <th>
+                @Html.FormLabel(SysLineBotAccountSettingDetail.Label_SysID, IsRequired: true)
+            </th>
+            <td>
+                @Model.SysNMID
+            </td>
+            <th>
+                @Html.FormLabel(SysLineBotAccountSettingDetail.Label_LineID, IsRequired: true)
+            </th>
+            <td colspan="3">
+                @if (Model.ExecAction == EnumActionType.Add)
+                {
+                    @Html.InputTextBoxFor(model => model.LineID, TitleName: SysLineBotAccountSettingDetail.Label_LineID)
+                }
+                else
+                {
+                    @Html.InputTextBox("LineID", Model.LineID, inputType: EnumInputType.TextBoxHidden)
+                    @Model.LineID
+                }
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysLineBotAccountSettingDetail.Label_LineNMZHTW, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.LineNMZHTW, Size: 30, TitleName: SysLineBotAccountSettingDetail.Label_LineNMZHTW)
+            </td>
+            <th>
+                @Html.FormLabel(SysLineBotAccountSettingDetail.Label_LineNMZHCN, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.LineNMZHCN, Size: 30, TitleName: SysLineBotAccountSettingDetail.Label_LineNMZHCN)
+            </td>
+            <th>
+                @Html.FormLabel(SysLineBotAccountSettingDetail.Label_LineNMENUS, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.LineNMENUS, Size: 30, TitleName: SysLineBotAccountSettingDetail.Label_LineNMENUS)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysLineBotAccountSettingDetail.Label_LineNMTHTH, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.LineNMTHTH, Size: 30, TitleName: SysLineBotAccountSettingDetail.Label_LineNMTHTH)
+            </td>
+            <th>
+                @Html.FormLabel(SysLineBotAccountSettingDetail.Label_LineNMJAJP, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.LineNMJAJP, Size: 30, TitleName: SysLineBotAccountSettingDetail.Label_LineNMJAJP)
+            </td>
+            <th>
+                @Html.FormLabel(SysLineBotAccountSettingDetail.Label_LineNMKOKR, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.LineNMKOKR, Size: 30, TitleName: SysLineBotAccountSettingDetail.Label_LineNMKOKR)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysLineBotAccountSettingDetail.Label_IsDisable)
+            </th>
+            <td>
+                @Html.InputCheckBox("IsDisable", SysLineBotAccountSettingDetail.Label_IsDisable, EnumYN.Y.ToString(), Model.IsDisable == EnumYN.Y.ToString())
+            </td>
+            <th>
+                @Html.FormLabel(SysLineBotAccountSettingDetail.Label_SortOrder)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.SortOrder, TitleName: SysLineBotAccountSettingDetail.Label_SortOrder)
+            </td>
+            <th>
+
+            </th>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysLineBotAccountSettingDetail.Label_ChannelID, IsRequired: true)
+            </th>
+            <td colspan="5">
+                @Html.InputTextBoxFor(model => model.ChannelID, TitleName: SysLineBotAccountSettingDetail.Label_ChannelID)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysLineBotAccountSettingDetail.Label_ChannelSecret, IsRequired: true)
+            </th>
+            <td colspan="5">
+                @Html.InputTextBoxFor(model => model.ChannelSecret, TitleName: SysLineBotAccountSettingDetail.Label_ChannelSecret)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysLineBotAccountSettingDetail.Label_ChannelAccessToken, IsRequired: true)
+            </th>
+            <td colspan="5">
+                @Html.InputTextBoxFor(model => model.ChannelAccessToken, TitleName: SysLineBotAccountSettingDetail.Label_ChannelAccessToken)
+            </td>
+        </tr>
+    </table>
+
+    <div>
+        @if (Model.ExecAction == EnumActionType.Add)
+        {
+            @Html.ButtonSubmit("Sys", "LineBotAccountSettingDetail", "AddButton", Resource.Button_Add, "btn")
+        }
+        @if (Model.ExecAction == EnumActionType.Update)
+        {
+            @Html.ButtonSubmit("Sys", "LineBotAccountSettingDetail", "UpdateButton", Resource.Button_Update, "btn")
+            @Html.ButtonSubmit("Sys", "LineBotAccountSettingDetail", "DeleteButton", Resource.Button_Delete, "btn")
+        }
+        @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+    </div>
+}

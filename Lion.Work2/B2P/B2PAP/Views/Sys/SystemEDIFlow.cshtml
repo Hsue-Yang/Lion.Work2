@@ -1,0 +1,151 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity.B2P
+@using LionTech.Entity.B2P.Sys
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model B2PAP.Models.Sys.SystemEDIFlowModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Scripts/Sys/SystemEDIFlow.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemEDIFlowForm"))
+{
+    using (Html.BeginTabs(B2PAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.SysEDITabList))
+    {
+        @Html.InputTextBox("SysID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("EDIFlowID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("QueryEDIFlowID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+
+        <table class="tblsearch">
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <th style="width: 70px">
+                                @Html.FormLabel(SysSystemEDIFlow.Label_SysID, IsRequired: true)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.QuerySysID, Model.GetDictionaryFormSelectItem(Model.EntitySysUserSystemSysIDList, false), isDisabled: false, TitleName: SysSystemEDIFlow.Label_SysID)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                @Html.ButtonSubmit("Sys", "SystemEDIFlow", "SearchButton", Resource.Button_Select, className: "btnSearch")
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <table id="SystemEDIFlowTable" class="tblzebra">
+            <tr>
+                <th style="width: 30px;">
+                    @Html.ImageButton("MoveUp", string.Format("{0}{1}", @Common.GetEnumDesc(EnumSystemID.B2PAP), "/Content/images/imgSortUp.png"))
+                    @Html.ImageButton("MoveDown", string.Format("{0}{1}", @Common.GetEnumDesc(EnumSystemID.B2PAP), "/Content/images/imgSortDown.png"))
+                </th>
+                <th nowrap="nowrap">@SysSystemEDIFlow.Text_Detail</th>
+                <th nowrap="nowrap">@SysSystemEDIFlow.Text_Con</th>
+                <th nowrap="nowrap">@SysSystemEDIFlow.Text_Job</th>
+                <th nowrap="nowrap">@SysSystemEDIFlow.Text_FlowLog</th>
+
+                <th>@SysSystemEDIFlow.Label_SysID</th>
+                <th>@SysSystemEDIFlow.Label_EDIFlowID</th>
+                <th>@SysSystemEDIFlow.Label_SortOrder</th>
+                <th>@SysSystemEDIFlow.Label_UpdUserNM</th>
+                <th>@SysSystemEDIFlow.Label_UpdDT</th>
+            </tr>
+            @if (Model.EntitySystemEDIFlowList != null)
+            {
+                string rowListNM = string.Empty;
+                EntitySystemEDIFlow.SystemEDIFlow data = new EntitySystemEDIFlow.SystemEDIFlow();
+                for (int rowCount = 0; rowCount < Model.EntitySystemEDIFlowList.Count; rowCount++)
+                {
+                    data = Model.EntitySystemEDIFlowList[rowCount];
+                    rowListNM = "EDIFlowValueList[" + rowCount + "]";
+                    <tr>
+                        <td>
+                            @Html.RadioButton("IsMoved", false)
+                            @Html.InputTextBox(rowListNM + ".AfterSortOrder", data.SortOrder.StringValue(), inputType: EnumInputType.TextBoxHidden)
+                            @Html.InputTextBox(rowListNM + ".BeforeSortOrder", data.SortOrder.StringValue(), inputType: EnumInputType.TextBoxHidden)
+                            @Html.InputTextBox(rowListNM + ".EDIFlowID", data.EDIFlowID.GetValue(), inputType: EnumInputType.TextBoxHidden)
+                        </td>
+                        <td data-th="@SysSystemEDIFlow.Text_Detail：" style="text-align: center">
+                            @Html.TextSubmitLink(
+                                "Sys",
+                                "SystemEDIFlowDetail",
+                                "LinkFunKeyDetail",
+                                SysSystemEDIFlow.Text_Detail,
+                                new List<string>()
+                                {
+                                    data.SysID.GetValue(),
+                                    data.EDIFlowID.GetValue()
+                                }
+                                )
+                        </td>
+                        <td data-th="@SysSystemEDIFlow.Text_Con：" style="text-align: center">
+                            @Html.TextSubmitLink(
+                                "Sys",
+                                "SystemEDICon",
+                                "LinkFunKeyCon",
+                                SysSystemEDIFlow.Text_Con,
+                                new List<string>()
+                                {
+                                    data.SysID.GetValue(),
+                                    data.EDIFlowID.GetValue()
+                                }
+                                )
+                        </td>
+                        <td  data-th="@SysSystemEDIFlow.Text_Job：" style="text-align: center">
+                            @Html.TextSubmitLink(
+                                "Sys",
+                                "SystemEDIJob",
+                                "LinkFunKeyJob",
+                                SysSystemEDIFlow.Text_Job,
+                                new List<string>()
+                                {
+                                    data.SysID.GetValue(),
+                                    data.EDIFlowID.GetValue()
+                                }
+                                )
+                        </td>
+                        <td data-th="@SysSystemEDIFlow.Text_FlowLog：" style="text-align: center">
+                            @Html.TextSubmitLink(
+                                "Sys",
+                                "SystemEDIFlowLog",
+                                "LinkFunKeyFlowLog",
+                                SysSystemEDIFlow.Text_FlowLog,
+                                new List<string>()
+                                {
+                                    data.SysID.GetValue(),
+                                    data.EDIFlowID.GetValue()
+                                }
+                                )
+                        </td>
+                        <td data-th="@SysSystemEDIFlow.Table_SysID：" title="@SysSystemEDIFlow.Table_SysID">@Html.Raw(data.SysNM.HtmlValue())</td>
+                        <td data-th="@SysSystemEDIFlow.Table_EDIFlowID：" title="@SysSystemEDIFlow.Table_EDIFlowID">@Html.Raw(data.EDIFlowNM.HtmlValue())</td>
+                        <td data-th="@SysSystemEDIFlow.Table_SortOrder：" title="@SysSystemEDIFlow.Table_SortOrder">@Html.Raw(data.SortOrder.HtmlValue())</td>
+                        <td data-th="@SysSystemEDIFlow.Table_UpdUserNM：" title="@SysSystemEDIFlow.Table_UpdUserNM">@Html.Raw(data.UpdUserNM.HtmlValue())</td>
+                        <td data-th="@SysSystemEDIFlow.Table_UpdDT：" title="@SysSystemEDIFlow.Table_UpdDT">@Html.Raw(data.UpdDt.HtmlValue())</td>
+                    </tr>
+                }
+            }
+        </table>
+
+        <div>
+            @Html.ButtonSubmit("Sys", "SystemEDIFlowDetail", "AddButton", Resource.Button_Add, className: "btn")
+            @Html.ButtonSubmit("Sys", "SystemEDIFlowDetail", "SaveButton", Resource.Button_Save, className: "btn")
+            @Html.ButtonClient("OutputButton", SysSystemEDIFlow.Button_OutputXML, className: "btn")
+        </div>
+    
+        using (Html.BeginConfirmDialog("dialog_Confirm", SysSystemEDIFlow.Button_OutputXML, SysSystemEDIFlow.SysMsg_OutputXML))
+        {
+            @Html.ButtonClient("ConfirmOKButton", Resource.Button_Okay)
+            @Html.ButtonClient("ConfirmNOButton", Resource.Button_Cancel)
+        }  
+    }
+}

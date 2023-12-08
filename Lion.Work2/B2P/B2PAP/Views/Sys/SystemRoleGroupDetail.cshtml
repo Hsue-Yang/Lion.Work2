@@ -1,0 +1,117 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity.B2P
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model B2PAP.Models.Sys.SystemRoleGroupDetailModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Scripts/Sys/SystemRoleGroupDetail.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemRoleGroupDetailForm"))
+{
+    using (Html.BeginTabs(B2PAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.TabList))
+    {
+        string textBoxStyle = "block";
+        string readOnlyTextStyle = "none";
+        if (Model.ExecAction == EnumActionType.Update || Model.ExecAction == EnumActionType.Delete)
+        {
+            textBoxStyle = "none";
+            readOnlyTextStyle = "block";
+        }
+
+        <table class="tblvertical">
+            <tr>
+                <th nowrap="nowrap">
+                    @Html.FormLabel(SysSystemRoleGroupDetail.Label_RoleGroupID, IsRequired: true)
+                </th>
+                <td nowrap="nowrap" colspan="5">
+                    <span style="display: @textBoxStyle">
+                        @Html.InputTextBoxFor(model => model.RoleGroupID, Size: 30, TitleName: SysSystemRoleGroupDetail.Label_RoleGroupID)
+                    </span>
+                    <span style="display: @readOnlyTextStyle">
+                        @Html.InputTextBox("RoleGroupIDReadOnlyText", string.Empty, ReadOnly: true, maximumLength: 50, Size: 30)
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th nowrap="nowrap">
+                    @Html.FormLabel(SysSystemRoleGroupDetail.Label_RoleGroupNMZhTW, IsRequired: true)
+                </th>
+                <td nowrap="nowrap">
+                    @Html.InputTextBoxFor(model => model.RoleGroupNMZhTW, false, 30, TitleName: SysSystemRoleGroupDetail.Label_RoleGroupNMZhTW)
+                </td>
+                <th nowrap="nowrap">
+                    @Html.FormLabel(SysSystemRoleGroupDetail.Label_RoleGroupNMZhCN, IsRequired: true)
+                </th>
+                <td nowrap="nowrap">
+                    @Html.InputTextBoxFor(model => model.RoleGroupNMZhCN, false, 30, TitleName: SysSystemRoleGroupDetail.Label_RoleGroupNMZhCN)
+                </td>
+                <th nowrap="nowrap">
+                    @Html.FormLabel(SysSystemRoleGroupDetail.Label_RoleGroupNMEnUS, IsRequired: true)
+                </th>
+                <td nowrap="nowrap">
+                    @Html.InputTextBoxFor(model => model.RoleGroupNMEnUS, false, 30, TitleName: SysSystemRoleGroupDetail.Label_RoleGroupNMEnUS)
+                </td>
+            </tr>
+            <tr>
+                <th nowrap="nowrap">
+
+                </th>
+                <td nowrap="nowrap">
+
+                </td>
+                <th nowrap="nowrap">
+                    @Html.FormLabel(SysSystemRoleGroupDetail.Label_RoleGroupNMThTH, IsRequired: true)
+                </th>
+                <td nowrap="nowrap">
+                    @Html.InputTextBoxFor(model => model.RoleGroupNMThTH, false, 30, TitleName: SysSystemRoleGroupDetail.Label_RoleGroupNMThTH)
+                </td>
+                <th nowrap="nowrap">
+                    @Html.FormLabel(SysSystemRoleGroupDetail.Label_RoleGroupNMJaJP, IsRequired: true)
+                </th>
+                <td nowrap="nowrap">
+                    @Html.InputTextBoxFor(model => model.RoleGroupNMJaJP, false, 30, TitleName: SysSystemRoleGroupDetail.Label_RoleGroupNMJaJP)
+                </td>
+            </tr>
+            <tr>
+                <th nowrap="nowrap">
+                    @Html.FormLabel(SysSystemRoleGroupDetail.Label_Remark)
+                </th>
+                <td nowrap="nowrap" colspan="3">
+                    @Html.InputTextBoxFor(model => model.Remark, false, 300, TitleName: SysSystemRoleGroupDetail.Label_Remark)
+                </td>
+                <th nowrap="nowrap">
+                    @Html.FormLabel(SysSystemRoleGroupDetail.Label_SortOrder)
+                </th>
+                <td nowrap="nowrap">
+                    @Html.InputTextBoxFor(model => model.SortOrder, false, 30, TitleName: SysSystemRoleGroupDetail.Label_SortOrder)
+                </td>
+            </tr>
+        </table>
+
+        <div>
+            @if (Model.ExecAction == EnumActionType.Add)
+            {
+                @Html.ButtonClient("AddButton", Resource.Button_Add, className: "btn")
+            }
+            @if (Model.ExecAction == EnumActionType.Update ||
+                 Model.ExecAction == EnumActionType.Delete)
+            {
+                @Html.ButtonClient("UpdateButton", Resource.Button_Update, className: "btn")
+                <span></span>
+                @Html.ButtonClient("DeleteButton", Resource.Button_Delete, className: "btn")
+            }
+            @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+        </div>
+    
+        using (Html.BeginConfirmDialog("dialog_Confirm", Resource.SysMsg_Title, Resource.SysMsg_DeleteConfirm))
+        {
+            @Html.ButtonClient("ConfirmOKButton", Resource.Button_Delete)
+            @Html.ButtonClient("ConfirmNOButton", Resource.Button_Cancel)
+        }
+    }
+}

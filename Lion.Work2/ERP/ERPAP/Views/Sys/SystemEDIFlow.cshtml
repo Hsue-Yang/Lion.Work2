@@ -1,0 +1,204 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity.ERP
+@using LionTech.Entity.ERP.Sys
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemEDIFlowModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemEDIFlow.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemEDIFlowForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.SysEDITabList))
+    {
+        @Html.InputTextBox("SysID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("EDIFlowID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("QueryEDIFlowID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+
+        <table class="tblsearch">
+            <tr>
+                <td style="width: 60px">
+                    <table>
+                        <tr>
+                            <th>
+                                @Html.FormLabel(SysSystemEDIFlow.Label_SysID, IsRequired: true)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.QuerySysID, Model.GetDictionaryFormSelectItem(Model.UserSystemByIdList, false), isDisabled: false, TitleName: SysSystemEDIFlow.Label_SysID)
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td style="width: 60px">
+                    <table>
+                        <tr>
+                            <th>
+                                @Html.FormLabel(SysSystemEDIFlow.Label_SCHFreqency)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.QuerySCHFrequency, Model.GetDictionaryFormSelectItem(Model.CMCodeLists.ToDictionary(p => p.CodeID, p => p.CodeNM), true), isDisabled: false, TitleName: SysSystemEDIFlow.Label_SCHFreqency)
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td id="ServiceControlBox">
+                    <table>
+                        <tr>
+                            <th style="width: 60px">
+                                @Html.FormLabel(SysSystemEDIFlow.Label_ServiceStatus)
+                            </th>
+                            <td id="ServiceStatus" style="width: 60px">
+                                
+                            </td>
+                            <td>
+                                @Html.ButtonClient("OperationButton", string.Empty, "btn")
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <div class="text-left">
+            @Html.ButtonSubmit("Sys", "SystemEDIFlow", "SearchButton", Resource.Button_Select, className: "btnSearch")
+        </div>
+        
+        <table id="SystemEDIFlowTable" class="tblzebra">
+            <thead>
+            <tr>
+                <th style="width: 3%;">
+                    @Html.ImageButton("MoveUp", string.Format("{0}{1}", Common.GetEnumDesc(EnumSystemID.ERPAP), "/Content/images/imgSortUp.png"))
+                    @Html.ImageButton("MoveDown", string.Format("{0}{1}", Common.GetEnumDesc(EnumSystemID.ERPAP), "/Content/images/imgSortDown.png"))
+                </th>
+                <th>
+                    @SysSystemEDIFlow.Text_Detail</th>
+                <th>
+                    @SysSystemEDIFlow.Text_Con</th>
+                <th>
+                    @SysSystemEDIFlow.Text_Job</th>
+                <th>
+                    @SysSystemEDIFlow.Text_FlowLog</th>
+                <th>
+                    @SysSystemEDIFlow.Label_EDIFlowID</th>
+                <th>
+                    @SysSystemEDIFlow.Label_SCHFreqency</th>
+                <th>
+                    @SysSystemEDIFlow.Label_SortOrder</th>
+                <th>
+                    @SysSystemEDIFlow.Label_UpdUserNM</th>
+                <th>
+                    @SysSystemEDIFlow.Label_UpdDT</th>
+            </tr>
+            </thead>
+            <tbody>
+            @if (Model.EntitySystemEDIFlowList != null)
+            {
+                string rowListNM = string.Empty;
+                ERPAP.Models.Sys.SystemEDIFlowModel.SystemEDIFlow data = new ERPAP.Models.Sys.SystemEDIFlowModel.SystemEDIFlow();
+                for (int rowCount = 0; rowCount < Model.EntitySystemEDIFlowList.Count; rowCount++)
+                {
+                    data = Model.EntitySystemEDIFlowList[rowCount];
+                    rowListNM = "EDIFlowValueList[" + rowCount + "]";
+                <tr>
+                    <td class="text-center">
+                        @Html.RadioButton("IsMoved", false)
+                        @Html.InputTextBox(rowListNM + ".AfterSortOrder", data.SortOrder, inputType: EnumInputType.TextBoxHidden)
+                        @Html.InputTextBox(rowListNM + ".BeforeSortOrder", data.SortOrder, inputType: EnumInputType.TextBoxHidden)
+                        @Html.InputTextBox(rowListNM + ".EDIFlowID", data.EDIFlowID, inputType: EnumInputType.TextBoxHidden)
+                    </td>
+                    <td data-th="@SysSystemEDIFlow.Text_Detail：" class="center">
+                        @Html.TextSubmitLink(
+                            "Sys",
+                            "SystemEDIFlowDetail",
+                            "LinkFunKeyDetail",
+                            SysSystemEDIFlow.Text_Detail,
+                            new List<string>()
+                            {
+                                data.SysID,
+                                data.EDIFlowID
+                            }
+                            )
+                    </td>
+                    <td data-th="@SysSystemEDIFlow.Text_Con：" class="center">
+                        @Html.TextSubmitLink(
+                            "Sys",
+                            "SystemEDICon",
+                            "LinkFunKeyCon",
+                            SysSystemEDIFlow.Text_Con,
+                            new List<string>()
+                            {
+                                data.SysID,
+                                data.EDIFlowID
+                            }
+                            )
+                    </td>
+                    <td data-th="@SysSystemEDIFlow.Text_Job：" class="center">
+                        @Html.TextSubmitLink(
+                            "Sys",
+                            "SystemEDIJob",
+                            "LinkFunKeyJob",
+                            SysSystemEDIFlow.Text_Job,
+                            new List<string>()
+                            {
+                                data.SysID,
+                                data.EDIFlowID
+                            }
+                            )
+                    </td>
+                    <td data-th="@SysSystemEDIFlow.Text_FlowLog：" class="center">
+                        @Html.TextSubmitLink(
+                            "Sys",
+                            "SystemEDIFlowLog",
+                            "LinkFunKeyFlowLog",
+                            SysSystemEDIFlow.Text_FlowLog,
+                            new List<string>()
+                            {
+                                data.SysID,
+                                data.EDIFlowID
+                            }
+                            )
+                    </td>
+                    <td data-th="@SysSystemEDIFlow.Table_EDIFlowID：" title="@SysSystemEDIFlow.Table_EDIFlowID">@Html.Raw(data.EDIFlowNM)</td>
+                    <td data-th="@SysSystemEDIFlow.Table_SCHFreqency：" title="@SysSystemEDIFlow.Table_SCHFreqency">@Html.Raw(data.SCHFrequency)</td>
+                    <td data-th="@SysSystemEDIFlow.Table_SortOrder：" title="@SysSystemEDIFlow.Table_SortOrder">
+                        @if (data.SortOrder != null)
+                        {
+                            <span style="color:black;">@Html.Raw(data.SortOrder)</span>
+                        }
+                        else
+                        {
+                            <span style="color:red;">@("NULL")</span>
+                        }
+                    </td>
+
+                    <td data-th="@SysSystemEDIFlow.Table_UpdUserNM：" title="@SysSystemEDIFlow.Table_UpdUserNM">@Html.Raw(data.UpdUserNM)</td>
+                    <td data-th="@SysSystemEDIFlow.Table_UpdDT：" title="@SysSystemEDIFlow.Table_UpdDT">@Html.Raw(data.UpdDt.ToString("yyyy/MM/dd HH:mm:ss.fff"))</td>
+                </tr>
+                }
+            }
+            </tbody>
+        </table>
+
+        <div class="text-left">
+            @Html.ButtonSubmit("Sys", "SystemEDIFlowDetail", "AddButton", Resource.Button_Add, className: "btn")
+            @Html.ButtonSubmit("Sys", "SystemEDIFlowDetail", "CopyButton", Resource.Button_Copy, className: "btn")
+            @Html.ButtonSubmit("Sys", "SystemEDIFlowDetail", "SaveButton", Resource.Button_Save, className: "btn")
+            @Html.ButtonClient("OutputButton", SysSystemEDIFlow.Button_OutputXML, className: "btn")
+            @Html.ButtonClient("SystemEDIFlowDirButton", SysSystemEDIFlow.Button_ViewFileDir, className: "btn")
+            @Html.ButtonClient("SystemEDIFlowScheduleListButton", SysSystemEDIFlow.Button_ViewScheduleList, className: "btn")
+        </div>
+
+        using (Html.BeginConfirmDialog("dialog_Confirm", SysSystemEDIFlow.Button_OutputXML, SysSystemEDIFlow.SysMsg_OutputXML))
+        {
+            @Html.ButtonClient("ConfirmOKButton", Resource.Button_Okay)
+            @Html.ButtonClient("ConfirmNOButton", Resource.Button_Cancel)
+        }
+    }
+}

@@ -1,0 +1,262 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemSettingModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemSetting.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemSettingForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.SysSystemTabList))
+    {
+        @Html.InputTextBox("SysID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("SysNM", string.Empty, inputType: EnumInputType.TextBoxHidden)
+
+        <table id="SystemSettingTable" class="tblzebra" style="margin: 0;">
+            <thead>
+                <tr>
+                    <th nowrap="nowrap">@SysSystemSetting.Text_Detail</th>
+                    <th nowrap="nowrap">@SysSystemSetting.Text_HardwareList</th>
+                    <th nowrap="nowrap">@SysSystemSetting.Text_SoftwareList</th>
+                    <th nowrap="nowrap">@SysSystemSetting.Text_SubsystemList</th>
+                    <th nowrap="nowrap">@SysSystemSetting.Text_List</th>
+                    <th nowrap="nowrap">@SysSystemSetting.Table_SysNM</th>
+                    <th nowrap="nowrap">@SysSystemSetting.Table_IsAP</th>
+                    <th nowrap="nowrap">@SysSystemSetting.Table_IsAPI</th>
+                    <th nowrap="nowrap">@SysSystemSetting.Table_IsEvent</th>
+                    <th nowrap="nowrap">@SysSystemSetting.Table_IsEDI</th>
+                    <th nowrap="nowrap">@SysSystemSetting.Table_SysMANUserNM</th>
+                    <th nowrap="nowrap">@SysSystemSetting.Table_IsOutsourcing</th>
+                    <th nowrap="nowrap">@SysSystemSetting.Table_IsDisable</th>
+                    <th nowrap="nowrap">@SysSystemSetting.Table_SortOrder</th>
+                    <th nowrap="nowrap">@SysSystemSetting.Table_SysIndexPath</th>
+                    <th nowrap="nowrap">@SysSystemSetting.Table_UpdUserNM</th>
+                    <th nowrap="nowrap">@SysSystemSetting.Table_UpdDT</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="display: none;"><td colspan="18"></td></tr>
+                @if (Model.SystemSettingList != null)
+                {
+                    int rowIndex = 0;
+
+                    foreach (var data in Model.SystemSettingList)
+                    {
+                        <tr>
+                            <td data-th="@SysSystemSetting.Text_Detail：" nowrap="nowrap" class="center">
+                                @Html.TextSubmitLink(
+                                    "Sys",
+                                    "SystemSettingDetail",
+                                    "DetailLinkFunKey",
+                                    SysSystemSetting.Text_Detail,
+                                    new List<string>()
+                                    {
+                                        data.SysID
+                                    }
+                                    )
+                            </td>
+                            <td data-th="@SysSystemSetting.Text_HardwareList：" nowrap="nowrap" class="center">
+                                @Html.TextSubmitLink(
+                                    "Sys",
+                                    "SystemIPList",
+                                    "IPLinkFunKey",
+                                    SysSystemSetting.Text_HardwareList,
+                                    new List<string>()
+                                    {
+                                        data.SysID,
+                                        data.SysNM
+                                    }
+                                    )
+                            </td>
+                            <td data-th="@SysSystemSetting.Text_SoftwareList：" nowrap="nowrap" class="center">
+                                @Html.TextSubmitLink(
+                                    "Sys",
+                                    "SystemServiceList",
+                                    "ServiceLinkFunKey",
+                                    SysSystemSetting.Text_SoftwareList,
+                                    new List<string>()
+                                    {
+                                        data.SysID,
+                                        data.SysNM
+                                    }
+                                    )
+                            </td>
+                            <td data-th="@SysSystemSetting.Text_SubsystemList：" nowrap="nowrap" class="center">
+                                @if (data.IsOutsourcing == EnumYN.N.ToString())
+                                {
+                                    @Html.TextSubmitLink(
+                                        "Sys",
+                                        "SystemSubsysList",
+                                        "SubsystemLinkFunKey",
+                                        SysSystemSetting.Text_SubsystemList,
+                                        new List<string>()
+                                        {
+                                            data.SysID,
+                                            data.SysNM
+                                        }
+                                        )
+                                }
+                            </td>
+                            <td data-th="@SysSystemSetting.Text_List：" nowrap="nowrap" class="center">
+                                @Html.TextSubmitLink(
+                                    "Sys",
+                                    "SystemUserList",
+                                    "ListLinkFunKey",
+                                    SysSystemSetting.Text_List,
+                                    new List<string>()
+                                    {
+                                        data.SysID,
+                                        data.SysNM
+                                    }
+                                    )
+                            </td>
+                            <td data-th="@SysSystemSetting.Table_SysNM：" nowrap="nowrap" title="@SysSystemSetting.Table_SysNM">
+                                @if (data.IsOutsourcing == EnumYN.N.ToString())
+                                {
+                                    @Html.TextSubmitLink(
+                                        "Sys",
+                                        "SystemSetting",
+                                        "LinkFunKey",
+                                        data.SysNM,
+                                        new List<string>()
+                                        {
+                                            rowIndex.ToString()
+                                        }
+                                        )
+                                }
+                                else
+                                {
+                                    @data.SysNM
+                                }
+                            </td>
+                            <td data-th="@SysSystemSetting.Table_IsAP：" nowrap="nowrap" class="center" title="@SysSystemSetting.Table_IsAP">
+                                @if (data.IsAP == EnumYN.Y.ToString())
+                                {
+                                    @data.IsAP
+                                }
+                            </td>
+                            <td data-th="@SysSystemSetting.Table_IsAPI：" nowrap="nowrap" class="center" title="@SysSystemSetting.Table_IsAPI">
+                                @if (data.IsAPI == EnumYN.Y.ToString())
+                                {
+                                    @data.IsAPI
+                                }
+                            </td>
+                            <td data-th="@SysSystemSetting.Table_IsEvent：" nowrap="nowrap" class="center" title="@SysSystemSetting.Table_IsEvent">
+                                @if (data.IsEvent == EnumYN.Y.ToString())
+                                {
+                                    @data.IsEvent
+                                }
+                            </td>
+                            <td data-th="@SysSystemSetting.Table_IsEDI：" nowrap="nowrap" class="center" title="@SysSystemSetting.Table_IsEDI">
+                                @if (data.IsEDI == EnumYN.Y.ToString())
+                                {
+                                    @data.IsEDI
+                                }
+                            </td>
+                            <td data-th="@SysSystemSetting.Table_SysMANUserNM：" nowrap="nowrap" title="@SysSystemSetting.Table_SysMANUserNM">@data.SysMANUserNM</td>
+                            <td data-th="@SysSystemSetting.Table_IsOutsourcing：" nowrap="nowrap" title="@SysSystemSetting.Table_IsOutsourcing">
+                                @if (data.IsOutsourcing == EnumYN.Y.ToString())
+                                {
+                                    @SysSystemSetting.Label_IsOutsourcing
+                                }
+                            </td>
+                            <td data-th="@SysSystemSetting.Table_IsDisable：" nowrap="nowrap" title="@SysSystemSetting.Table_IsDisable">
+                                @if (data.IsDisable == EnumYN.Y.ToString())
+                                {
+                                    @SysSystemSetting.Label_IsDisable
+                                }
+                            </td>
+                            <td data-th="@SysSystemSetting.Table_SortOrder：" nowrap="nowrap" title="@SysSystemSetting.Table_SortOrder">@data.SortOrder</td>
+                            <td data-th="@SysSystemSetting.Table_SysIndexPath：" nowrap="nowrap" title="@SysSystemSetting.Table_SysIndexPath">@data.SysIndexPath</td>
+                            <td data-th="@SysSystemSetting.Table_UpdUserNM：" nowrap="nowrap" title="@SysSystemSetting.Table_UpdUserNM">@data.UpdUserNM</td>
+                            <td data-th="@SysSystemSetting.Table_UpdUserNM：" nowrap="nowrap" title="@SysSystemSetting.Table_UpdDT">@Common.GetDateTimeText(data.UpdDT)</td>
+                        </tr>
+                        <tr id="SubsystemList[@rowIndex]" style="display: none;">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td colspan="10">
+                                <table class="tblvertical" cellspacing="0">
+                                    <tr>
+                                        <th>@SysSystemSetting.Table_SubSystemNM</th>
+                                        <th>@SysSystemSetting.Table_AP</th>
+                                        <th>@SysSystemSetting.Table_API</th>
+                                        <th>@SysSystemSetting.Table_Event</th>
+                                        <th>@SysSystemSetting.Table_EDI</th>
+                                        <th>@SysSystemSetting.Table_SortOrder</th>
+                                        <th>@SysSystemSetting.Table_SysMANUserID</th>
+                                        <th>@SysSystemSetting.Table_UpdUserNM</th>
+                                        <th>@SysSystemSetting.Table_UpdDT</th>
+                                    </tr>
+                                    @if (data.SubsystemList != null)
+                                    {
+                                        foreach (var subsystemList in data.SubsystemList)
+                                        {
+                                            <tr>
+                                                <td nowrap="nowrap" title="@SysSystemSetting.Table_SubSystemNM">@subsystemList.SysNM</td>
+
+                                                <td nowrap="nowrap" class="center" title="@SysSystemSetting.Table_AP">
+                                                    @if (subsystemList.AP == EnumYN.Y.ToString())
+                                                    {
+                                                        @subsystemList.AP
+                                                    }
+                                                </td>
+                                                <td nowrap="nowrap" class="center" title="@SysSystemSetting.Table_API">
+                                                    @if (subsystemList.API == EnumYN.Y.ToString())
+                                                    {
+                                                        @subsystemList.API
+                                                    }
+                                                </td>
+                                                <td nowrap="nowrap" class="center" title="@SysSystemSetting.Table_Event">
+                                                    @if (subsystemList.Event == EnumYN.Y.ToString())
+                                                    {
+                                                        @subsystemList.Event
+                                                    }
+                                                </td>
+                                                <td nowrap="nowrap" class="center" title="@SysSystemSetting.Table_EDI">
+                                                    @if (subsystemList.EDI == EnumYN.Y.ToString())
+                                                    {
+                                                        @subsystemList.EDI
+                                                    }
+                                                </td>
+                                                <td nowrap="nowrap" title="@SysSystemSetting.Table_SortOrder">@subsystemList.SortOrder</td>
+                                                <td nowrap="nowrap" title="@SysSystemSetting.Table_SysMANUserID">@subsystemList.SysMANUserNM</td>
+                                                <td nowrap="nowrap" title="@SysSystemSetting.Table_UpdUserNM">@subsystemList.UpdUserNM</td>
+                                                <td nowrap="nowrap" title="@SysSystemSetting.Table_UpdDT">@Common.GetDateTimeText(subsystemList.UpdDT)</td>
+                                            </tr>
+                                        }
+                                    }
+                                </table>
+                            </td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+
+                        rowIndex++;
+                    }
+                }
+            </tbody>
+        </table>
+
+        if (Model.IsITManager)
+        {
+            <table class="SelectTable">
+                <tr>
+                    <td nowrap="nowrap" class="padding grey bordertop">
+                        @Html.ButtonSubmit("Sys", "SystemSettingDetail", "AddButton", Resource.Button_Add, className: "btn")
+                    </td>
+                </tr>
+            </table>
+        }
+    }
+}

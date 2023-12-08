@@ -1,0 +1,207 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity.ERP
+@using LionTech.Entity.ERP.Sys
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemEDIJobLogModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.datepicker.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery-ui-1.8.16.datepicker.min.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemEDIJobLog.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemEDIJobLogForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.SysEDITabList))
+    {
+        <table class="tblsearch">
+            <tr>
+                <td style="width: 60px">
+                    <table>
+                        <tr>
+                            <th nowrap="nowrap">
+                                @Html.FormLabel(SysSystemEDICon.Label_SysID, IsRequired: true)
+                            </th>
+                            <td nowrap="nowrap">
+                                @Html.InputComboBoxFor(model => model.QuerySysID, Model.GetDictionaryFormSelectItem(Model.UserSystemByIdList, false), isDisabled: false, TitleName: SysSystemEDIJobLog.Label_SysID)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th nowrap="nowrap">
+                                @Html.FormLabel(SysSystemEDIJobLog.Label_EDIFlowIDSearch)
+                            </th>
+                            <td nowrap="nowrap">
+                                @Html.InputTextBox("EDIFlowIDSearch", Model.EDIFlowIDSearch, TitleName: SysSystemEDIJobLog.Label_EDIFlowIDSearch, maximumLength: 18)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th nowrap="nowrap">
+                                @Html.FormLabel(SysSystemEDIJobLog.Label_EDINO)
+                            </th>
+                            <td nowrap="nowrap" class="width">
+                                @Html.InputTextBox("EDINO", Model.EDINO, maximumLength: 14, Size:14, TitleName: SysSystemEDIJobLog.Label_EDINO)
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <table>
+                        <tr>
+                            <th nowrap="nowrap">
+                                @Html.FormLabel(SysSystemEDICon.Label_EDIFlowID, IsRequired: true)
+                            </th>
+                            <td nowrap="nowrap">
+                                @Html.InputComboBoxFor(model => model.QueryEDIFlowID, Model.GetDictionaryFormSelectItem(Model.EntitySysSystemEDIFlowList, false), isDisabled: false, TitleName: SysSystemEDIJobLog.Label_EDIFlowID)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th nowrap="nowrap">
+                                @Html.FormLabel(SysSystemEDIJobLog.Label_EDIJobIDSearch)
+                            </th>
+                            <td nowrap="nowrap">
+                                @Html.InputTextBox("EDIJobIDSearch", Model.EDIJobIDSearch, TitleName: SysSystemEDIJobLog.Label_EDIJobIDSearch, maximumLength: 18)
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <table>
+                        <tr>
+                            <th nowrap="nowrap">
+                                @Html.FormLabel(SysSystemEDIJobLog.Label_EDIJobID)
+                            </th>
+                            <td nowrap="nowrap">
+                                @Html.InputComboBox("QueryEDIJobID", Model.QueryEDIJobID, Model.GetDictionaryFormSelectItem(Model.SysSystemEDIJobList.ToDictionary(p => p.EDIJobID, p => p.EDIJobNM), true), isDisabled: false, TitleName: SysSystemEDIJobLog.Label_EDIJobID)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th nowrap="nowrap">
+                                @Html.FormLabel(SysSystemEDIJobLog.Label_EDIDate)
+                            </th>
+                            <td nowrap="nowrap" class="width">
+                                @Html.InputTextBoxFor(model => model.EDIDate, TitleName: SysSystemEDIJobLog.Label_EDIDate)
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <div class="text-left">
+            @Html.ButtonSubmit("Sys", "SystemEDIJobLog", "SearchButton", Resource.Button_Select, className: "btnSearch")
+        </div>
+
+        using (Html.BeginPager(Model.PageIndex, Model.PageSize, Model.RowCount))
+        {
+            <table id="SystemEDIJobLogTable" class="tblzebra">
+                <thead>
+                    <tr>
+                        <th nowrap="nowrap">@SysSystemEDIJobLog.Label_EDIFlowID</th>
+                        <th nowrap="nowrap">@SysSystemEDIJobLog.Label_EDINO</th>
+                        <th nowrap="nowrap">@SysSystemEDIJobLog.Label_EDIJobID</th>
+                        <th nowrap="nowrap">@SysSystemEDIJobLog.Label_StatusID</th>
+                        <th nowrap="nowrap">@SysSystemEDIJobLog.Label_ResultID</th>
+                        <th nowrap="nowrap">@SysSystemEDIJobLog.Label_DTBegin</th>
+                        <th nowrap="nowrap">@SysSystemEDIJobLog.Label_DTEnd</th>
+                        <th nowrap="nowrap">@SysSystemEDIJobLog.Label_UpdUserNM</th>
+                        <th nowrap="nowrap">@SysSystemEDIJobLog.Label_UpdDT</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.SystemEDIJobLogList != null)
+                    {
+                        string failureStyle = string.Empty;
+
+                        foreach (ERPAP.Models.Sys.SystemEDIJobLogModel.SystemEDIJobLog data in Model.SystemEDIJobLogList)
+                        {
+                            failureStyle = data.ResultID == ERPAP.Models.Sys.SystemEDIJobLogModel.EnumJobResultID.F.ToString() ? "highlight1" : string.Empty;
+
+                            <tr class="@failureStyle">
+                                <td data-th="@SysSystemEDIJobLog.Table_EDIFlowID：" nowrap="nowrap" title="@SysSystemEDIJobLog.Table_EDIFlowID">@Html.Raw(data.EDIFlowNM)</td>
+                                <td data-th="@SysSystemEDIJobLog.Table_EDINO：" nowrap="nowrap" title="@SysSystemEDIJobLog.Table_EDINO">                                 
+                                    @if (data.EDINO != null)
+                                    {
+                                        <span style="color:black;">@Html.Raw(data.EDINO)</span>
+                                    }
+                                    else
+                                    {
+                                        <span style="color:red;">@("NULL")</span>
+                                    }
+                                </td>
+                                <td data-th="@SysSystemEDIJobLog.Table_EDIJobID：" nowrap="nowrap" title="@SysSystemEDIJobLog.Table_EDIJobID">@Html.Raw(data.EDIJobNM)</td>
+                                <td data-th="@SysSystemEDIJobLog.Table_StatusID：" nowrap="nowrap" title="@SysSystemEDIJobLog.Table_StatusID">
+                                    @if (data.EDIJobStatusNM != null)
+                                    {
+                                        <span style="color:black;">@Html.Raw(data.EDIJobStatusNM)</span>
+                                    }
+                                    else
+                                    {
+                                        <span style="color:red;">@("NULL")</span>
+                                    }
+                                </td>
+                                <td data-th="@SysSystemEDIJobLog.Table_ResultID：" nowrap="nowrap" title="@SysSystemEDIJobLog.Table_ResultID">
+                                    @if (data.EDIJobResultNM != null)
+                                    {
+                                        <span style="color:black;">@Html.Raw(data.EDIJobResultNM)</span>
+                                    }
+                                    else
+                                    {
+                                        <span style="color:red;">@("NULL")</span>
+                                    }
+                                </td>
+                                <td data-th="@SysSystemEDIJobLog.Table_DTBegin：" nowrap="nowrap" title="@SysSystemEDIJobLog.Table_DTBegin">                                    
+                                    @if (data.DTBegin != null && data.DTBegin.Year != 1)
+                                    {
+                                        <span style="color:black;">@Common.GetDateTimeFormattedText(data.DTBegin, Common.EnumDateTimeFormatted.FullDateTime)</span>
+                                    }
+                                    else
+                                    {
+                                        <span style="color:red;">@("NULL")</span>
+                                    }
+                                </td>
+                                <td data-th="@SysSystemEDIJobLog.Table_DTEnd：" nowrap="nowrap" title="@SysSystemEDIJobLog.Table_DTEnd">
+                                    @if (data.DTEnd != null && data.DTEnd.Year != 1)
+                                    {
+                                        <span style="color:black;">@Common.GetDateTimeFormattedText(data.DTEnd, Common.EnumDateTimeFormatted.FullDateTime)</span>
+                                    }
+                                    else
+                                    {
+                                        <span style="color:red;">@("NULL")</span>
+                                    }
+                                </td>
+                                <td data-th="@SysSystemEDIJobLog.Table_UpdUserNM：" nowrap="nowrap" title="@SysSystemEDIJobLog.Table_UpdUserNM">
+                                    @if (data.UpdUserID != null)
+                                    {
+                                        <span style="color:black;">@Html.Raw(data.UpdUserID)</span>
+                                    }
+                                    else
+                                    {
+                                        <span style="color:red;">@("NULL")</span>
+                                    }
+                                </td>
+                                <td data-th="@SysSystemEDIJobLog.Table_UpdDT：" nowrap="nowrap" title="@SysSystemEDIJobLog.Table_UpdDT">                                    
+                                    @if (data.UpdDt != null && data.UpdDt.Year != 1)
+                                    {
+                                        <span style="color:black;">@Common.GetDateTimeFormattedText(data.UpdDt, Common.EnumDateTimeFormatted.FullDateTime)</span>
+                                    }
+                                    else
+                                    {
+                                        <span style="color:red;">@("NULL")</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        }
+        <div class="text-left">
+            @Html.ButtonSubmit("Sys", "SystemEDIJobLog", "CancelButton", Resource.Button_Cancel, className: "btn")
+        </div>
+    }
+}

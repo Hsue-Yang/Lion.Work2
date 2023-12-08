@@ -1,0 +1,4 @@
+﻿/* tab CSS ------------------------------------------------------------ */
+.TabStrip { padding-top: 10px; border-bottom: 1px solid #1f3134; }
+.TabStrip.Tab { padding-top: 10px; padding-bottom: 5px; padding-left: 10px; padding-right: 10px; background-color: #FFFFFF; border-top: 1px solid #478384; border-left: 1px solid #478384; border-right: 1px solid #478384; border-bottom: 0px solid #478384; }
+.TabStrip.Tab.Focused { color: #FFFFFF; background-color: #478384; font-weight: bold; border-top: 1px solid #1f3134; border-left: 1px solid #1f3134; border-right: 1px solid #1f3134; }

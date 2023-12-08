@@ -1,0 +1,118 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemRoleDetailModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemRoleDetail.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+<div class="page-title"><h3>@SysSystemRoleDetail.TabText_SystemRoleDetail</h3></div>
+@using (Html.BeginFormSubmit("SystemRoleDetailForm"))
+{
+    bool readOnlyAttribute = Model.ExecAction == EnumActionType.Update || Model.ExecAction == EnumActionType.Delete;
+
+    <table class="tblvertical">
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemRoleDetail.Label_SysID, IsRequired: true)
+                </th>
+                <td>
+                    <span style="display: none">
+                        @Html.InputComboBoxFor(model => model.SysID, Model.GetDictionaryFormSelectItem(Model.UserSystemByIdList, false), isDisabled: false, TitleName: SysSystemRoleDetail.Label_SysID)
+                    </span>
+                    <span style="display: block">
+                        @Html.InputTextBox("SysIDReadOnlyText", string.Empty, ReadOnly: true, maximumLength: 200, Size: 30)
+                    </span>
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemRoleDetail.Label_RoleCategoryID)
+                </th>
+                <td>
+                    @Html.InputComboBoxFor(model => model.RoleCategoryID, Model.GetDictionaryFormSelectItem(Model.SystemRoleCategoryByIdList, true), TitleName: SysSystemRoleDetail.Label_RoleCategoryID)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemRoleDetail.Label_RoleID, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.RoleID, ReadOnly: readOnlyAttribute, Size: 30, TitleName: SysSystemRoleDetail.Label_RoleID)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemRoleDetail.Label_RoleNMZHTW, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.RoleNMZHTW, false, 30, TitleName: SysSystemRoleDetail.Label_RoleNMZHTW)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemRoleDetail.Label_RoleNMZHCN, IsRequired: true)
+                </th>
+                <td nowrap="nowrap">
+                    @Html.InputTextBoxFor(model => model.RoleNMZHCN, false, 30, TitleName: SysSystemRoleDetail.Label_RoleNMZHCN)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemRoleDetail.Label_RoleNMENUS, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.RoleNMENUS, false, 30, TitleName: SysSystemRoleDetail.Label_RoleNMENUS)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemRoleDetail.Label_RoleNMTHTH, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.RoleNMTHTH, false, 30, TitleName: SysSystemRoleDetail.Label_RoleNMTHTH)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemRoleDetail.Label_RoleNMJAJP, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.RoleNMJAJP, false, 30, TitleName: SysSystemRoleDetail.Label_RoleNMJAJP)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemRoleDetail.Label_RoleNMKOKR, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.RoleNMKOKR, false, 30, TitleName: SysSystemRoleDetail.Label_RoleNMKOKR)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemRoleDetail.Label_IsMaster)
+                </th>
+                <td colspan="5">
+                    @Html.InputCheckBox("IsMaster", SysSystemRoleDetail.Label_IsMaster, EnumYN.Y.ToString(), Model.IsMaster == EnumYN.Y.ToString())
+                </td>
+            </tr>
+        </table>
+
+        <div>
+            @if (Model.ExecAction == EnumActionType.Add)
+            {
+                @Html.ButtonClient("AddButton", Resource.Button_Add, className: "btn")
+            }
+            @if (Model.ExecAction == EnumActionType.Update ||
+                 Model.ExecAction == EnumActionType.Delete)
+            {
+                @Html.ButtonClient("UpdateButton", Resource.Button_Update, className: "btn")
+                <span></span>
+                @Html.ButtonClient("DeleteButton", Resource.Button_Delete, className: "btn")
+            }
+            @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+        </div>
+
+        using (Html.BeginConfirmDialog("dialog_Confirm", Resource.SysMsg_Title, Resource.SysMsg_DeleteConfirm))
+        {
+            @Html.ButtonClient("ConfirmOKButton", Resource.Button_Delete)
+            @Html.ButtonClient("ConfirmNOButton", Resource.Button_Cancel)
+        }
+}

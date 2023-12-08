@@ -1,0 +1,30 @@
+﻿@using LionTech.Entity.ERP
+@using LionTech.Entity.ERP.Sys
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemEDIFlowScheduleListModel
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+        <script src="~/Scripts/dhtmlxgantt.js"></script>
+        <link rel="stylesheet" href="~/Content/dhtmlxgantt.css">
+        <style>
+            html, body {
+                height: 100%;
+                padding: 0px;
+                margin: 0px;
+                overflow: hidden;
+            }
+        </style>
+        <script type="text/javascript">
+            var schedule_data = @Html.Raw(Model.SystemEDIFlowScheduleJson);
+        </script>
+    </head>
+    <body>
+        <div id="gantt_here" style='width:100%; height:100%;'></div>
+        <script src="~/Scripts/Sys/SystemEDIFlowScheduleList.js" type="text/javascript" charset="utf-8"></script>
+    </body>
+</html>

@@ -1,0 +1,255 @@
+﻿@using LionTech.Entity
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemWorkFlowSignatureModel
+
+@{
+    Layout = "~/Views/_Popup.cshtml";
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/ckeditor/ckeditor.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemWorkFlowSignature.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemWorkFlowSignatureForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.SysWFNodeTabList))
+    {
+        @Html.InputTextBox("SysID", Model.SysID, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("WFFlowGroupID", Model.WFFlowGroupID, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("WFCombineKey", Model.WFCombineKey, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("WFFlowID", Model.WFFlowID, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("WFFlowVer", Model.WFFlowVer, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("WFNodeID", Model.WFNodeID, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("WFSigSeq", string.Empty, inputType: EnumInputType.TextBoxHidden)
+
+        <table class="tblsearch">
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <th>
+                                @Html.FormLabel(SysSystemWorkFlowSignature.Label_SysID, IsRequired: true)
+                            </th>
+                            <td>
+                                @Model.GetSelectedText(Model.EntityUserSystemSysIDList, Model.SysID)
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysSystemWorkFlowSignature.Label_WFGroupID, IsRequired: true)
+                            </th>
+                            <td>
+                                @Model.GetSelectedText(Model.EntitySystemWorkFlowGroupIDList, Model.WFFlowGroupID)
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysSystemWorkFlowSignature.Label_WFFlowID, IsRequired: true)
+                            </th>
+                            <td>
+                                @Model.GetSelectedText(Model.EntityUserSystemWorkFlowIDList, Model.WFCombineKey)
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysSystemWorkFlowSignature.Label_WorkFlowNodeID, IsRequired: true)
+                            </th>
+                            <td>
+                                @Model.GetSelectedText(Model.EntitySystemWorkFlowNodeIDList, Model.WFNodeID)
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <table class="tblvertical">
+            <tr>
+                <td colspan="2">
+                    <table id="SystemWorkFlowSignatureTable" class="tblzebra">
+                        <tr>
+                            <th nowrap="nowrap">@SysSystemWorkFlowSignature.Text_Detail</th>
+                            <th nowrap="nowrap">@SysSystemWorkFlowSignature.Label_WorkFlowSigStep</th>
+                            <th nowrap="nowrap">@SysSystemWorkFlowSignature.Label_WorkFlowSignSequence</th>
+                            <th nowrap="nowrap">@SysSystemWorkFlowSignature.Label_SigTypeNM</th>
+                            <th nowrap="nowrap">@SysSystemWorkFlowSignature.Label_FunSysID</th>
+                            <th nowrap="nowrap">@SysSystemWorkFlowSignature.Label_FunControllerID</th>
+                            <th nowrap="nowrap">@SysSystemWorkFlowSignature.Label_FunActionName</th>
+                            <th nowrap="nowrap">@SysSystemWorkFlowSignature.Label_UpdUserNM</th>
+                            <th nowrap="nowrap">@SysSystemWorkFlowSignature.Label_UpdDT</th>
+                        </tr>
+                        @if (Model.SystemWFSigs != null)
+                        {
+                            foreach (var data in Model.SystemWFSigs)
+                            {
+                                <tr>
+                                    <td data-th="@SysSystemWorkFlowSignature.Text_Detail：" nowrap="nowrap" class="center">
+                                        @Html.TextSubmitLink(
+                                            "Sys",
+                                            "SystemWorkFlowSignatureDetail",
+                                            "LinkFunKeyDetail",
+                                            SysSystemWorkFlowSignature.Text_Detail,
+                                            new List<string>
+                                            {
+                                                data.WFSigSeq
+                                            })
+                                    </td>
+                                    <td data-th="@SysSystemWorkFlowSignature.Label_WorkFlowSigStep：" nowrap="nowrap" title="@SysSystemWorkFlowSignature.Label_WorkFlowSigStep">@Html.Raw(data.SigStep)</td>
+                                    <td data-th="@SysSystemWorkFlowSignature.Label_WorkFlowSignSequence：" nowrap="nowrap" title="@SysSystemWorkFlowSignature.Label_WorkFlowSignSequence">@Html.Raw(data.WFSigNM)</td>
+                                    <td data-th="@SysSystemWorkFlowSignature.Label_SigTypeNM：" nowrap="nowrap" title="@SysSystemWorkFlowSignature.Label_SigTypeNM">@Html.Raw(data.SigTypeNM)</td>
+                                    <td data-th="@SysSystemWorkFlowSignature.Label_FunSysID：" nowrap="nowrap" title="@SysSystemWorkFlowSignature.Label_FunSysID">                                      
+                                        @if (data.APISysNM != null)
+                                        {
+                                            <span style="color:black;">@Html.Raw(data.APISysNM)</span>
+                                        }
+                                        else
+                                        {
+                                            <span style="color:red;">@("NULL")</span>
+                                        }
+                                    </td>
+                                       
+                                    <td data-th="@SysSystemWorkFlowSignature.Label_FunControllerID：" nowrap="nowrap" title="@SysSystemWorkFlowSignature.Label_FunControllerID">                                      
+                                        @if (data.APIControllerNM != null)
+                                        {
+                                            <span style="color:black;">@Html.Raw(data.APIControllerNM)</span>
+                                        }
+                                        else
+                                        {
+                                            <span style="color:red;">@("NULL")</span>
+                                        }
+                                    </td>
+                                    <td data-th="@SysSystemWorkFlowSignature.Label_FunActionName：" nowrap="nowrap" title="@SysSystemWorkFlowSignature.Label_FunActionName">                                     
+                                        @if (data.APIActionNameNM != null)
+                                        {
+                                            <span style="color:black;">@Html.Raw(data.APIActionNameNM)</span>
+                                        }
+                                        else
+                                        {
+                                            <span style="color:red;">@("NULL")</span>
+                                        }
+                                    </td>
+                                    <td data-th="@SysSystemWorkFlowSignature.Text_Detail：" nowrap="nowrap" title="@SysSystemWorkFlowSignature.Label_UpdUserNM">@Html.Raw(data.UpdUserNM)</td>
+                                    <td data-th="@SysSystemWorkFlowSignature.Text_Detail：" nowrap="nowrap" title="@SysSystemWorkFlowSignature.Label_UpdDT">@Html.Raw(data.UpdDt.ToString("yyyy/MM/dd HH:mm:ss.fff"))</td>
+                                </tr>
+                            }
+                        }
+                    </table>
+                    <div class="text-left buttons">
+                        @Html.ButtonSubmit("Sys", "SystemWorkFlowSignatureDetail", "AddButton", Resource.Button_Add, className: "btn")
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th nowrap="nowrap" style="width: 60px;">
+
+                </th>
+                <td nowrap="nowrap">
+                    @Html.InputCheckBox("IsSigNextNode", SysSystemWorkFlowSignature.Label_IsSigNextNode, EnumYN.Y.ToString(), (Model.IsSigNextNode == EnumYN.Y.ToString()) ? true : false)
+                </td>
+            </tr>
+            <tr>
+                <th nowrap="nowrap">
+
+                </th>
+                <td nowrap="nowrap">
+                    @Html.InputCheckBox("IsSigBackNode", SysSystemWorkFlowSignature.Label_IsSigBackNode, EnumYN.Y.ToString(), (Model.IsSigBackNode == EnumYN.Y.ToString()) ? true : false)
+                    <pre class="red"><div style="white-space: nowrap">@Html.Raw(SysSystemWorkFlowSignature.Label_IsSigBackNodeMemo)</div></pre>
+                </td>
+            </tr>
+        </table>
+
+        <table class="tblvertical">
+            <caption><i></i>@SysSystemWorkFlowSignature.Label_SigAPI</caption>
+            <tr>
+                <th nowrap="nowrap" style="width: 60px;">
+                </th>
+                <td>
+                    <pre class="red"><div style="white-space: nowrap">@Html.Raw(SysSystemWorkFlowSignature.Label_SigMemo)</div></pre>
+                </td>
+            </tr>
+            <tr>
+                <th nowrap="nowrap">
+                    @Html.FormLabel(SysSystemWorkFlowSignature.Label_FunActionName)
+                </th>
+                <td nowrap="nowrap">
+                    @Html.InputComboBoxFor(model => model.SigAPISysID, Model.GetDictionaryFormSelectItem(Model.EntityUserSystemSysIDList, true), false, TitleName: SysSystemWorkFlowSignature.Label_FunSysID)
+                    @Html.InputComboBoxFor(model => model.SigAPIControllerID, Model.GetDictionaryFormSelectItem(Model.SystemAPIGroupByIdList, true), false, TitleName: SysSystemWorkFlowSignature.Label_FunControllerID)
+                    @Html.InputComboBoxFor(model => model.SigAPIActionName, Model.GetDictionaryFormSelectItem(Model.EntitySystemAPIFuntionList, true), false, TitleName: SysSystemWorkFlowSignature.Label_FunActionName)
+                </td>
+            </tr>
+            <tr>
+                <th nowrap="nowrap">
+
+                </th>
+                <td>
+                    <pre class="red"><div style="white-space: nowrap">@Html.Raw(SysSystemWorkFlowSignature.Label_SigAPIMemo)</div></pre>
+                </td>
+            </tr>
+        </table>
+
+        <table class="tblvertical">
+            <caption><i></i>@SysSystemWorkFlowSignature.Label_ChkAPI</caption>
+            <tr>
+                <th nowrap="nowrap" style="width: 60px;">
+                </th>
+                <td nowrap="nowrap">
+                    <pre class="red"><div style="white-space: nowrap">@SysSystemWorkFlowSignature.Label_ChkMemo</div></pre>
+                </td>
+            </tr>
+            <tr>
+                <th nowrap="nowrap">
+                    @Html.FormLabel(SysSystemWorkFlowSignature.Label_FunActionName)
+                </th>
+                <td nowrap="nowrap">
+                    @Html.InputComboBoxFor(model => model.ValidAPISysID, Model.GetDictionaryFormSelectItem(Model.EntityChkSysUserSystemSysIDList, true), false, TitleName: SysSystemWorkFlowSignature.Label_FunSysID)
+                    @Html.InputComboBoxFor(model => model.ValidAPIControllerID, Model.GetDictionaryFormSelectItem(Model.EntityChkSysSystemAPIGroupList, true), false, TitleName: SysSystemWorkFlowSignature.Label_FunControllerID)
+                    @Html.InputComboBoxFor(model => model.ValidAPIActionName, Model.GetDictionaryFormSelectItem(Model.EntityChkSysSystemAPIFuntionList, true), false, TitleName: SysSystemWorkFlowSignature.Label_FunActionName)
+                </td>
+            </tr>
+            <tr>
+                <th nowrap="nowrap">
+
+                </th>
+                <td nowrap="nowrap">
+                    <pre class="red">@Html.Raw(SysSystemWorkFlowSignature.Label_ChkAPIMemo)</pre>
+                </td>
+            </tr>
+        </table>
+
+        <table class="tblvertical">
+            <caption><i></i>@SysSystemWorkFlowSignature.Label_SigMemoDescription</caption>
+            <tr>
+                <td>
+                    <div class="md_lang">
+                        <div class="md_cont">
+                            <ul>
+                                <li class="active">@Html.TextClientLink("WFSigMemoLangLink", SysSystemWorkFlowSignature.Label_SigMemo_zh_TW, new List<string> { "WFSigMemoZHTW" })</li>
+                                <li>@Html.TextClientLink("WFSigMemoLangLink", SysSystemWorkFlowSignature.Label_SigMemo_zh_CN, new List<string> { "WFSigMemoZHCN" })</li>
+                                <li>@Html.TextClientLink("WFSigMemoLangLink", SysSystemWorkFlowSignature.Label_SigMemo_en_US, new List<string> { "WFSigMemoENUS" })</li>
+                                <li>@Html.TextClientLink("WFSigMemoLangLink", SysSystemWorkFlowSignature.Label_SigMemo_ja_JP, new List<string> { "WFSigMemoJAJP" })</li>
+                                <li>@Html.TextClientLink("WFSigMemoLangLink", SysSystemWorkFlowSignature.Label_SigMemo_th_TH, new List<string> { "WFSigMemoTHTH" })</li>
+                                <li>@Html.TextClientLink("WFSigMemoLangLink", SysSystemWorkFlowSignature.Label_SigMemo_ko_KR, new List<string> { "WFSigMemoKOKR" })</li>
+                            </ul>
+                        </div>
+
+                        <div class="hide">
+                            @Html.InputTextBoxFor(model => model.WFSigMemoZHTW)
+                            @Html.InputTextBoxFor(model => model.WFSigMemoZHCN)
+                            @Html.InputTextBoxFor(model => model.WFSigMemoENUS)
+                            @Html.InputTextBoxFor(model => model.WFSigMemoJAJP)
+                            @Html.InputTextBoxFor(model => model.WFSigMemoTHTH)
+                            @Html.InputTextBoxFor(model => model.WFSigMemoKOKR)
+                        </div>
+                    </div>
+                    <div>
+                        @Html.InputTextArea("WFSigMemo", string.Empty, 3, 50, 4000)
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <div class="text-left buttons">
+            @Html.ButtonClient("UpdateButton", Resource.Button_Save, className: "btn")
+            @Html.ButtonClient("CloseButton", Resource.Button_Close, className: "btn")
+        </div>
+    }
+}

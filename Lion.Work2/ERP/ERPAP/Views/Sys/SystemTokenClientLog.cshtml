@@ -1,0 +1,132 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity.ERP
+@using LionTech.Entity.ERP.Sys
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemTokenClientLogModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemTokenClientLog.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemTokenClientLogForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.TabList))
+    { 
+        <table class="tblsearch">
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemTokenClientLog.Label_UserID)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.QueryUserID, false, 16)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemTokenClientLog.Label_GenDateBegin, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.GenDateBegin, false, 8, TitleName: SysSystemTokenClientLog.Label_GenDateBegin)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemTokenClientLog.Label_GenTimeBegin)
+                </th>
+                <td>
+                    @Html.InputComboBoxFor(model => model.GenTimeBegin, Model.GenBeginTimeList, false)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemTokenClientLog.Label_GenDateEnd, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.GenDateEnd, false, 8, TitleName: SysSystemTokenClientLog.Label_GenDateEnd)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemTokenClientLog.Label_GenTimeEnd)
+                </th>
+                <td nowrap="nowrap">
+                    @Html.InputComboBoxFor(model => model.GenTimeEnd, Model.GenEndTimeList, false)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemTokenClientLog.Label_TokenNO)
+                </th>
+                <td colspan="5">
+                    @Html.InputTextBox("QueryTokenNo", Model.QueryTokenNo, maximumLength: 100, Size: 70)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemTokenClientLog.Label_SysNM)
+                </th>
+                <td>
+                    @Html.InputTextBox("QuerySysNM", Model.QuerySysNM, maximumLength: 10, Size: 8)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemTokenClientLog.Label_DeviceIP)
+                </th>
+                <td>
+                    @Html.InputTextBox("QueryDeviceIP", Model.QueryDeviceIP, maximumLength: 20, Size: 16)
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="width"></td>
+            </tr>
+            <tr>
+                <td colspan="10">
+                    @Html.ButtonClient("SelectButton", Resource.Button_Query, className: "btnSearch")
+                </td>
+            </tr>
+        </table>
+        
+        using (Html.BeginPager(Model.PageIndex, Model.PageSize, Model.RowCount))
+        {
+            <table id="SystemTokenClientLogTable" class="tblzebra" cellspacing="0" cellpadding="4">
+                <tr>
+                    <th nowrap="nowrap">@SysSystemTokenClientLog.Label_SysNM</th>
+                    <th nowrap="nowrap">@SysSystemTokenClientLog.Label_UserID</th>
+                    <th nowrap="nowrap">@SysSystemTokenClientLog.Label_DeviceIP</th>
+                    <th nowrap="nowrap">@SysSystemTokenClientLog.Label_TokenNO</th>
+                    <th nowrap="nowrap">@SysSystemTokenClientLog.Label_IsLogin</th>
+                    <th nowrap="nowrap">@SysSystemTokenClientLog.Label_GenerateDT</th>
+                    <th nowrap="nowrap">@SysSystemTokenClientLog.Label_LastConnectDT</th>
+                    <th nowrap="nowrap">@SysSystemTokenClientLog.Label_UpdateUserID</th>
+                    <th nowrap="nowrap">@SysSystemTokenClientLog.Label_UpdateDT</th>
+                </tr>
+                @if (Model.EntitySystemTokenClientLogList != null)
+                {
+                    string trClass = string.Empty;
+
+                    foreach (EntitySystemTokenClientLog.TokenClientLog data in Model.EntitySystemTokenClientLogList)
+                    { 
+                        <tr class="@trClass">
+                            <td data-th="@SysSystemTokenClientLog.Label_SysNM：" nowrap="nowrap">@Html.Raw(data.SysID.HtmlValue())</td>
+                            <td data-th="@SysSystemTokenClientLog.Label_UserID：" nowrap="nowrap">@Html.Raw(data.UserID.HtmlValue())</td>
+                            <td data-th="@SysSystemTokenClientLog.Label_DeviceIP：" nowrap="nowrap">@Html.Raw(data.DeviceID.HtmlValue())</td>
+                            <td data-th="@SysSystemTokenClientLog.Label_TokenNO：" nowrap="nowrap">@Html.Raw(data.TokenNO.HtmlValue())</td>
+                            <td nowrap="nowrap">@Html.Raw(data.ParaK.HtmlValue())</td>
+                            <td nowrap="nowrap">@Html.Raw(data.ParaC.HtmlValue())</td>
+                            <td data-th="@SysSystemTokenClientLog.Label_IsLogin：" nowrap="nowrap">@Html.Raw(data.IsLogin.HtmlValue())</td>
+                            <td data-th="@SysSystemTokenClientLog.Label_GenerateDT：" nowrap="nowrap">@Html.Raw(data.GenerateDT.HtmlValue())</td>
+                            <td data-th="@SysSystemTokenClientLog.Label_LastConnectDT：" nowrap="nowrap">@Html.Raw(data.LastConnectDT.HtmlValue())</td>
+                            <td data-th="@SysSystemTokenClientLog.Label_UpdateUserID：" nowrap="nowrap">@Html.Raw(data.UpdateUserID.HtmlValue())</td>
+                            <td data-th="@SysSystemTokenClientLog.Label_UpdateDT：" nowrap="nowrap">@Html.Raw(data.UpdateDT.HtmlValue())</td>
+                        </tr>
+                        
+                        if (string.IsNullOrWhiteSpace(trClass)) { trClass = "tr2"; }
+                        else { trClass = string.Empty; }
+                    }
+                }
+            </table>
+        }
+    }
+}

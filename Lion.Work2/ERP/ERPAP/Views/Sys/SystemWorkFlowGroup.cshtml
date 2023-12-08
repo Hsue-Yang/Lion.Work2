@@ -1,0 +1,94 @@
+﻿@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemWorkFlowGroupModel
+
+@{
+    Layout = "~/Views/_Layout.cshtml";
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemWorkFlowGroup.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemWorkFlowGroupForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.SysWFTabList))
+    {
+        @Html.InputTextBox("WFFlowGroupID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+
+        <table class="tblsearch">
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <th style="width: 120px;">
+                                @Html.FormLabel(SysSystemWorkFlowGroup.Label_SysID, IsRequired: true)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.SysID, Model.GetDictionaryFormSelectItem(Model.UserSystemByIdList, false), isDisabled: false, TitleName: SysSystemWorkFlowGroup.Label_SysID)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                @Html.ButtonSubmit("Sys", "SystemWorkFlowGroup", "SearchButton", Resource.Button_Select, "btnSearch")
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <table id="SystemWorkFlowGroupTable" class="tblzebra">
+            <tr>
+                <th nowrap="nowrap" style="width: 30px;">@SysSystemWorkFlowGroup.Text_Detail</th>
+
+                <th nowrap="nowrap">@SysSystemWorkFlowGroup.Label_SysID</th>
+                <th nowrap="nowrap">@SysSystemWorkFlowGroup.Label_WFFlowGroupID</th>
+                <th nowrap="nowrap">@SysSystemWorkFlowGroup.Label_SortOrder</th>
+                <th nowrap="nowrap">@SysSystemWorkFlowGroup.Label_UpdUserNM</th>
+                <th nowrap="nowrap">@SysSystemWorkFlowGroup.Label_UpdDT</th>
+            </tr>
+            @if (Model.EntitySystemWorkFlowGroupList != null)
+            {
+                foreach (var data in Model.EntitySystemWorkFlowGroupList)
+                {
+                    <tr>
+                        <td data-th="@SysSystemWorkFlowGroup.Text_Detail：" nowrap="nowrap" class="center">
+                            @Html.TextSubmitLink(
+                                "Sys",
+                                "SystemWorkFlowGroupDetail",
+                                "LinkFunKeyDetail",
+                                SysSystemWorkFlowGroup.Text_Detail,
+                                new List<string> { data.SysID, data.WFFlowGroupID }
+                                )
+                        </td>
+
+                        <td data-th="@SysSystemWorkFlowGroup.Table_SysID：" nowrap="nowrap" title="@SysSystemWorkFlowGroup.Table_SysID">@Html.Raw(data.SysNm)</td>
+                        <td data-th="@SysSystemWorkFlowGroup.Table_WFFlowGroupID：" nowrap="nowrap" title="@SysSystemWorkFlowGroup.Table_WFFlowGroupID">@Html.Raw(data.WFFlowGroupNM)</td>
+                      
+                        <td data-th="@SysSystemWorkFlowGroup.Table_SortOrder：" nowrap="nowrap" title="@SysSystemWorkFlowGroup.Table_SortOrder">
+                            @if (data.SortOrder != null)
+                            {
+                                <span style="color:black;">@Html.Raw(data.SortOrder)</span>
+                            }
+                            else
+                            {
+                                <span style="color:red;">@("NULL")</span>
+                            }
+                        </td>
+
+                        <td data-th="@SysSystemWorkFlowGroup.Table_UpdUserNM：" nowrap="nowrap" title="@SysSystemWorkFlowGroup.Table_UpdUserNM">@Html.Raw(data.UpdUserNM)</td>
+                        <td data-th="@SysSystemWorkFlowGroup.Table_UpdDT：" nowrap="nowrap" title="@SysSystemWorkFlowGroup.Table_UpdDT">@Html.Raw(data.UpdDt.ToString("yyyy/MM/dd HH:mm:ss.fff"))</td>
+                    </tr>
+                }
+            }
+        </table>
+
+        <div>
+            @Html.ButtonSubmit("Sys", "SystemWorkFlowGroupDetail", "AddButton", Resource.Button_Add, "btn")
+        </div>
+    }
+}

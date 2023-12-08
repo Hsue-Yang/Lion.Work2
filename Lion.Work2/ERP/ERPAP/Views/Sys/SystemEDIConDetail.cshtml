@@ -1,0 +1,151 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemEDIConDetailModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemEDIConDetail.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemEDIConDetailForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.TabList))
+    {
+        string comboBoxStyle = "block";
+        string textBoxStyle = "block";
+        string readOnlyTextStyle = "none";
+        if (Model.ExecAction == EnumActionType.Update ||
+            Model.ExecAction == EnumActionType.Delete)
+        {
+            comboBoxStyle = "none";
+            textBoxStyle = "none";
+            readOnlyTextStyle = "block";
+        }
+
+        <table class="tblvertical">
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemEDIConDetail.Label_SysID, IsRequired: true)
+                </th>
+                <td>
+                    <span style="display: none">
+                        @Html.InputComboBoxFor(model => model.SysID, Model.GetDictionaryFormSelectItem(Model.EntitySystemSysIDList, false), TitleName: SysSystemEDIConDetail.Label_SysID)
+                    </span>
+                    <span style="display: block">
+                        @Html.InputTextBox("SysIDReadOnlyText", string.Empty, ReadOnly: true, maximumLength: 200, Size: 30)
+                    </span>
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemEDIConDetail.Label_EDIFlowID, IsRequired: true)
+                </th>
+                <td>
+                    <span style="display: @comboBoxStyle">
+                        @Html.InputComboBoxFor(model => model.EDIFlowID, Model.GetDictionaryFormSelectItem(Model.EntitySysSystemEDIFlowList, false), TitleName: SysSystemEDIConDetail.Label_EDIFlowID)
+                    </span>
+                    <span style="display: @readOnlyTextStyle">
+                        @Html.InputTextBox("EDIFlowIDReadOnlyText", string.Empty, ReadOnly: true, maximumLength: 200, Size: 30)
+                    </span>
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemEDIConDetail.Label_EDIConID, IsRequired: true)
+                </th>
+                <td>
+                    <span style="display: @textBoxStyle">
+                        @Html.InputTextBoxFor(model => model.EDIConID, Size: 30, TitleName: SysSystemEDIConDetail.Label_EDIConID)
+                    </span>
+                    <span style="display: @readOnlyTextStyle">
+                        @Html.InputTextBox("EDIConIDReadOnlyText", string.Empty, ReadOnly: true, maximumLength: 50, Size: 30)
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemEDIConDetail.Label_EDIConZHTW, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.EDIConZHTW, false, 30, TitleName: SysSystemEDIConDetail.Label_EDIConZHTW)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemEDIConDetail.Label_EDIConZHCN, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.EDIConZHCN, false, 30, TitleName: SysSystemEDIConDetail.Label_EDIConZHCN)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemEDIConDetail.Label_EDIConENUS, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.EDIConENUS, false, 30, TitleName: SysSystemEDIConDetail.Label_EDIConENUS)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemEDIConDetail.Label_EDIConTHTH, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.EDIConTHTH, false, 30, TitleName: SysSystemEDIConDetail.Label_EDIConTHTH)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemEDIConDetail.Label_EDIConJAJP, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.EDIConJAJP, false, 30, TitleName: SysSystemEDIConDetail.Label_EDIConJAJP)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemEDIConDetail.Label_EDIConKOKR, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.EDIConKOKR, false, 30, TitleName: SysSystemEDIConDetail.Label_EDIConKOKR)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemEDIConDetail.Label_ProviderName, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.ProviderName, false, 30, TitleName: SysSystemEDIConDetail.Label_ProviderName)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemEDIConDetail.Label_SortOrder)
+                </th>
+                <td colspan="5">
+                    @Html.InputTextBoxFor(model => model.SortOrder, false, 30, TitleName: SysSystemEDIConDetail.Label_SortOrder)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemEDIConDetail.Label_ConValue, IsRequired: true)
+                </th>
+                <td colspan="5">
+                    @Html.InputTextBoxFor(model => model.ConValue, false, 300, TitleName: SysSystemEDIConDetail.Label_ConValue)
+                </td>
+            </tr>
+        </table>
+        <div class="text-left">
+            @if (Model.ExecAction == EnumActionType.Add)
+            {
+                @Html.ButtonClient("AddButton", Resource.Button_Add, className: "btn")
+            }
+            @if (Model.ExecAction == EnumActionType.Update ||
+                 Model.ExecAction == EnumActionType.Delete)
+            {
+                @Html.ButtonClient("UpdateButton", Resource.Button_Update, className: "btn")
+                <span></span>
+                @Html.ButtonClient("DeleteButton", Resource.Button_Delete, className: "btn")
+            }
+            @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+        </div>
+
+        using (Html.BeginConfirmDialog("dialog_Confirm", Resource.SysMsg_Title, Resource.SysMsg_DeleteConfirm))
+        {
+            @Html.ButtonClient("ConfirmOKButton", Resource.Button_Delete)
+            @Html.ButtonClient("ConfirmNOButton", Resource.Button_Cancel)
+        }
+    }
+}

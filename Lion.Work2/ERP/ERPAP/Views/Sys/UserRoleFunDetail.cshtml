@@ -1,0 +1,163 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity
+@using LionTech.Entity.ERP
+@using LionTech.Entity.ERP.Sys
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@using ERPAP.Models.Sys
+@model ERPAP.Models.Sys.UserRoleFunDetailModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+    string unAuthSysJsonString =
+        string.Format("['{0}']",
+            string.Join("','",
+                Model
+                    .UserSystemRoleList
+                    .Where(w => w.HasAuth != 1)
+                    .Select(s => s.SysID)
+                    .Distinct()));
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/UserRoleFunDetail.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script type="text/javascript">var unAuthSysList = @Html.Raw(unAuthSysJsonString);</script>
+
+@using (Html.BeginFormSubmit("UserRoleFunDetailForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.SysUserRoleFunctionTabList))
+    {
+        @Html.InputTextBox("UserID", Model.UserID, inputType: EnumInputType.TextBoxHidden)
+
+        <table class="tblvertical">
+            <tr>
+                <th style="width: 10%">
+                    @Html.FormLabel(SysUserRoleFunDetail.Label_SysID)
+                </th>
+                <td>
+                    @Html.InputComboBoxFor(model => model.SysID, Model.GetDictionaryFormSelectItem(Model.EntitySystemSysIDList, true), isDisabled: false, TitleName: SysUserRoleFunDetail.Label_SysID)
+                    @Html.ButtonClient("CollapseButton", string.Empty, className: "btn")
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysUserRoleFunDetail.Label_UserID)
+                </th>
+                <td>
+                    @Html.InputTextBox("UserNMReadOnlyText", Model.UserNM, ReadOnly: true, maximumLength: 200, Size: 30)
+                </td>
+            </tr>
+            <tr style="display: none;">
+                <th>
+                    @Html.FormLabel(SysUserRoleFunDetail.Label_RoleGroupID)
+                </th>
+                <td>
+                    @Html.InputComboBoxFor(model => model.RoleGroupID, Model.GetDictionaryFormSelectItem(Model.EntitySysSystemRoleGroupList, true), false, TitleName: SysUserRoleFunDetail.Label_RoleGroupID)
+                    @Html.InputTextBox("RemarkReadOnlyText", string.Empty, ReadOnly: true, maximumLength: 200, Size: 30)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysUserRoleFunDetail.Label_Role)
+                </th>
+                <td>
+                    <div id="SystemRoleDiv">
+                        <table id="UserRoleFunDetailTable" width="100%">
+                            @if (Model.UserSystemRoleList != null)
+                            {
+                                int entityCount = 1;
+                                int totalCount = 1;
+                                string sysNM = string.Empty;
+                                <tr>
+                                    @foreach (UserRoleFunDetailModel.UserSystemRole userSystemRole in Model.UserSystemRoleList)
+                                    {
+                                        if (sysNM != userSystemRole.SysNMID)
+                                        {
+                                            if (!string.IsNullOrWhiteSpace(sysNM) &&
+                                                (entityCount % 5) > 0)
+                                            {
+                                                for (int i = entityCount - 1; (i % 5) > 0; i++)
+                                                {
+                                                    <td style="border: none"></td>
+                                                }
+                                            }
+                                            @:</tr>
+                                            @:<tr id="@userSystemRole.SysID">
+                                            @:<th style="border: none; background-color: #EBEBEB; height: 30px; text-align: left" colspan="5"><b>@userSystemRole.SysNMID</b></th>
+                                            @:</tr>
+                                            @:<tr id="@userSystemRole.SysID">
+                                            entityCount = 1;
+                                        }
+
+                                        <td nowrap="nowrap" style="border: none">
+                                            @Html.InputCheckBox(
+                                                "HasRole",
+                                                string.Format("{0}", userSystemRole.RoleNMID),
+                                                userSystemRole.SysID + "|" + userSystemRole.RoleID,
+                                                userSystemRole.HasRole == EnumYN.Y.ToString(), userSystemRole.HasAuth != 1)
+                                        </td>
+                                        if (totalCount == Model.UserSystemRoleList.Count &&
+                                            (entityCount % 5) > 0)
+                                        {
+                                            for (int i = entityCount; (i % 5) > 0; i++)
+                                            {
+                                                <td style="border: none"></td>
+                                            }
+                                        }
+
+                                        if (entityCount % 5 == 0)
+                                        {
+                                            @:</tr>
+                                            @:<tr id="@userSystemRole.SysID">
+                                        }
+                                        entityCount += 1;
+                                        totalCount++;
+                                        sysNM = userSystemRole.SysNMID;
+                                    }
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysUserRoleFunDetail.Label_ErpSign, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.ErpWFNo, TitleName: SysUserRoleFunDetail.Label_ErpSign)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysUserRoleFunDetail.Label_ModifyRecord)
+                </th>
+                <td>
+                    @Html.InputTextAreaFor(model => model.Memo, 4, 60, TitleName: SysUserRoleFunDetail.Label_ModifyRecord)
+                </td>
+            </tr>
+            <tr>
+                <td id="ButtonBox" colspan="2">
+                    @if (Model.ExecAction == EnumActionType.Update &&
+                         !string.IsNullOrWhiteSpace(Model.UserNM))
+                    {
+                        @Html.ButtonClient("UpdateButton", SysUserRoleFunDetail.Button_UpdateAndGenMenu, className: "btn")
+                        @Html.ButtonClient("GenMenuButton", SysUserRoleFunDetail.Button_GenMenu, className: "btn")
+                        @Html.ButtonClient("GenMenuDevEnvButton", SysUserRoleFunDetail.Button_GenMenuDevEnv, className: "btn")
+                    }
+                    @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+                </td>
+            </tr>
+        </table>
+    }
+}
+
+@using (Html.BeginConfirmDialog("dialog_Confirm", Resource.SysMsg_Title, string.Empty))
+{
+    @Html.FormLabel(SysUserRoleFunDetail.Label_GenerateUserMenu_Success)
+    <div>
+        @Html.ButtonClient("OKButton", Resource.Button_Okay, className: "btn")
+    </div>
+}

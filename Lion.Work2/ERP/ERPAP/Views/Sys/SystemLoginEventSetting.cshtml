@@ -1,0 +1,153 @@
+﻿@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using ERPAP.Models.Sys
+@using Resources
+@using System.Globalization;
+@model SystemLoginEventSettingModel
+@{
+    Layout = "~/Views/_Layout.cshtml";
+    string fullDateTimeNumber = Common.GetDateTimeString();
+    int rowIndex = 0;
+}
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemLoginEventSetting.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+<div class="page-title">
+    <h3>
+        @SysSystemLoginEventSetting.Label_SystemLoginEventSetting
+    </h3>
+</div>
+
+@using (Html.BeginFormSubmit("SystemLoginEventSettingForm"))
+{
+    <table class="tblsearch">
+        <tr>
+            <td>
+                <table>
+                    <tr>
+                        <th>
+                            @Html.FormLabel(SysSystemLoginEventSetting.Label_SysID)
+                        </th>
+                        <td>
+                            @Html.InputComboBoxFor(model => model.SysID, Model.GetDictionaryFormSelectItem(Model.EntitySystemSysIDList, true), TitleName: SysSystemLoginEventSetting.Label_SysID)
+                        </td>
+                        <th>
+                            @Html.FormLabel(SysSystemLoginEventSetting.Label_LoginEventID)
+                        </th>
+                        <td>
+                            @Html.InputComboBoxFor(model => model.LoginEventID, Model.GetDictionaryFormSelectItem(Model.SysLoginEventIDList.ToDictionary(p => p.LoginEventID, p => p.LoginEventNMID), true), TitleName: SysSystemLoginEventSetting.Label_LoginEventID)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            @Html.ButtonSubmit("Sys", "SystemLoginEventSetting", "SelectButton", Resource.Button_Select, "btnSearch")
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    using (Html.BeginPager(Model.PageIndex, Model.PageSize, Model.RowCount))
+    {
+        <table id="LineBotAccountSettingTable" class="tblzebra">
+            <tr>
+                <th style="width: 3%;">
+                    @Html.ImageButton("MoveUp", string.Format("{0}{1}", @Common.GetEnumDesc(EnumSystemID.ERPAP), "/Content/images/imgSortUp.png"))
+                    @Html.ImageButton("MoveDown", string.Format("{0}{1}", @Common.GetEnumDesc(EnumSystemID.ERPAP), "/Content/images/imgSortDown.png"))
+                </th>
+                <th>
+                    @SysSystemLoginEventSetting.Tabel_Detail
+                </th>
+                <th>
+                    @SysSystemLoginEventSetting.Table_SysID
+                </th>
+                <th>
+                    @SysSystemLoginEventSetting.Table_SubSysID
+                </th>
+                <th>
+                    @SysSystemLoginEventSetting.Label_LoginEventID
+                </th>
+                <th>
+                    @SysSystemLoginEventSetting.Table_StartDT
+                </th>
+                <th>
+                    @SysSystemLoginEventSetting.Table_EndDT
+                </th>
+                <th>
+                    @SysSystemLoginEventSetting.Table_IsDisable
+                </th>
+                <th>
+                    @SysSystemLoginEventSetting.Table_SortOrder
+                </th>
+                <th>
+                    @SysSystemLoginEventSetting.Table_UpdUserID
+                </th>
+                <th>
+                    @SysSystemLoginEventSetting.Table_UpdDT
+                </th>
+            </tr>
+
+            @foreach (var evevnt in Model.SysLoginEventSettingList)
+            {
+                <tr>
+                    <td nowrap="nowrap" class="text-center">
+                        @Html.RadioButton("IsMoved", false)
+                        @Html.InputTextBox("LoginEventSettingList[" + rowIndex + "].SysID", evevnt.SysID, inputType: EnumInputType.TextBoxHidden)
+                        @Html.InputTextBox("LoginEventSettingList[" + rowIndex + "].AfterSortOrder", evevnt.SortOrder, inputType: EnumInputType.TextBoxHidden)
+                        @Html.InputTextBox("LoginEventSettingList[" + rowIndex + "].BeforeSortOrder", evevnt.SortOrder, inputType: EnumInputType.TextBoxHidden)
+                        @Html.InputTextBox("LoginEventSettingList[" + rowIndex + "].LoginEventID", evevnt.LoginEventID, inputType: EnumInputType.TextBoxHidden)
+                    </td>
+                    <td data-th="@SysSystemLoginEventSetting.Label_Detail：">
+                        @Html.TextSubmitLink(
+                            "Sys",
+                            "SystemLoginEventSettingDetail",
+                            "DetailLinkFunKey",
+                            SysSystemLoginEventSetting.Label_Detail,
+                            new List<string>()
+                            {
+                                evevnt.SysID,
+                                evevnt.LoginEventID
+                            }
+                            )
+                    </td>
+                    <td data-th="@SysSystemLoginEventSetting.Table_SysID：">
+                        @evevnt.SysNMID
+                    </td>
+                    <td data-th="@SysSystemLoginEventSetting.Table_SubSysID：">
+                        @evevnt.SubSysNMID
+                    </td>
+                    <td data-th="@SysSystemLoginEventSetting.Label_LoginEventID：">
+                        @evevnt.LoginEventNMID
+                    </td>
+                    <td data-th="@SysSystemLoginEventSetting.Table_StartDT：">
+                        @evevnt.StartDT.ToString("yyyy/MM/dd HH:mm:ss", CultureInfo.InvariantCulture)
+                    </td>
+                    <td data-th="@SysSystemLoginEventSetting.Table_EndDT：">
+                        @evevnt.EndDT.ToString("yyyy/MM/dd HH:mm:ss", CultureInfo.InvariantCulture)
+                    </td>
+                    <td data-th="@SysSystemLoginEventSetting.Table_IsDisable：">
+                        @evevnt.IsDisable
+                    </td>
+                    <td data-th="@SysSystemLoginEventSetting.Table_SortOrder：">
+                        @evevnt.SortOrder
+                    </td>
+                    <td data-th="@SysSystemLoginEventSetting.Table_UpdUserID：">
+                        @evevnt.UpdUserNM
+                    </td>
+                    <td data-th="@SysSystemLoginEventSetting.Table_UpdDT：">
+                        @evevnt.UpdDT.ToString("yyyy/MM/dd HH:mm:ss.fff", CultureInfo.InvariantCulture)
+                    </td>
+                </tr>
+
+                rowIndex++;
+            }
+        </table>
+    }
+    <div>
+        @Html.ButtonSubmit("Sys", "SystemLoginEventSettingDetail", "SaveButton", Resource.Button_Save, "btn")
+        @Html.ButtonSubmit("Sys", "SystemLoginEventSettingDetail", "AddButton", Resource.Button_Add, "btn")
+    </div>
+}

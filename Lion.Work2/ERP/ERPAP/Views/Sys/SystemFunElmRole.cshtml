@@ -1,0 +1,149 @@
+﻿@using ERPAP.Models.Sys
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model SystemFunElmRoleModel
+@{
+    Layout = "~/Views/_Popup.cshtml";
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemFunElmRole.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@if (Model.IsSaveSuccess)
+{
+    using (Html.BeginConfirmDialog("dialog_Confirm", Resource.SysMsg_Title, SysSystemFunElmRole.SystemMsg_Save_Success))
+    {
+        @Html.ButtonClient("ConfirmOKButton", Resource.Button_Okay)
+    }
+
+    <script type="text/javascript">
+        _alert('dialog_Confirm');
+
+        function ConfirmOKButton_onClick(srcElement) {
+            window.close();
+        }
+    </script>
+}
+else
+{
+    using (Html.BeginFormSubmit("SystemFunElmRoleForm"))
+    {
+        @Html.InputTextBox("SysID", Model.SysID, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("FunControllerID", Model.FunControllerID, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("FunActionName", Model.FunActionName, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("FunElmID", Model.FunElmID, inputType: EnumInputType.TextBoxHidden)
+
+        <div class="page-title">
+            <h3>
+                @SysSystemFunElmRole.Label_SystemFunElmAddRole
+            </h3>
+        </div>
+
+        <table class="tblvertical">
+            <tr>
+                <th>
+                    @SysSystemFunElmRole.Label_FunElmNM
+                </th>
+                <td>
+                    @Model.ElmNMID
+                </td>
+                <th>
+                    @SysSystemFunElmRole.Table_DisplaySts
+                </th>
+                <td>
+                    @Model.DefaultDisplay
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @SysSystemFunElmRole.Label_FunControllerID
+                </th>
+                <td>
+                    @Model.FunGroupNMID
+                </td>
+                <th>
+                    @SysSystemFunElmRole.Label_FunActionName
+                </th>
+                <td>
+                    @Model.FunActionNMID
+                </td>
+            </tr>
+        </table>
+        <table class="tblvertical">
+            <tr>
+                <th style="text-align: center;">@SysSystemFunElmRole.Label_Roles</th>
+                <th style="text-align: center;" colspan="2">@SysSystemFunElmRole.Label_DisplaySts</th>
+            </tr>
+            @if (Model.FunElmRoleDictionary != null)
+            {
+                int rowIndex = 0;
+                foreach (var funElmRole in Model.FunElmRoleDictionary)
+                {
+                    string tdTagName = funElmRole.Key + "RoleList";
+                    string blockName;
+
+                    switch (funElmRole.Key)
+                    {
+                        case SystemFunElmRoleModel.EnumDisplaySts.DISPLAY:
+                            blockName = SysSystemFunElmRole.Label_Display;
+                            break;
+                        case SystemFunElmRoleModel.EnumDisplaySts.READ_ONLY:
+                            blockName = SysSystemFunElmRole.Label_ReadOnly;
+                            break;
+                        case SystemFunElmRoleModel.EnumDisplaySts.MASKING:
+                            blockName = SysSystemFunElmRole.Label_Masking;
+                            break;
+                        case SystemFunElmRoleModel.EnumDisplaySts.HIDE:
+                            blockName = SysSystemFunElmRole.Label_Hide;
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+
+                    <tr>
+                        @if (rowIndex == 0)
+                        {
+                        <td id="SysRoleIDListBox" style="width: 40%" rowspan="4">
+                            @if (Model.SystemRoleIDList != null &&
+                         Model.SystemRoleIDList.Any())
+                            {
+                                foreach (var s in Model.SystemRoleIDList)
+                                {
+                                    using (var tage = Html.BeginTag("SysRoleInfo", s.ItemText()))
+                                    {
+                                        @Html.InputTextBox("RoleID", s.RoleID, inputType: EnumInputType.TextBoxHidden)
+                                    }
+                                }
+                            }
+                        </td>
+                        }
+                        <th name="@tdTagName" style="width: 5%">@blockName</th>
+                        <td name="@tdTagName">
+                            @Html.InputTextBox("FunElmRoleDictionary[" + rowIndex + "].Key", funElmRole.Key.ToString(), inputType: EnumInputType.TextBoxHidden)
+                            @if (funElmRole.Value.Any())
+                            {
+                                var index = 0;
+                                foreach (var s in funElmRole.Value)
+                                {
+                                    using (var tage = Html.BeginTag("SysRoleInfo", s.RoleNMID))
+                                    {
+                                        @Html.InputTextBox("FunElmRoleDictionary[" + rowIndex + "].value[" + index + "].RoleID", s.RoleID, inputType: EnumInputType.TextBoxHidden)
+                                    }
+                                    index++;
+                                }
+                            }
+                        </td>
+                    </tr>
+                    rowIndex++;
+                }
+            }
+        </table>
+
+        <div>
+            @Html.ButtonSubmit("Sys", "SystemFunElmRole", "SaveButton", Resource.Button_Save, "btn")
+            @Html.ButtonClient("CloseButton", Resource.Button_Close, "btn")
+        </div>
+    }
+}

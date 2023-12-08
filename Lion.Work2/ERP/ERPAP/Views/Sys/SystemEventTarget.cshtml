@@ -1,0 +1,118 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemEventTargetModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemEventTarget.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+<div class="page-title"><h3>@SysSystemEventTarget.TabText_SystemEventTarget</h3></div>
+@using (Html.BeginFormSubmit("SystemEventTargetForm"))
+{
+    <table class="tblvertical">
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemEventTarget.Label_SysID)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => Model.SysID)
+                @Html.InputTextBox("SysIDReadOnlyText", Model.SystemEventFullName.SysNM, ReadOnly: true, maximumLength: 200, Size: 30)
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemEventTarget.Label_EventGroupID)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => Model.EventGroupID)
+                @Html.InputTextBox("EventGroupIDReadOnlyText", Model.SystemEventFullName.EventGroupNM, ReadOnly: true, maximumLength: 200, Size: 50)
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemEventTarget.Label_EventID)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => Model.EventID)
+                @Html.InputTextBox("EventIDReadOnlyText", Model.SystemEventFullName.EventNM, ReadOnly: true, maximumLength: 200, Size: 30)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysSystemEventTarget.Label_TargetSysID, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputComboBoxFor(model => model.TargetSysID, Model.GetDictionaryFormSelectItem(Model.UserSystemByIdList, true), isDisabled: false, TitleName: SysSystemEventTarget.Label_TargetSysID)
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemEventTarget.Label_SubSysID)
+            </th>
+            <td>
+                @Html.InputComboBoxFor(model => model.SubSysID, Model.GetDictionaryFormSelectItem(Model.SysSystemSubByIdList, true), isDisabled: false, TitleName: SysSystemEventTarget.Label_SubSysID)
+            </td>
+            <th>
+                @Html.FormLabel(SysSystemEventTarget.Label_TargetPath, IsRequired: true)
+            </th>
+            <td colspan="2">
+                @Html.InputTextBoxFor(model => model.TargetPath, Size: 50, TitleName: SysSystemEventTarget.Label_TargetPath)
+            </td>
+        </tr>
+    </table>
+
+    <div>
+        @Html.ButtonSubmit("Sys", "SystemEventTarget", "AddButton", Resource.Button_Add, className: "btn")
+        @Html.ButtonClient("EventParaButton", SysSystemEventTarget.Button_EventPara, className: "btn")
+        @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+    </div>
+
+    <pre style="padding: 10px"><span class="blue">@SysSystemEventTarget.Label_APIDescription</span></pre>
+
+    <table id="SystemEventTargetTable" class="tblzebra">
+        <tr>
+            <th>@SysSystemEventTarget.Table_Delete</th>
+            <th>@SysSystemEventTarget.Table_TargetSysID</th>
+            <th>@SysSystemEventTarget.Table_SubSysID</th>
+            <th>@SysSystemEventTarget.Table_TargetPath</th>
+            <th>@SysSystemEventTarget.Table_UpdUserNM</th>
+            <th>@SysSystemEventTarget.Table_UpdDT</th>
+        </tr>
+        @if (Model.SystemEventTargetList != null)
+        {
+            foreach (var row in Model.SystemEventTargetList)
+            {
+                <tr>
+                    <td data-th="@SysSystemEventTarget.Table_Delete：" class="center">
+                        @if (row.HasITRole)
+                        {
+                            @Html.TextSubmitLink(
+                                "Sys",
+                                "SystemEventTarget",
+                                "LinkFunKey",
+                                SysSystemEventTarget.Table_Delete,
+                                new List<string> {
+                                    row.TargetSysID
+                                }
+                            )
+                        }
+                    </td>
+                    <td data-th="@SysSystemEventTarget.Table_TargetSysID：" title="@SysSystemEventTarget.Table_TargetSysID">@row.TargetSysNM (@row.TargetSysID)</td>
+                    <td data-th="@SysSystemEventTarget.Table_SubSysID：" title="@SysSystemEventTarget.Table_SubSysID">
+                        @(string.IsNullOrWhiteSpace(row.SubSysNM) ? null : string.Format("{0} ({1})", row.SubSysNM, row.SubSysID) )
+                    </td>
+                    <td data-th="@SysSystemEventTarget.Table_TargetPath：" title="@SysSystemEventTarget.Table_TargetPath">@row.TargetPath</td>
+                    <td data-th="@SysSystemEventTarget.Table_UpdUserNM：" title="@SysSystemEventTarget.Table_UpdUserNM">@row.UpdUserNM</td>
+                    <td data-th="@SysSystemEventTarget.Table_UpdDT：" title="@SysSystemEventTarget.Table_UpdDT">@Common.GetDateTimeText(row.UpdDT)</td>
+                </tr>
+            }
+        }
+    </table>
+
+    using (Html.BeginConfirmDialog("dialog_Confirm", Resource.SysMsg_Title, Resource.SysMsg_DeleteConfirm))
+    {
+        @Html.ButtonClient("ConfirmOKButton", Resource.Button_Delete)
+        @Html.ButtonClient("ConfirmNOButton", Resource.Button_Cancel)
+    }
+}

@@ -1,0 +1,173 @@
+﻿@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemWorkFlowNodeModel
+
+@{
+    Layout = "~/Views/_Layout.cshtml";
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemWorkFlowNode.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemWorkFlowNodeForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.SysWFTabList))
+    {
+        @Html.InputTextBoxFor(model => model.WFFlowID)
+        @Html.InputTextBoxFor(model => model.WFFlowVer)
+
+        <table class="tblsearch">
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <th nowrap="nowrap">
+                                @Html.FormLabel(SysSystemWorkFlowNode.Label_SysID, IsRequired: true)
+                            </th>
+                            <td nowrap="nowrap">
+                                @Html.InputComboBoxFor(model => model.SysID, Model.GetDictionaryFormSelectItem(Model.UserSystemByIdList, false), isDisabled: false, TitleName: SysSystemWorkFlowNode.Label_SysID)
+                            </td>
+                            <th nowrap="nowrap">
+                                @Html.FormLabel(SysSystemWorkFlowNode.Label_WFFlowGroupID, IsRequired: true)
+                            </th>
+                            <td nowrap="nowrap">
+                                @Html.InputComboBoxFor(model => model.WFFlowGroupID, Model.GetDictionaryFormSelectItem(Model.EntitySystemWorkFlowGroupList, false), isDisabled: false, TitleName: SysSystemWorkFlowNode.Label_WFFlowGroupID)
+                            </td>
+                            <th nowrap="nowrap">
+                                @Html.FormLabel(SysSystemWorkFlowNode.Label_WFFlowID, IsRequired: true)
+                            </th>
+                            <td nowrap="nowrap" class="width">
+                                @Html.InputComboBoxFor(model => model.WFCombineKey, Model.GetDictionaryFormSelectItem(Model.SysUserSystemWorkFlowIDList, false), isDisabled: false, TitleName: SysSystemWorkFlowNode.Label_WFFlowID)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td nowrap="nowrap" colspan="6">
+                                @Html.ButtonClient("SearchButton", Resource.Button_Select, className: "btnSearch")
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <table id="SystemWorkFlowNodeTable" class="tblzebra">
+            <tr>
+                <th nowrap="nowrap">@SysSystemWorkFlowNode.Text_Detail</th>
+                <th nowrap="nowrap">@SysSystemWorkFlowNode.Label_WorkFlowNodeID</th>
+                <th nowrap="nowrap">@SysSystemWorkFlowNode.Label_NodeType</th>
+                <th nowrap="nowrap">@SysSystemWorkFlowNode.Label_IsFirst</th>
+                <th nowrap="nowrap">@SysSystemWorkFlowNode.Label_IsFinally</th>
+                <th nowrap="nowrap">@SysSystemWorkFlowNode.Label_NodeSeqX</th>
+                <th nowrap="nowrap">@SysSystemWorkFlowNode.Label_NodeSeqY</th>
+                <th nowrap="nowrap">@SysSystemWorkFlowNode.Label_BackWFNodeNM</th>
+                <th nowrap="nowrap">@SysSystemWorkFlowNode.Label_FunSysNM</th>
+                <th nowrap="nowrap">@SysSystemWorkFlowNode.Label_SubSysNM</th>
+                <th nowrap="nowrap">@SysSystemWorkFlowNode.Label_FunControllerNM</th>
+                <th nowrap="nowrap">@SysSystemWorkFlowNode.Label_FunActionNameNM</th>
+                <th nowrap="nowrap">@SysSystemWorkFlowNode.Label_SortOrder</th>
+                <th nowrap="nowrap">@SysSystemWorkFlowNode.Label_UpdUserNM</th>
+                <th nowrap="nowrap">@SysSystemWorkFlowNode.Label_UpdDT</th>
+            </tr>
+            @if (Model.EntitySystemWorkFlowNodeList != null)
+            {
+                foreach (var data in Model.EntitySystemWorkFlowNodeList)
+                {
+                    <tr>
+                        <td data-th="@SysSystemWorkFlowNode.Text_Detail：" nowrap="nowrap" class="center">
+                            @Html.TextSubmitLink(
+                                "Sys",
+                                "SystemWorkFlowNodeDetail",
+                                "LinkFunKeyDetail",
+                                SysSystemWorkFlowNode.Text_Detail,
+                                new List<string>
+                                {
+                                    data.SysID,
+                                    data.WFFlowGroupID,
+                                    data.WFFlowID,
+                                    data.WFFlowVer,
+                                    data.WFNodeID
+                                }
+                                )
+                        </td>
+                        <td data-th="@SysSystemWorkFlowNode.Label_WorkFlowNodeID：" nowrap="nowrap" title="@SysSystemWorkFlowNode.Label_WorkFlowNodeID">@Html.Raw(data.WFNodeNM)</td>
+                        <td data-th="@SysSystemWorkFlowNode.Label_NodeType：" nowrap="nowrap" title="@SysSystemWorkFlowNode.Label_NodeType">@Html.Raw(data.NodeTypeNM)</td>
+                        <td data-th="@SysSystemWorkFlowNode.Label_IsFirst：" nowrap="nowrap" title="@SysSystemWorkFlowNode.Label_IsFirst">@Html.Raw(data.IsFirst)</td>
+                        <td data-th="@SysSystemWorkFlowNode.Label_IsFinally：" nowrap="nowrap" title="@SysSystemWorkFlowNode.Label_IsFinally">@Html.Raw(data.IsFinally)</td>
+                        <td data-th="@SysSystemWorkFlowNode.Label_IsFinally：" nowrap="nowrap" title="@SysSystemWorkFlowNode.Label_IsFinally">@Html.Raw(data.NodeSeqX)</td>
+                        <td data-th="@SysSystemWorkFlowNode.Label_IsFinally：" nowrap="nowrap" title="@SysSystemWorkFlowNode.Label_IsFinally">@Html.Raw(data.NodeSeqY)</td>
+                        <td data-th="@SysSystemWorkFlowNode.Label_BackWFNodeNM：" nowrap="nowrap" title="@SysSystemWorkFlowNode.Label_BackWFNodeNM">
+                            @if (data.BackWFNodeNM != null)
+                            {
+                                <span style="color:black;">@Html.Raw(data.BackWFNodeNM)</span>
+                            }
+                            else
+                            {
+                                <span style="color:red;">@("NULL")</span>
+                            }
+                        </td>
+                        <td data-th="@SysSystemWorkFlowNode.Label_SubSysNM：" nowrap="nowrap" title="@SysSystemWorkFlowNode.Label_SubSysNM">
+                            @if (data.FunSysNM != null)
+                            {
+                                <span style="color:black;">@Html.Raw(data.FunSysNM)</span>
+                            }
+                            else
+                            {
+                                <span style="color:red;">@("NULL")</span>
+                            }
+                        </td>
+                        <td data-th="@SysSystemWorkFlowNode.Label_SubSysNM：" nowrap="nowrap" title="@SysSystemWorkFlowNode.Label_SubSysNM">
+                            @if (data.SubSysNM != null)
+                            {
+                                <span style="color:black;">@Html.Raw(data.SubSysNM)</span>
+                            }
+                            else
+                            {
+                                <span style="color:red;">@("NULL")</span>
+                            }
+                        </td>
+                        <td data-th="@SysSystemWorkFlowNode.Label_FunControllerNM：" nowrap="nowrap" title="@SysSystemWorkFlowNode.Label_FunControllerNM">
+                            @if (data.FunControllerNM != null)
+                            {
+                                <span style="color:black;">@Html.Raw(data.FunControllerNM)</span>
+                            }
+                            else
+                            {
+                                <span style="color:red;">@("NULL")</span>
+                            }
+                        </td>
+                        <td data-th="@SysSystemWorkFlowNode.Label_FunActionNameNM：" nowrap="nowrap" title="@SysSystemWorkFlowNode.Label_FunActionNameNM">
+                            @if (data.FunActionNameNM != null)
+                            {
+                                <span style="color:black;">@Html.Raw(data.FunActionNameNM)</span>
+                            }
+                            else
+                            {
+                                <span style="color:red;">@("NULL")</span>
+                            }
+                        </td>
+                        <td data-th="@SysSystemWorkFlowNode.Label_SortOrder：" nowrap="nowrap" title="@SysSystemWorkFlowNode.Label_SortOrder">
+                            @if (data.SortOrder != null)
+                            {
+                                <span style="color:black;">@Html.Raw(data.SortOrder)</span>
+                            }
+                            else
+                            {
+                                <span style="color:red;">@("NULL")</span>
+                            }
+                        </td>
+                        <td data-th="@SysSystemWorkFlowNode.Label_UpdUserNM：" nowrap="nowrap" title="@SysSystemWorkFlowNode.Label_UpdUserNM">@Html.Raw(data.UpdUserNM)</td>
+                        <td data-th="@SysSystemWorkFlowNode.Label_UpdDT：" nowrap="nowrap" title="@SysSystemWorkFlowNode.Label_UpdDT">@Html.Raw(data.UpdDt.ToString("yyyy/MM/dd HH:mm:ss.fff"))</td>
+                    </tr>
+                }
+            }
+        </table>
+        
+        <div>
+            @Html.ButtonSubmit("Sys", "SystemWorkFlowNodeDetail", "AddButton", Resource.Button_Add, "btn")
+        </div>
+    }
+}

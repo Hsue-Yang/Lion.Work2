@@ -1,0 +1,85 @@
+﻿@using ERPAP.Models.Sys
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model LatestUseIPModel
+@{
+    Layout = "~/Views/_Layout.cshtml";
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/LatestUseIP.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("LatestUseIPForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.ConnectLogTabList))
+    {
+        <table class="tblsearch">
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <th style="width: 5%">
+                                @Html.FormLabel(SysLatestUseIP.Label_IPAddress, IsRequired: true)
+                            </th>
+                            <td>
+                                @Html.InputTextBoxFor(model => model.IPAddresss, Size: 15, TitleName: SysLatestUseIP.Label_IPAddress)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.ButtonSubmit("Sys", "LatestUseIP", "SelectButton", Resource.Button_Select, "btnSearch")
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        using (Html.BeginPager(Model.PageIndex, Model.PageSize, Model.RowCount))
+        {
+            <table id="LatestUseIPTable" class="tblzebra">
+                <tr>
+                    <th>
+                        @SysLatestUseIP.Table_IPAddress
+                    </th>
+                    <th>
+                        @SysLatestUseIP.Table_User
+                    </th>
+                    <th>
+                        @SysLatestUseIP.Table_Comp
+                    </th>
+                    <th>
+                        @SysLatestUseIP.Table_Unit
+                    </th>
+                    <th>
+                        @SysLatestUseIP.Table_ErpJob
+                    </th>
+                    <th>
+                        @SysLatestUseIP.Table_CompTel
+                    </th>
+                    <th>
+                        @SysLatestUseIP.Table_CompTelExt
+                    </th>
+                </tr>
+
+                @if (Model.LatestUseIPInfoLists != null)
+                {
+                    foreach (var latestUseIPInfo in Model.LatestUseIPInfoLists)
+                    {
+                        <tr>
+                            <td data-th="@SysLatestUseIP.Table_IPAddress：">@latestUseIPInfo.IPAddress</td>
+                            <td data-th="@SysLatestUseIP.Table_User：">@latestUseIPInfo.UserIDNM</td>
+                            <td data-th="@SysLatestUseIP.Table_Comp：">@latestUseIPInfo.CompNM</td>
+                            <td data-th="@SysLatestUseIP.Table_Unit：">@latestUseIPInfo.UnitNM</td>
+                            <td data-th="@SysLatestUseIP.Table_ErpJob：">@latestUseIPInfo.JobNM</td>
+                            <td data-th="@SysLatestUseIP.Table_CompTel：">@latestUseIPInfo.CompTel</td>
+                            <td data-th="@SysLatestUseIP.Table_CompTelExt：">@latestUseIPInfo.CompTelExt</td>
+                        </tr>
+                    }
+                }
+            </table>
+        }
+    }
+}

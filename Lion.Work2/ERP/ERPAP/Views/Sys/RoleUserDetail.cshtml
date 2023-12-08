@@ -1,0 +1,116 @@
+﻿@using ERPAP.Models.Sys
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model RoleUserDetailModel
+@{
+    Layout = "~/Views/_Layout.cshtml";
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/RoleUserDetail.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+@using (Html.BeginFormSubmit("RoleUserDetailForm"))
+{
+    <div class="page-title">
+        <h3>
+            @SysRoleUserDetail.Label_RoleUserDetail
+        </h3>
+    </div>
+
+    @Html.InputTextBox("SysID", Model.SysID, inputType: EnumInputType.TextBoxHidden)
+    @Html.InputTextBox("RoleID", Model.RoleID, inputType: EnumInputType.TextBoxHidden)
+
+    <table class="tblvertical">
+        <tr>
+            <th>
+                @Html.FormLabel(SysRoleUserDetail.Label_SysID)
+            </th>
+            <td>
+                @Model.SysNMID
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysRoleUserDetail.Label_RoleID)
+            </th>
+            <td>
+                @Model.RoleNMID
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysRoleUserDetail.Label_ListOperate, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputRadioButtonListFor(model => model.RoleUserOperate, Model.RoleUserOperateDictionary)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysRoleUserDetail.Label_AddType, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputRadioButtonListFor(model => model.AddType, Model.AddTypeDictionary)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysRoleUserDetail.Label_UserID, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextAreaFor(model => model.UserMemo, 4, 30, TitleName: SysRoleUserDetail.Label_UserID, style: "width:99%;")
+                ex:000001,000002
+            </td>
+            <td style="display: none">
+                @Html.InputTextBox("RoleUserInfo", string.Empty, 6, 6, TitleName: SysRoleUserDetail.Label_UserID)
+                <div id="RoleUserInfoListBox">
+                    @if (Model.RoleUserInfoList != null &&
+                         Model.RoleUserInfoList.Any())
+                    {
+                        int index = 0;
+                        foreach (var s in Model.RoleUserInfoList)
+                        {
+                            using (var tage = Html.BeginTag("RoleUserInfo", string.Format("{0} {1}", s.UserID, s.UserNM), true))
+                            {
+                                @Html.InputTextBox("RoleUserInfoList[" + index + "].UserID", s.UserID, inputType: EnumInputType.TextBoxHidden)
+                                @Html.InputTextBox("RoleUserInfoList[" + index + "].UserNM", s.UserNM, inputType: EnumInputType.TextBoxHidden)
+                            }
+                            index++;
+                        }
+                    }
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysRoleUserDetail.Label_ErpSign, IsRequired: true)
+            </th>
+            <td>
+                @Html.InputTextBoxFor(model => model.ErpWFNo, TitleName: SysRoleUserDetail.Label_ErpSign)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.FormLabel(SysRoleUserDetail.Label_Memo)
+            </th>
+            <td>
+                @Html.InputTextAreaFor(model => model.Memo, 4, 60, TitleName: SysRoleUserDetail.Label_Memo, style: "width:99%;")
+            </td>
+        </tr>
+    </table>
+
+    <div>
+        @Html.ButtonClient("OkayButton", Resource.Button_Okay, "btn")
+        @Html.ButtonClient("CancelButton", Resource.Button_Cancel, "btn")
+    </div>
+}
+
+@using (Html.BeginConfirmDialog("dialog_Confirm", Resource.SysMsg_Title, string.Empty))
+{
+    @Html.FormLabel(SysRoleUserDetail.SysMsg_RoleUserCoverConfirm, IsRequired: true)
+    <div>
+        @Html.ButtonClient("ConfirmButton", Resource.Button_Okay, "btn")
+        @Html.ButtonClient("AbolishmentButton", Resource.Button_Cancel, "btn")
+    </div>
+}

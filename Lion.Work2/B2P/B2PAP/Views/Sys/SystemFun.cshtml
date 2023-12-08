@@ -1,0 +1,216 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity
+@using LionTech.Entity.B2P
+@using LionTech.Entity.B2P.Sys
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model B2PAP.Models.Sys.SystemFunModel
+
+<script src="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Scripts/Sys/SystemFun.js" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemFunForm"))
+{
+    using (Html.BeginTabs(B2PAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.SysSystemTabList))
+    {
+        @Html.InputTextBox("SysID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("FunControllerID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("FunActionName", string.Empty, inputType: EnumInputType.TextBoxHidden)
+
+        <table class="tblsearch">
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <th>
+                                @Html.FormLabel(SysSystemFun.Label_SysID, IsRequired: true)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.QuerySysID, Model.GetDictionaryFormSelectItem(Model.EntitySysUserSystemSysIDList, true), false, TitleName: SysSystemFun.Label_SysID)
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysSystemFun.Label_SubSysID)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.QuerySubSysID, Model.GetDictionaryFormSelectItem(Model.EntitySysSystemSubsysIDList, true), false, TitleName: SysSystemFun.Label_SubSysID)
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysSystemFun.Label_FunMenuSysID)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.QueryFunMenuSysID, Model.GetDictionaryFormSelectItem(Model.EntitySysSystemSysIDList, true), false, TitleName: SysSystemFun.Label_FunMenuSysID)
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysSystemFun.Label_FunMenu)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.QueryFunMenu, Model.GetDictionaryFormSelectItem(Model.EntitySysSystemFunMenuList, true), false)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                @Html.FormLabel(SysSystemFun.Label_FunGroup)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.QueryFunControllerID, Model.GetDictionaryFormSelectItem(Model.EntitySysSystemFunControllerIDList, true), false)
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysSystemFun.Label_FunAction)
+                            </th>
+                            <td colspan="5">
+                                @Html.InputComboBoxFor(model => model.QueryFunName, Model.GetDictionaryFormSelectItem(Model.EntitySysSystemFunNameList, true), false)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                @Html.FormLabel(SysSystemFun.Label_FunGroupNM)
+                            </th>
+                            <td>
+                                @Html.InputTextBoxFor(model => model.QueryFunControllerNM, Size: 20, TitleName: SysSystemFun.Label_FunGroupNM)
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysSystemFun.Label_FunNM)
+                            </th>
+                            <td>
+                                @Html.InputTextBoxFor(model => model.QueryFunActionName, Size: 20, TitleName: SysSystemFun.Label_FunNM)
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="width"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="8">
+                                @Html.ButtonClient("SelectButton", Resource.Button_Select, className: "btnSearch")
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        
+        using (Html.BeginPager(Model.PageIndex, Model.PageSize, Model.RowCount))
+        {
+            <table id="SystemFunTable" class="tblzebra">
+                <tr>
+                    <th nowrap="nowrap">@SysSystemFun.Text_Detail</th>
+                    <th nowrap="nowrap">@SysSystemFun.Text_Copy</th>
+                    <th nowrap="nowrap">@SysSystemFun.Text_Pick</th>
+                    <th nowrap="nowrap">@SysSystemFun.Table_SysNM</th>
+                    <th nowrap="nowrap">@SysSystemFun.Table_SubSysNM</th>
+                    <th nowrap="nowrap">@SysSystemFun.Table_FunMenuNM</th>
+                    <th nowrap="nowrap">@SysSystemFun.Table_FunGroup</th>
+                    <th nowrap="nowrap">@SysSystemFun.Table_FunNM</th>
+                    <th nowrap="nowrap">@SysSystemFun.Table_FunPath</th>
+                    <th nowrap="nowrap">@SysSystemFun.Table_Disable</th>
+                    <th nowrap="nowrap">@SysSystemFun.Table_OutSide</th>
+                    <th nowrap="nowrap">@SysSystemFun.Table_SortOrder</th>
+                    <th nowrap="nowrap">@SysSystemFun.Table_UpdUserNM</th>
+                    <th nowrap="nowrap">@SysSystemFun.Table_UpdDT</th>
+                </tr>
+                @if (Model.EntitySystemFunList != null)
+                {
+                    string fullURL = string.Empty;
+                    foreach (EntitySystemFun.SystemFun data in Model.EntitySystemFunList)
+                    {
+                        fullURL = data.GetFullURL();
+                        
+                        <tr>
+                            <td nowrap="nowrap" data-th="@SysSystemFun.Text_Detail：" class="center">
+                                @Html.TextSubmitLink(
+                                    "Sys",
+                                    "SystemFunDetail",
+                                    "LinkFunKey",
+                                    SysSystemFun.Text_Detail,
+                                    new List<string>() {
+                                        data.SysID.GetValue(),
+                                        data.FunControllerID.GetValue(),
+                                        data.FunActionName.GetValue()
+                                    }
+                                )
+                            </td>
+                            <td nowrap="nowrap" data-th="@SysSystemFun.Text_Copy：" class="center">
+                                @Html.TextSubmitLink(
+                                    "Sys",
+                                    "SystemFunDetail",
+                                    "LinkFunKeyCopy",
+                                    SysSystemFun.Text_Copy,
+                                    new List<string>() {
+                                        data.SysID.GetValue(),
+                                        data.FunControllerID.GetValue(),
+                                        data.FunActionName.GetValue()
+                                    }
+                                )
+                            </td>
+                            <td data-th="@SysSystemFun.Text_Pick：" class="center">
+                                @Html.InputCheckBox("PickList", string.Empty, data.GetPrimaryKey(), false)
+                            </td>
+                            <td data-th="@SysSystemFun.Table_SysNM：" nowrap="nowrap" title="@SysSystemFun.Table_SysNM">@Html.Raw(data.SysNM.HtmlValue())</td>
+                            <td data-th="@SysSystemFun.Table_SubSysNM：" nowrap="nowrap" title="@SysSystemFun.Table_SubSysNM">
+                                @if (data.SubSysNM.IsNull() == false)
+                                {
+                                    @Html.Raw(data.SubSysNM.HtmlValue())
+                                }
+                            </td>
+                            <td data-th="@SysSystemFun.Table_FunMenuNM：" nowrap="nowrap" title="@SysSystemFun.Table_FunMenuNM">
+                                @if (data.MenuList != null && data.MenuList.Count > 0)
+                                { 
+                                    foreach (EntitySystemFun.SystemMenuFun menu in data.MenuList)
+                                    {
+                                        @Html.Raw(menu.FunMenuNM.HtmlValue())
+                                        if (menu.FunMenuIsDisable.GetValue() == EnumYN.Y.ToString())
+                                        { 
+                                            <span>(</span>
+                                            @SysSystemFun.Label_Disable
+                                            <span>)</span>
+                                        }
+
+                                        <br />
+                                    }
+                                }
+                            </td>
+                            <td data-th="@SysSystemFun.Table_FunGroup：" nowrap="nowrap" title="@SysSystemFun.Table_FunGroup">@Html.Raw(data.FunGroup.HtmlValue())</td>
+                            <td data-th="@SysSystemFun.Table_FunNM：" nowrap="nowrap" title="@SysSystemFun.Table_FunNM">@Html.Raw(data.FunNM.HtmlValue())</td>
+                            @if (data.MenuList != null && data.MenuList.Count > 0)
+                            {
+                                <td data-th="@SysSystemFun.Table_FunPath：" Table_FunNM class="functionHelpLink" title="@SysSystemFun.Table_FunPath">
+                                    @Html.TextLink(fullURL, fullURL)
+                                </td>
+                            }
+                            else
+                            {
+                                <td data-th="@SysSystemFun.Table_FunPath：" Table_FunNM title="@SysSystemFun.Table_FunPath">
+                                    @Html.Raw(fullURL)
+                                </td>
+                            }
+                            <td data-th="@SysSystemFun.Table_Disable：" nowrap="nowrap" title="@SysSystemFun.Table_Disable">@if (data.FunIsDisable.GetValue() == EnumYN.Y.ToString())
+                                                                                    {@SysSystemFun.Label_Disable}</td>
+                            <td data-th="@SysSystemFun.Table_OutSide：" nowrap="nowrap" title="@SysSystemFun.Table_OutSide">@if (data.IsOutSide.GetValue() == EnumYN.Y.ToString())
+                                                                                    {@SysSystemFun.Label_Enable}</td>
+                            <td data-th="@SysSystemFun.Table_SortOrder：" nowrap="nowrap" title="@SysSystemFun.Table_SortOrder">@Html.Raw(data.SortOrder.HtmlValue())</td>
+                            <td data-th="@SysSystemFun.Table_UpdUserNM：" nowrap="nowrap" title="@SysSystemFun.Table_UpdUserNM">@Html.Raw(data.UpdUserNM.HtmlValue())</td>
+                            <td data-th="@SysSystemFun.Table_UpdDT：" nowrap="nowrap" title="@SysSystemFun.Table_UpdDT">@Html.Raw(data.UpdDT.HtmlValue())</td>
+                        </tr>
+                    }
+                }
+            </table>
+        }
+        
+        <table class="tblsearch">
+            <tr>
+                <th style="width: 60px">
+                    @Html.FormLabel(SysSystemFun.Label_PurviewID)
+                </th>
+                <td>
+                    @Html.InputComboBoxFor(model => model.PurviewID, Model.GetDictionaryFormSelectItem(Model.EntitySysSystemPurviewIDList, true), false, TitleName: SysSystemFun.Label_PurviewID)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.ButtonSubmit("Sys", "SystemFunDetail", "AddButton", Resource.Button_Add, className: "btn")
+                    @Html.ButtonSubmit("Sys", "SystemFun", "SaveButton", Resource.Button_Save, className: "btn")
+                </td>
+            </tr>
+        </table>
+    }
+}

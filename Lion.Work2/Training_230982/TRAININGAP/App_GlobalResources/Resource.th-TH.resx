@@ -1,0 +1,360 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AP_CultureInfo_en_US" xml:space="preserve">
+    <value>United States (English)</value>
+  </data>
+  <data name="AP_CultureInfo_ja_JP" xml:space="preserve">
+    <value>日本 (日本語)</value>
+  </data>
+  <data name="AP_CultureInfo_th_TH" xml:space="preserve">
+    <value>ประเทศไทย (ไทย)</value>
+  </data>
+  <data name="AP_CultureInfo_zh_CN" xml:space="preserve">
+    <value>中国 (简体中文)</value>
+  </data>
+  <data name="AP_CultureInfo_zh_TW" xml:space="preserve">
+    <value>臺灣 (繁體中文)</value>
+  </data>
+  <data name="AP_GenericError" xml:space="preserve">
+    <value>ผิดพลาดของระบบชี้ให้ฉันกลับไป </value>
+  </data>
+  <data name="AP_Menu_Bulletin" xml:space="preserve">
+    <value>ประกาศ </value>
+  </data>
+  <data name="AP_Menu_Conference" xml:space="preserve">
+    <value>ระบบการประชุมผ่านวิดีโอ </value>
+  </data>
+  <data name="AP_Menu_Culture" xml:space="preserve">
+    <value>หลายภาษา</value>
+  </data>
+  <data name="AP_Menu_ExternalAffair" xml:space="preserve">
+    <value>กระทรวงการต่างประเทศ </value>
+  </data>
+  <data name="AP_Menu_ExternalSystem" xml:space="preserve">
+    <value>ระบบภายนอก </value>
+  </data>
+  <data name="AP_Menu_FaxSystem" xml:space="preserve">
+    <value>ระบบโทรสาร </value>
+  </data>
+  <data name="AP_Menu_HelloWord" xml:space="preserve">
+    <value>, สวัสดี!</value>
+  </data>
+  <data name="AP_Menu_LionEdu" xml:space="preserve">
+    <value>การเรียนรู้ </value>
+  </data>
+  <data name="AP_Menu_LionWebsite" xml:space="preserve">
+    <value>เว็บไซต์ของสิงโต </value>
+  </data>
+  <data name="AP_Menu_Logout" xml:space="preserve">
+    <value>ออกจากระบบ </value>
+  </data>
+  <data name="AP_Menu_MenuSetting" xml:space="preserve">
+    <value>เมนูการตั้งค่า </value>
+  </data>
+  <data name="AP_Menu_Message" xml:space="preserve">
+    <value>ฝากข้อความ </value>
+  </data>
+  <data name="AP_Menu_OfficeSystem" xml:space="preserve">
+    <value>ระบบสำนักงาน </value>
+  </data>
+  <data name="AP_Menu_PunchClock" xml:space="preserve">
+    <value>หมัด </value>
+  </data>
+  <data name="AP_Menu_Title" xml:space="preserve">
+    <value>สิงโตกลุ่ม </value>
+  </data>
+  <data name="AP_Menu_Welfare" xml:space="preserve">
+    <value>คณะกรรมการ Fu </value>
+  </data>
+  <data name="AP_Title" xml:space="preserve">
+    <value>ERP - สิงโตกลุ่ม </value>
+  </data>
+  <data name="AP_UnAuthorizated" xml:space="preserve">
+    <value>กลับไปที่หน้าเข้าสู่ระบบ</value>
+  </data>
+  <data name="Button_Add" xml:space="preserve">
+    <value>ที่เพิ่มเข้ามา </value>
+  </data>
+  <data name="Button_Cancel" xml:space="preserve">
+    <value>ยกเลิก </value>
+  </data>
+  <data name="Button_Close" xml:space="preserve">
+    <value>ปิดตัวลง </value>
+  </data>
+  <data name="Button_Copy" xml:space="preserve">
+    <value>คัดลอก </value>
+  </data>
+  <data name="Button_Delete" xml:space="preserve">
+    <value>ลบ </value>
+  </data>
+  <data name="Button_Okay" xml:space="preserve">
+    <value>ตกลง </value>
+  </data>
+  <data name="Button_Query" xml:space="preserve">
+    <value>การสอบถาม </value>
+  </data>
+  <data name="Button_Save" xml:space="preserve">
+    <value>การจัดเก็บข้อมูล </value>
+  </data>
+  <data name="Button_Select" xml:space="preserve">
+    <value>ค้นหา </value>
+  </data>
+  <data name="Button_Update" xml:space="preserve">
+    <value>การปรับเปลี่ยน </value>
+  </data>
+  <data name="Button_WorkFlow_BackToNode" xml:space="preserve">
+    <value>อัตราผลตอบแทนต่อโหนด</value>
+  </data>
+  <data name="Button_WorkFlow_Document" xml:space="preserve">
+    <value>ไฟล์</value>
+  </data>
+  <data name="Button_WorkFlow_NextToNode" xml:space="preserve">
+    <value>เคลื่อนย้ายไปยังโหนดถัดไป</value>
+  </data>
+  <data name="Button_WorkFlow_Remark" xml:space="preserve">
+    <value>คำพูด</value>
+  </data>
+  <data name="Button_WorkFlow_SetSignature" xml:space="preserve">
+    <value>signoff ออกแบบ</value>
+  </data>
+  <data name="Button_WorkFlow_TerminateFlow" xml:space="preserve">
+    <value>ระงับกระบวนการ</value>
+  </data>
+  <data name="Label_WorkFlowWFFlowNM" xml:space="preserve">
+    <value>ชื่อกระบวนการ</value>
+  </data>
+  <data name="Label_WorkFlowWFFlowTypeNM" xml:space="preserve">
+    <value>ประเภทกระบวนการ</value>
+  </data>
+  <data name="Label_WorkFlowWFNewUserNM" xml:space="preserve">
+    <value>ผู้ขอ</value>
+  </data>
+  <data name="Label_WorkFlowWFNo" xml:space="preserve">
+    <value>กระบวนการที่</value>
+  </data>
+  <data name="Label_WorkFlowWFNodeNewUserNM" xml:space="preserve">
+    <value>หน่วยประมวลผล</value>
+  </data>
+  <data name="Label_WorkFlowWFNodeNM" xml:space="preserve">
+    <value>ตำแหน่งงาน</value>
+  </data>
+  <data name="Label_WorkFlowWFResultNM" xml:space="preserve">
+    <value>ผลแอพลิเคชัน</value>
+  </data>
+  <data name="Label_WorkFlowWFSubject" xml:space="preserve">
+    <value>ประเด็นสำคัญ</value>
+  </data>
+  <data name="SysMsg_Confirm" xml:space="preserve">
+    <value>ยืนยันการบังคับใช้จำเป็น</value>
+  </data>
+  <data name="SysMsg_DeleteConfirm" xml:space="preserve">
+    <value>ยืนยันการดำเนินการที่คุณต้องการดำเนินการลบมันได้หรือไม่ </value>
+  </data>
+  <data name="SysMsg_Title" xml:space="preserve">
+    <value>ข้อความ</value>
+  </data>
+  <data name="SysMsg_WorkFlowDataInvalid" xml:space="preserve">
+    <value>ไม่มีสิทธิ์หมายเลขกระบวนการดังกล่าว</value>
+  </data>
+  <data name="AP_Rejective" xml:space="preserve">
+    <value>IP นี้ไม่สามารถให้บริการโดยระบบ</value>
+  </data>
+  <data name="Button_WorkFlow_Signature" xml:space="preserve">
+    <value>signoff</value>
+  </data>
+  <data name="Button_WorkFlow_ToDoList" xml:space="preserve">
+    <value>รายการที่ต้องทำ</value>
+  </data>
+  <data name="Label_WorkFlowNodeNewUserNMNull" xml:space="preserve">
+    <value>ที่ไม่ได้กำหนด</value>
+  </data>
+  <data name="Label_WorkFlowWFAssignNodeNewUserID" xml:space="preserve">
+    <value>ได้รับมอบหมายให้จัดการกับคน</value>
+  </data>
+  <data name="Label_WorkFlowWFSigComment" xml:space="preserve">
+    <value>เนื้อหา signoff</value>
+  </data>
+  <data name="Label_WorkFlowWFSigResultID" xml:space="preserve">
+    <value>ผล signoff</value>
+  </data>
+  <data name="Label_WorkFlowWFSigResultIDA" xml:space="preserve">
+    <value>ได้รับการอนุมัติ</value>
+  </data>
+  <data name="Label_WorkFlowWFSigResultIDP" xml:space="preserve">
+    <value>นิวเคลียร์ชั่วคราว</value>
+  </data>
+  <data name="Label_WorkFlowWFSigResultIDR" xml:space="preserve">
+    <value>กลับ</value>
+  </data>
+  <data name="AP_Timeout" xml:space="preserve">
+    <value>UnAuthorizated หน้า เปลี่ยนเส้นทางให้ฉันเข้าสู่ระบบหน้า</value>
+  </data>
+  <data name="Button_WorkFlow_PickNewUser" xml:space="preserve">
+    <value>กลายเป็นผู้ใช้โหนดปัจจุบัน </value>
+  </data>
+  <data name="AP_Menu_LionING" xml:space="preserve">
+    <value>สิงโตไอเอ็นจี</value>
+  </data>
+  <data name="SysMsg_RequiredToolNM" xml:space="preserve">
+    <value>กรุณากรอกชื่อเครื่องมือ</value>
+  </data>
+  <data name="Button_FunTool_Copy" xml:space="preserve">
+    <value>คัดลอกสภาพ</value>
+  </data>
+  <data name="Button_FunTool_Create" xml:space="preserve">
+    <value>สร้างสภาพ</value>
+  </data>
+  <data name="Button_FunTool_Delete" xml:space="preserve">
+    <value>ลบเงื่อนไข</value>
+  </data>
+  <data name="Button_FunTool_Query" xml:space="preserve">
+    <value>คำที่โดยสภาพ</value>
+  </data>
+  <data name="Button_FunTool_Update" xml:space="preserve">
+    <value>ปรับปรุงสภาพ</value>
+  </data>
+  <data name="SysMsg_FunToolCopySuccess" xml:space="preserve">
+    <value>คัดลอกที่ประสบความสำเร็จ</value>
+  </data>
+  <data name="SysMsg_FunToolDeleteSuccess" xml:space="preserve">
+    <value>ลบความสำเร็จ</value>
+  </data>
+  <data name="SysMsg_RequiredUserID" xml:space="preserve">
+    <value>กรุณากรอกรหัสผู้ใช้</value>
+  </data>
+  <data name="Text_FunTool_DefaultNM" xml:space="preserve">
+    <value>เริ่มต้นสภาพ</value>
+  </data>
+  <data name="Text_FunTool_IsUseDefaultNo" xml:space="preserve">
+    <value>เก็บค่าเริ่มต้นไม่มี</value>
+  </data>
+  <data name="Button_FunTool_UpdateName" xml:space="preserve">
+    <value>ปรับปรุงสภาพชื่อ</value>
+  </data>
+  <data name="SysMsg_FunToolUpdateNameSuccess" xml:space="preserve">
+    <value>เปลี่ยนชื่อที่ประสบความสำเร็จ</value>
+  </data>
+  <data name="AP_Menu_UplanWebsite" xml:space="preserve">
+    <value>Uplan เว็บไซต์</value>
+  </data>
+  <data name="AP_GSA_SearchIntranet" xml:space="preserve">
+    <value>ค้นหาอินทราเน็ต</value>
+  </data>
+</root>

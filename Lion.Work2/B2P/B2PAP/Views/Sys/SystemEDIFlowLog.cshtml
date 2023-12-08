@@ -1,0 +1,167 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity.B2P
+@using LionTech.Entity.B2P.Sys
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model B2PAP.Models.Sys.SystemEDIFlowLogModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<link href="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Content/themes/base/jquery.ui.datepicker.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />           
+<script src="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Scripts/jquery-ui-1.8.16.datepicker.min.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Scripts/Sys/SystemEDIFlowLog.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemEDIFlowLogForm"))
+{
+    using (Html.BeginTabs(B2PAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.SysEDITabList))
+    {
+        <table class="tblsearch">
+            <tr>
+                <td style="width: 60px">
+                    <table>
+                        <tr>
+                            <th>
+                                @Html.FormLabel(SysSystemEDICon.Label_SysID, IsRequired: true)
+                            </th>
+                            <td>
+                                <!--@Html.InputComboBoxFor(model => model.QuerySysID, Model.GetDictionaryFormSelectItem(Model.EntitySysSystemSysIDList, false), TitleName: SysSystemEDIJobDetail.Label_SysID)-->
+                                @Html.InputComboBoxFor(model => model.QuerySysID, Model.GetDictionaryFormSelectItem(Model.EntitySysUserSystemSysIDList, false), isDisabled: false, TitleName: SysSystemEDIFlowLog.Label_SysID)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                @Html.FormLabel(SysSystemEDIFlowLog.Label_EDIDate)
+                            </th>
+                            <td>
+                                @Html.InputTextBoxFor(model => model.EDIDate, TitleName: SysSystemEDIFlowLog.Label_EDIDate)
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <table>
+                        <tr>
+                            <th>
+                                @Html.FormLabel(SysSystemEDIFlowLog.Label_EDIFlowID)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.QueryEDIFlowID, Model.GetDictionaryFormSelectItem(Model.EntitySysSystemEDIFlowList, true), isDisabled: false, TitleName: SysSystemEDICon.Label_EDIFlowID)
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <th>
+                                @Html.FormLabel(SysSystemEDIFlowLog.Label_DataDate)
+                            </th>
+                            <td>
+                                @Html.InputTextBoxFor(model => model.DataDate, TitleName: SysSystemEDIFlowLog.Label_DataDate)
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <table>
+                        <tr>
+                            <th>
+                                @Html.FormLabel(SysSystemEDIFlowLog.Label_EDINO)
+                            </th>
+                            <td>
+                                @Html.InputTextBoxFor(model => model.EDINO, TitleName: SysSystemEDIFlowLog.Label_EDINO)
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <div class="text-left">
+            @Html.ButtonSubmit("Sys", "SystemEDIFlowLog", "SearchButton", Resource.Button_Select, className: "btnSearch")
+        </div>
+
+        using (Html.BeginPager(Model.PageIndex, Model.PageSize, Model.RowCount))
+        {
+            <table id="SystemEDIFlowLogTable" class="tblzebra">
+                <tr>
+                    <th nowrap="nowrap">@SysSystemEDIFlowLog.Text_EDIJobLog</th>
+                    <th>@SysSystemEDIFlowLog.Label_EDINO</th>
+                    <th>@SysSystemEDIFlowLog.Label_SysID</th>
+                    <th>@SysSystemEDIFlowLog.Label_EDIFlowID</th>
+                    <th>@SysSystemEDIFlowLog.Label_EDIDate</th>
+                    <th>@SysSystemEDIFlowLog.Label_EDITime</th>
+                    <th>@SysSystemEDIFlowLog.Label_DataDate</th>
+                    <th>@SysSystemEDIFlowLog.Label_StatusID</th>
+                    <th>@SysSystemEDIFlowLog.Label_ResultID</th>
+                    <th>@SysSystemEDIFlowLog.Label_DTBegin</th>
+                    <th>@SysSystemEDIFlowLog.Label_DTEnd</th>
+                    <th nowrap="nowrap">@SysSystemEDIFlowLog.Label_IsAutomatic</th>
+                    <th>@SysSystemEDIFlowLog.Label_AutoSchedule</th>
+                    <th nowrap="nowrap">@SysSystemEDIFlowLog.Label_AutoEDINO</th>
+                    <th nowrap="nowrap">@SysSystemEDIFlowLog.Label_AutoFlowID</th>
+                    <th nowrap="nowrap">@SysSystemEDIFlowLog.Label_IsDeleted</th>
+                    <th>@SysSystemEDIFlowLog.Label_UpdUserNM</th>
+                    <th>@SysSystemEDIFlowLog.Label_UpdDT</th>
+                </tr>
+                @if (Model.EntitySystemEDIFlowLogList != null)
+                {
+                    foreach (EntitySystemEDIFlowLog.SystemEDIFlowLog data in Model.EntitySystemEDIFlowLogList)
+                    {
+                        <tr>
+                            <td nowrap="nowrap" data-th="@SysSystemEDIFlowLog.Text_EDIJobLog：" class="center">
+                                @Html.TextSubmitLink(
+                                    "Sys",
+                                    "SystemEDIJobLog",
+                                    "LinkFunKeyDetail",
+                                    SysSystemEDIFlowLog.Text_EDIJobLog,
+                                    new List<string>()
+                                    {
+                                        data.SysID.GetValue(),
+                                        data.EDIFlowID.GetValue(),
+                                        data.EDINO.GetValue(),
+                                    }
+                                    )
+                            </td>
+                            <td data-th="@SysSystemEDIFlowLog.Table_EDINO：" nowrap="nowrap" title="@SysSystemEDIFlowLog.Table_EDINO">@Html.Raw(data.EDINO.HtmlValue())</td>
+                            <td data-th="@SysSystemEDIFlowLog.Table_SysID：" nowrap="nowrap" title="@SysSystemEDIFlowLog.Table_SysID">@Html.Raw(data.SysNM.HtmlValue())</td>
+                            <td data-th="@SysSystemEDIFlowLog.Table_EDIFlowID：" nowrap="nowrap" title="@SysSystemEDIFlowLog.Table_EDIFlowID">@Html.Raw(data.EDIFlowNM.HtmlValue())</td>
+                            <td data-th="@SysSystemEDIFlowLog.Table_EDIDate：" nowrap="nowrap" title="@SysSystemEDIFlowLog.Table_EDIDate">@Html.Raw(data.EDIDate.HtmlValue())</td>
+                            <td data-th="@SysSystemEDIFlowLog.Table_EDITime：" nowrap="nowrap" title="@SysSystemEDIFlowLog.Table_EDITime">@Html.Raw(data.EDITime.HtmlValue())</td>
+                            <td data-th="@SysSystemEDIFlowLog.Table_DataDate：" nowrap="nowrap" title="@SysSystemEDIFlowLog.Table_DataDate">@Html.Raw(data.DataDate.HtmlValue())</td>
+                            <td data-th="@SysSystemEDIFlowLog.Table_StatusID：" nowrap="nowrap" title="@SysSystemEDIFlowLog.Table_StatusID">@Html.Raw(data.EDIFlowStatusNM.HtmlValue())</td>
+                            <td data-th="@SysSystemEDIFlowLog.Table_ResultCode：" nowrap="nowrap" title="@SysSystemEDIFlowLog.Table_ResultCode">
+                                @Html.TextSubmitLink(
+                                    "Sys",
+                                    "SystemEDIFlowError",
+                                    "LinkEDIFlowError",
+                                    data.EDIFlowResultNM.GetValue(),
+                                    new List<string>()
+                                    {
+                                        data.EDIFlowID.GetValue(),
+                                        data.EDIDate.GetValue(),
+                                        data.EDITime.GetValue(),
+                                        data.SysID.GetValue()
+                                    }
+                                    )
+                            </td>
+                            <td data-th="@SysSystemEDIFlowLog.Table_DTBegin：" nowrap="nowrap" title="@SysSystemEDIFlowLog.Table_DTBegin">@Html.Raw(data.DTBegin.HtmlValue())</td>
+                            <td data-th="@SysSystemEDIFlowLog.Table_DTEnd：" nowrap="nowrap" title="@SysSystemEDIFlowLog.Table_DTEnd">@Html.Raw(data.DTEnd.HtmlValue())</td>
+                            <td data-th="@SysSystemEDIFlowLog.Table_IsAutomatic：" nowrap="nowrap" title="@SysSystemEDIFlowLog.Table_IsAutomatic">@Html.Raw(data.IsAutomatic.HtmlValue())</td>
+                            <td data-th="@SysSystemEDIFlowLog.Table_AutoSchedule：" nowrap="nowrap" title="@SysSystemEDIFlowLog.Table_AutoSchedule">@Html.Raw(data.AutoSchedule.HtmlValue())</td>
+                            <td data-th="@SysSystemEDIFlowLog.Table_AutoEDINO：" nowrap="nowrap" title="@SysSystemEDIFlowLog.Table_AutoEDINO">@Html.Raw(data.AutoEDINO.HtmlValue())</td>
+                            <td data-th="@SysSystemEDIFlowLog.Table_AutoFlowID：" nowrap="nowrap" title="@SysSystemEDIFlowLog.Table_AutoFlowID">@Html.Raw(data.AutoFlowID.HtmlValue())</td>
+                            <td data-th="@SysSystemEDIFlowLog.Table_IsDeleted：" nowrap="nowrap" title="@SysSystemEDIFlowLog.Table_IsDeleted">@Html.Raw(data.IsDeleted.HtmlValue())</td>
+                            <td data-th="@SysSystemEDIFlowLog.Table_UpdUserNM：" nowrap="nowrap" title="@SysSystemEDIFlowLog.Table_UpdUserNM">@Html.Raw(data.UpdUserID.HtmlValue())</td>
+                            <td data-th="@SysSystemEDIFlowLog.Table_UpdDT：" nowrap="nowrap" title="@SysSystemEDIFlowLog.Table_UpdDT">@Html.Raw(data.UpdDt.HtmlValue())</td>
+                        </tr>
+                    }
+                }
+            </table>
+        }
+
+        <div>
+            @Html.ButtonSubmit("Sys", "SystemEDIFlowLogSetting", "AddButton", Resource.Button_Add, className: "btn")
+            @Html.ButtonSubmit("Sys", "SystemEDIFlow", "CancelButton", Resource.Button_Cancel, className: "btn")
+        </div>
+    }
+}

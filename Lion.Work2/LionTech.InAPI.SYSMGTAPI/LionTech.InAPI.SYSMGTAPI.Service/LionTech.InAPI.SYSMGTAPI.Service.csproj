@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="LionTech.AspNetCore.InApi" Version="6.23.5.1-beta" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LionTech.InAPI.SYSMGTAPI.DataAccess\LionTech.InAPI.SYSMGTAPI.DataAccess.csproj" />
+    <ProjectReference Include="..\LionTech.InAPI.SYSMGTAPI.Domain\LionTech.InAPI.SYSMGTAPI.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

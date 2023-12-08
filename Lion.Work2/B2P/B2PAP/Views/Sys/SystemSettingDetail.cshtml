@@ -1,0 +1,154 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity
+@using LionTech.Entity.B2P
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model B2PAP.Models.Sys.SystemSettingDetailModel
+
+<script src="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Scripts/Sys/SystemSettingDetail.js" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemSettingDetailForm"))
+{
+    using (Html.BeginTabs(B2PAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.TabList))
+    {
+        @Html.InputTextBox("IsOutsourcing", Model.IsOutsourcing, inputType: EnumInputType.TextBoxHidden)
+        
+        string sysIDTextStyle = "block";
+        string readOnlyTextStyle = "none";
+        if (Model.ExecAction == EnumActionType.Update || Model.ExecAction == EnumActionType.Delete)
+        {
+            sysIDTextStyle = "none";
+            readOnlyTextStyle = "block";
+        }
+
+        <table class="tblvertical">
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemSettingDetail.Label_SysID, IsRequired: true)
+                </th>
+                <td>
+                    <span style="display: @sysIDTextStyle">
+                        @Html.InputTextBoxFor(model => model.SysID, Size: 30, TitleName: SysSystemSettingDetail.Label_SysID)
+                    </span>
+                    <span style="display: @readOnlyTextStyle">
+                        @Html.InputTextBox("SysIDReadOnlyText", string.Empty, ReadOnly: true, Size: 30)
+                    </span>
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemSettingDetail.Label_ENSysID)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.ENSysID, ReadOnly: true, Size: 30)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemSettingDetail.Label_UserID, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.UserID, Size: 20, TitleName: SysSystemSettingDetail.Label_UserID)
+                    @Html.ButtonClient("Help03Button", "?", className: "qmark")
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemSettingDetail.Label_SysNMZHTW, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.SysNMZHTW, ReadOnly: false, Size: 30, TitleName: SysSystemSettingDetail.Label_SysNMZHTW)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemSettingDetail.Label_SysNMZHCN, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.SysNMZHCN, ReadOnly: false, Size: 30, TitleName: SysSystemSettingDetail.Label_SysNMZHCN)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemSettingDetail.Label_SysNMENUS, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.SysNMENUS, ReadOnly: false, Size: 30, TitleName: SysSystemSettingDetail.Label_SysNMENUS)
+                </td>
+            </tr>
+            <tr>
+                <th></th>
+                <td></td>
+                <th>
+                    @Html.FormLabel(SysSystemSettingDetail.Label_SysNMTHTH, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.SysNMTHTH, ReadOnly: false, Size: 30, TitleName: SysSystemSettingDetail.Label_SysNMTHTH)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemSettingDetail.Label_SysNMJAJP, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.SysNMJAJP, ReadOnly: false, Size: 30, TitleName: SysSystemSettingDetail.Label_SysNMJAJP)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemSettingDetail.Label_SysIndexPath, IsRequired: true)
+                </th>
+                <td colspan="5">
+                    @Html.InputTextBoxFor(model => model.SysIndexPath, ReadOnly: false, Size: 90, TitleName: SysSystemSettingDetail.Label_SysIndexPath)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemSettingDetail.Label_SysKey)
+                </th>
+                <td colspan="5">
+                    @Html.InputTextBoxFor(model => model.SysKey, ReadOnly: true, Size: 90)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemSettingDetail.Label_IsOutsourcing)
+                </th>
+                <td>
+                    @if (Model.ExecAction == EnumActionType.Add)
+                    {
+                        @Html.InputCheckBox("IsOutsourcingCheckBox", SysSystemSettingDetail.Label_IsOutsourcing, string.Empty, (Model.IsOutsourcing == EnumYN.Y.ToString()) ? true : false)
+                    }
+                    else
+                    {
+                        @Html.InputTextBox("IsOutsourcingReadOnlyText", Model.IsOutsourcing, ReadOnly: true)
+                    }
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemSettingDetail.Label_IsDisable)
+                </th>
+                <td>
+                    @Html.InputCheckBox("IsDisable", SysSystemSettingDetail.Label_IsDisable, Model.IsDisable, (Model.IsDisable == EnumYN.Y.ToString()) ? true : false)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemSettingDetail.Label_SortOrder, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.SortOrder, false, 30, TitleName: SysSystemSettingDetail.Label_SortOrder)
+                </td>
+            </tr>
+        </table>
+
+        <div>
+            @if (Model.ExecAction == EnumActionType.Add)
+            {
+                @Html.ButtonClient("AddButton", Resource.Button_Add, className: "btn")
+            }
+            @if (Model.ExecAction == EnumActionType.Update ||
+                 Model.ExecAction == EnumActionType.Delete)
+            {
+                @Html.ButtonClient("UpdateButton", Resource.Button_Update, className: "btn")
+                <span></span>
+                @Html.ButtonClient("DeleteButton", Resource.Button_Delete, className: "btn")
+            }
+            @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+        </div>
+    
+        using (Html.BeginConfirmDialog("dialog_Confirm", Resource.SysMsg_Title, Resource.SysMsg_DeleteConfirm))
+        {
+            @Html.ButtonClient("ConfirmOKButton", Resource.Button_Delete)
+            @Html.ButtonClient("ConfirmNOButton", Resource.Button_Cancel)
+        }
+    }
+}

@@ -1,0 +1,97 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity.B2P
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model B2PAP.Models.Sys.SystemRoleFunListModel
+
+<script src="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Scripts/Sys/SystemRoleFunList.js" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemRoleFunListForm"))
+{
+    using (Html.BeginTabs(B2PAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.TabList))
+    {
+        @Html.InputTextBox("SysID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("FunControllerID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("FunActionName", string.Empty, inputType: EnumInputType.TextBoxHidden)
+
+        <table class="tblsearch">
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <th>
+                                @Html.FormLabel(SysSystemRoleFunList.Label_SysID, IsRequired: true)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.QuerySysID, Model.GetDictionaryFormSelectItem(Model.EntitySysUserSystemSysIDList, true), false, TitleName: SysSystemRoleFunList.Label_SysID)
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysSystemRoleFunList.Label_RoleNM)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.RoleID, Model.GetDictionaryFormSelectItem(Model.EntitySysSystemRoleIDList, true), false, TitleName: SysSystemRoleFunList.Label_RoleNM)
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysSystemRoleFunList.Label_FunGroup)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.QueryFunControllerID, Model.GetDictionaryFormSelectItem(Model.EntitySysSystemFunControllerIDList, true), false, TitleName: SysSystemRoleFunList.Label_FunGroup)
+                            </td>
+                            <td>
+                                @Html.ButtonClient("SelectButton", Resource.Button_Select, className: "btnSearch")
+                            </td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    
+        using (Html.BeginPager(Model.PageIndex, Model.PageSize, Model.RowCount))
+        {
+            <table id="SystemRoleFunListTable" class="tblzebra">
+                <tr>
+                    <th>@SysSystemRoleFunList.Text_Detail</th>
+                    <th>@SysSystemRoleFunList.Label_SubSysID</th>
+                    <th>@SysSystemRoleFunList.Label_FunGroup</th>
+                    <th>@SysSystemRoleFunList.Table_FunNM</th>
+                    <th>@SysSystemRoleFunList.Table_UpdUserNM</th>
+                    <th>@SysSystemRoleFunList.Table_UpdDT</th>
+                </tr>
+
+                @if (Model.entitySystemRoleFunList != null)
+                {
+                    foreach (LionTech.Entity.B2P.Sys.EntitySystemRoleFunList.SystemRoleFunList data in Model.entitySystemRoleFunList)
+                    {
+                        <tr>
+                            <td data-th="@SysSystemRoleFunList.Text_Detail：" style="text-align: center">
+                                @Html.TextSubmitLink(
+                                    "Sys",
+                                    "SystemFunDetail",
+                                    "LinkFunKey",
+                                    SysSystemRoleFunList.Text_Detail,
+                                    new List<string>() 
+                                    {
+                                        data.SysID.GetValue(),
+                                        data.FunControllerID.GetValue(),
+                                        data.FunActionName.GetValue()
+                                    }
+                                )
+                            </td>
+                            <td data-th="@SysSystemRoleFunList.Label_SubSysID：">@Html.Raw(data.SubSysNM.HtmlValue())</td>
+                            <td data-th="@SysSystemRoleFunList.Label_FunGroup：">@Html.Raw(data.FunGroupNM.HtmlValue())</td>
+                            <td data-th="@SysSystemRoleFunList.Table_FunNM：">@Html.Raw(data.FunActionNMID.HtmlValue())</td>
+                            <td data-th="@SysSystemRoleFunList.Table_UpdUserNM：">@Html.Raw(data.UpdUserID.HtmlValue())</td>
+                            <td data-th="@SysSystemRoleFunList.Table_UpdDT：">@Html.Raw(data.UpdDT.HtmlValue())</td>
+                        </tr>
+                    }
+                }
+            </table>    
+        }
+
+        <div>
+            @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+        </div>
+    }
+}

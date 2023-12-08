@@ -1,0 +1,72 @@
+﻿@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemWorkFlowChartModel
+
+@{
+    Layout = "~/Views/_Layout.cshtml";
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemWorkFlowChart.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemWorkFlowChartForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.SysWFTabList))
+    {
+        @Html.InputTextBox("WFFlowID", Model.WFFlowID, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("WFFlowVer", Model.WFFlowVer, inputType: EnumInputType.TextBoxHidden)
+
+        <table class="tblsearch" style="width: 500px;">
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <th>
+                                @Html.FormLabel(SysSystemWorkFlowChart.Label_SysID, IsRequired: true)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.SysID, Model.GetDictionaryFormSelectItem(Model.EntityUserSystemSysIDList, false), false, TitleName: SysSystemWorkFlowChart.Label_SysID)
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysSystemWorkFlowChart.Label_WFFlowGroupID, IsRequired: true)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.WFFlowGroupID, Model.GetDictionaryFormSelectItem(Model.EntitySystemWorkFlowGroupIDList, false), isDisabled: false, TitleName: SysSystemWorkFlowChart.Label_WFFlowGroupID)
+                            </td>
+                            <th>
+                                @Html.FormLabel(SysSystemWorkFlowChart.Label_WFCombineKey, IsRequired: true)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.WFCombineKey, Model.GetDictionaryFormSelectItem(Model.EntityUserSystemWorkFlowIDList, false), isDisabled: false, TitleName: SysSystemWorkFlowChart.Label_WFCombineKey)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="6">
+                                @Html.ButtonClient("SelectButton", Resource.Button_Select, className: "btnSearch")
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <div id="CanvasDIV">
+            @if (string.IsNullOrWhiteSpace(Model.FileDataURI) == false)
+            {
+                @Html.InputTextBox("NodePosition", Model.NodePosition, inputType: EnumInputType.TextBoxHidden)
+                @Html.InputTextBox("ArrowPosition", Model.ArrowPosition, inputType: EnumInputType.TextBoxHidden)
+                @Html.Image(Model.FileDataURI)
+            }
+        </div>
+
+        using (Html.BeginConfirmDialog("dialog_Refresh", Resource.SysMsg_Title, SysSystemWorkFlowChart.SysMsg_Refresh))
+        {
+            @Html.ButtonClient("RefreshOKButton", SysSystemWorkFlowChart.Button_Refresh)
+            @Html.ButtonClient("RefreshNOButton", Resource.Button_Cancel)
+        }
+    }
+}

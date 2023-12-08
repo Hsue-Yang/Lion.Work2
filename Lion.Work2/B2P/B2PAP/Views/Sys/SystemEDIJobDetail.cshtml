@@ -1,0 +1,203 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity
+@using LionTech.Entity.B2P
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model B2PAP.Models.Sys.SystemEDIJobDetailModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Scripts/Sys/SystemEDIJobDetail.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemEDIJobDetailForm"))
+{
+    using (Html.BeginTabs(B2PAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.TabList))
+    {
+        string comboBoxStyle = "block";
+        string textBoxStyle = "block";
+        string readOnlyTextStyle = "none";
+        if (Model.ExecAction == EnumActionType.Update || Model.ExecAction == EnumActionType.Delete)
+        {
+            comboBoxStyle = "none";
+            textBoxStyle = "none";
+            readOnlyTextStyle = "block";
+        }
+        
+        <table class="tblvertical">
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemEDIJobDetail.Label_SysID, IsRequired: true)
+                </th>
+                <td>
+                    <span style="display: none">
+                        @Html.InputComboBox("SysID", Model.SysID, Model.GetDictionaryFormSelectItem(Model.EntitySysSystemSysIDList, false), TitleName: SysSystemEDIJobDetail.Label_SysID)
+                    </span>
+                    <span style="display: block">
+                        @Html.InputTextBox("SysIDReadOnlyText", string.Empty, ReadOnly: true, maximumLength: 200, Size: 30)
+                    </span>
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemEDIJobDetail.Label_EDIFlowID, IsRequired: true)
+                </th>
+                <td>
+                    <span style="display: @comboBoxStyle">
+                        @Html.InputComboBoxFor(model => model.EDIFlowID, Model.GetDictionaryFormSelectItem(Model.EntitySysSystemEDIFlowList, false), TitleName: SysSystemEDIJobDetail.Label_EDIFlowID)
+                    </span>
+                    <span style="display: @readOnlyTextStyle">
+                        @Html.InputTextBox("EDIFlowIDReadOnlyText", string.Empty, ReadOnly: true, maximumLength: 200, Size: 30)
+                    </span>
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemEDIJobDetail.Label_EDIJobID, IsRequired: true)
+                </th>
+                <td>
+                    <span style="display: @textBoxStyle">
+                        @Html.InputTextBoxFor(model => model.EDIJobID, Size: 30, TitleName: SysSystemEDIJobDetail.Label_EDIJobID)
+                    </span>
+                    <span style="display: @readOnlyTextStyle">
+                        @Html.InputTextBox("EDIJobIDReadOnlyText", string.Empty, ReadOnly: true, maximumLength: 50, Size: 30)
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemEDIJobDetail.Label_EDIJobZHTW, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.EDIJobZHTW, false, 30, TitleName: SysSystemEDIJobDetail.Label_EDIJobZHTW)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemEDIJobDetail.Label_EDIJobZHCN, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.EDIJobZHCN, false, 30, TitleName: SysSystemEDIJobDetail.Label_EDIJobZHCN)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemEDIJobDetail.Label_EDIJobENUS, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.EDIJobENUS, false, 30, TitleName: SysSystemEDIJobDetail.Label_EDIJobENUS)
+                </td>
+            </tr>
+
+            <tr>
+                <th>
+                    
+                </th>
+                <td>
+                    
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemEDIJobDetail.Label_EDIJobTHTH, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.EDIJobTHTH, false, 30, TitleName: SysSystemEDIJobDetail.Label_EDIJobTHTH)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemEDIJobDetail.Label_EDIJobJAJP, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.EDIJobJAJP, false, 30, TitleName: SysSystemEDIJobDetail.Label_EDIJobJAJP)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemEDIJobDetail.Label_EDIJobType, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputComboBoxFor(model => model.EDIJobType, Model.GetDictionaryFormSelectItem(Model.EntityEDIJobTypeList, false), TitleName: SysSystemEDIJobDetail.Label_EDIJobType)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemEDIJobDetail.Label_EDIConID)
+                </th>
+                <td>
+                    @Html.InputComboBoxFor(model => model.EDIConID, Model.GetDictionaryFormSelectItem(Model.EntitySysSystemEDIConList, true), TitleName: SysSystemEDIJobDetail.Label_EDIConID)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemEDIJobDetail.Label_ObjectName)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.ObjectName, false, 30, TitleName: SysSystemEDIJobDetail.Label_ObjectName)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemEDIJobDetail.Label_IsUseRes)
+                </th>
+                <td>
+                    @Html.InputCheckBox("IsUseRes", SysSystemEDIJobDetail.Label_IsUseRes, EnumYN.Y.ToString(), (Model.IsUseRes == EnumYN.Y.ToString()) ? true : false)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemEDIJobDetail.Label_FileEncoding)
+                </th>
+                <td>
+                    @Html.InputComboBoxFor(model => model.FileEncoding, Model.GetDictionaryFormSelectItem(Model.EntityEDIFileEncodingList, true), TitleName: SysSystemEDIJobDetail.Label_FileEncoding)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemEDIJobDetail.Label_SortOrder)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.SortOrder, false, 30, TitleName: SysSystemEDIJobDetail.Label_SortOrder)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemEDIJobDetail.Label_DepEDIJobID)
+                </th>
+                <td>
+                    @Html.InputComboBoxFor(model => model.DepEDIJobID, Model.GetDictionaryFormSelectItem(Model.EntitySysSystemDepEDIJobList, true), TitleName: SysSystemEDIJobDetail.Label_DepEDIJobID)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemEDIJobDetail.Label_EDIJobIsDisable)
+                </th>
+                <td colspan="3">
+                    @Html.InputCheckBox("IsDisable",SysSystemEDIJobDetail.Label_EDIJobIsDisable,EnumYN.N.ToString(),(Model.IsDisable == EnumYN.Y.ToString())? true : false)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemEDIJobDetail.Label_FileSource)
+                </th>
+                <td colspan="5">
+                    @Html.InputTextBoxFor(model => model.FileSource, false, 300, TitleName: SysSystemEDIJobDetail.Label_FileSource)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <div id="Label_URLPath">
+                        @Html.FormLabel(SysSystemEDIJobDetail.Label_URLPath)
+                    </div>
+                </th>
+                <td colspan="5">
+                    <div id="TextBox_URLPath">
+                        @Html.InputTextBoxFor(model => model.URLPath, false, 300, TitleName: SysSystemEDIJobDetail.Label_URLPath)
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <div>
+            @if (Model.ExecAction == EnumActionType.Add)
+            {
+                @Html.ButtonClient("AddButton", Resource.Button_Add, className: "btn")
+            }
+            @if (Model.ExecAction == EnumActionType.Update ||
+                 Model.ExecAction == EnumActionType.Delete)
+            {
+                @Html.ButtonClient("UpdateButton", Resource.Button_Update, className: "btn")
+                <span></span>
+                @Html.ButtonClient("DeleteButton", Resource.Button_Delete, className: "btn")
+            }
+            @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+        </div>
+
+        using (Html.BeginConfirmDialog("dialog_Confirm", Resource.SysMsg_Title, Resource.SysMsg_DeleteConfirm))
+        {
+            @Html.ButtonClient("ConfirmOKButton", Resource.Button_Delete)
+            @Html.ButtonClient("ConfirmNOButton", Resource.Button_Cancel)
+        }
+    }
+}

@@ -1,0 +1,151 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity
+@using LionTech.Entity.ERP
+@using LionTech.Entity.ERP.Dev
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Dev.SystemFunModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Dev/SystemFun.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemFunForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Dev.ToString(), Model.TabList))
+    {
+        @Html.InputTextBox("SysID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("FunControllerID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("FunActionName", string.Empty, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("DevPhase", string.Empty, inputType: EnumInputType.TextBoxHidden)
+        @Html.InputTextBox("IsFun", string.Empty, inputType: EnumInputType.TextBoxHidden)
+
+        <table class="tblsearch">
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <th>
+                                @Html.FormLabel(DevSystemFun.Label_SysID, IsRequired: true)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.QuerySysID, Model.GetDictionaryFormSelectItem(Model.EntitySysUserSystemSysIDList, true), false, TitleName: DevSystemFun.Label_SysID)
+                            </td>
+                            <th>
+                                @Html.FormLabel(DevSystemFun.Label_FunControllerID)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.QueryFunControllerID, Model.GetDictionaryFormSelectItem(Model.EntitySysSystemFunControllerIDList.ToDictionary(p => p.ItemValue(), p => p.ItemText()), true))
+                            </td>
+                            <td colspan="2">
+                                @Html.InputCheckBox("OnlyEvent", DevSystemFun.Label_OnlyEvent, EnumYN.Y.ToString(), (Model.OnlyEvent == EnumYN.Y.ToString()) ? true : false)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                @Html.FormLabel(DevSystemFun.Label_FunMenuSysID)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.QueryFunMenuSysID, Model.GetDictionaryFormSelectItem(Model.EntitySysSystemSysIDList, true), false, TitleName: DevSystemFun.Label_FunMenuSysID)
+                            </td>
+                            <th>
+                                @Html.FormLabel(DevSystemFun.Label_FunMenu)
+                            </th>
+                            <td>
+                                @Html.InputComboBoxFor(model => model.QueryFunMenu, Model.GetDictionaryFormSelectItem(Model.EntitySysSystemFunMenuList, true))
+                            </td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="6">
+                                @Html.ButtonClient("SelectButton", Resource.Button_Select, className: "btnSearch")
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        using (Html.BeginPager(Model.PageIndex, Model.PageSize, Model.RowCount))
+        {
+            <table id="SystemFunTable" class="tblzebra">
+                <thead>
+                <tr>
+                    <th style="width: 30px;">@DevSystemFun.Text_Detail</th>
+                    <th>@DevSystemFun.Table_FunGroup</th>
+                    <th>@DevSystemFun.Table_FunNM</th>
+                    <th>@DevSystemFun.Table_IsDisable</th>
+                    <th>@DevSystemFun.Table_FunTypeNM</th>
+                    <th>@DevSystemFun.Table_DevPhaseNM</th>
+                    <th>@DevSystemFun.Table_UserNM</th>
+                    <th>@DevSystemFun.Table_PreDate</th>
+                    <th>@DevSystemFun.Table_PreWorkHours</th>
+                    <th>@DevSystemFun.Table_ActDate</th>
+                    <th>@DevSystemFun.Table_ActWorkHours</th>
+                </tr>
+                </thead>
+                <tbody>
+                @if (Model.EntitySystemFunList != null)
+                {
+                    string trClass = string.Empty;
+                    foreach (EntitySystemFun.SystemFun data in Model.EntitySystemFunList)
+                    {
+                        <tr class="@trClass">
+                            <td data-th="@DevSystemFun.Text_Detail：" class="center">
+                                @Html.TextSubmitLink(
+                                    "Dev",
+                                    "FunSchedule",
+                                    "LinkFunKey",
+                                    DevSystemFun.Text_Detail,
+                                    new List<string>()
+                                    {
+                                        data.SysID.GetValue(),
+                                        data.FunControllerID.GetValue(),
+                                        data.FunActionName.GetValue(),
+                                        data.DevPhase.GetValue(),
+                                        (data.FunType.IsNull()) ? EnumYN.N.ToString() : EnumYN.Y.ToString()
+                                    }
+                                    )
+                            </td>
+                            <td data-th="@DevSystemFun.Table_FunGroup：" title="@DevSystemFun.Table_FunGroup">@Html.Raw(data.FunGroup.HtmlValue())</td>
+                            <td data-th="@DevSystemFun.Table_FunNM：" title="@DevSystemFun.Table_FunNM">@Html.Raw(data.FunNM.HtmlValue())</td>
+                            <td data-th="@DevSystemFun.Table_IsDisable：" title="@DevSystemFun.Table_IsDisable">@if (data.IsDisable.GetValue() == EnumYN.Y.ToString())
+                                                                                      {
+                                                                                          @SysSystemFun.Label_Disable
+                                                                                      }</td>
+                            <td data-th="@DevSystemFun.Table_FunTypeNM：" title="@DevSystemFun.Table_FunTypeNM">@Html.Raw(data.FunTypeNM.HtmlValue())</td>
+                            <td data-th="@DevSystemFun.Table_DevPhaseNM：" title="@DevSystemFun.Table_DevPhaseNM">@Html.Raw(data.DevPhaseNM.HtmlValue())</td>
+                            <td data-th="@DevSystemFun.Table_UserNM：" title="@DevSystemFun.Table_UserNM">@Html.Raw(data.UserNM.HtmlValue())</td>
+                            <td data-th="@DevSystemFun.Table_PreDate：" title="@DevSystemFun.Table_PreDate">
+                                @Html.Raw(data.PreBeginDate.HtmlValue())
+                                ~
+                                @Html.Raw(data.PreEndDate.HtmlValue())
+                            </td>
+                            <td data-th="@DevSystemFun.Table_PreWorkHours：" class="right" title="@DevSystemFun.Table_PreWorkHours">@Html.Raw(data.PreWorkHours.HtmlValue())</td>
+                            <td data-th="@DevSystemFun.Table_ActDate：" title="@DevSystemFun.Table_ActDate">
+                                @Html.Raw(data.ActBeginDate.HtmlValue())
+                                ~
+                                @Html.Raw(data.ActEndDate.HtmlValue())
+                            </td>
+                            <td data-th="@DevSystemFun.Table_ActWorkHours：" class="right" title="@DevSystemFun.Table_ActWorkHours">@Html.Raw(data.ActWorkHours.HtmlValue())</td>
+                        </tr>
+
+                        if (string.IsNullOrWhiteSpace(trClass))
+                        {
+                            trClass = "tr2";
+                        }
+                        else
+                        {
+                            trClass = string.Empty;
+                        }
+                    }
+                }
+                </tbody>
+            </table>
+        }
+    }
+}

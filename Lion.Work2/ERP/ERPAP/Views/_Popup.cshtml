@@ -1,0 +1,227 @@
+﻿@using System.Web
+@using LionTech.Entity
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@using LionTech.Utility.ERP
+@using LionTech.Web.ERPHelper
+@using Resources
+
+@{
+    var styleString = "display:none;";
+    var errorMessage = string.Empty;
+    if (TempData["SystemErrorMessage"] != null)
+    {
+        styleString = "display:block;";
+        errorMessage = Convert.ToString(TempData["SystemErrorMessage"]);
+    }
+    string editionNo = ViewData[EnumViewDataItem.EditionNo.ToString()].ToString();
+
+    string actionName = HttpContext.Current.Request.RequestContext.RouteData.Values["action"].ToString();
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=10; IE=9; IE=8; IE=7;" />
+    <title>@Resources.Resource.AP_Title</title>
+    <link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/Site.css?@(editionNo)" rel="stylesheet" type="text/css" />
+    <link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/Site.MessageBox.css?@(editionNo)" rel="stylesheet" type="text/css" />
+    <link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/Site.Table.css?@(editionNo)" rel="stylesheet" type="text/css" />
+    <link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/Site.TabStrip.css?@(editionNo)" rel="stylesheet" type="text/css"/>
+    <link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/Serp.Layout.css?@(editionNo)" rel="stylesheet" type="text/css" />
+    <link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/Serp.Table.css?@(editionNo)" rel="stylesheet" type="text/css" />
+    <link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/Serp.Util.css?@(editionNo)" rel="stylesheet" type="text/css" />
+    <link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/Serp.BstrapUtil.css?@(editionNo)" rel="stylesheet" type="text/css" />
+    <link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/Serp.FunTool.css?@(editionNo)" rel="stylesheet" type="text/css" />
+    <link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/Serp.WorkFlow.css?@(editionNo)" rel="stylesheet" type="text/css"/>
+    <link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/font/font.Util.css?@(editionNo)" rel="stylesheet" type="text/css" />
+    <link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.core.css?@(editionNo)" rel="stylesheet" type="text/css" />
+    <link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.theme.css?@(editionNo)" rel="stylesheet" type="text/css" />
+    <link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/jquery.ui.autocomplete.css?@(editionNo)" rel="stylesheet" type="text/css" />
+    <link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/jquery.tooltip.css?@(editionNo)" rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+        _domain = "@Common.GetEnumDesc(EnumSystemID.Domain)";
+        _enumERPAP = "@Common.GetEnumDesc(EnumSystemID.ERPAP)";
+        _enumPUBAP = "@Common.GetEnumDesc(EnumSystemID.PUBAP)";
+        _enumTKNAP = "@Common.GetEnumDesc(EnumSystemID.TKNAP)";
+        _enumWFAP = "@Common.GetEnumDesc(EnumSystemID.WFAP)";
+    </script>
+   @* <script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/angular.min.js?@(editionNo)" type="text/javascript"></script>
+    <script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/angular-messages.min.js?@(editionNo)" type="text/javascript"></script>
+    <script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/angular-resource.min.js?@(editionNo)" type="text/javascript"></script>
+    <script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/LionTechAngularJSValidation.js?@(editionNo)" type="text/javascript"></script>*@
+    <script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery-1.7.2.min.js?@(editionNo)" type="text/javascript"></script>
+    <script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.form.js?@(editionNo)" type="text/javascript"></script>
+    <script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.blockUI.js?@(editionNo)" type="text/javascript"></script>
+    <script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery-ui-1.8.11.min.js?@(editionNo)" type="text/javascript"></script>
+    <script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/GlobalResources/Resources@((Culture == Common.GetEnumDesc(LionTech.Entity.ERP.EnumCultureID.zh_TW) ? string.Empty : "." + Culture) + ".js")?@(editionNo)" type="text/javascript"></script>
+    <script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/LionTechWebERPHelpers.js?@(editionNo)" type="text/javascript"></script>
+    <script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/tooltip/jquery.tooltip.min.js?@(editionNo)" type="text/javascript"></script>
+    <script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/_Popup.js?@(editionNo)" type="text/javascript"></script>
+    @Html.Raw(ViewData[EnumViewDataItem.JsMsg.ToString()].ToString())
+</head>
+<body class="greenStyle">
+   <table cellspacing="0" cellpadding="0" style="width:100%;">
+        <tr>
+            <td>
+                <div id="layoutMessage" class="layout Message" style="@styleString">
+                    <table style="width:100%;height:25px;">
+                        <tr>
+                            <td valign="middle" align="center">
+                                <div id="layoutMessageBody">@errorMessage</div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @if ((bool)ViewData[EnumViewDataItem.SysFunToolIsEnable.ToString()])
+                {
+                    <table id="SysFunTooleBar" class="FunToolSelectTable" cellspacing="0" cellpadding="6">
+                        <tr>
+                            <td>
+                                <div id="FunToolComboBox">
+                                    @Html.InputTextBox("FunToolControllerID", ViewContext.Controller.ValueProvider.GetValue("controller").RawValue.ToString(), inputType: EnumInputType.TextBoxHidden)
+                                    @Html.InputTextBox("FunToolActionName", ViewContext.Controller.ValueProvider.GetValue("action").RawValue.ToString(), inputType: EnumInputType.TextBoxHidden)
+                                    @Html.InputComboBox("FunToolNo", ViewData[EnumViewDataItem.SysFunToolNo.ToString()].ToString(), (Dictionary<string, string>)ViewData[EnumViewDataItem.SysFunToolDict.ToString()])
+                                </div>
+                                <div id="FunToolButton">
+                                    @Html.ButtonClient("SysFunToolQueryButton", Resource.Button_FunTool_Query, className: "btn bigwidth redhover")
+                                    @Html.ButtonClient("SysFunToolUpdateNameButton", Resource.Button_FunTool_UpdateName, className: "btn bigwidth greenhover")
+                                    @Html.ButtonClient("SysFunToolUpdateButton", Resource.Button_FunTool_Update, className: "btn bigwidth greenhover")
+                                    @Html.ButtonClient("SysFunToolCreateButton", Resource.Button_FunTool_Create, className: "btn bigwidth greenhover")
+                                    @Html.ButtonClient("SysFunToolCopyButton", Resource.Button_FunTool_Copy, className: "btn bigwidth greenhover")
+                                    @Html.ButtonClient("SysFunToolDeleteButton", Resource.Button_FunTool_Delete, className: "btn bigwidth greenhover")
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    using (Html.BeginConfirmDialog("SysFunToolCreateConfirmDialog", Resource.SysMsg_Title, Resource.SysMsg_RequiredToolNM))
+                    {
+                        <table>
+                            <tr>
+                                <td>
+                                    @Html.InputTextBox("FunToolNM", string.Empty, maximumLength: 150, Size: 20, inputType: EnumInputType.TextBox)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @Html.ButtonClient("SysFunToolCreateConfirmOKButton", Resource.Button_Save)
+                                    @Html.ButtonClient("SysFunToolCreateConfirmNOButton", Resource.Button_Cancel)
+                                </td>
+                            </tr>
+                        </table>
+                    }
+
+                    using (Html.BeginConfirmDialog("SysFunToolCopyConfirmDialog", Resource.SysMsg_Title, Resource.SysMsg_RequiredUserID))
+                    {
+                        <table>
+                            <tr>
+                                <td>
+                                    @Html.AutoCompleteTextBox("FunToolUserID", string.Empty, string.Empty, size: 15)
+                                </td>
+                                <td>
+                                    @Html.InputCheckBox("IsUseDefault", Resource.Text_FunTool_IsUseDefaultNo, EnumYN.Y.ToString(), true)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" align="center">
+                                    @Html.ButtonClient("SysFunToolCopyConfirmOKButton", Resource.Button_Save)
+                                    @Html.ButtonClient("SysFunToolCopyConfirmNOButton", Resource.Button_Cancel)
+                                </td>
+                            </tr>
+                        </table>
+                    }
+
+                    using (Html.BeginMessageBox("SysFunToolCopySuccessDialog", Resource.SysMsg_Title))
+                    {
+                        <table>
+                            <tr>
+                                <td>
+                                    @Resource.SysMsg_FunToolCopySuccess
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @Html.ButtonClient("SysFunToolCopySuccessOKButton", Resource.Button_Okay)
+                                </td>
+                            </tr>
+                        </table>
+                    }
+
+                    using (Html.BeginConfirmDialog("SysFunToolDeleteConfirmDialog", Resource.SysMsg_Title, Resource.SysMsg_Confirm))
+                    {
+                        @Html.ButtonClient("SysFunToolDeleteConfirmOKButton", Resource.Button_Okay)
+                        @Html.ButtonClient("SysFunToolDeleteConfirmNOButton", Resource.Button_Cancel)
+                    }
+
+                    using (Html.BeginMessageBox("SysFunToolDeleteSuccessDialog", Resource.SysMsg_Title))
+                    {
+                        <table>
+                            <tr>
+                                <td>
+                                    @Resource.SysMsg_FunToolDeleteSuccess
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @Html.ButtonClient("SysFunToolDeleteSuccessOKButton", Resource.Button_Okay)
+                                </td>
+                            </tr>
+                        </table>
+                    }
+
+                    using (Html.BeginConfirmDialog("SysFunToolUpdateNameConfirmDialog", Resource.SysMsg_Title, Resource.SysMsg_RequiredToolNM))
+                    {
+                        <table>
+                            <tr>
+                                <td>
+                                    @Html.InputTextBox("FunToolUpdateName", string.Empty, maximumLength: 150, Size: 20, inputType: EnumInputType.TextBox)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @Html.ButtonClient("SysFunToolUpdateNameConfirmOKButton", Resource.Button_Save)
+                                    @Html.ButtonClient("SysFunToolUpdateNameConfirmNOButton", Resource.Button_Cancel)
+                                </td>
+                            </tr>
+                        </table>
+                    }
+
+                    using (Html.BeginMessageBox("SysFunToolUpdateNameSuccessConfirmDialog", Resource.SysMsg_Title))
+                    {
+                        <table>
+                            <tr>
+                                <td>
+                                    @Resource.SysMsg_FunToolUpdateNameSuccess
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @Html.ButtonClient("SysFunToolUpdateNameSuccessOKButton", Resource.Button_Okay)
+                                </td>
+                            </tr>
+                        </table>
+                    }
+                }
+            </td>
+        </tr>
+        <tr>
+           <td>
+               @RenderBody()
+
+               @if (TempData["SystemAlertMessage"] != null)
+               {
+                   @Html.MessageBoxAlert("SysMessage", Resource.SysMsg_Title, Convert.ToString(TempData["SystemAlertMessage"]), Resource.Button_Close)
+               }
+           </td>
+       </tr>
+    </table>
+
+</body>
+</html>

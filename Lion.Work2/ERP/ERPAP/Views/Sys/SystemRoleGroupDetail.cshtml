@@ -1,0 +1,136 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity
+@using LionTech.Entity.ERP
+@using LionTech.Entity.ERP.Sys
+@using LionTech.Utility
+@using LionTech.Utility.ERP
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.SystemRoleGroupDetailModel
+
+@{
+    string editionNo = ViewData[EnumViewDataItem.EditionNo.ToString()].ToString();
+    if (Model.ExecAction == EnumActionType.Select)
+    {
+        Layout = "~/Views/_Popup.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/_Layout.cshtml";
+    }
+}
+
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(editionNo)" rel="stylesheet" type="text/css" />
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.queryBuilder.css?@(editionNo)" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+</script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(editionNo)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.queryBuilder.js?@(editionNo)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/SystemRoleGroupDetail.js?@(editionNo)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemRoleGroupDetailForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.TabList))
+    {
+        string textBoxStyle = "block";
+        string readOnlyTextStyle = "none";
+        if (Model.ExecAction == EnumActionType.Update || Model.ExecAction == EnumActionType.Delete)
+        {
+            textBoxStyle = "none";
+            readOnlyTextStyle = "block";
+        }
+
+        <table class="tblvertical">
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemRoleGroupDetail.Label_RoleGroupID, IsRequired: true)
+                </th>
+                <td colspan="5">
+                    <span style="display: @textBoxStyle">
+                        @Html.InputTextBoxFor(model => model.RoleGroupID, Size: 30, TitleName: SysSystemRoleGroupDetail.Label_RoleGroupID)
+                    </span>
+                    <span style="display: @readOnlyTextStyle">
+                        @Html.InputTextBox("RoleGroupIDReadOnlyText", string.Empty, ReadOnly: true, maximumLength: 50, Size: 30)
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemRoleGroupDetail.Label_RoleGroupNMZhTW, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.RoleGroupNMZhTW, false, 30, TitleName: SysSystemRoleGroupDetail.Label_RoleGroupNMZhTW)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemRoleGroupDetail.Label_RoleGroupNMZhCN, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.RoleGroupNMZhCN, false, 30, TitleName: SysSystemRoleGroupDetail.Label_RoleGroupNMZhCN)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemRoleGroupDetail.Label_RoleGroupNMEnUS, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.RoleGroupNMEnUS, false, 30, TitleName: SysSystemRoleGroupDetail.Label_RoleGroupNMEnUS)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemRoleGroupDetail.Label_RoleGroupNMThTH, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.RoleGroupNMThTH, false, 30, TitleName: SysSystemRoleGroupDetail.Label_RoleGroupNMThTH)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemRoleGroupDetail.Label_RoleGroupNMJaJP, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.RoleGroupNMJaJP, false, 30, TitleName: SysSystemRoleGroupDetail.Label_RoleGroupNMJaJP)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemRoleGroupDetail.Label_RoleGroupNMKoKR, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.RoleGroupNMKoKR, false, 30, TitleName: SysSystemRoleGroupDetail.Label_RoleGroupNMKoKR)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemRoleGroupDetail.Label_Remark)
+                </th>
+                <td colspan="3">
+                    @Html.InputTextBoxFor(model => model.Remark, false, 300, TitleName: SysSystemRoleGroupDetail.Label_Remark)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemRoleGroupDetail.Label_SortOrder)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.SortOrder, false, 30, TitleName: SysSystemRoleGroupDetail.Label_SortOrder)
+                </td>
+            </tr>
+        </table>
+
+        <div id="QueryBuilderBox"></div>
+
+        <div>
+            @if (Model.ExecAction == EnumActionType.Add)
+            {
+                @Html.ButtonClient("AddButton", Resource.Button_Add, className: "btn")
+            }
+            @if (Model.ExecAction == EnumActionType.Update ||
+                 Model.ExecAction == EnumActionType.Delete)
+            {
+                @Html.ButtonClient("UpdateButton", Resource.Button_Update, className: "btn")
+                <span></span>
+                @Html.ButtonClient("DeleteButton", Resource.Button_Delete, className: "btn")
+            }
+            @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+        </div>
+        
+        using (Html.BeginConfirmDialog("dialog_Confirm", Resource.SysMsg_Title, Resource.SysMsg_DeleteConfirm))
+        {
+            @Html.ButtonClient("ConfirmOKButton", Resource.Button_Delete)
+            @Html.ButtonClient("ConfirmNOButton", Resource.Button_Cancel)
+        }
+    }
+}

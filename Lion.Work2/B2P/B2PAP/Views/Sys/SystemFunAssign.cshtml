@@ -1,0 +1,110 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity
+@using LionTech.Entity.B2P
+@using LionTech.Entity.B2P.Sys
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model B2PAP.Models.Sys.SystemFunAssignModel
+
+<script src="@Common.GetEnumDesc(EnumSystemID.B2PAP)/Scripts/Sys/SystemFunAssign.js" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("SystemFunAssignForm"))
+{
+    using (Html.BeginTabs(B2PAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.SysSystemFunTabList))
+    {
+		<table class="tblvertical">
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemFunAssign.Label_SysID, IsRequired: true)
+                </th>
+                <td>
+                   @Html.InputTextBoxFor(model => model.SysID, true, 6, TitleName: SysSystemFunAssign.Label_SysID)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemFunAssign.Label_SubSysID)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.SubSysID, true, 6, TitleName: SysSystemFunAssign.Label_SubSysID)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemFunAssign.Label_FunType, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.FunType, true, 20, TitleName: SysSystemFunAssign.Label_FunType)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.FormLabel(SysSystemFunAssign.Label_FunControllerID, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.FunControllerID, true, 20, TitleName: SysSystemFunAssign.Label_FunControllerID)
+                </td>
+                <th>
+                    @Html.FormLabel(SysSystemFunAssign.Label_FunActionName, IsRequired: true)
+                </th>
+	            <td>
+		            @Html.InputTextBoxFor(model => model.FunActionName, true, 50, TitleName: SysSystemFunAssign.Label_FunActionName)
+	            </td>
+	            <th>
+                    @Html.FormLabel(SysSystemFunAssign.Label_FunNM, IsRequired: true)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.FunNM, true, 30, TitleName: SysSystemFunAssign.Label_FunNM)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6">
+                    @Html.ButtonClient("UpdateButton", Resource.Button_Update, className: "btn")
+					@Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+                </td>
+            </tr>
+        </table>
+    
+        <div style="padding:10px 10px 6px 16px; font-weight:bold;">@SysSystemFunAssign.Text_UserFunSetting</div>
+        <table id="SystemFunAssignTable" class="tblvertical">
+            @if (Model.EntitySystemFunAssignList != null)
+            {
+                string rowListNM = string.Empty;
+
+                EntitySystemFunAssign.SystemFunAssign data = new EntitySystemFunAssign.SystemFunAssign();
+                for (int rowCount = 0; rowCount < Model.EntitySystemFunAssignList.Count; rowCount++)
+                {
+                    data = Model.EntitySystemFunAssignList[rowCount];
+                    rowListNM = "systemFunAssignValueList[" + rowCount + "]";
+                        
+                    <tr>
+                        <th style="width:8%;">
+                            @Html.ImageButton("DeleteRowButton", string.Format("{0}{1}", Common.GetEnumDesc(EnumSystemID.B2PAP), "/Content/images/delete.png"))
+                            <span style="display: none;">@Html.InputCheckBox("IsProcess", string.Empty, EnumYN.Y.ToString(), false)</span>
+                            @Html.FormLabel(SysSystemFunAssign.Table_UserID)
+                        </th>
+                        <td>
+                            @Html.InputTextBox(rowListNM + ".UserID", data.UserID.GetValue(), Size: 20, inputType: EnumInputType.TextBoxAlphanumeric, Validation: false)
+                            @Html.InputTextBox(rowListNM + ".UserNM", data.UserNM.GetValue(), ReadOnly: true, Size: 10)
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <th style="width:8%;">
+                        @Html.ImageButton("DeleteRowButton", string.Format("{0}{1}", Common.GetEnumDesc(EnumSystemID.B2PAP), "/Content/images/delete.png"))
+                        <span style="display: none;">@Html.InputCheckBox("IsProcess", string.Empty, EnumYN.Y.ToString(), false)</span>
+                        @Html.FormLabel(SysSystemFunAssign.Table_UserID)
+                    </th>
+                    <td>
+                        @Html.InputTextBox("systemFunAssignValueList[0].UserID", string.Empty, Size: 20, inputType: EnumInputType.TextBoxAlphanumeric, Validation: false)
+                        @Html.InputTextBox("systemFunAssignValueList[0].UserNM", string.Empty, ReadOnly: true, Size: 10)
+                    </td>
+                </tr>
+            }
+        </table>
+
+        <div>
+            @Html.ButtonClient("AddRowButton", SysSystemFunAssign.Button_AddRow, className: "btn")
+        </div>
+	}
+}

@@ -1,0 +1,108 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Entity
+@using LionTech.Entity.ERP
+@using LionTech.Entity.ERP.Sys
+@using LionTech.Utility
+@using LionTech.Web.ERPHelper
+@using Resources
+@model ERPAP.Models.Sys.UserPermissionModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/Sys/UserPermission.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("UserPermissionForm"))
+{
+    using (Html.BeginTabs(ERPAP.Models._BaseAPModel.EnumTabController.Sys.ToString(), Model.TabList))
+    {
+        @Html.InputTextBox("UserID", string.Empty, inputType: EnumInputType.TextBoxHidden)
+
+        <table class="tblsearch">
+            <tr>
+                <th style="width: 70px">
+                    @Html.FormLabel(SysUserPermission.Label_UserID)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.QueryUserID, false, 10, TitleName: SysUserPermission.Label_UserID)
+                    @Html.ButtonClient("Help03Button", "?", className: "qmark")
+                </td>
+                <th style="width: 70px">
+                    @Html.FormLabel(SysUserPermission.Label_UserNM)
+                </th>
+                <td>
+                    @Html.InputTextBoxFor(model => model.QueryUserNM, false, 10, TitleName: SysUserPermission.Label_UserNM)
+                </td>
+                <th style="width: 70px">
+                    @Html.FormLabel(SysUserPermission.Label_RestrictType)
+                </th>
+                <td>
+                    @Html.InputComboBoxFor(model => model.QueryRestrictType, Model.CMCodeLists.ToDictionary(p => p.CodeID , p => p.CodeNM), TitleName: SysUserPermission.Label_RestrictType)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6">
+                    @Html.ButtonClient("SelectButton", Resource.Button_Select, className: "btnSearch")
+                </td>
+            </tr>
+        </table>
+
+        using (Html.BeginPager(Model.PageIndex, Model.PageSize, Model.RowCount))
+        {
+            <table id="UserPermissionTable" class="tblzebra">
+                <thead>
+                <tr>
+                    <th style="width: 30px;">@SysUserPermission.Text_Detail</th>
+                    <th>@SysUserPermission.Table_UserNM</th>
+                    <th>@SysUserPermission.Table_UnitNM</th>
+                    <th>@SysUserPermission.Table_RestrictTypeNM</th>
+                    <th>@SysUserPermission.Table_IsLock</th>
+                    <th>@SysUserPermission.Table_UpdUserNM</th>
+                    <th>@SysUserPermission.Table_UpdDT</th>
+                </tr>
+                </thead>
+                <tbody>
+                @if (Model.UserPermissionLists != null)
+                {
+                    string trClass = string.Empty;
+                    foreach (var data in Model.UserPermissionLists)
+                    {
+                        <tr class="@trClass">
+                            <td data-th="@SysUserPermission.Text_Detail：" class="center">
+                                @Html.TextSubmitLink(
+                                    "Sys",
+                                    "UserPermissionDetail",
+                                    "LinkFunKey",
+                                    SysUserPermission.Text_Detail,
+                                    new List<string>()
+                                    {
+                                        data.UserID
+                                    }
+                                    )
+                            </td>
+                            <td data-th="@SysUserPermission.Table_UserNM：" title="@SysUserPermission.Table_UserNM">@data.UserNM</td>
+                            <td data-th="@SysUserPermission.Table_UnitNM：" title="@SysUserPermission.Table_UnitNM">@data.UnitNM</td>
+                            <td data-th="@SysUserPermission.Table_UnitNM：" title="@SysUserPermission.Table_UnitNM">@Html.Raw(data.RestrictTypeNM)</td>
+                            <td data-th="@SysUserPermission.Table_IsLock：" title="@SysUserPermission.Table_IsLock">@((data.IsLock == EnumYN.Y.ToString()) ? SysUserPermission.Text_IsLock : string.Empty)</td>
+                            <td data-th="@SysUserPermission.Table_UpdUserNM：" title="@SysUserPermission.Table_UpdUserNM">@Html.Raw(data.UpdUserNM)</td>
+                            <td data-th="@SysUserPermission.Table_UpdDT：" title="@SysUserPermission.Table_UpdDT">@Html.Raw(data.UpdDT.ToString("yyyy/MM/dd HH:mm:ss.fff"))</td>
+                        </tr>
+
+                        if (string.IsNullOrWhiteSpace(trClass))
+                        {
+                            trClass = "tr2";
+                        }
+                        else
+                        {
+                            trClass = string.Empty;
+                        }
+                    }
+                }
+                </tbody>
+            </table>
+        }
+    }
+}

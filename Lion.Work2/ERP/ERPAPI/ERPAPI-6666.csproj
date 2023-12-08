@@ -1,0 +1,325 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\Redistributable\Supplier\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\..\Redistributable\Supplier\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4AE4F589-F0B6-4490-920B-B9D562AF5011}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ERPAPI</RootNamespace>
+    <AssemblyName>ERPAPI</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <WarningsAsErrors>108</WarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <WarningsAsErrors>108</WarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="LionTech.APIService, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Redistributable\LionTech\net48\LionTech.APIService.dll</HintPath>
+    </Reference>
+    <Reference Include="LionTech.Entity, Version=1.0.6228.33739, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Redistributable\LionTech\net48\LionTech.Entity.dll</HintPath>
+    </Reference>
+    <Reference Include="LionTech.Entity.EDI">
+      <HintPath>..\..\Redistributable\LionTech\net48\LionTech.Entity.EDI.dll</HintPath>
+    </Reference>
+    <Reference Include="LionTech.Log, Version=1.0.5192.36026, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Redistributable\LionTech\net48\LionTech.Log.dll</HintPath>
+    </Reference>
+    <Reference Include="LionTech.Utility, Version=1.0.6221.33106, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Redistributable\LionTech\net48\LionTech.Utility.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="mscorlib" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Confluent.Kafka">
+      <Version>1.7.0</Version>
+    </PackageReference>
+    <PackageReference Include="FirebaseAdmin">
+      <Version>2.4.0</Version>
+    </PackageReference>
+    <PackageReference Include="LionTech.AspNet.WebApi.Filters">
+      <Version>1.21.11.7</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNet.WebApi">
+      <Version>5.2.7</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNet.WebApi.Client">
+      <Version>5.2.7</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNet.WebApi.Core">
+      <Version>5.2.7</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNet.WebApi.WebHost">
+      <Version>5.2.7</Version>
+    </PackageReference>
+    <PackageReference Include="StackExchange.Redis">
+      <Version>2.1.58</Version>
+    </PackageReference>
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe">
+      <Version>5.0.0</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Global.asax" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AppTokenService\AppTokenServiceController.cs" />
+    <Compile Include="Controllers\AppTokenService\AppTokenServiceController.Generator.cs" />
+    <Compile Include="Controllers\Authorization\AuthorizationController.B2PUser.cs" />
+    <Compile Include="Controllers\Authorization\AuthorizationController.cs" />
+    <Compile Include="Controllers\LionGroupAppService\LionGroupAppServiceController.PushTopicMessage.cs" />
+    <Compile Include="Controllers\Subscriber\SubscriberController.ERPAPOptbm00.cs" />
+    <Compile Include="Controllers\SystemSetting\SystemSettingController.SystemFun.cs" />
+    <Compile Include="Controllers\SystemSetting\SystemSettingController.SystemRoleFun.cs" />
+    <Compile Include="Controllers\Authorization\AuthorizationController.ERPFunAssign.cs" />
+    <Compile Include="Controllers\SystemSetting\SystemSettingController.SystemFunElmRole.cs" />
+    <Compile Include="Controllers\SystemSetting\SystemSettingController.SystemRole.cs" />
+    <Compile Include="Controllers\SystemSetting\SystemSettingController.SystemRoleFunElm.cs" />
+    <Compile Include="Controllers\Authorization\AuthorizationController.ERPRoleUser.cs" />
+    <Compile Include="Controllers\Authorization\AuthorizationController.ERPUser.cs" />
+    <Compile Include="Controllers\Authorization\AuthorizationController.ERPUserAccount.cs" />
+    <Compile Include="Controllers\Authorization\AuthorizationController.ERPUserFunction.cs" />
+    <Compile Include="Controllers\Authorization\AuthorizationController.ERPUserPurview.cs" />
+    <Compile Include="Controllers\Authorization\AuthorizationController.ERPUserRole.cs" />
+    <Compile Include="Controllers\Authorization\AuthorizationController.ERPUserRoleReset.cs" />
+    <Compile Include="Controllers\Authorization\AuthorizationController.ERPUserValidation.cs" />
+    <Compile Include="Controllers\Authorization\AuthorizationController.ERPGenerateUserMenu.cs" />
+    <Compile Include="Controllers\EDIService\EDIServiceController.cs" />
+    <Compile Include="Controllers\EDIService\EDIServiceController.Distributor.cs" />
+    <Compile Include="Controllers\EDIService\EDIServiceController.FlowManager.cs" />
+    <Compile Include="Controllers\ERPPubData\ERPPubDataController.cs" />
+    <Compile Include="Controllers\ERPPubData\ERPPubDataController.UserFunLog.cs" />
+    <Compile Include="Controllers\ERPPubData\ERPPubDataController.UserMessage.cs" />
+    <Compile Include="Controllers\LineBotService\LineBotServiceController.cs" />
+    <Compile Include="Controllers\LineBotService\LineBotServiceController.GetProfile.cs" />
+    <Compile Include="Controllers\LineBotService\LineBotServiceController.Leave.cs" />
+    <Compile Include="Controllers\LineBotService\LineBotServiceController.PushMessage.cs" />
+    <Compile Include="Controllers\LineBotService\LineBotServiceController.Webhooks.cs" />
+    <Compile Include="Controllers\LionGroupAppService\LionGroupAppServiceController.QRCodeLoginAuthorization.cs" />
+    <Compile Include="Controllers\LionGroupAppService\LionGroupAppServiceController.AppRegister.cs" />
+    <Compile Include="Controllers\LionGroupAppService\LionGroupAppServiceController.CancelPushMessage.cs" />
+    <Compile Include="Controllers\LionGroupAppService\LionGroupAppServiceController.cs" />
+    <Compile Include="Controllers\LionGroupAppService\LionGroupAppServiceController.FunRoleRemindTime.cs" />
+    <Compile Include="Controllers\LionGroupAppService\LionGroupAppServiceController.LogPushMessage.cs" />
+    <Compile Include="Controllers\LionGroupAppService\LionGroupAppServiceController.OpenPush.cs" />
+    <Compile Include="Controllers\LionGroupAppService\LionGroupAppServiceController.PushMessage.cs" />
+    <Compile Include="Controllers\LoginEventService\LoginEventServiceController.cs" />
+    <Compile Include="Controllers\LoginEventService\LoginEventServiceController.EventDone.cs" />
+    <Compile Include="Controllers\PubData\PubDataController.cs" />
+    <Compile Include="Controllers\PubData\PubDataController.UserSystemNotifications.cs" />
+    <Compile Include="Controllers\Root\RootController.cs" />
+    <Compile Include="Controllers\Root\RootController.GenericError.cs" />
+    <Compile Include="Controllers\SMSService\SMSServiceController.Query.cs" />
+    <Compile Include="Controllers\SMSService\SMSServiceController.Cancel.cs" />
+    <Compile Include="Controllers\SMSService\SMSServiceController.cs" />
+    <Compile Include="Controllers\SMSService\SMSServiceController.Send.cs" />
+    <Compile Include="Controllers\Subscriber\SubscriberController.cs" />
+    <Compile Include="Controllers\Subscriber\SubscriberController.ERPAPIscpm00.cs" />
+    <Compile Include="Controllers\Subscriber\SubscriberController.ERPAPIscpm20.cs" />
+    <Compile Include="Controllers\Subscriber\SubscriberController.ERPAPIspfm00.cs" />
+    <Compile Include="Controllers\Subscriber\SubscriberController.ERPAPIstbm00.cs" />
+    <Compile Include="Controllers\Subscriber\SubscriberController.ERPAPOpagm20.cs" />
+    <Compile Include="Controllers\Subscriber\SubscriberController.ERPAPPsppm00.cs" />
+    <Compile Include="Controllers\Subscriber\SubscriberController.ERPAPPsppm01.cs" />
+    <Compile Include="Controllers\Subscriber\SubscriberController.ERPAPPstbm20.cs" />
+    <Compile Include="Controllers\SystemSetting\SystemSettingController.cs" />
+    <Compile Include="Controllers\SystemSetting\SystemSettingController.SystemIcon.cs" />
+    <Compile Include="Controllers\_BaseAPController.cs" />
+    <Compile Include="Controllers\_BaseController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Authorization\AuthorizationModel.cs" />
+    <Compile Include="Models\Authorization\B2PUserModel.cs" />
+    <Compile Include="Models\Authorization\ERPFunAssignModel.cs" />
+    <Compile Include="Models\LionGroupAppService\PushTopicMessageModel.cs" />
+    <Compile Include="Models\Subscriber\ERPAPOptbm00Model.cs" />
+    <Compile Include="Models\SystemSetting\SystemFunElmRoleModel.cs" />
+    <Compile Include="Models\SystemSetting\SystemFunModel.cs" />
+    <Compile Include="Models\SystemSetting\SystemRoleFunModel.cs" />
+    <Compile Include="Models\Authorization\ERPRoleUserModel.cs" />
+    <Compile Include="Models\Authorization\ERPUserFunctionModel.cs" />
+    <Compile Include="Models\Authorization\ERPUserModel.cs" />
+    <Compile Include="Models\Authorization\ERPUserPurviewModel.cs" />
+    <Compile Include="Models\Authorization\ERPUserRoleModel.cs" />
+    <Compile Include="Models\Authorization\ERPUserValidationModel.cs" />
+    <Compile Include="Models\Authorization\ERPGenerateUserMenuModel.cs" />
+    <Compile Include="Models\EDIService\DistributorModel.cs" />
+    <Compile Include="Models\EDIService\EDIServiceModel.cs" />
+    <Compile Include="Models\EDIService\FlowManagerModel.cs" />
+    <Compile Include="Models\ERPPubData\ERPPubDataModel.cs" />
+    <Compile Include="Models\ERPPubData\UserFunLogModel.cs" />
+    <Compile Include="Models\ERPPubData\UserMessageModel.cs" />
+    <Compile Include="Models\LineBotService\GetProfileModel.cs" />
+    <Compile Include="Models\LineBotService\LeaveModel.cs" />
+    <Compile Include="Models\LineBotService\LineBotServiceModel.cs" />
+    <Compile Include="Models\LineBotService\PushMessageModel.cs" />
+    <Compile Include="Models\LineBotService\WebhooksModel.cs" />
+    <Compile Include="Models\LionGroupAppService\AppRegisterModel.cs" />
+    <Compile Include="Models\LionGroupAppService\CancelPushMessageModel.cs" />
+    <Compile Include="Models\LionGroupAppService\FunRoleRemindTimeModel.cs" />
+    <Compile Include="Models\LionGroupAppService\LionGroupAppServiceModel.cs" />
+    <Compile Include="Models\LionGroupAppService\LogPushMessageModel.cs" />
+    <Compile Include="Models\LionGroupAppService\OpenPushModel.cs" />
+    <Compile Include="Models\LionGroupAppService\PushMessageModel.cs" />
+    <Compile Include="Models\LionGroupAppService\QRCodeLoginAuthorizationModel.cs" />
+    <Compile Include="Models\LoginEventService\EventDoneModel.cs" />
+    <Compile Include="Models\LoginEventService\LoginEventServiceModel.cs" />
+    <Compile Include="Models\PubData\PubDataModel.cs" />
+    <Compile Include="Models\PubData\UserSystemNotificationsModel.cs" />
+    <Compile Include="Models\SMSService\CancelModel.cs" />
+    <Compile Include="Models\SMSService\QueryModel.cs" />
+    <Compile Include="Models\SMSService\SendModel.cs" />
+    <Compile Include="Models\SMSService\SMSServiceModel.cs" />
+    <Compile Include="Models\Subscriber\ERPAPIscpm00Model.cs" />
+    <Compile Include="Models\Subscriber\ERPAPIscpm20Model.cs" />
+    <Compile Include="Models\Subscriber\ERPAPIspfm00Model.cs" />
+    <Compile Include="Models\Subscriber\ERPAPIstbm00Model.cs" />
+    <Compile Include="Models\Subscriber\ERPAPOpagm20Model.cs" />
+    <Compile Include="Models\Subscriber\ERPAPPsppm00Model.cs" />
+    <Compile Include="Models\Subscriber\ERPAPPsppm01Model.cs" />
+    <Compile Include="Models\Subscriber\ERPAPPstbm20Model.cs" />
+    <Compile Include="Models\Subscriber\SubscriberModel.cs" />
+    <Compile Include="Models\SystemSetting\SystemIconModel.cs" />
+    <Compile Include="Models\SystemSetting\SystemRoleFunElmModel.cs" />
+    <Compile Include="Models\SystemSetting\SystemRoleModel.cs" />
+    <Compile Include="Models\SystemSetting\SystemSettingModel.cs" />
+    <Compile Include="Models\_BaseAPModel.cs" />
+    <Compile Include="Models\_BaseModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="connectionStrings.config" />
+    <Content Include="appSettings.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </Content>
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\B2P\LionTech.Entity.B2P\LionTech.Entity.B2P.csproj">
+      <Project>{30f4fead-5f4b-4f78-8f41-3bc65013fdfe}</Project>
+      <Name>LionTech.Entity.B2P</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\B2P\LionTech.Utility.B2P\LionTech.Utility.B2P.csproj">
+      <Project>{3a08c1e2-370a-4c21-be8b-512a0e388a64}</Project>
+      <Name>LionTech.Utility.B2P</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LionTech.Entity.ERP\LionTech.Entity.ERP.csproj">
+      <Project>{ea6c03bb-26e5-4b26-9958-ae36c82e0579}</Project>
+      <Name>LionTech.Entity.ERP</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LionTech.Utility.ERP\LionTech.Utility.ERP.csproj">
+      <Project>{93c13370-6276-4d47-8291-275b7b3dadac}</Project>
+      <Name>LionTech.Utility.ERP</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>43324</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://127.0.0.1:6666/</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://127.0.0.1:6666/</IISAppRootUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>此專案參考這部電腦上所缺少的 NuGet 封裝。請啟用 NuGet 封裝還原，以下載該封裝。如需詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的檔案是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\Redistributable\Supplier\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\Redistributable\Supplier\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
