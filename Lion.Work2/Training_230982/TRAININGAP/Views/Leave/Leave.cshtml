@@ -1,0 +1,76 @@
+﻿@using LionTech.Web.ERPHelper
+@using Resources
+@using LionTech.Utility
+@using TRAININGAP.Models.Leave;
+@using LionTech.Entity.ERP;
+@model LeaveListModel
+@{
+    Layout = "~/Views/_Layout.cshtml";
+    string fullDateTimeNumber = Common.GetDateTimeString();
+
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.TRAININGAP)/Scripts/Leave/Leave.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("LeaveForm"))
+{
+    @Html.InputTextBox("ppm96_id", string.Empty, inputType: EnumInputType.TextBoxHidden)
+    <table id="LeaveTable" class="tblzebra">
+        <thead>
+            <tr>
+                <th style="width: 3%;">
+                </th>
+                <th>@PracticeLeave.ppm96_stfn</th>
+                <th>@PracticeLeave.ppm96_begin</th>
+                <th>@PracticeLeave.ppm96_end</th>
+                <th>@PracticeLeave.ppm95_id</th>
+                <th>@PracticeLeave.ppd95_id</th>
+                <th>@PracticeLeave.ppm96_sign</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var evevnt in Model.LeaveModel)
+            {
+                <tr>
+                    <td nowrap="nowrap" class="text-center">
+                        @Html.InputRadioButton("ppm96_stfn_Radio", string.Empty, evevnt.ppm96_stfn.ToString(), false)
+                    </td>
+                    <td data-th="@PracticeLeave.ppm96_stfn：">
+                        @Html.TextSubmitLink(
+                                             "Leave",
+                                             "LeaveDetail",
+                                             "LeaveDataDetail",
+                                             evevnt.ppm96_stfn,
+                                             new List<string>()
+                                             {
+                                                 evevnt.ppm96_stfn.ToString()
+                                             }
+                                             )
+                    </td>
+                    <td data-th="@PracticeLeave.ppm96_begin："> @evevnt.ppm96_begin</td>
+                    <td data-th=" @PracticeLeave.ppm96_end：">@evevnt.ppm96_end</td>
+                    <td data-th="@PracticeLeave.ppm95_id：">@evevnt.ppd95_name</td>
+                    <td data-th="@PracticeLeave.ppd95_id：">@evevnt.ppm95_name</td>
+                    <td data-th="@PracticeLeave.ppm96_sign：">
+                        @foreach (var sign in evevnt.ppm96_signList)
+                        {
+                            @sign 
+                        }
+                    </td>
+
+
+                </tr>
+            }
+        </tbody>
+
+
+    </table>
+
+    <div>
+        @Html.ButtonSubmit("Leave", "LeaveDetail", "AddButton", Resource.Button_Add, "btn")
+        @Html.ButtonSubmit("Leave", "LeaveDetail", "EditButton", Resource.Button_Update, "btn")
+    </div>
+}
+
+
+

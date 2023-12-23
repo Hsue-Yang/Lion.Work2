@@ -15,7 +15,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TRAININGAP</RootNamespace>
     <AssemblyName>TRAININGAP</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -25,6 +25,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <Use64BitIISExpress />
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -67,14 +68,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Redistributable\Supplier\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -100,13 +100,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Redistributable\Supplier\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_GlobalResources\Resource.en-US.resx">
@@ -138,6 +138,8 @@
     <Content Include="Content\font\font\fontawesome-webfont.svg" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\Leave\Leave.js" />
+    <Content Include="Scripts\Leave\LeaveDetail.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -181,9 +183,9 @@
     <Compile Include="Controllers\Home\HomeController.GenericError.cs" />
     <Compile Include="Controllers\Home\HomeController.Rejective.cs" />
     <Compile Include="Controllers\Home\HomeController.UnAuthorizated.cs" />
-    <Compile Include="Controllers\Leave\PracticeController.cs" />
-    <Compile Include="Controllers\Leave\PracticeController.Leave.cs" />
-    <Compile Include="Controllers\Leave\PracticeController.LeaveDetail.cs" />
+    <Compile Include="Controllers\Leave\LeaveController.cs" />
+    <Compile Include="Controllers\Leave\LeaveController.Leave.cs" />
+    <Compile Include="Controllers\Leave\LeaveController.LeaveDetail.cs" />
     <Compile Include="Controllers\_BaseAPController.cs" />
     <Compile Include="Controllers\_BaseController.cs" />
     <Compile Include="Global.asax.cs">
@@ -193,8 +195,9 @@
     <Compile Include="Models\Demo\TestActionModel.cs" />
     <Compile Include="Models\Home\HomeModel.cs" />
     <Compile Include="Models\Home\UnAuthorizatedModel.cs" />
-    <Compile Include="Models\Leave\PracticeModel.cs" />
-    <Compile Include="Models\Leave\PracticeLeaveModel.cs" />
+    <Compile Include="Models\Leave\LeaveDetailModel.cs" />
+    <Compile Include="Models\Leave\LeaveModel.cs" />
+    <Compile Include="Models\Leave\LeaveListModel.cs" />
     <Compile Include="Models\_BaseAPModel.cs" />
     <Compile Include="Models\_BaseModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -216,8 +219,8 @@
     <Content Include="Views\_Popup.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Practice\Leave.cshtml" />
-    <Content Include="Views\Practice\LeaveDetail.cshtml" />
+    <Content Include="Views\Leave\Leave.cshtml" />
+    <Content Include="Views\Leave\LeaveDetail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -225,9 +228,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Scripts\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\..\ERP\LionTech.Entity.ERP\LionTech.Entity.ERP.csproj">
       <Project>{ea6c03bb-26e5-4b26-9958-ae36c82e0579}</Project>
@@ -274,7 +275,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>61120</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://127.0.0.1:8969/</IISUrl>
+          <IISUrl>http://localhost:8969/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

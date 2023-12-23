@@ -1,0 +1,64 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Web.ERPHelper
+@using Resources
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@model TRAININGAP.Models.Leave.LeaveIndexModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<script src="@Common.GetEnumDesc(EnumSystemID.TRAININGAP)/Scripts/Leave/Leave.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("LeaveForm"))
+{
+    @Html.InputTextBox("ppm96_id", string.Empty, inputType: EnumInputType.TextBoxHidden)
+    <table id="LeaveTable" class="tblzebra" style="margin: 0;">
+        <thead>
+            <tr>
+                <th style="width: 30px;"></th>
+                <th>@LeaveResource.Lable_EmployeeID</th>
+                <th>@LeaveResource.Lable_StartingTime</th>
+                <th>@LeaveResource.Lable_EndTime</th>
+                <th>@LeaveResource.Lable_LeaveType</th>
+                <th>@LeaveResource.Lable_LeaveTypeSubcategory</th>
+                <th>@LeaveResource.Lable_ReviewingManager</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.LeaveList != null)
+            {
+                foreach (var row in Model.LeaveList)
+                {
+                    <tr>
+                        <td class="border border-secondary">
+                            @Html.InputRadioButton("ppm96_id_Radio", string.Empty, row.ppm96_id.ToString(), false)
+                        </td>
+                        <td data-th="@LeaveResource.Lable_EmployeeID：">
+                            @Html.TextSubmitLink(
+                                                 "Leave",
+                                                 "LeaveDetail",
+                                                 "LinkLeaveDetail",//要設置的動作名稱
+                                                 row.ppm96_stfn, //顯示用
+                                                 new List<string>()
+                                                 {
+                                                      row.ppm96_id.ToString()
+                                                 }
+                                                 )
+                        </td>
+                        <td data-th="@LeaveResource.Lable_StartingTime：" title="@LeaveResource.Lable_StartingTime">@row.ppm96_beginFormatted</td>
+                        <td data-th="@LeaveResource.Lable_EndTime：" title="@LeaveResource.Lable_EndTime">@row.ppm96_endFormatted</td>
+                        <td data-th="@LeaveResource.Lable_LeaveType：" title="@LeaveResource.Lable_LeaveType">@row.ppm95_name</td>
+                        <td data-th="@LeaveResource.Lable_LeaveTypeSubcategory：" title="@LeaveResource.Lable_LeaveTypeSubcategory">@row.ppd95_name</td>
+                        <td data-th="@LeaveResource.Lable_ReviewingManager：" title="@LeaveResource.Lable_ReviewingManager">@row.ppm96_sign_string </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <div>
+        @Html.ButtonSubmit("Leave", "LeaveDetail", "AddButton", Resource.Button_Add, className: "btn greenhover")
+        @Html.ButtonSubmit("Leave", "LeaveDetail", "EditButton", Resource.Button_Update, className: "btn greenhover")
+    </div>
+}

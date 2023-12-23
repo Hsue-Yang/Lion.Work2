@@ -61,6 +61,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 取消 的當地語系化字串。
+        /// </summary>
+        internal static string Button_Cancel {
+            get {
+                return ResourceManager.GetString("Button_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 確認 的當地語系化字串。
+        /// </summary>
+        internal static string Button_Update {
+            get {
+                return ResourceManager.GetString("Button_Update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 取得請假清單列表失敗 的當地語系化字串。
+        /// </summary>
+        internal static string LeaveMsg_GetLeaveDataList_Failure {
+            get {
+                return ResourceManager.GetString("LeaveMsg_GetLeaveDataList_Failure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 假別子項目 的當地語系化字串。
         /// </summary>
         internal static string ppd95_id {
@@ -111,6 +138,42 @@ namespace Resources {
         internal static string ppm96_stfn {
             get {
                 return ResourceManager.GetString("ppm96_stfn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 部門主管 的當地語系化字串。
+        /// </summary>
+        internal static string sign_deparment {
+            get {
+                return ResourceManager.GetString("sign_deparment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 直屬主管 的當地語系化字串。
+        /// </summary>
+        internal static string sign_director {
+            get {
+                return ResourceManager.GetString("sign_director", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 群主管 的當地語系化字串。
+        /// </summary>
+        internal static string sign_group {
+            get {
+                return ResourceManager.GetString("sign_group", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 處主管 的當地語系化字串。
+        /// </summary>
+        internal static string sign_office {
+            get {
+                return ResourceManager.GetString("sign_office", resourceCulture);
             }
         }
     }

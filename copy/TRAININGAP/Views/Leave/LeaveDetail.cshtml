@@ -1,0 +1,98 @@
+﻿@{ Layout = "~/Views/_Layout.cshtml"; }
+@using LionTech.Web.ERPHelper
+@using Resources
+@using LionTech.Entity.ERP
+@using LionTech.Utility
+@model TRAININGAP.Models.Leave.LeaveDetailModel
+
+@{
+    string fullDateTimeNumber = Common.GetDateTimeString();
+}
+
+<link href="@Common.GetEnumDesc(EnumSystemID.TRAININGAP)/Content/themes/base/jquery.ui.combobox.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery.ui.combobox.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<script src="@Common.GetEnumDesc(EnumSystemID.TRAININGAP)/Scripts/Leave/LeaveDetail.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+<link href="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Content/themes/base/jquery.ui.datepicker.css?@(fullDateTimeNumber)" rel="stylesheet" type="text/css" />
+<script src="@Common.GetEnumDesc(EnumSystemID.ERPAP)/Scripts/jquery-ui-1.8.16.datepicker.min.js?@(fullDateTimeNumber)" type="text/javascript"></script>
+
+@using (Html.BeginFormSubmit("LeaveDetailForm"))
+{
+    bool readOnlyAttribute = Model.ExecAction == EnumActionType.Select;
+    <script type="text/javascript">
+        var execAction = "@Model.ExecAction";
+    </script>
+    <table class="tblvertical">
+        <span style="display: none">
+            @Html.InputTextBoxFor(model => model.ppm96_id, ReadOnly: readOnlyAttribute, Size: 30, TitleName: LeaveDetailResource.Lable_SerialNumber)
+        </span>
+        <tr>
+            <th nowrap="nowrap" style="width:20%">
+                @Html.FormLabel(LeaveResource.Lable_EmployeeID, IsRequired: true)
+            </th>
+            <td nowrap="nowrap" colspan="3">
+                @if (Model.ExecAction == EnumActionType.Update)
+                {
+                    @Html.InputTextBoxFor(model => model.ppm96_stfn, ReadOnly: true, Size: 30, TitleName: LeaveResource.Lable_EmployeeID)
+                }
+                @if (Model.ExecAction == EnumActionType.Add || Model.ExecAction == EnumActionType.Select)
+                {
+                    @Html.InputTextBoxFor(model => model.ppm96_stfn, ReadOnly: readOnlyAttribute, Size: 30, TitleName: LeaveResource.Lable_EmployeeID)
+                }
+            </td>
+        </tr>
+        <tr>
+            <th nowrap="nowrap">
+                @Html.FormLabel(LeaveResource.Lable_StartingTime, IsRequired: true)
+            </th>
+            <td nowrap="nowrap" colspan="3">
+                @Html.InputTextBoxFor(model => model.ppm96_beginDate, ReadOnly: readOnlyAttribute, Size: 20, TitleName: LeaveResource.Lable_StartingTime)
+                @Html.InputTextBoxFor(model => model.ppm96_beginTime, ReadOnly: readOnlyAttribute, Size: 10, TitleName: LeaveDetailResource.Lable_StartingTime_View)
+            </td>
+        </tr>
+        <tr>
+            <th nowrap="nowrap">
+                @Html.FormLabel(LeaveResource.Lable_EndTime, IsRequired: true)
+            </th>
+            <td nowrap="nowrap" colspan="3">
+                @Html.InputTextBoxFor(model => model.ppm96_EndDate, ReadOnly: readOnlyAttribute, Size: 20, TitleName: LeaveResource.Lable_EndTime)
+                @Html.InputTextBoxFor(model => model.ppm96_EndTime, ReadOnly: readOnlyAttribute, Size: 10, TitleName: LeaveDetailResource.Lable_EndTime_View)
+            </td>
+        </tr>
+        <tr>
+            <th nowrap="nowrap">
+                @Html.FormLabel(LeaveResource.Lable_LeaveType, IsRequired: true)
+            <td colspan="3">
+                @Html.InputComboBoxFor(model => model.ppm95_id, Model.GetDictionaryFormSelectItem(Model.LeaveCategoryByIdList, true), isDisabled: readOnlyAttribute, TitleName: LeaveDetailResource.Lable_Menu)
+                @Html.InputComboBoxFor(model => model.ppd95_id, Model.GetDictionaryFormSelectItem(Model.LeaveChildCategoryByIdList, true), isDisabled: readOnlyAttribute, TitleName: LeaveDetailResource.Lable_MenuChild)
+            </td>
+        </tr>
+        <tr>
+            <th nowrap="nowrap">
+                @Html.FormLabel(LeaveResource.Lable_LeaveTypeSubcategory, IsRequired: true)
+            </th>
+            <td colspan="3">
+                @Html.InputCheckBox("options", LeaveDetailResource.Lable_DirectSupervisor, value: "0001", isChecked: Model.options.Contains(LeaveDetailResource.Lable_DirectSupervisor), isDisabled: readOnlyAttribute)
+                @Html.InputCheckBox("options", LeaveDetailResource.Lable_DepartmentHeads, value: "0010", isChecked: Model.options.Contains(LeaveDetailResource.Lable_DepartmentHeads), isDisabled: readOnlyAttribute)
+                @Html.InputCheckBox("options", LeaveDetailResource.Lable_Director, value: "0100", isChecked: Model.options.Contains(LeaveDetailResource.Lable_Director), isDisabled: readOnlyAttribute)
+                @Html.InputCheckBox("options", LeaveDetailResource.Lable_GroupSupervisor, value: "1000", isChecked: Model.options.Contains(LeaveDetailResource.Lable_GroupSupervisor), isDisabled: readOnlyAttribute)
+            </td>
+        </tr>
+    </table>
+    <div>
+        @if (Model.ExecAction == EnumActionType.Add)
+        {
+            @Html.ButtonClient("AddButton", Resource.Button_Add, className: "btn")
+        }
+        @if (Model.ExecAction == EnumActionType.Update || Model.ExecAction == EnumActionType.Delete)
+        {
+            @Html.ButtonClient("UpdateButton", Resource.Button_Update, className: "btn")
+            @Html.ButtonClient("DeleteButton", Resource.Button_Delete, className: "btn")
+        }
+        @Html.ButtonClient("CancelButton", Resource.Button_Cancel, className: "btn")
+    </div>
+    using (Html.BeginConfirmDialog("dialog_Confirm", Resource.SysMsg_Title, Resource.SysMsg_DeleteConfirm))
+    {
+        @Html.ButtonClient("ConfirmOKButton", Resource.Button_Delete)
+        @Html.ButtonClient("ConfirmNOButton", Resource.Button_Cancel)
+    }
+}

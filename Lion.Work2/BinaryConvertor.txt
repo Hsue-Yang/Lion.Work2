@@ -1,0 +1,64 @@
+
+
+十進制轉二進制
+
+舉例: 2*0=1
+	  2*1=2
+	  2*2=4
+	  2*3=8
+	  
+int num=5
+	
+	5/2=2.1	 => 2^2
+	2/2=1.0  => 2^1
+	1/2=0.1  => 2^0
+	要記得是從右排到左
+	
+	5的二進制表示，商=0時，取餘數 所以 5 的二進制表示是 101
+	101的二進制轉成十進制，作法如下: (從右至左)
+									1*2^2+0*2^1+1*2^0= 4+0+1 =5 
+	如果是0010二進制轉十進制，做法如下:
+									0*2^3+0*2^2+1*2^1+0*2^0=0+0+2+0=2
+	
+	所以如果今天是1,2,4,8的話，1 => 0001
+							   2 => 0010
+							   4 => 0100
+							   8 => 1000
+							   
+	位元運算是兩個數字，每一個位元位置比對有沒有一樣的，有就返回1，沒有就返回0
+	1101			1010
+	0001			0001
+	
+	0001 => 1	    0000 => 0
+	
+	我今天DB儲存進去的是數字，例如1+4=5，選項1=直屬主管,4=部主管 !!!!!!!!!!! 建立表單時在AP處理，拿到表單回傳AP時，在API處理。
+	在AP做轉換，利用SubmitFormData的方法時，ppm96_sign會把ppm96_signList加總起來，儲存到DB
+	AP的View裡面的checkBox要給他value是0001等的值，傳進ppm96_signList後，用ConvertTo2Array做轉換後，拿到一個list，再加總起來。
+	
+	十進制轉二進制的方法 => 	
+							public string ConvertToBinary(int value)
+							{
+							// 用 Convert.ToString 将整数转为二进制字符串，然后补零到四位
+							string binaryString = Convert.ToString(value, 2).PadLeft(4, '0');
+							return binaryString;
+							}
+							
+							
+							
+	二進制轉十進制 => 
+						string binaryString = "0111";
+
+						// 将二进制字符串转换为整数
+						int decimalValue = Convert.ToInt32(binaryString, 2);
+
+						// 将整数拆分为 1、2、4
+						List<int> decimalValues = new List<int>();
+						for (int i = 0; i < binaryString.Length; i++)
+						{
+							if (binaryString[i] == '1')
+							{
+								int power = binaryString.Length - i - 1;
+								int value = (int)Math.Pow(2, power);
+								decimalValues.Add(value);
+							}
+						}

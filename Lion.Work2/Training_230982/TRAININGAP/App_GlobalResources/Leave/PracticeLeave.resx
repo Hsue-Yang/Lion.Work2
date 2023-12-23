@@ -117,6 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Button_Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Button_Update" xml:space="preserve">
+    <value>確認</value>
+  </data>
+  <data name="LeaveMsg_GetLeaveDataList_Failure" xml:space="preserve">
+    <value>取得請假清單列表失敗</value>
+  </data>
   <data name="ppd95_id" xml:space="preserve">
     <value>假別子項目</value>
   </data>
@@ -134,5 +143,17 @@
   </data>
   <data name="ppm96_stfn" xml:space="preserve">
     <value>員編</value>
+  </data>
+  <data name="sign_deparment" xml:space="preserve">
+    <value>部門主管</value>
+  </data>
+  <data name="sign_director" xml:space="preserve">
+    <value>直屬主管</value>
+  </data>
+  <data name="sign_group" xml:space="preserve">
+    <value>群主管</value>
+  </data>
+  <data name="sign_office" xml:space="preserve">
+    <value>處主管</value>
   </data>
 </root>

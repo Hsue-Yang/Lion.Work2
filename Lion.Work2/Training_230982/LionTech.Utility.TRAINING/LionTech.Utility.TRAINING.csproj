@@ -10,8 +10,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>LionTech.Utility.TRAINING</RootNamespace>
     <AssemblyName>LionTech.Utility.TRAINING</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -74,10 +75,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API.cs" />
+    <Compile Include="AppSettings.cs" />
     <Compile Include="PublicFun.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\ERP\LionTech.Entity.ERP\LionTech.Entity.ERP.csproj">
+      <Project>{EA6C03BB-26E5-4B26-9958-AE36C82E0579}</Project>
+      <Name>LionTech.Entity.ERP</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LionTech.Entity.TRAINING\LionTech.Entity.TRAINING.csproj">
       <Project>{ec741f51-461a-4a61-a6f8-a5b7a77c4a85}</Project>
       <Name>LionTech.Entity.TRAINING</Name>
