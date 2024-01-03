@@ -68,14 +68,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Redistributable\Supplier\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Redistributable\Supplier\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
@@ -106,7 +104,6 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_GlobalResources\Resource.en-US.resx">
@@ -145,10 +142,15 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_GlobalResources\Leave\PracticeLeave.designer.cs">
+    <Compile Include="App_GlobalResources\Leave\LeaveLeave.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>PracticeLeave.resx</DependentUpon>
+      <DependentUpon>LeaveLeave.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Leave\LeaveLeaveDetail.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LeaveLeaveDetail.resx</DependentUpon>
     </Compile>
     <Compile Include="App_GlobalResources\Resource.designer.cs">
       <AutoGen>True</AutoGen>
@@ -228,7 +230,12 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="App_GlobalResources\Leave\LeaveLeaveDetail.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>LeaveLeaveDetail.Designer.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\ERP\LionTech.Entity.ERP\LionTech.Entity.ERP.csproj">
       <Project>{ea6c03bb-26e5-4b26-9958-ae36c82e0579}</Project>
@@ -248,9 +255,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_GlobalResources\Leave\PracticeLeave.resx">
+    <Content Include="App_GlobalResources\Leave\LeaveLeave.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>PracticeLeave.designer.cs</LastGenOutput>
+      <LastGenOutput>LeaveLeave.designer.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <PropertyGroup>

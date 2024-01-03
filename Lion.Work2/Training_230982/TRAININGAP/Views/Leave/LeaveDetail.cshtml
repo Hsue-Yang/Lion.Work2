@@ -4,84 +4,75 @@
 @model TRAININGAP.Models.Leave.LeaveDetailModel
 @{
     Layout = "~/Views/_Layout.cshtml";
-    string comboBoxStyle = "block";
-    string fullDateTimeNumber = Common.GetDateTimeString(); //給時間戳防止快取
-                                                            //string readOnlyTextStyle = "none";
-                                                            //bool readOnlyAttribute = false;
-                                                            //if (Model.ExecAction == EnumActionType.Update)
-                                                            //{
-                                                            //    comboBoxStyle = "none";
-                                                            //    readOnlyTextStyle = "block";
-                                                            //    readOnlyAttribute = true;
-                                                            //}
+    string fullDateTimeNumber = Common.GetDateTimeString();
 }
 
 <script src="@Common.GetEnumDesc(EnumSystemID.TRAININGAP)/Scripts/Leave/LeaveDetail.js?@(fullDateTimeNumber)" type="text/javascript"></script>
 
 @using (Html.BeginFormSubmit("LeaveDetailForm"))
 {
+    @Html.InputTextBox("ppm96_id", Model.Ppm96_id.ToString(), inputType: EnumInputType.TextBoxHidden)
     <table class="tblvertical">
         <tr>
             <th>
-                @Html.FormLabel(Resources.PracticeLeave.ppm96_stfn, IsRequired: true)
+                @Html.FormLabel(Resources.LeaveLeave.ppm96_stfn, IsRequired: true)
             </th>
             <td>
-                @if (Model.ExecAction == EnumActionType.Update)
+                @if (Model.ExecAction == EnumActionType.Query)
                 {
-                    @Html.InputTextBoxFor(model => model.Ppm96_stfn, true, 6, TitleName: Resources.PracticeLeave.ppm96_stfn)
-
+                    @Html.InputTextBoxFor(model => model.Ppm96_stfn, true, 6, TitleName: Resources.LeaveLeave.ppm96_stfn)
                 }
                 else
                 {
-                    @Html.InputTextBoxFor(model => model.Ppm96_stfn, false, 6, TitleName: Resources.PracticeLeave.ppm96_stfn)
+                    @Html.InputTextBoxFor(model => model.Ppm96_stfn, false, 6, TitleName: Resources.LeaveLeave.ppm96_stfn)
                 }
 
             </td>
         </tr>
         <tr>
             <th>
-                @Html.FormLabel(Resources.PracticeLeave.ppm96_begin)
+                @Html.FormLabel(Resources.LeaveLeave.ppm96_begin)
             </th>
             <td>
-                @Html.InputTextBoxFor(model => model.Ppm96_beginDate, false, 15, TitleName: Resources.PracticeLeave.ppm96_begin)
-                @Html.InputTextBoxFor(model => model.Ppm96_beginTime, false, 4, TitleName: Resources.PracticeLeave.ppm96_begin)
+                @Html.InputTextBoxFor(model => model.Ppm96_beginDate, false, 15, TitleName: Resources.LeaveLeave.ppm96_begin)
+                @Html.InputTextBoxFor(model => model.Ppm96_beginTime, false, 4, TitleName: Resources.LeaveLeave.ppm96_begin)
             </td>
         </tr>
         <tr>
             <th>
-                @Html.FormLabel(Resources.PracticeLeave.ppm96_end)
+                @Html.FormLabel(Resources.LeaveLeave.ppm96_end)
             </th>
             <td>
-                @Html.InputTextBoxFor(model => model.Ppm96_endDate, false, 15, TitleName: Resources.PracticeLeave.ppm96_end)
-                @Html.InputTextBoxFor(model => model.Ppm96_endTime, false, 4, TitleName: Resources.PracticeLeave.ppm96_end)
+                @Html.InputTextBoxFor(model => model.Ppm96_endDate, false, 15, TitleName: Resources.LeaveLeave.ppm96_end)
+                @Html.InputTextBoxFor(model => model.Ppm96_endTime, false, 4, TitleName: Resources.LeaveLeave.ppm96_end)
             </td>
         </tr>
         <tr>
             <th>
-                @Html.FormLabel(Resources.PracticeLeave.ppm95_id)
+                @Html.FormLabel(Resources.LeaveLeave.ppm95_id)
             </th>
             <td style="display:flex;">
                 <span>
-                    @Html.InputComboBoxFor(model => model.Ppm95_id, Model.GetDictionaryFormSelectItem(Model.Ppm95_List, false), isDisabled: false, TitleName: Resources.PracticeLeave.ppm95_id)
+                    @Html.InputComboBoxFor(model => model.Ppm95_id, Model.GetDictionaryFormSelectItem(Model.Ppm95_List, false), isDisabled: false, TitleName: Resources.LeaveLeave.ppm95_id)
                 </span>
-                <span> @Html.InputComboBoxFor(model => model.Ppd95_id, Model.GetDictionaryFormSelectItem(Model.Ppd95_List, false), isDisabled: false, TitleName: Resources.PracticeLeave.ppd95_id)</span>
+                <span> @Html.InputComboBoxFor(model => model.Ppd95_id, Model.GetDictionaryFormSelectItem(Model.Ppd95_List, false), isDisabled: false, TitleName: Resources.LeaveLeave.ppd95_id)</span>
             </td>
         </tr>
         <tr>
             <th>
-                @Html.FormLabel(Resources.PracticeLeave.ppm96_sign)
+                @Html.FormLabel(Resources.LeaveLeave.ppm96_sign)
             </th>
             <td colspan="5">
                 @foreach (var key in Model.SignDic)
                 {
-                    @Html.InputCheckBox("Ppm96_signList", key.Value, Convert.ToString(key.Key), isChecked: Model.Ppm96_signList.Contains(key.Key), isDisabled: false)
+                    @Html.InputCheckBox("Ppm96_signList", key.Value, Convert.ToString(key.Key), isChecked: Model.Ppm96_signList != null ? Model.Ppm96_signList.Contains(key.Key) : false, isDisabled: false)
                 }
             </td>
         </tr>
         <tr>
             <td colspan="6">
-                @Html.ButtonSubmit("Leave", "LeaveDetail", "UpdateButton", Resources.PracticeLeave.Button_Update, "btn")
-                @Html.ButtonSubmit("Leave", "LeaveDetail", "CancelButton", Resources.PracticeLeave.Button_Cancel, "btn")
+                @Html.ButtonClient("UpdateButton", Resources.LeaveLeave.Button_Update, "btn")
+                @Html.ButtonClient("CancelButton", Resources.LeaveLeave.Button_Cancel, "btn")
             </td>
         </tr>
     </table>

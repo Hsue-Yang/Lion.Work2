@@ -6,25 +6,37 @@ function LeaveForm_onLoad(formElement) {
 
 function AddButton_onClick(srcElement) {
     var result = _FormValidation();
-    $('#ExecAction').val(_ActionTypeAdd);
     if (result) {
         return true;
     }
 }
 function LeaveDataDetail_onClick(srcElement, keys) {
     $.blockUI({ message: '' });
-    $('#ppm96_stfn').val(keys[1]);
-    $('#ExecAction').val(_ActionTypeUpdate);
+    $('#ppm96_id').val(keys[1]);
+    $('#ExecAction').val(_ActionTypeQuery);
     return true;
 }
 function EditButton_onClick(srcElement) {
     let selectedVal = $("input[name='ppm96_stfn_Radio']:checked").val();
     if (selectedVal !== undefined) {
         $('#ppm96_id').val(selectedVal);
-        $('#ExecAction').val(_ActionTypeUpdate);
+        $('#ExecAction').val(_ActionTypeQuery);
         return true;
     } else {
-        alert("需選擇一個項目");
+        _AddJsErrMessage(JsMsg_EditOption_Error);
+        _ShowJsErrMessageBox();
+        return false;
+    }
+}
+function DeleteButton_onClick(srcElement) {
+    let selectedVal = $("input[name='ppm96_stfn_Radio']:checked").val();
+    if (selectedVal !== undefined) {
+        $('#ppm96_id').val(selectedVal);
+        $('#ExecAction').val(_ActionTypeDelete);
+        return true;
+    } else {
+        _AddJsErrMessage(JsMsg_DeleteOption_Error);
+        _ShowJsErrMessageBox();
         return false;
     }
 }

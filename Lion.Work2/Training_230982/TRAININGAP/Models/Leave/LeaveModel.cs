@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace TRAININGAP.Models.Leave
 {
@@ -11,14 +10,14 @@ namespace TRAININGAP.Models.Leave
         public string ConvertToInt(List<int> value)
         {
             var result = value.Sum();
-            string binaryString = Convert.ToString(result, 2).PadLeft(4, '0');
+            string binaryString = Convert.ToString(result, 2);
+
             return binaryString;
         }
 
         //二進制轉十進制
         public List<int> ConvertTo2Ary(string value)
         {
-
             List<int> result = new List<int>();
             for (int i = 0; i < value.Length; i++)
             {
@@ -30,7 +29,6 @@ namespace TRAININGAP.Models.Leave
                 }
             }
             return result;
-
         }
     }
 }

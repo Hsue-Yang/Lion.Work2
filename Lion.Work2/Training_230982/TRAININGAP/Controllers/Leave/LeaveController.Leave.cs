@@ -1,9 +1,5 @@
 ﻿using Resources;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using TRAININGAP.Models.Leave;
 
@@ -13,15 +9,15 @@ namespace TRAININGAP.Controllers.Leave
     {
         [HttpGet]
         [AuthorizationActionFilter]
-        public async Task<ActionResult> Leave(string userID)
+        public async Task<ActionResult> Leave()
         {
-           if (AuthState.IsAuthorized == false) { return AuthState.UnAuthorizedActionResult; }
+            if (AuthState.IsAuthorized == false) { return AuthState.UnAuthorizedActionResult; }
 
             LeaveListModel model = new LeaveListModel();
 
             if (await model.GetLeaveList(AuthState.SessionData.UserID) == false)
             {
-                SetSystemErrorMessage(PracticeLeave.LeaveMsg_GetLeaveDataList_Failure);
+                SetSystemErrorMessage(LeaveLeave.LeaveMsg_GetLeaveDataList_Failure);
             }
 
             return View(model);

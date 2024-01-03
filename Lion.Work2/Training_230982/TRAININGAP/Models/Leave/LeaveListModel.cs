@@ -1,12 +1,9 @@
-﻿using LionTech.Entity.TRAINING;
-using LionTech.Utility;
+﻿using LionTech.Utility;
 using LionTech.Utility.TRAINING;
-using Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using static LionTech.Entity.TRAINING.Leave.EntityLeaveList;
 
 namespace TRAININGAP.Models.Leave
 {
@@ -15,6 +12,7 @@ namespace TRAININGAP.Models.Leave
         #region - Class -
         public class LeaveList
         {
+            public int ppm96_id { get; set; }
             public string ppm96_stfn { get; set; } //員編
             public string ppm96_begin { get; set; } //開始時間
             public string ppm96_end { get; set; } //結束時間
@@ -25,10 +23,8 @@ namespace TRAININGAP.Models.Leave
         }
         #endregion
 
-        #region - Property -
+        //Property
         public List<LeaveList> LeaveModel { get; set; }
-
-        #endregion
 
         public async Task<bool> GetLeaveList(string userID)
         {
@@ -43,10 +39,14 @@ namespace TRAININGAP.Models.Leave
 
                 if (responseObj != null)
                 {
+                    LeaveDetailModel dm = new LeaveDetailModel();
                     foreach (var leave in responseObj)
                     {
                         leave.ppm96_signList = ConvertTo2Ary(leave.ppm96_sign);
+                        var signNames = leave.ppm96_signList.Select(sign => dm.SignDic.ContainsKey(sign) ? dm.SignDic[sign] : "");
+                        leave.ppm96_sign = string.Join(",", signNames);
                     }
+
                     LeaveModel = responseObj;
                 }
 
@@ -58,6 +58,5 @@ namespace TRAININGAP.Models.Leave
             }
             return false;
         }
-
     }
 }

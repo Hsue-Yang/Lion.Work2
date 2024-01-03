@@ -20,5 +20,5 @@ namespace LionTech.Entity.TRAINING
     {
         RowAll = 0,
         Row100 = 100
-    } 
+    }
 }
